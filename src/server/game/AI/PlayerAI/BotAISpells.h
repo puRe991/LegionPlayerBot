@@ -656,4 +656,27 @@ protected:
 	uint32 PriestFlag_NonShield =6788;// 6788				’Ê—‘∂‹DEBUFF
 };
 
+class BotDemonHunterSpells
+{
+public:
+	void InitializeSpells(Player* player);
+
+protected:
+	uint32 DemonHunterCommon_ThrowGlaive = 185123;			// Throw Glaive
+	uint32 DemonHunterCommon_ImmolationAura = 178740;		// Immolation Aura
+	uint32 DemonHunterCommon_ChaosNova = 179057;			// Chaos Nova
+	uint32 DemonHunterCommon_Netherwalk = 196555;			// Netherwalk
+	uint32 DemonHunterCommon_Disrupt = 183752;				// Disrupt (interrupt)
+	uint32 DemonHunterCommon_VengefulRetreat = 198793;		// Vengeful Retreat
+
+	uint32 DemonHunterHavoc_DemonsBite = 162243;			// Demon's Bite (builder)
+	uint32 DemonHunterHavoc_ChaosStrike = 162794;			// Chaos Strike (spender)
+	uint32 DemonHunterHavoc_Annihilation = 201427;			// Annihilation (meta Chaos Strike)
+	uint32 DemonHunterHavoc_BladeDance = 188499;			// Blade Dance (aoe spender)
+	uint32 DemonHunterHavoc_DeathSweep = 210152;			// Death Sweep (meta Blade Dance)
+	uint32 DemonHunterHavoc_EyeBeam = 198013;				// Eye Beam
+	uint32 DemonHunterHavoc_FelRush = 195072;				// Fel Rush
+	uint32 DemonHunterHavoc_Metamorphosis = 191427;		// Metamorphosis (Havoc)
+};
+
 #endif // !_BOT_AI_SPELLS_H_

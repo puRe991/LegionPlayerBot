@@ -497,4 +497,32 @@ private:
 	uint32 m_ReadyCurrentPrayer;
 };
 
+class GroupDemonHunterAI : public BotGroupAI, public BotDemonHunterSpells
+{
+public:
+	GroupDemonHunterAI(Player* player) :
+		BotGroupAI(player)
+	{}
+	~GroupDemonHunterAI() {}
+
+	void ResetBotAI() override;
+	uint32 GetSeducePriority() override;
+	void OnLevelUp(uint32 talentType) override;
+	bool TryBlockCastingByTarget(Unit* pTarget) override;
+
+protected:
+	uint32 GetFuryPowerPer();
+	void ProcessSeduceSpell(Unit* pTarget) override;
+	bool ProcessNormalSpell() override;
+	void ProcessMeleeSpell(Unit* pTarget) override;
+	void ProcessRangeSpell(Unit* pTarget) override;
+	void ProcessFlee() override;
+
+public:
+	bool IsMeleeBotAI() override { return true; }
+	bool IsRangeBotAI() override { return false; }
+	bool IsHealerBotAI() override { return false; }
+	bool IsAttacker() override { return true; }
+};
+
 #endif // !_BOT_GROUP_CLASS_AI_H_

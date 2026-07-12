@@ -586,3 +586,22 @@ void BotPriestSpells::InitializeSpells(Player* player)
 	PriestFlag_DeadSoul = 20711;
 	PriestFlag_NonShield = 6788;
 }
+
+void BotDemonHunterSpells::InitializeSpells(Player* player)
+{
+	DemonHunterCommon_ThrowGlaive = BotUtility::FindMaxRankSpellByExist(player, 185123);
+	DemonHunterCommon_ImmolationAura = BotUtility::FindMaxRankSpellByExist(player, 178740);
+	DemonHunterCommon_ChaosNova = BotUtility::FindMaxRankSpellByExist(player, 179057);
+	DemonHunterCommon_Netherwalk = BotUtility::FindMaxRankSpellByExist(player, 196555);
+	DemonHunterCommon_Disrupt = BotUtility::FindMaxRankSpellByExist(player, 183752);
+	DemonHunterCommon_VengefulRetreat = BotUtility::FindMaxRankSpellByExist(player, 198793);
+
+	DemonHunterHavoc_DemonsBite = BotUtility::FindMaxRankSpellByExist(player, 162243);
+	DemonHunterHavoc_ChaosStrike = BotUtility::FindMaxRankSpellByExist(player, 162794);
+	DemonHunterHavoc_Annihilation = BotUtility::FindMaxRankSpellByExist(player, 201427);
+	DemonHunterHavoc_BladeDance = BotUtility::FindMaxRankSpellByExist(player, 188499);
+	DemonHunterHavoc_DeathSweep = BotUtility::FindMaxRankSpellByExist(player, 210152);
+	DemonHunterHavoc_EyeBeam = BotUtility::FindMaxRankSpellByExist(player, 198013);
+	DemonHunterHavoc_FelRush = BotUtility::FindMaxRankSpellByExist(player, 195072);
+	DemonHunterHavoc_Metamorphosis = BotUtility::FindMaxRankSpellByExist(player, 191427);
+}
