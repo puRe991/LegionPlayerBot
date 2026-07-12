@@ -21,6 +21,8 @@
 #include "BotRogueAI.h"
 #include "BotShamanAI.h"
 #include "BotDruidAI.h"
+#include "BotDemonHunterAI.h"
+#include "BotMonkAI.h"
 #include "MiscPackets.h"
 #include "SpellPackets.h"
 #include "PlayerDefines.h"
@@ -86,6 +88,16 @@ BotBGAI* BotBGAI::CreateBotBGAIByPlayerClass(Player* player)
 
         case CLASS_DEATH_KNIGHT:
             break;
+
+        case CLASS_DEMON_HUNTER:
+        {
+            ret = new BotDemonHunterAI(player);
+        } break;
+
+        case CLASS_MONK:
+        {
+            ret = new BotMonkAI(player);
+        } break;
 	}
 
 	if (ret == nullptr)
