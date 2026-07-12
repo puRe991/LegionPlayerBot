@@ -413,4 +413,41 @@ private:
 	uint32 m_ReadyCurrentPrayer;
 };
 
+class FieldDemonHunterAI : public BotFieldAI, public BotDemonHunterSpells
+{
+public:
+	FieldDemonHunterAI(Player* player) :
+		BotFieldAI(player)
+	{}
+	~FieldDemonHunterAI() {}
+
+	void ResetBotAI() override;
+	void OnLevelUp(uint32 talentType) override;
+
+protected:
+	uint32 GetFuryPowerPer();
+	bool ProcessNormalSpell() override;
+	void ProcessMeleeSpell(Unit* pTarget) override;
+	void ProcessRangeSpell(Unit* pTarget) override;
+	void ProcessFlee() override;
+};
+
+class FieldMonkAI : public BotFieldAI, public BotMonkSpells
+{
+public:
+	FieldMonkAI(Player* player) :
+		BotFieldAI(player)
+	{}
+	~FieldMonkAI() {}
+
+	void ResetBotAI() override;
+	void OnLevelUp(uint32 talentType) override;
+
+protected:
+	bool ProcessNormalSpell() override;
+	void ProcessMeleeSpell(Unit* pTarget) override;
+	void ProcessRangeSpell(Unit* pTarget) override;
+	void ProcessFlee() override;
+};
+
 #endif // !_BOT_GROUP_CLASS_AI_H_

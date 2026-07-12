@@ -397,4 +397,37 @@ private:
 	uint32 m_BotTalentType;
 };
 
+class DuelDemonHunterAI : public BotDuelAI, public BotDemonHunterSpells
+{
+public:
+	DuelDemonHunterAI(Player* player) :
+		BotDuelAI(player)
+	{}
+	~DuelDemonHunterAI() {}
+
+	void ResetBotAI() override;
+
+protected:
+	uint32 GetFuryPowerPer();
+	void ProcessMeleeSpell(Unit* pTarget) override;
+	void ProcessRangeSpell(Unit* pTarget) override;
+	void ProcessFlee() override;
+};
+
+class DuelMonkAI : public BotDuelAI, public BotMonkSpells
+{
+public:
+	DuelMonkAI(Player* player) :
+		BotDuelAI(player)
+	{}
+	~DuelMonkAI() {}
+
+	void ResetBotAI() override;
+
+protected:
+	void ProcessMeleeSpell(Unit* pTarget) override;
+	void ProcessRangeSpell(Unit* pTarget) override;
+	void ProcessFlee() override;
+};
+
 #endif // !_BOT_DUEL_CLASS_AI_H_

@@ -525,4 +525,25 @@ public:
 	bool IsAttacker() override { return true; }
 };
 
+class GroupMonkAI : public BotGroupAI, public BotMonkSpells
+{
+public:
+	GroupMonkAI(Player* player) :
+		BotGroupAI(player)
+	{}
+	~GroupMonkAI() {}
+
+	void ResetBotAI() override;
+	uint32 GetSeducePriority() override;
+	void OnLevelUp(uint32 talentType) override;
+	bool TryBlockCastingByTarget(Unit* pTarget) override;
+
+protected:
+	void ProcessSeduceSpell(Unit* pTarget) override;
+	bool ProcessNormalSpell() override;
+	void ProcessMeleeSpell(Unit* pTarget) override;
+	void ProcessRangeSpell(Unit* pTarget) override;
+	void ProcessFlee() override;
+};
+
 #endif // !_BOT_GROUP_CLASS_AI_H_

@@ -53,6 +53,12 @@ BotFieldAI* BotFieldAI::CreateBotFieldAIByPlayerClass(Player* player)
 	case CLASS_DEATH_KNIGHT:
 		pAI = new FieldDeathknightAI(player);
 		break;
+	case CLASS_DEMON_HUNTER:
+		pAI = new FieldDemonHunterAI(player);
+		break;
+	case CLASS_MONK:
+		pAI = new FieldMonkAI(player);
+		break;
 	}
 	if (!pAI)
 		pAI = new BotFieldAI(player);

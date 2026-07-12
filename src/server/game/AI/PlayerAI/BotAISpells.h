@@ -679,4 +679,23 @@ protected:
 	uint32 DemonHunterHavoc_Metamorphosis = 191427;		// Metamorphosis (Havoc)
 };
 
+class BotMonkSpells
+{
+public:
+	void InitializeSpells(Player* player);
+
+protected:
+	uint32 MonkCommon_TigerPalm = 100780;				// Tiger Palm (chi builder)
+	uint32 MonkCommon_BlackoutKick = 100784;			// Blackout Kick (chi spender)
+	uint32 MonkCommon_RisingSunKick = 107428;			// Rising Sun Kick (chi spender)
+	uint32 MonkCommon_SpinningCraneKick = 101546;		// Spinning Crane Kick (aoe chi spender)
+	uint32 MonkCommon_FistsOfFury = 113656;				// Fists of Fury (channel, aoe chi spender)
+	uint32 MonkCommon_TouchOfDeath = 115080;			// Touch of Death (execute)
+	uint32 MonkCommon_FlyingSerpentKick = 101545;		// Flying Serpent Kick (gap closer)
+	uint32 MonkCommon_Roll = 109132;					// Roll (mobility)
+	uint32 MonkCommon_FortifyingBrew = 120954;			// Fortifying Brew (defensive)
+	uint32 MonkCommon_TouchOfKarma = 122470;			// Touch of Karma (defensive)
+	uint32 MonkCommon_SpearHandStrike = 116705;		// Spear Hand Strike (interrupt)
+};
+
 #endif // !_BOT_AI_SPELLS_H_
