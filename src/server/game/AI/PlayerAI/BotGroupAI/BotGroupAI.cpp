@@ -56,6 +56,9 @@ BotGroupAI* BotGroupAI::CreateBotGroupAIByPlayerClass(Player* player)
 	case CLASS_DEATH_KNIGHT:
 		pAI = new GroupDeathknightAI(player);
 		break;
+	case CLASS_DEMON_HUNTER:
+		pAI = new GroupDemonHunterAI(player);
+		break;
 	}
 	if (!pAI)
 		pAI = new BotGroupAI(player);
