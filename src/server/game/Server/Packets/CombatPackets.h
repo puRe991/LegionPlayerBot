@@ -18,6 +18,8 @@
 #ifndef CombatPackets_h__
 #define CombatPackets_h__
 
+class WorldPacket;
+
 #include "Define.h"
 #include <vector>
 

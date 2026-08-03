@@ -18,6 +18,8 @@
 #ifndef _ADHOCSTATEMENT_H
 #define _ADHOCSTATEMENT_H
 
+#include <functional>
+
 #include "SQLOperation.h"
 #include "DatabaseEnvFwd.h"
 

@@ -18,6 +18,8 @@
 #ifndef BlackMarketPackets_h__
 #define BlackMarketPackets_h__
 
+class WorldPacket;
+
 #include "Define.h"
 #include <vector>
 

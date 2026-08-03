@@ -19,6 +19,8 @@
 #ifndef _WORLDPACKETCRYPT_H
 #define _WORLDPACKETCRYPT_H
 
+#include "Define.h"
+
 #include "PacketCrypt.h"
 
 class BigNumber;

@@ -18,6 +18,8 @@
 #ifndef ChannelPackets_h__
 #define ChannelPackets_h__
 
+class WorldPacket;
+
 #include "Define.h"
 #include <string>
 #include <vector>

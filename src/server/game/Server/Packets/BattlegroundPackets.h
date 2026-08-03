@@ -18,6 +18,12 @@
 #ifndef BattlegroundPackets_h__
 #define BattlegroundPackets_h__
 
+class WorldPacket;
+
+#include "Util.h"
+#include "Timer.h"
+#include "Duration.h"
+
 #include "ObjectGuid.h"
 
 #include "Define.h"

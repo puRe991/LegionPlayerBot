@@ -19,6 +19,10 @@
 #ifndef _TILEASSEMBLER_H_
 #define _TILEASSEMBLER_H_
 
+#include "Define.h"
+#include <string>
+#include <vector>
+
 #include <G3D/Vector3.h>
 #include <G3D/Matrix3.h>
 #include <deque>

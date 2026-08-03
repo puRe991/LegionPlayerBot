@@ -18,6 +18,8 @@
 #ifndef GuildPackets_h__
 #define GuildPackets_h__
 
+class WorldPacket;
+
 #include "Define.h"
 #include <array>
 #include <set>

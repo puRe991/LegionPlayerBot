@@ -19,6 +19,8 @@
 #ifndef _BIH_WRAP
 #define _BIH_WRAP
 
+#include "Define.h"
+
 #include "BoundingIntervalHierarchy.h"
 #include <G3D/Table.h>
 #include <G3D/Array.h>

@@ -2,6 +2,8 @@
 #ifndef __PLAYERBOTMGR_H__
 #define __PLAYERBOTMGR_H__
 
+class WorldPacket;
+
 #include "ObjectGuid.h"
 
 #include <list>

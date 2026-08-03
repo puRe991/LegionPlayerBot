@@ -30,6 +30,7 @@
 #include "DatabaseEnvFwd.h"
 #include "ObjectGuid.h"
 #include "SharedDefines.h"
+#include "Player.h"
 #include <unordered_map>
 
 class Player;

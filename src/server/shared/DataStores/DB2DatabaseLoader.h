@@ -18,6 +18,8 @@
 #ifndef DB2_DATABASE_LOADER_H
 #define DB2_DATABASE_LOADER_H
 
+#include "Define.h"
+
 #include "DB2FileLoader.h"
 #include <string>
 #include <vector>

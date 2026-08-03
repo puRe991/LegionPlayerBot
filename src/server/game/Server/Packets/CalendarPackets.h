@@ -18,6 +18,8 @@
 #ifndef CalendarPackets_h_
 #define CalendarPackets_h_
 
+class WorldPacket;
+
 #include "Define.h"
 #include <string>
 #include <vector>

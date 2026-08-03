@@ -19,6 +19,8 @@
 #ifndef _UTIL_H
 #define _UTIL_H
 
+#include <string>
+
 #include <algorithm>
 #include <atomic>
 #include <exception>

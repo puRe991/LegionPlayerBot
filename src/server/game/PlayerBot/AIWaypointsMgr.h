@@ -2,6 +2,8 @@
 #ifndef __AIWAYPOINTSMGR_H__
 #define __AIWAYPOINTSMGR_H__
 
+#include "Position.h"
+
 #include <map>
 #include <string>
 

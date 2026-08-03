@@ -18,6 +18,8 @@
 #ifndef AuthenticationPacketsWorld_h__
 #define AuthenticationPacketsWorld_h__
 
+class WorldPacket;
+
 #include <array>
 #include <string>
 #include <unordered_map>

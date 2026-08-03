@@ -19,6 +19,8 @@
 #ifndef QUEST_H
 #define QUEST_H
 
+#include "DBCEnums.h"
+
 #include "Define.h"
 #include <map>
 #include <string>

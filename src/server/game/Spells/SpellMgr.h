@@ -19,6 +19,8 @@
 #ifndef _SPELLMGR_H
 #define _SPELLMGR_H
 
+#include "IteratorPair.h"
+
 #include <list>
 #include <map>
 #include <set>

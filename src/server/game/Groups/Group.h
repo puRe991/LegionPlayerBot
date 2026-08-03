@@ -18,9 +18,13 @@
 
 #ifndef GROUP_H
 #define GROUP_H
+
+#include "FunctionProcessor.h"
 #include "Position.h"
 
 #include "ObjectGuid.h"
+#include "DatabaseEnvFwd.h"
+#include "DB2Structure.h"
 
 #include "Define.h"
 #include <array>

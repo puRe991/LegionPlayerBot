@@ -21,6 +21,8 @@
 #ifndef _HOTFIXDATABASE_H
 #define _HOTFIXDATABASE_H
 
+#include "Define.h"
+
 #include "MySQLConnection.h"
 
 enum HotfixDatabaseStatements : uint32

@@ -17,6 +17,8 @@
 
 #ifndef __SPELL_SCRIPT_H
 #define __SPELL_SCRIPT_H
+
+#include "Unit.h"
 #include "Position.h"
 
 #include "ObjectGuid.h"

@@ -18,6 +18,8 @@
 
 #ifndef _PLAYER_H
 #define _PLAYER_H
+
+class WorldPacket;
 #include "Position.h"
 
 #include "ObjectGuid.h"

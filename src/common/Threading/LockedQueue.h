@@ -19,6 +19,8 @@
 #ifndef LOCKEDQUEUE_H
 #define LOCKEDQUEUE_H
 
+#include "Define.h"
+
 #include <deque>
 #include <mutex>
 

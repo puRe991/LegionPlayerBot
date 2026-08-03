@@ -19,6 +19,8 @@
 #ifndef _GAMEOBJECT_MODEL_H
 #define _GAMEOBJECT_MODEL_H
 
+#include <string>
+
 #include <G3D/Matrix3.h>
 #include <G3D/Vector3.h>
 #include <G3D/AABox.h>

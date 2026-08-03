@@ -18,6 +18,8 @@
 #ifndef _PACKETCRYPT_H
 #define _PACKETCRYPT_H
 
+#include "Define.h"
+
 #include "Cryptography/ARC4.h"
 
 class BigNumber;

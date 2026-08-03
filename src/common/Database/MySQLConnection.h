@@ -23,6 +23,11 @@
 #ifndef _MYSQLCONNECTION_H
 #define _MYSQLCONNECTION_H
 
+#include "Define.h"
+#include <map>
+#include <string>
+#include <vector>
+
 class DatabaseWorker;
 class PreparedStatement;
 class MySQLPreparedStatement;

@@ -19,6 +19,10 @@
 #ifndef LOG_H
 #define LOG_H
 
+#include <atomic>
+#include <vector>
+#include <memory>
+
 #include "Define.h"
 #include "LogCommon.h"
 #include "Appender.h"

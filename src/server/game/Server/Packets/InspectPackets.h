@@ -17,6 +17,8 @@
 
 #pragma once
 
+class WorldPacket;
+
 #include "Define.h"
 #include <vector>
 

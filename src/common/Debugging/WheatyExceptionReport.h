@@ -1,6 +1,9 @@
 #ifndef _WHEATYEXCEPTIONREPORT_
 #define _WHEATYEXCEPTIONREPORT_
 
+#include "Define.h"
+#include <string>
+
 #if PLATFORM == TC_PLATFORM_WINDOWS && !defined(__MINGW32__)
 
 #include <winnt.h>

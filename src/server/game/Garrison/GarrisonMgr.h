@@ -18,6 +18,12 @@
 #ifndef GarrisonMgr_h__
 #define GarrisonMgr_h__
 
+#include "GameObject.h"
+#include "Creature.h"
+
+#include "Position.h"
+#include "ObjectGuid.h"
+
 #include "Define.h"
 #include <list>
 #include <map>

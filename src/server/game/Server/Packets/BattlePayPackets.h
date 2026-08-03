@@ -18,6 +18,8 @@
 #ifndef BattlePayPackets_h__
 #define BattlePayPackets_h__
 
+class WorldPacket;
+
 #include "ObjectGuid.h"
 
 #include "Define.h"

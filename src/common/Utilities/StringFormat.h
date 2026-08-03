@@ -19,6 +19,8 @@
 #ifndef TRINITYCORE_STRING_FORMAT_H
 #define TRINITYCORE_STRING_FORMAT_H
 
+#include <string>
+
 #include "fmt/printf.h"
 
 namespace Trinity

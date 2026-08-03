@@ -18,6 +18,8 @@
 #ifndef SpellPackets_h__
 #define SpellPackets_h__
 
+class WorldPacket;
+
 #include "Define.h"
 #include <list>
 #include <string>

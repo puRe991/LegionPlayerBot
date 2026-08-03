@@ -18,6 +18,9 @@
 #ifndef _FIELD_H
 #define _FIELD_H
 
+#include <string>
+#include <vector>
+
 #include "Common.h"
 #include "Log.h"
 

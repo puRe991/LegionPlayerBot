@@ -18,6 +18,9 @@
 #ifndef APPENDERFILE_H
 #define APPENDERFILE_H
 
+#include "Define.h"
+#include <string>
+
 #include "Appender.h"
 
 class AppenderFile : public Appender

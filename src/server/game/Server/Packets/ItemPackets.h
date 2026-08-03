@@ -18,6 +18,8 @@
 #ifndef ItemPackets_h__
 #define ItemPackets_h__
 
+class WorldPacket;
+
 #include "ObjectGuid.h"
 
 struct VendorItem;

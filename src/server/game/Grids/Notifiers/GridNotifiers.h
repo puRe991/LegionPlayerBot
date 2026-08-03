@@ -19,6 +19,8 @@
 #ifndef TRINITY_GRIDNOTIFIERS_H
 #define TRINITY_GRIDNOTIFIERS_H
 
+class WorldPacket;
+
 #include "ObjectGuid.h"
 
 #include "Define.h"

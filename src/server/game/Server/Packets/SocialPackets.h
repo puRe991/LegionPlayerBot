@@ -18,6 +18,8 @@
 #ifndef SocialPackets_h__
 #define SocialPackets_h__
 
+class WorldPacket;
+
 #include "Define.h"
 #include <string>
 #include <vector>

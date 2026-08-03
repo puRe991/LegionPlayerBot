@@ -18,6 +18,8 @@
 #ifndef LogCommon_h__
 #define LogCommon_h__
 
+#include "Define.h"
+
 enum LogLevel
 {
     LOG_LEVEL_DISABLED                           = 0,

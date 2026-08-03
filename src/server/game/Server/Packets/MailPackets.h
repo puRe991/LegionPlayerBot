@@ -18,6 +18,8 @@
 #ifndef MailPackets_h__
 #define MailPackets_h__
 
+class WorldPacket;
+
 #include "Define.h"
 #include <string>
 #include <vector>

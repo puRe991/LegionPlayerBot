@@ -19,6 +19,9 @@
 #ifndef QUERYRESULT_H
 #define QUERYRESULT_H
 
+#include "Define.h"
+#include <vector>
+
 #include "Field.h"
 #include "DatabaseEnvFwd.h"
 

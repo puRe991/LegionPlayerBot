@@ -18,6 +18,8 @@
 #ifndef LFGPackets_h__
 #define LFGPackets_h__
 
+class WorldPacket;
+
 #include "ObjectGuid.h"
 
 #include "Define.h"

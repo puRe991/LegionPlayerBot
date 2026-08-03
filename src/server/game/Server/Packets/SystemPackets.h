@@ -18,6 +18,8 @@
 #ifndef SystemPackets_h__
 #define SystemPackets_h__
 
+class WorldPacket;
+
 #include "Define.h"
 #include <string>
 #include <vector>

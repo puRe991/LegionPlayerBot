@@ -19,6 +19,8 @@
 #ifndef TRINITY_FACTORY_HOLDER
 #define TRINITY_FACTORY_HOLDER
 
+#include <string>
+
 #include "Define.h"
 #include "Dynamic/TypeList.h"
 #include "ObjectRegistry.h"

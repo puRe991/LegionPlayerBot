@@ -18,6 +18,8 @@
 #ifndef ToyPackets_h__
 #define ToyPackets_h__
 
+class WorldPacket;
+
 #include "Define.h"
 
 #include "Packet.h"

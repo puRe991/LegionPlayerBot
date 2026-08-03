@@ -18,6 +18,8 @@
 #ifndef AuctionHousePackets_h__
 #define AuctionHousePackets_h__
 
+class WorldPacket;
+
 #include "Define.h"
 #include <string>
 #include <vector>

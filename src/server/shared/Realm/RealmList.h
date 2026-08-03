@@ -19,6 +19,9 @@
 #ifndef _REALMLIST_H
 #define _REALMLIST_H
 
+#include <string>
+#include <memory>
+
 #include "Define.h"
 #include "Realm.h"
 #include <array>

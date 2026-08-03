@@ -1,6 +1,10 @@
 #ifndef DataContainersH
 #define DataContainersH
 
+#include "Define.h"
+#include <string>
+#include <unordered_map>
+
 #include <boost/any.hpp>
 
 namespace Trinity

@@ -18,6 +18,8 @@
 #ifndef TRINITY_CREATURE_TEXT_MGR_H
 #define TRINITY_CREATURE_TEXT_MGR_H
 
+class WorldPacket;
+
 #include "ObjectGuid.h"
 
 #include "Define.h"

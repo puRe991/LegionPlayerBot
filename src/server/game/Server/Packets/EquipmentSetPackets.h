@@ -17,6 +17,8 @@
 
 #pragma once
 
+class WorldPacket;
+
 #include "ObjectGuid.h"
 
 #include "Define.h"

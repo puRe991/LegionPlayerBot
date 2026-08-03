@@ -18,6 +18,8 @@
 
 #ifndef TRINITY_INSTANCE_DATA_H
 #define TRINITY_INSTANCE_DATA_H
+
+class WorldPacket;
 #include "Position.h"
 #include "Common.h"
 

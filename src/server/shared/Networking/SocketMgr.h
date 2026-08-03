@@ -18,6 +18,9 @@
 #ifndef SocketMgr_h__
 #define SocketMgr_h__
 
+#include "Define.h"
+#include <string>
+
 #include "AsyncAcceptor.h"
 #include "Errors.h"
 #include "NetworkThread.h"

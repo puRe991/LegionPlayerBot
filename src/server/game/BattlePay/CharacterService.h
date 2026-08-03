@@ -2,6 +2,8 @@
 #ifndef _sCharService
 #define _sCharService
 
+#include "Player.h"
+
 class CharacterService
 {
 	CharacterService() = default;

@@ -18,6 +18,8 @@
 #ifndef TalentPackets_h__
 #define TalentPackets_h__
 
+class WorldPacket;
+
 #include "Define.h"
 #include <vector>
 

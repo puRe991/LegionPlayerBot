@@ -12,7 +12,15 @@ namespace  WorldPackets
 {
     namespace  Movement
     {
-        struct MovementForce;
+        struct MovementForce
+        {
+            ObjectGuid ID;
+            TaggedPosition<Position::XYZ> Direction;
+            TaggedPosition<Position::XYZ> TransportPosition;
+            uint32 TransportID = 0;
+            float Magnitude = 0.0f;
+            uint8 Type = 0;
+        };
     }
 }
 

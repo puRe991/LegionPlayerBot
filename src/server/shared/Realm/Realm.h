@@ -18,6 +18,9 @@
 #ifndef Realm_h__
 #define Realm_h__
 
+#include <string>
+#include <memory>
+
 #include "Common.h"
 #include "AsioHacksFwd.h"
 

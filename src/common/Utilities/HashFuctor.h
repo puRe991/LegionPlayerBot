@@ -6,6 +6,8 @@
 #ifndef TRINITY_HAS_FUCTOR_H
 #define TRINITY_HAS_FUCTOR_H
 
+#include <string>
+
 #include "Define.h"
 
 #include <cds/container/feldman_hashmap_hp.h>

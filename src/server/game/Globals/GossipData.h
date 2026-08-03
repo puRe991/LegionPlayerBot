@@ -2,6 +2,9 @@
 #ifndef GossipData_h
 #define GossipData_h
 
+#include "ConditionMgr.h"
+#include "Creature.h"
+
 #include "Define.h"
 #include <string>
 #include <unordered_map>

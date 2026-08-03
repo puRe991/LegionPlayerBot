@@ -18,6 +18,8 @@
 #ifndef PetitionPackets_h__
 #define PetitionPackets_h__
 
+class WorldPacket;
+
 #include "Define.h"
 #include <string>
 #include <vector>

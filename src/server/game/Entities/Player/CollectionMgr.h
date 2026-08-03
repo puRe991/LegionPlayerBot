@@ -18,6 +18,8 @@
 #ifndef CollectionMgr_h__
 #define CollectionMgr_h__
 
+#include "DB2Structure.h"
+
 #include "Define.h"
 #include <map>
 #include <unordered_map>

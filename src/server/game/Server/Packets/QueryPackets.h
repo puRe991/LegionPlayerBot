@@ -18,6 +18,8 @@
 #ifndef QueryPackets_h__
 #define QueryPackets_h__
 
+class WorldPacket;
+
 #include "ObjectGuid.h"
 
 #include "Define.h"

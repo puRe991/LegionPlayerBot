@@ -18,6 +18,8 @@
 #ifndef MiscPackets_h__
 #define MiscPackets_h__
 
+class WorldPacket;
+
 #include "Define.h"
 #include <array>
 #include <vector>

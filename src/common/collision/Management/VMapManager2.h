@@ -19,6 +19,8 @@
 #ifndef _VMAPMANAGER2_H
 #define _VMAPMANAGER2_H
 
+#include <string>
+
 #include <unordered_map>
 #include <vector>
 #include "Define.h"

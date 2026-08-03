@@ -18,7 +18,6 @@
 #ifndef _LFGQUEUE_H
 #define _LFGQUEUE_H
 
-#include "LFGMgr.h"
 
 #include "ObjectGuid.h"
 

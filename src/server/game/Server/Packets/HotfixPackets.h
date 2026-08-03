@@ -18,6 +18,8 @@
 #ifndef HotfixPackets_h__
 #define HotfixPackets_h__
 
+class WorldPacket;
+
 #include "ObjectGuid.h"
 
 #include <map>

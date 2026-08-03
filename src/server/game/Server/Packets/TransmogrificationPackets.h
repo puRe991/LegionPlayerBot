@@ -18,6 +18,8 @@
 #ifndef TransmogrificationPackets_h__
 #define TransmogrificationPackets_h__
 
+class WorldPacket;
+
 #include "ObjectGuid.h"
 
 #include "Define.h"

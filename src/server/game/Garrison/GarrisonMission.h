@@ -2,6 +2,8 @@
 #ifndef GarrisonMission_h__
 #define GarrisonMission_h__
 
+class Player;
+
 #include "Define.h"
 #include <list>
 #include <vector>

@@ -18,6 +18,11 @@
 #ifndef _PREPAREDSTATEMENT_H
 #define _PREPAREDSTATEMENT_H
 
+#include "Define.h"
+#include <functional>
+#include <string>
+#include <vector>
+
 #include "SQLOperation.h"
 #include "DatabaseEnvFwd.h"
 

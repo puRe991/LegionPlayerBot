@@ -18,6 +18,8 @@
 #ifndef PartyPackets_h__
 #define PartyPackets_h__
 
+class WorldPacket;
+
 #include "Define.h"
 #include <map>
 #include <string>

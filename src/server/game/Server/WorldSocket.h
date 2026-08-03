@@ -19,6 +19,8 @@
 #ifndef __WORLDSOCKET_H__
 #define __WORLDSOCKET_H__
 
+class WorldPacket;
+
 #include "Define.h"
 #include <string>
 #include <memory>

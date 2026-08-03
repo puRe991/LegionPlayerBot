@@ -18,6 +18,8 @@
 #ifndef ReputationPackets_h__
 #define ReputationPackets_h__
 
+class WorldPacket;
+
 #include "Define.h"
 #include <vector>
 
