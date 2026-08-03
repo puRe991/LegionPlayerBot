@@ -78,7 +78,7 @@ private:
     MYSQL_STMT* m_stmt;
     MYSQL_RES* m_res;
 
-    my_bool* m_isNull;
+    MySQLBool* m_isNull;
     unsigned long* m_length;
 
     void FreeBindBuffer();

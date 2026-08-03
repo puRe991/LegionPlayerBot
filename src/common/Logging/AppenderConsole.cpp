@@ -16,6 +16,10 @@
  */
 
 #include <sstream>
+// CompilerDefs.h has to come first: without it PLATFORM and TC_PLATFORM_WINDOWS
+// are both undefined, the check below silently reads as 0 == 0 and windows.h
+// gets pulled in on every platform.
+#include "CompilerDefs.h"
 #if PLATFORM == TC_PLATFORM_WINDOWS
 #include <windows.h>
 #endif

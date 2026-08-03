@@ -25,6 +25,7 @@
 #include "Logger.h"
 #include <boost/asio/io_service.hpp>
 #include <boost/asio/strand.hpp>
+#include "AsioHacksImpl.h"
 #include <string>
 #include <unordered_map>
 #include <string>
@@ -124,7 +125,7 @@ private:
 
     uint32 realm{};
     boost::asio::io_service* _ioService;
-    boost::asio::strand* _strand;
+    Trinity::AsioStrand* _strand;
 };
 
 #define sLog Log::instance()

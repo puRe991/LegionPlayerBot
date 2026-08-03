@@ -63,7 +63,7 @@ Log* Log::instance(boost::asio::io_service* ioService)
     if (ioService != nullptr)
     {
         instance._ioService = ioService;
-        instance._strand = new boost::asio::strand(*ioService);
+        instance._strand = new Trinity::AsioStrand(*ioService);
     }
 
     return &instance;

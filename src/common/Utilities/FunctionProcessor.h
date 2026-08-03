@@ -20,6 +20,8 @@
 #define __FunctionProcessor_H
 
 #include "Define.h"
+#include <atomic>
+#include <functional>
 #include <map>
 
 typedef std::multimap<uint64, std::function<void()>> FunctionList;
