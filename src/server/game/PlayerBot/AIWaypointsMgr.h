@@ -2,6 +2,9 @@
 #ifndef __AIWAYPOINTSMGR_H__
 #define __AIWAYPOINTSMGR_H__
 
+#include <map>
+#include <string>
+
 #include "Log.h"
 #include "Common.h"
 #include "SharedDefines.h"

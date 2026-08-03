@@ -19,6 +19,10 @@
 #ifndef TRINITY_CONDITIONMGR_H
 #define TRINITY_CONDITIONMGR_H
 
+#include "Define.h"
+#include <list>
+#include <map>
+
 #include "LootMgr.h"
 #include "Errors.h"
 

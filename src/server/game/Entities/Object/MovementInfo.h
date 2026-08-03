@@ -2,6 +2,9 @@
 #ifndef MovementInfo_h__
 #define MovementInfo_h__
 
+#include "Define.h"
+#include <map>
+
 #include "ObjectGuid.h"
 #include "Position.h"
 

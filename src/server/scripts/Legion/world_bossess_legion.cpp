@@ -3,7 +3,7 @@
     World boss
 */
 #include "AreaTriggerAI.h"
-#include "..\..\src\server\scripts\PrecompiledHeaders\ScriptPCH.h"
+#include "ScriptPCH.h"
 enum eSpells
 {
     // flotsam

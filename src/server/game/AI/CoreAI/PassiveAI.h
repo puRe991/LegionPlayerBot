@@ -19,6 +19,8 @@
 #ifndef TRINITY_PASSIVEAI_H
 #define TRINITY_PASSIVEAI_H
 
+#include "Define.h"
+
 #include "CreatureAI.h"
 
 class PassiveAI : public CreatureAI

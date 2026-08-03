@@ -18,6 +18,9 @@
 #ifndef TRINITY_SMARTSCRIPTMGR_H
 #define TRINITY_SMARTSCRIPTMGR_H
 
+#include <list>
+#include <unordered_map>
+
 #include "Common.h"
 
 struct WayPoint

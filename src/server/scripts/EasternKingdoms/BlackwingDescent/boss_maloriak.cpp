@@ -1,7 +1,7 @@
 #include"Spell.h"
 #include "GameObjectAI.h"
 #include "blackwing_descent.h"
-#include "..\..\src\server\scripts\PrecompiledHeaders\ScriptPCH.h"
+#include "ScriptPCH.h"
 enum ScriptTexts
 {
     SAY_AGGRO       = 0,

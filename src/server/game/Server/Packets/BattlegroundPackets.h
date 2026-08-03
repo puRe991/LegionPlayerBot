@@ -18,6 +18,12 @@
 #ifndef BattlegroundPackets_h__
 #define BattlegroundPackets_h__
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <string>
+#include <vector>
+
 #include "Packet.h"
 #include "Packets/LFGPackets.h"
 #include "BattlegroundDefines.h" // remove this shit -_-

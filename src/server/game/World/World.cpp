@@ -116,11 +116,11 @@
 #include "PlayerBotTalkMgr.h"
 #include "AIWaypointsMgr.h"
 #include "WorldSocket.h"
-#include "Json.h"
+#include "json.h"
 #include "PathfindingMgr.h"
 #include "BotGroupAI.h"
 
-#include "..\..\src\server\scripts\Custom\_Bot.h"
+#include "_Bot.h"
 uint8 World::m_ExitCode = SHUTDOWN_EXIT_CODE;
 std::atomic<uint32> World::m_worldLoopCounter(0);
 

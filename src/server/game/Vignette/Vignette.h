@@ -1,6 +1,8 @@
 #ifndef VIGNETTE_H
 #define VIGNETTE_H
 
+#include "ObjectGuid.h"
+
 #include "Common.h"
 #include "DB2Stores.h"
 #include "Object.h"

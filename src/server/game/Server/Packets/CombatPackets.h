@@ -18,6 +18,9 @@
 #ifndef CombatPackets_h__
 #define CombatPackets_h__
 
+#include "Define.h"
+#include <vector>
+
 #include "Packet.h"
 #include "ObjectGuid.h"
 #include "Player.h"

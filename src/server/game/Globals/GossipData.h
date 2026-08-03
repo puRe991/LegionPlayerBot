@@ -2,6 +2,10 @@
 #ifndef GossipData_h
 #define GossipData_h
 
+#include "Define.h"
+#include <string>
+#include <unordered_map>
+
 struct GossipMenuItems
 {
     ConditionList   Conditions;

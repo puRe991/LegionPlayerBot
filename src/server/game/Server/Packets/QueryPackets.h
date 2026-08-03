@@ -18,6 +18,12 @@
 #ifndef QueryPackets_h__
 #define QueryPackets_h__
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <string>
+#include <vector>
+
 #include "Packet.h"
 #include "Creature.h"
 #include "NPCHandler.h"

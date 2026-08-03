@@ -18,6 +18,8 @@
 #ifndef TRINITY_PLAYERAI_H
 #define TRINITY_PLAYERAI_H
 
+#include "Define.h"
+
 #include "UnitAI.h"
 #include "Player.h"
 #include "Spell.h"

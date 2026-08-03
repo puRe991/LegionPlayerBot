@@ -18,6 +18,9 @@
 #ifndef ChatPackets_h__
 #define ChatPackets_h__
 
+#include "Define.h"
+#include <string>
+
 #include "Packet.h"
 #include "SharedDefines.h"
 #include "ObjectGuid.h"

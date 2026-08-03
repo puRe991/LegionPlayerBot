@@ -17,6 +17,9 @@
 
 #pragma once
 
+#include "Define.h"
+#include <vector>
+
 #include "Packet.h"
 #include "ItemPackets.h"
 #include "ObjectGuid.h"

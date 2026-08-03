@@ -18,6 +18,12 @@
 #ifndef TRINITY_SMARTSCRIPT_H
 #define TRINITY_SMARTSCRIPT_H
 
+#include "ObjectGuid.h"
+
+#include <list>
+#include <string>
+#include <unordered_map>
+
 #include "Common.h"
 #include "Creature.h"
 #include "Unit.h"

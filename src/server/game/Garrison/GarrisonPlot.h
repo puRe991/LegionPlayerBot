@@ -2,6 +2,10 @@
 #ifndef GarrisonPlot_h_
 #define GarrisonPlot_h_
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+
 #include "GarrisonGlobal.h"
 #include "Packets/GarrisonPackets.h"
 

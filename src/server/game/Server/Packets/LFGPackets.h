@@ -18,9 +18,20 @@
 #ifndef LFGPackets_h__
 #define LFGPackets_h__
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <map>
+#include <set>
+#include <string>
+#include <vector>
+
 #include "Packet.h"
 #include "PacketUtilities.h"
 #include "LFGPacketsCommon.h"
+
+class Quest;
+class Player;
 
 namespace lfg
 {

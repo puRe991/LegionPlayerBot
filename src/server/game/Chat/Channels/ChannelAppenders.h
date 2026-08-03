@@ -18,6 +18,11 @@
 #ifndef _CHANNELAPPENDERS_H
 #define _CHANNELAPPENDERS_H
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <string>
+
 #include "Channel.h"
 #include "ChannelPackets.h"
 #include "World.h"

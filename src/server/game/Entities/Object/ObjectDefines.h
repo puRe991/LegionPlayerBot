@@ -19,6 +19,8 @@
 #ifndef TRINITY_OBJECTDEFINES_H
 #define TRINITY_OBJECTDEFINES_H
 
+#include "Define.h"
+
 #include "ObjectGuid.h"
 
 #define CONTACT_DISTANCE            0.5f

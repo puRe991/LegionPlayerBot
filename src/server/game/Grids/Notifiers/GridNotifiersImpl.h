@@ -19,6 +19,8 @@
 #ifndef TRINITY_GRIDNOTIFIERSIMPL_H
 #define TRINITY_GRIDNOTIFIERSIMPL_H
 
+#include "Define.h"
+
 #include "GridNotifiers.h"
 #include "WorldPacket.h"
 #include "Corpse.h"

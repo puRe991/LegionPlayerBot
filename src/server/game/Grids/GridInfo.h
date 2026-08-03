@@ -19,6 +19,8 @@
 #ifndef TRINITY_GRIDInfo_H
 #define TRINITY_GRIDInfo_H
 
+#include "Define.h"
+
 #include "Timer.h"
 
 class GridInfo final

@@ -19,6 +19,8 @@
 #ifndef _ITEMPROTOTYPE_H
 #define _ITEMPROTOTYPE_H
 
+#include <map>
+
 #include <bitset>
 #include <unordered_map>
 #include <vector>

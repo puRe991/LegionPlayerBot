@@ -18,6 +18,11 @@
 #ifndef TRINITY_PHASEMGR_H
 #define TRINITY_PHASEMGR_H
 
+#include "Define.h"
+#include <list>
+#include <string>
+#include <unordered_map>
+
 #include "SpellAuras.h"
 #include "ConditionMgr.h"
 #include <safe_ptr.h>

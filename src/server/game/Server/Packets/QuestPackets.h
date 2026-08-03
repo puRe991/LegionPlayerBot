@@ -18,6 +18,10 @@
 #ifndef QuestPackets_h__
 #define QuestPackets_h__
 
+#include "Define.h"
+#include <string>
+#include <vector>
+
 #include "Packet.h"
 #include "QuestDef.h"
 #include "ObjectGuid.h"

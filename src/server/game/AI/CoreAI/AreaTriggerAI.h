@@ -18,6 +18,9 @@
 #ifndef TRINITY_AREATRIGGERAI_H
 #define TRINITY_AREATRIGGERAI_H
 
+#include <list>
+#include <vector>
+
 #include "AreaTrigger.h"
 #include "Define.h"
 

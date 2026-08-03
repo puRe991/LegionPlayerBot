@@ -23,6 +23,13 @@
 #ifndef __WORLD_H
 #define __WORLD_H
 
+#include <list>
+#include <map>
+#include <string>
+#include <unordered_map>
+#include <vector>
+#include <memory>
+
 #include "Common.h"
 #include "Realm/Realm.h"
 #include "ObjectGuid.h"

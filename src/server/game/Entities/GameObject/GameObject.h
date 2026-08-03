@@ -19,6 +19,14 @@
 #ifndef GAMEOBJECT_H
 #define GAMEOBJECT_H
 
+#include "ObjectGuid.h"
+
+#include <functional>
+#include <map>
+#include <string>
+#include <unordered_map>
+#include <vector>
+
 #include "Common.h"
 #include "SharedDefines.h"
 #include "Object.h"

@@ -19,6 +19,11 @@
 #ifndef __BATTLEGROUND_H
 #define __BATTLEGROUND_H
 
+#include <array>
+#include <set>
+#include <string>
+#include <vector>
+
 #include "Common.h"
 #include "SharedDefines.h"
 #include "BattlegroundMap.h"

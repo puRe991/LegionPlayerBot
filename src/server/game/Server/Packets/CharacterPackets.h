@@ -18,6 +18,15 @@
 #ifndef CharacterPackets_h__
 #define CharacterPackets_h__
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <array>
+#include <list>
+#include <string>
+#include <vector>
+#include <memory>
+
 #include "Packet.h"
 #include "Player.h"
 

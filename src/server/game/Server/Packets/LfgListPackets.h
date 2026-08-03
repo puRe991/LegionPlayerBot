@@ -18,6 +18,13 @@
 #ifndef LfgListPackets_h__
 #define LfgListPackets_h__
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <list>
+#include <string>
+#include <vector>
+
 #include "Packet.h"
 #include "LFGPacketsCommon.h"
 

@@ -18,6 +18,9 @@
 #ifndef CHATLINK_H
 #define CHATLINK_H
 
+#include <string>
+#include <vector>
+
 #include <sstream>
 #include <list>
 #include "Common.h"

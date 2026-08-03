@@ -19,6 +19,10 @@
 #ifndef TRINITY_FLEEINGMOVEMENTGENERATOR_H
 #define TRINITY_FLEEINGMOVEMENTGENERATOR_H
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+
 #include "MovementGenerator.h"
 
 template<class T>

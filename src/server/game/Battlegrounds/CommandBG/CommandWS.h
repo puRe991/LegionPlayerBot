@@ -2,6 +2,11 @@
 #ifndef _COMMAND_WS_H_
 #define _COMMAND_WS_H_
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <vector>
+
 #include "CommandBG.h"
 
 #define AIWP_SELF_FLAG 0

@@ -1,4 +1,6 @@
 
+#include "WorldSession.h"
+#include "Player.h"
 #include "LoginQueryHolder.h"
 #include "DatabaseEnv.h"
 

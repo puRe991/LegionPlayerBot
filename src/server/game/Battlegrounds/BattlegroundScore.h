@@ -18,6 +18,11 @@
 #ifndef TRINITY_BATTLEGROUND_SCORE_H
 #define TRINITY_BATTLEGROUND_SCORE_H
 
+#include <vector>
+
+#include "Define.h"
+#include "ObjectGuid.h"
+
 enum ScoreType
 {
     SCORE_KILLING_BLOWS         = 1,

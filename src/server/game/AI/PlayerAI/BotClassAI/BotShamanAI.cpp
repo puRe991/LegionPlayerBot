@@ -155,7 +155,7 @@ bool BotShamanAI::NeedFlee()
 		return true;
 	if (m_BotTalentType == 1)
 		return m_NeedFlee.TargetHasFleeAura();
-	NearUnitVec& nearEnemys = RangeEnemyListByTargetIsMe(NEEDFLEE_CHECKRANGE);
+	NearUnitVec nearEnemys = RangeEnemyListByTargetIsMe(NEEDFLEE_CHECKRANGE);
 	if (me->InArena())
 	{
 		for (Unit* pUnit : nearEnemys)
@@ -198,7 +198,7 @@ bool BotShamanAI::ProcessNormalSpell()
 
 	if (me->HasAura(m_UseMountID))
 		return false;
-	NearUnitVec& needHealthPlayers = SearchNeedHealth(BOTAI_RANGESPELL_DISTANCE);
+	NearUnitVec needHealthPlayers = SearchNeedHealth(BOTAI_RANGESPELL_DISTANCE);
 	if (needHealthPlayers.empty())
 		return TryUpMount();
 	//me->StopMoving();
@@ -392,7 +392,7 @@ void BotShamanAI::ProcessRangeSpell(Unit* pTarget)
 
 bool BotShamanAI::ProcessDispel()
 {
-	NearUnitVec& friends = SearchFriend(BOTAI_RANGESPELL_DISTANCE);
+	NearUnitVec friends = SearchFriend(BOTAI_RANGESPELL_DISTANCE);
 	if (friends.empty())
 		return false;
 	std::random_shuffle(friends.begin(), friends.end());
@@ -414,7 +414,7 @@ bool BotShamanAI::ProcessHeroic()
 			uint32 enemyCount = RangeEnemyListByHasAura(0, BOTAI_RANGESPELL_DISTANCE).size();
 			if (enemyCount < 3)
 				return false;
-			NearUnitVec& friends = SearchFriend(BOTAI_RANGESPELL_DISTANCE);
+			NearUnitVec friends = SearchFriend(BOTAI_RANGESPELL_DISTANCE);
 			uint32 canHeroicCount = 0;
 			for (Unit* player : friends)
 			{
@@ -438,7 +438,7 @@ bool BotShamanAI::ProcessArenaHealthMember()
 		return false;
 	float minLife = 100;
 	Unit* minLifeUnit = NULL;
-	NearUnitVec& friends = SearchFriend(BOTAI_RANGESPELL_DISTANCE);
+	NearUnitVec friends = SearchFriend(BOTAI_RANGESPELL_DISTANCE);
 	for (Unit* pUnit : friends)
 	{
 		float healPct = pUnit->GetHealthPct();
@@ -498,7 +498,7 @@ bool BotShamanAI::TryStartControlCommand()
 		m_CruxControlTarget = ObjectGuid::Empty;
 		return false;
 	}
-	NearUnitVec& friends = SearchFriend();
+	NearUnitVec friends = SearchFriend();
 	for (Unit* pUnit : friends)
 	{
 		Player* pPlayer = pUnit->ToPlayer();
@@ -561,12 +561,12 @@ float BotShamanAI::TryPushControlCommand(Player* pTarget)
 bool BotShamanAI::ProcessShield()
 {
 	bool hasEarth = false;
-	NearUnitVec& nearEnemys = RangeEnemyListByTargetIsMe(BOTAI_RANGESPELL_DISTANCE);
+	NearUnitVec nearEnemys = RangeEnemyListByTargetIsMe(BOTAI_RANGESPELL_DISTANCE);
 	if (nearEnemys.empty())
 	{
 		if (m_BotTalentType == 2 && ShamanShield_Earth)
 		{
-			NearUnitVec& friends = SearchFriend(BOTAI_RANGESPELL_DISTANCE);
+			NearUnitVec friends = SearchFriend(BOTAI_RANGESPELL_DISTANCE);
 			Unit* pNeedEarthUnit = NULL;
 			float pMinLifePct = 100;
 			for (Unit* pFriend : friends)
@@ -625,7 +625,7 @@ bool BotShamanAI::ProcessTotem()
 	if (ShamanTotem_NonFear && (m_NonFearTotemTick + 5000 <= getMSTime()) && me->InArena())
 	{
 		bool needFearTotem = false;
-		NearUnitVec& friends = SearchFriend(BOTAI_RANGESPELL_DISTANCE);
+		NearUnitVec friends = SearchFriend(BOTAI_RANGESPELL_DISTANCE);
 		for (Unit* pFriends : friends)
 		{
 			if (HasAuraMechanic(pFriends, Mechanics::MECHANIC_CHARM) || HasAuraMechanic(pFriends, Mechanics::MECHANIC_SLEEP) || HasAuraMechanic(pFriends, Mechanics::MECHANIC_FEAR))

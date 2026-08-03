@@ -18,6 +18,19 @@
 
 #ifndef __UNIT_H
 #define __UNIT_H
+#include "Position.h"
+
+#include "ObjectGuid.h"
+
+#include <array>
+#include <atomic>
+#include <functional>
+#include <list>
+#include <map>
+#include <set>
+#include <unordered_map>
+#include <vector>
+#include <memory>
 
 #include "Common.h"
 #include "DataContainers.h"

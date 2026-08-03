@@ -518,8 +518,8 @@ void FieldWarfare::TeleportToTargetVisible(Player* pBot, Player* pTarget)
 			break;
 		}
 		float targetAngle = frand(0, float(M_PI) * 2.0f);
-		distX = pTarget->GetPositionX() + (BOTAI_FIELDTELEPORT_DISTANCE * 1.7f) * std::cosf(targetAngle);
-		distY = pTarget->GetPositionY() + (BOTAI_FIELDTELEPORT_DISTANCE * 1.7f) * std::sinf(targetAngle);
+		distX = pTarget->GetPositionX() + (BOTAI_FIELDTELEPORT_DISTANCE * 1.7f) * std::cos(targetAngle);
+		distY = pTarget->GetPositionY() + (BOTAI_FIELDTELEPORT_DISTANCE * 1.7f) * std::sin(targetAngle);
 		distZ = pTarget->GetPositionZ();
 		distZ = pTarget->GetMap()->GetHeight(pTarget->GetPhaseMask(), distX, distY, distZ);
 	} while (!MapManager::IsValidMapCoord(pTarget->GetMapId(), distX, distY, distZ, pTarget->GetOrientation()));
@@ -554,8 +554,8 @@ Position FieldWarfare::GetEvadePosition(Player* centerPlayer, Player* evadePlaye
 	float maxDist = 0.0f;
 	for (float angle = 0.0f; angle < (float(M_PI) * 2.0f); angle += onceAngle)
 	{
-		float distX = evadePlayer->GetPositionX() + (BOTAI_FIELDTELEPORT_DISTANCE * 4) * std::cosf(angle);
-		float distY = evadePlayer->GetPositionY() + (BOTAI_FIELDTELEPORT_DISTANCE * 4) * std::sinf(angle);
+		float distX = evadePlayer->GetPositionX() + (BOTAI_FIELDTELEPORT_DISTANCE * 4) * std::cos(angle);
+		float distY = evadePlayer->GetPositionY() + (BOTAI_FIELDTELEPORT_DISTANCE * 4) * std::sin(angle);
 		float distZ = evadePlayer->GetPositionZ();
 		distZ = evadePlayer->GetMap()->GetHeight(evadePlayer->GetPhaseMask(), distX, distY, distZ);
 		Position pos(distX, distY, distZ, angle);
@@ -795,8 +795,8 @@ void FieldBotMgr::TeleportToTargetVisible(BotFieldAI* pFieldAI, Player* pTarget)
 				break;
 			}
 			float targetAngle = frand(0, float(M_PI) * 2.0f);
-			distX = pTarget->GetPositionX() + (BOTAI_FIELDTELEPORT_DISTANCE * 1.2f) * std::cosf(targetAngle);
-			distY = pTarget->GetPositionY() + (BOTAI_FIELDTELEPORT_DISTANCE * 1.2f) * std::sinf(targetAngle);
+			distX = pTarget->GetPositionX() + (BOTAI_FIELDTELEPORT_DISTANCE * 1.2f) * std::cos(targetAngle);
+			distY = pTarget->GetPositionY() + (BOTAI_FIELDTELEPORT_DISTANCE * 1.2f) * std::sin(targetAngle);
 			distZ = pTarget->GetPositionZ();
 			distZ = pTarget->GetMap()->GetHeight(pTarget->GetPhaseMask(), distX, distY, distZ);
 		} while (!MapManager::IsValidMapCoord(pTarget->GetMapId(), distX, distY, distZ, pTarget->GetOrientation()) ||

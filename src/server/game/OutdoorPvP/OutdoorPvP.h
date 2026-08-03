@@ -18,6 +18,14 @@
 #ifndef OUTDOOR_PVP_H_
 #define OUTDOOR_PVP_H_
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <functional>
+#include <map>
+#include <set>
+#include <vector>
+
 #include "Utilities/Util.h"
 #include "SharedDefines.h"
 #include "ZoneScript.h"

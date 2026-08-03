@@ -18,6 +18,12 @@
 #ifndef GarrisonPackets_h__
 #define GarrisonPackets_h__
 
+#include "Define.h"
+#include <list>
+#include <string>
+#include <unordered_set>
+#include <vector>
+
 #include "Packet.h"
 #include "ObjectGuid.h"
 

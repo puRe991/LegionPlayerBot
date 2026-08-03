@@ -18,6 +18,12 @@
 #ifndef PetPackets_h__
 #define PetPackets_h__
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <string>
+#include <vector>
+
 #include <utility>
 #include "Packet.h"
 #include "CharmInfo.h"

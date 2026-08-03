@@ -18,6 +18,15 @@
 #ifndef ItemPackets_h__
 #define ItemPackets_h__
 
+#include "ObjectGuid.h"
+
+struct VendorItem;
+
+#include "Define.h"
+#include <array>
+#include <string>
+#include <vector>
+
 #include "Packet.h"
 #include "Item.h"
 #include "Group.h"

@@ -19,6 +19,15 @@
 #ifndef TRINITY_GAMEEVENT_MGR_H
 #define TRINITY_GAMEEVENT_MGR_H
 
+#include "ObjectGuid.h"
+
+#include <list>
+#include <map>
+#include <set>
+#include <string>
+#include <unordered_map>
+#include <vector>
+
 #include "Common.h"
 #include "SharedDefines.h"
 #include <safe_ptr.h>

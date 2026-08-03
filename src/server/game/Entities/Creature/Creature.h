@@ -19,6 +19,16 @@
 #ifndef CREATURE_H
 #define CREATURE_H
 
+#include "ObjectGuid.h"
+
+#include <list>
+#include <map>
+#include <set>
+#include <string>
+#include <unordered_map>
+#include <vector>
+#include <memory>
+
 #include "Common.h"
 #include "GridObject.h"
 #include "LootMgr.h"

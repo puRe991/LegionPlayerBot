@@ -7,6 +7,10 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 #pragma once
+
+#include "ObjectGuid.h"
+
+#include <map>
 #ifndef _PetBattleSystem
 #define _PetBattleSystem
 

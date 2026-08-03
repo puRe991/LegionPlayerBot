@@ -2,6 +2,12 @@
 #ifndef _PATHFINDING_H_
 #define _PATHFINDING_H_
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <set>
+#include <vector>
+
 #include "PathGenerator.h"
 
 #define FAR_MAX_PATH_LENGTH 32768
@@ -72,7 +78,7 @@ struct PathParameter
 		offset = 0;
 	}
 
-	void TrimOldPathpoint(Position& pos)
+	void TrimOldPathpoint(const Position& pos)
 	{
 		if (finishPaths.size() <= 1)
 			return;
@@ -83,7 +89,7 @@ struct PathParameter
 			finishPaths.push_back(oncePosition);
 		}
 	}
-	//void TrimOldPathpoint(Position& pos)
+	//void TrimOldPathpoint(const Position& pos)
 	//{
 	//	if (finishPaths.size() <= 2)
 	//		return;

@@ -18,6 +18,11 @@
 #ifndef MovementPackets_h__
 #define MovementPackets_h__
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <vector>
+
 #include "Packet.h"
 #include "Object.h"
 

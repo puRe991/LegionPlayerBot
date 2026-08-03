@@ -18,6 +18,8 @@
 #ifndef AUCTION_HOUSE_BOT_BUYER_H
 #define AUCTION_HOUSE_BOT_BUYER_H
 
+#include <map>
+
 #include "Define.h"
 #include "AuctionHouseMgr.h"
 #include "AuctionHouseBot.h"

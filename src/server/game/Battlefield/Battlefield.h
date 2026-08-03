@@ -18,6 +18,13 @@
 
 #ifndef BATTLEFIELD_H_
 #define BATTLEFIELD_H_
+#include "Position.h"
+
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <map>
+#include <vector>
 
 #include "Utilities/Util.h"
 #include "SharedDefines.h"

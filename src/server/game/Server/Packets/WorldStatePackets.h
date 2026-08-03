@@ -18,6 +18,9 @@
 #ifndef WorldStatePackets_h__
 #define WorldStatePackets_h__
 
+#include "Define.h"
+#include <vector>
+
 #include "Packet.h"
 
 namespace WorldPackets

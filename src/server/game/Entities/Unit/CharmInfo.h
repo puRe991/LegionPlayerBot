@@ -18,7 +18,11 @@
 #ifndef ChramInfo_h__
 #define ChramInfo_h__
 
+#include "Define.h"
+#include <string>
+
 #include "ObjectGuid.h"
+#include "SharedDefines.h"
 
 class Unit;
 class SpellInfo;

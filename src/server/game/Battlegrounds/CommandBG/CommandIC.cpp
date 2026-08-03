@@ -165,7 +165,7 @@ void CommandIC::ProcessICNodeRequirement(uint32 nodeType, AIWaypoint* waypoint, 
 		return;
 	bool flagIsOcupied = pBGIC->GetNodeState(nodeType) >= NODE_STATE_CONTROLLED_A;
 
-	PlayerGUIDs& nodeNearPlayers = GetICFlagRangePlayerByTeam(nodeType, m_TeamID);
+	PlayerGUIDs nodeNearPlayers = GetICFlagRangePlayerByTeam(nodeType, m_TeamID);
 	uint32 enemyCount = GetICFlagRangePlayerByTeam(nodeType, (m_TeamID == TEAM_ALLIANCE) ? TEAM_HORDE : TEAM_ALLIANCE).size();
 	uint32 nearEnemyCount = GetICFlagRangePlayerByTeam(nodeType, (m_TeamID == TEAM_ALLIANCE) ? TEAM_HORDE : TEAM_ALLIANCE, 10.0f).size();
 	int32 maxNeed = m_PlayerGUIDs.size() / 3 * 2;
@@ -197,7 +197,7 @@ void CommandIC::ProcessICNodeRequirement(uint32 nodeType, AIWaypoint* waypoint, 
 		uint64 minGUID = 0;
 		for (PlayerGUIDs::iterator itGuid = players.begin(); itGuid != players.end(); itGuid++)
 		{
-			Position& pos = GetPositionByGuid(*itGuid);
+			Position pos = GetPositionByGuid(*itGuid);
 			float posDis = pBGNode->GetDistance(pos);
 			if (minGUID == 0 || posDis < minDistance)
 			{

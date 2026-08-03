@@ -18,6 +18,11 @@
 #ifndef VoidStoragePackets_h__
 #define VoidStoragePackets_h__
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <vector>
+
 #include "Packet.h"
 #include "ItemPackets.h"
 

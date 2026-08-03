@@ -2,6 +2,11 @@
 #ifndef WORLD_STATE_H
 #define WORLD_STATE_H
 
+#include "ObjectGuid.h"
+
+#include <map>
+#include <vector>
+
 #include "Common.h"
 
 namespace WorldStatesData

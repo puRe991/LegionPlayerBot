@@ -302,7 +302,7 @@ void BotWarriorAI::ProcessRangeSpell(Unit* pTarget)
 
 void BotWarriorAI::ProcessFlee()
 {
-	NearPlayerVec& farFriends = SearchFarFriend(12, BOTAI_RANGESPELL_DISTANCE, false);
+	NearPlayerVec farFriends = SearchFarFriend(12, BOTAI_RANGESPELL_DISTANCE, false);
 	if (!farFriends.empty())
 	{
 		if (me->HasAura(WarriorDefance_Status) && WarriorDefance_Support)
@@ -317,7 +317,7 @@ void BotWarriorAI::ProcessFlee()
 	}
 	FleeMovement();
 	float healthPct = me->GetHealthPct();
-	NearUnitVec& range8Players = RangeEnemyListByTargetIsMe(8.0f);
+	NearUnitVec range8Players = RangeEnemyListByTargetIsMe(8.0f);
 	Unit* pTarget = me->GetSelectedUnit();
 	if (range8Players.size() >= 2 && TryCastSpell(WarriorCommon_AOEFear, pTarget) == SpellCastResult::SPELL_CAST_OK)
 		return;
@@ -402,7 +402,7 @@ void BotWarriorAI::ProcessRageMeleeSpell(Unit* pTarget)
 		return;
 	if (!pTarget->HasAura(WarriorWeaponRage_Backfillet) && TryCastSpell(WarriorWeaponRage_Backfillet, pTarget) == SpellCastResult::SPELL_CAST_OK)
 		return;
-	NearUnitVec& playerVec8Range = RangeEnemyListByHasAura(0, NEEDFLEE_CHECKRANGE);
+	NearUnitVec playerVec8Range = RangeEnemyListByHasAura(0, NEEDFLEE_CHECKRANGE);
 	if (playerVec8Range.size() > 1 && TryCastSpell(WarriorRage_Whirlwind, pTarget) == SpellCastResult::SPELL_CAST_OK)
 		return;
 }
@@ -427,7 +427,7 @@ void BotWarriorAI::ProcessDefanceMeleeSpell(Unit* pTarget)
 		return;
 	if (TryCastSpell(WarriorDefance_Fuchou, pTarget) == SpellCastResult::SPELL_CAST_OK)
 		return;
-	NearUnitVec& range8Players = RangeEnemyListByTargetIsMe(NEEDFLEE_CHECKRANGE);
+	NearUnitVec range8Players = RangeEnemyListByTargetIsMe(NEEDFLEE_CHECKRANGE);
 	if (range8Players.size() >= 2 && TryCastSpell(WarriorDefance_ShieldBlock, pTarget) == SpellCastResult::SPELL_CAST_OK)
 		return;
 	if (range8Players.size() >= 2 && TryCastSpell(WarriorDefance_AOEConk, pTarget) == SpellCastResult::SPELL_CAST_OK)
@@ -440,7 +440,7 @@ void BotWarriorAI::ProcessDefanceMeleeSpell(Unit* pTarget)
 		return;
 	if (ragePer >= 40 && TryCastSpell(WarriorDefance_HPojia, pTarget) == SpellCastResult::SPELL_CAST_OK)
 		return;
-	NearUnitVec& range30Players = RangeEnemyListByTargetIsMe(BOTAI_RANGESPELL_DISTANCE);
+	NearUnitVec range30Players = RangeEnemyListByTargetIsMe(BOTAI_RANGESPELL_DISTANCE);
 	if (range30Players.size() >= 3 && WarriorWeaponDefance_SpellReflect)
 	{
 		uint32 castCount = 0;
@@ -482,7 +482,7 @@ bool BotWarriorAI::ProcessFullAttack(Unit* pTarget)
 {
 	if (!pTarget)
 		return false;
-	NearUnitVec& targetMeEnemys = RangeEnemyListByTargetIsMe(BOTAI_RANGESPELL_DISTANCE);
+	NearUnitVec targetMeEnemys = RangeEnemyListByTargetIsMe(BOTAI_RANGESPELL_DISTANCE);
 	if (targetMeEnemys.size() <= 1 && BotUtility::SpellHasReady(me, WarriorRage_Needdead))
 	{
 		if (!me->HasAura(WarriorRage_Status))

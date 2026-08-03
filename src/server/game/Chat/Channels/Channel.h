@@ -19,6 +19,10 @@
 #ifndef _CHANNEL_H
 #define _CHANNEL_H
 
+#include "ObjectGuid.h"
+
+#include <string>
+
 #include "Common.h"
 #include "LockedMap.h"
 #include "Player.h"

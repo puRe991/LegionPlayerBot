@@ -18,6 +18,11 @@
 #ifndef ARENA_H
 #define ARENA_H
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <list>
+
 #include "Battleground.h"
 #include "Timer.h"
 #include "LogsSystem.h"

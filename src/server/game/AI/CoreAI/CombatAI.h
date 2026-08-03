@@ -19,6 +19,12 @@
 #ifndef TRINITY_COMBATAI_H
 #define TRINITY_COMBATAI_H
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <map>
+#include <vector>
+
 #include "CreatureAI.h"
 #include "CreatureAIImpl.h"
 #include "ConditionMgr.h"

@@ -18,6 +18,10 @@
 #ifndef MailPackets_h__
 #define MailPackets_h__
 
+#include "Define.h"
+#include <string>
+#include <vector>
+
 #include "ItemPackets.h"
 #include "Packet.h"
 #include "ObjectGuid.h"

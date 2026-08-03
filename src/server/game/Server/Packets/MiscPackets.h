@@ -18,6 +18,11 @@
 #ifndef MiscPackets_h__
 #define MiscPackets_h__
 
+#include "Define.h"
+#include <array>
+#include <vector>
+#include <memory>
+
 #include "Packet.h"
 #include "ObjectGuid.h"
 #include "WorldSession.h"

@@ -19,6 +19,21 @@
 #ifndef _QuestDataStoreh_
 #define _QuestDataStoreh_
 
+#include <atomic>
+#include <list>
+
+#include "Define.h"
+#include "ObjectGuid.h"
+#include "SharedDefines.h"
+#include "QuestDef.h"
+#include "DB2Structure.h"
+#include "ItemTemplate.h"
+#include <map>
+#include <set>
+#include <string>
+#include <unordered_map>
+#include <vector>
+
 enum WorldQuestTypeReward
 {
     WORLD_QUEST_TYPE_REWARD_NONE            = 0,

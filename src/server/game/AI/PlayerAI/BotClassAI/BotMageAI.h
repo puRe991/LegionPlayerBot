@@ -2,6 +2,11 @@
 #ifndef _BOT_MAGE_AI_H
 #define _BOT_MAGE_AI_H
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <set>
+
 #include "ScriptSystem.h"
 #include "BotAI.h"
 #include "AIWaypointsMgr.h"

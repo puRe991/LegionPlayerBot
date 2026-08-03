@@ -2,6 +2,9 @@
 #ifndef _PATHFINDINGMGR_H_
 #define _PATHFINDINGMGR_H_
 
+#include "Define.h"
+#include <vector>
+
 #include "Pathfinding.h"
 #include "Map.h"
 #include "MMapFactory.h"

@@ -18,6 +18,11 @@
 #ifndef UpdatePackets_h__
 #define UpdatePackets_h__
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <vector>
+
 #include "Packet.h"
 
 namespace WorldPackets

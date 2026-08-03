@@ -180,7 +180,7 @@ bool BotMageAI::NeedFlee()
 {
 	if (m_Flee.Fleeing())
 		return true;
-	NearUnitVec& nearEnemys = RangeEnemyListByTargetIsMe(NEEDFLEE_CHECKRANGE);
+	NearUnitVec nearEnemys = RangeEnemyListByTargetIsMe(NEEDFLEE_CHECKRANGE);
 	if (me->InArena())
 	{
 		for (Unit* pUnit : nearEnemys)
@@ -286,7 +286,7 @@ void BotMageAI::ProcessFlee()
 	if (me->IsInCombat() && TryCastSpell(MageAssist_Mirror, me) == SpellCastResult::SPELL_CAST_OK)
 		return;
 	float healthPct = me->GetHealthPct();
-	NearUnitVec& enemys = RangeEnemyListByTargetIsMe(NEEDFLEE_CHECKRANGE);
+	NearUnitVec enemys = RangeEnemyListByTargetIsMe(NEEDFLEE_CHECKRANGE);
 	if (enemys.size() > 0)
 	{
 		for (Unit* player : enemys)
@@ -334,7 +334,7 @@ void BotMageAI::ProcessFlee()
 	if (enemys.size() > 0 && TryCastSpell(MageAssist_Stealth, me) == SpellCastResult::SPELL_CAST_OK)
 	{
 		m_StealthTick = getMSTime();
-		NearUnitVec& cancelTargets = RangeEnemyListByTargetIsMe(BOTAI_RANGESPELL_DISTANCE);
+		NearUnitVec cancelTargets = RangeEnemyListByTargetIsMe(BOTAI_RANGESPELL_DISTANCE);
 		for (Unit* target : cancelTargets)
 		{
 			if (Player* player = target->ToPlayer())
@@ -352,14 +352,14 @@ void BotMageAI::ProcessFlee()
 		if (TryCastSpell(MageAOE_ArcaneExplode, me) == SpellCastResult::SPELL_CAST_OK)
 			return;
 	}
-	NearUnitVec& stealTargets = RangeEnemyListByHasAura(0, BOTAI_RANGESPELL_DISTANCE);
+	NearUnitVec stealTargets = RangeEnemyListByHasAura(0, BOTAI_RANGESPELL_DISTANCE);
 	if (stealTargets.size() > 0 && TryCastSpell(MageConfine_AuraSteal, stealTargets[urand(0, stealTargets.size() - 1)], true) == SpellCastResult::SPELL_CAST_OK)
 		return;
 }
 
 bool BotMageAI::ProcessArcaneFlee()
 {
-	NearUnitVec& enemys = RangeEnemyListByTargetIsMe(BOTAI_RANGESPELL_DISTANCE);
+	NearUnitVec enemys = RangeEnemyListByTargetIsMe(BOTAI_RANGESPELL_DISTANCE);
 	float healthPct = me->GetHealthPct();
 	if (healthPct <= 50 && enemys.size() > 0 && GetManaPowerPer() > 50 && !me->HasAura(MageGuard_MagicShield) && TryCastSpell(MageGuard_MagicShield, me) == SpellCastResult::SPELL_CAST_OK)
 		return true;
@@ -397,7 +397,7 @@ bool BotMageAI::ProcessArcaneFlee()
 
 bool BotMageAI::ProcessFireFlee()
 {
-	NearUnitVec& enemys = RangeEnemyListByTargetIsMe(8.0f);
+	NearUnitVec enemys = RangeEnemyListByTargetIsMe(8.0f);
 	float healthPct = me->GetHealthPct();
 	if (healthPct <= 50 && enemys.size() > 0 && GetManaPowerPer() > 50 && !me->HasAura(MageGuard_MagicShield) && TryCastSpell(MageGuard_MagicShield, me) == SpellCastResult::SPELL_CAST_OK)
 		return true;
@@ -411,7 +411,7 @@ bool BotMageAI::ProcessFireFlee()
 			return true;
 		if (me->InArena())
 		{
-			NearUnitVec& nearEnemys = RangeEnemyListByHasAura(0, BOTAI_RANGESPELL_DISTANCE);
+			NearUnitVec nearEnemys = RangeEnemyListByHasAura(0, BOTAI_RANGESPELL_DISTANCE);
 			for (Unit* pUnit : nearEnemys)
 			{
 				if (HasAuraMechanic(pUnit, Mechanics::MECHANIC_POLYMORPH))
@@ -427,7 +427,7 @@ bool BotMageAI::ProcessFireFlee()
 
 bool BotMageAI::ProcessFrostFlee()
 {
-	NearUnitVec& enemys = RangeEnemyListByTargetIsMe(8.0f);
+	NearUnitVec enemys = RangeEnemyListByTargetIsMe(8.0f);
 	float healthPct = me->GetHealthPct();
 	if (MageGuard_FrostShield)
 	{
@@ -552,7 +552,7 @@ void BotMageAI::ProcessFireRangeSpell(Unit* pTarget)
 		return;
 	if (me->InArena())
 	{
-		NearUnitVec& nearEnemys = RangeEnemyListByHasAura(0, BOTAI_RANGESPELL_DISTANCE);
+		NearUnitVec nearEnemys = RangeEnemyListByHasAura(0, BOTAI_RANGESPELL_DISTANCE);
 		for (Unit* pUnit : nearEnemys)
 		{
 			if (HasAuraMechanic(pUnit, Mechanics::MECHANIC_POLYMORPH))
@@ -631,7 +631,7 @@ bool BotMageAI::ProcessPolymorph(Unit* pTarget)
 {
 	if (!pTarget || m_NeedReserveCtrlSpell)
 		return false;
-	NearUnitVec& enemys = RangeEnemyListByHasAura(0, BOTAI_SEARCH_RANGE);
+	NearUnitVec enemys = RangeEnemyListByHasAura(0, BOTAI_SEARCH_RANGE);
 	for (Unit* pUnit : enemys)
 	{
 		if (pUnit == pTarget)
@@ -662,7 +662,7 @@ bool BotMageAI::ProcessFreezeSpell(Unit* pTarget)
 	}
 	if (!me->InArena())
 		return false;
-	NearUnitVec& enemys = RangeEnemyListByHasAura(0, BOTAI_SEARCH_RANGE);
+	NearUnitVec enemys = RangeEnemyListByHasAura(0, BOTAI_SEARCH_RANGE);
 	for (Unit* pUnit : enemys)
 	{
 		if (pUnit == pTarget)
@@ -682,7 +682,7 @@ bool BotMageAI::ProcessFreezeSpell(Unit* pTarget)
 
 void BotMageAI::OnCastTeleport()
 {
-	Position& telePos = GetTeleportSpellPos();
+	Position telePos = GetTeleportSpellPos();
 	me->GetMotionMaster()->Clear();
 	m_Movement->ClearMovement();
 	SetTeleport(telePos);
@@ -822,7 +822,7 @@ bool BotMageAI::TryStartControlCommand()
 		m_CruxControlTarget = ObjectGuid::Empty;
 		return false;
 	}
-	NearUnitVec& friends = SearchFriend();
+	NearUnitVec friends = SearchFriend();
 	for (Unit* pUnit : friends)
 	{
 		Player* pPlayer = pUnit->ToPlayer();
@@ -902,7 +902,7 @@ Position BotMageAI::GetTeleportSpellPos()
 	std::list<Position> allPosition;
 	for (float angle = 0.0f; angle < (float(M_PI) * 2.0f); angle += onceAngle)
 	{
-		Position& pos = me->GetFirstCollisionPosition(BOTAI_RANGESPELL_DISTANCE, angle);
+		Position pos = me->GetFirstCollisionPosition(BOTAI_RANGESPELL_DISTANCE, angle);
 		pos.m_positionZ = me->GetMap()->GetHeight(me->GetPhaseMask(), pos.GetPositionX(), pos.GetPositionY(), pos.GetPositionZ());
 		allPosition.push_back(pos);
 	}

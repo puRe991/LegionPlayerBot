@@ -19,6 +19,8 @@
 #ifndef TRINITY_FORMULAS_H
 #define TRINITY_FORMULAS_H
 
+#include "Define.h"
+
 #include "GameTables.h"
 #include "ObjectMgr.h"
 #include "ScriptMgr.h"

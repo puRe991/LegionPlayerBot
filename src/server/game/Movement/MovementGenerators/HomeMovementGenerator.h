@@ -19,6 +19,8 @@
 #ifndef TRINITY_HOMEMOVEMENTGENERATOR_H
 #define TRINITY_HOMEMOVEMENTGENERATOR_H
 
+#include "Define.h"
+
 #include "MovementGenerator.h"
 
 class Creature;

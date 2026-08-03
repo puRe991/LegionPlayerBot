@@ -285,7 +285,7 @@ void DuelRogueAI::OnCastSneak()
 void DuelRogueAI::OnCastFlash(Unit* pTarget)
 {
 	me->GetMotionMaster()->Clear();
-	Position& pos = pTarget->GetPosition();
+	Position pos = pTarget->GetPosition();
 	me->TeleportTo(me->GetMapId(), pos.GetPositionX(), pos.GetPositionY(), pos.GetPositionZ(), me->GetOrientation());
 	WorldSession* pSession = me->GetSession();
     WorldPacket opcode2(CMSG_MOVE_TELEPORT_ACK);

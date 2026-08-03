@@ -18,6 +18,12 @@
 #ifndef _LFG_H
 #define _LFG_H
 
+#include "ObjectGuid.h"
+
+#include <map>
+#include <set>
+#include <string>
+
 #include "Common.h"
 
 namespace lfg

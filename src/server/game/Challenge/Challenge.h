@@ -18,6 +18,11 @@
 #ifndef TRINITY_CHALLENGE_H
 #define TRINITY_CHALLENGE_H
 
+#include "ObjectGuid.h"
+
+#include <array>
+#include <map>
+
 #include "Common.h"
 #include "Scenario.h"
 #include "InstanceScript.h"

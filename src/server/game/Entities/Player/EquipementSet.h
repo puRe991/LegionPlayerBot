@@ -2,6 +2,8 @@
 #ifndef EquipementSet_h__
 #define EquipementSet_h__
 
+#include <string>
+
 #include "Define.h"
 #include "ObjectGuid.h"
 #include <array>

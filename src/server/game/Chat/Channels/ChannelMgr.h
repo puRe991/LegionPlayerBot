@@ -18,6 +18,9 @@
 #ifndef __TRINITY_CHANNELMGR_H
 #define __TRINITY_CHANNELMGR_H
 
+#include <map>
+#include <string>
+
 #include "Common.h"
 #include "Channel.h"
 

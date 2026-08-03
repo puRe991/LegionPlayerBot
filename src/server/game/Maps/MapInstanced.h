@@ -19,6 +19,10 @@
 #ifndef TRINITY_MAP_INSTANCED_H
 #define TRINITY_MAP_INSTANCED_H
 
+#include "Define.h"
+#include <map>
+#include <unordered_map>
+
 #include "Map.h"
 #include "InstanceSaveMgr.h"
 #include "DBCEnums.h"

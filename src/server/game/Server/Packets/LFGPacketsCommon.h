@@ -18,6 +18,8 @@
 #ifndef LFGPacketsCommon_h__
 #define LFGPacketsCommon_h__
 
+#include "Define.h"
+
 #include "Packet.h"
 #include "ObjectGuid.h"
 

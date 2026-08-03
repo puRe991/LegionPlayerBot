@@ -5,6 +5,10 @@
 #ifndef SC_FOLLOWERAI_H
 #define SC_FOLLOWERAI_H
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+
 #include "ScriptSystem.h"
 
 enum eFollowState

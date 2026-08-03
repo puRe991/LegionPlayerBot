@@ -18,6 +18,8 @@
 #ifndef ToyPackets_h__
 #define ToyPackets_h__
 
+#include "Define.h"
+
 #include "Packet.h"
 #include "ObjectGuid.h"
 #include "SpellPackets.h"

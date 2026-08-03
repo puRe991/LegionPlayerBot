@@ -1,6 +1,7 @@
 
 #include "BrawlBattlegroundSouthshoreVsTarrenMill.h"
 #include "BattlegroundPackets.h"
+#include "Player.h"
 
 
 static uint8 const MaxRank = 16;

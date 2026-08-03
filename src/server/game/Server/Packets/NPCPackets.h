@@ -18,6 +18,13 @@
 #ifndef NPCPackets_h__
 #define NPCPackets_h__
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <list>
+#include <string>
+#include <vector>
+
 #include "Packet.h"
 #include "ItemPackets.h"
 #include "Creature.h"

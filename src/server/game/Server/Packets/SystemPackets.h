@@ -18,6 +18,10 @@
 #ifndef SystemPackets_h__
 #define SystemPackets_h__
 
+#include "Define.h"
+#include <string>
+#include <vector>
+
 #include "Packet.h"
 
 namespace WorldPackets

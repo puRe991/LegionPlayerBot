@@ -18,6 +18,10 @@
 #ifndef AuctionHousePackets_h__
 #define AuctionHousePackets_h__
 
+#include "Define.h"
+#include <string>
+#include <vector>
+
 #include "Packet.h"
 #include "ObjectGuid.h"
 #include "ItemPackets.h"

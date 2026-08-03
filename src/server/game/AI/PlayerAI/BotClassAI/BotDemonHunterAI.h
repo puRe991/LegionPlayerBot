@@ -2,6 +2,8 @@
 #ifndef _BOT_DEMONHUNTER_AI_H_
 #define _BOT_DEMONHUNTER_AI_H_
 
+#include "Define.h"
+
 #include "ScriptSystem.h"
 #include "BotAI.h"
 #include "AIWaypointsMgr.h"

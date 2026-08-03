@@ -27,7 +27,11 @@
 #include "SpellPackets.h"
 #include "PlayerDefines.h"
 #include "CharmInfo.h"
+#ifdef _MSC_VER
 #include <corecrt_math_defines.h>
+#else
+#include <cmath>
+#endif
 
 //#define THREAD_PATHFINDING
 #ifdef _DEBUG
@@ -526,7 +530,7 @@ void BotBGAI::ProcessHealth()
 	}
 	//Dismount();
 	float searchDist = (me->InArena()) ? (BOTAI_SEARCH_RANGE * 3) : (BOTAI_SEARCH_RANGE * 1.5);
-	NearUnitVec& needHealth = SearchNeedHealth(searchDist);
+	NearUnitVec needHealth = SearchNeedHealth(searchDist);
 	if (needHealth.empty())
 	{
 		ProcessCombat(me->GetSelectedUnit());
@@ -686,7 +690,7 @@ void BotBGAI::ChaseTarget(Unit* pTarget, bool isMelee, float range)
 	{
 		if (me->IsStopped())
 		{
-			Position& targetPos = pTarget->GetPosition();
+			Position targetPos = pTarget->GetPosition();
 			float rndOffset = frand(-float(M_PI_4) * 0.75f, float(M_PI_4) * 0.75f);
 			Position pos;
 			me->GetFirstCollisionPosition(pos, me->GetDistance(targetPos) + range, me->GetRelativeAngle(&targetPos) + rndOffset);
@@ -806,7 +810,7 @@ Unit* BotBGAI::SearchEnemy(float range)
 NearObjectList BotBGAI::SearchGameObject(float range)
 {
 	std::list<GameObject*> results;
-	Position& pos = me->GetPosition();
+	Position pos = me->GetPosition();
 	Trinity::GameObjectInRangeCheck checker(pos.GetPositionX(), pos.GetPositionY(), pos.GetPositionZ(), range);
 	Trinity::GameObjectListSearcher<Trinity::GameObjectInRangeCheck> searcher(me, results, checker);
 	me->VisitNearbyGridObject(range, searcher);
@@ -1026,8 +1030,8 @@ bool BotBGAI::NeedDireFlee()
 		return false;
 	if (me->GetHealthPct() < 20 && RangeEnemyListByTargetIsMe(BOTAI_SEARCH_RANGE * 0.6f).size() > 0)
 		return true;
-	NearPlayerVec& rangeFriends = ExistFriendAttacker(BOTAI_SEARCH_RANGE * 0.6f);
-	NearUnitVec& rangeEnemys = RangeEnemyListByHasAura(0, BOTAI_SEARCH_RANGE * 0.6f);
+	NearPlayerVec rangeFriends = ExistFriendAttacker(BOTAI_SEARCH_RANGE * 0.6f);
+	NearUnitVec rangeEnemys = RangeEnemyListByHasAura(0, BOTAI_SEARCH_RANGE * 0.6f);
 	int32 enemyCount = int32(rangeEnemys.size());
 	int32 friendCount = int32(rangeFriends.size());
 	float gap = (float)(enemyCount - friendCount);
@@ -1043,10 +1047,10 @@ bool BotBGAI::DoDireFlee()
 {
 	if (IsNotMovement())
 		return false;
-	NearUnitVec& enemys = RangeEnemyListByHasAura(0, BOTAI_SEARCH_RANGE * 0.6f);
+	NearUnitVec enemys = RangeEnemyListByHasAura(0, BOTAI_SEARCH_RANGE * 0.6f);
 	if (enemys.empty())
 		return false;
-	NearPlayerVec& friends = SearchFarFriend(BOTAI_SEARCH_RANGE * 0.8f, BOTAI_SEARCH_RANGE * 1.4f, true);
+	NearPlayerVec friends = SearchFarFriend(BOTAI_SEARCH_RANGE * 0.8f, BOTAI_SEARCH_RANGE * 1.4f, true);
 	if (friends.empty())
 		return false;
 	Unit* nearFriend = NULL;
@@ -1871,7 +1875,7 @@ bool BotBGAI::TryUpMount()
 		return false;
 	if (me->HasUnitState(UNIT_STATE_CASTING))
 		return false;
-	ObjectGuid& tarGUID = m_Movement->GetTargetObjectID();
+	ObjectGuid tarGUID = m_Movement->GetTargetObjectID();
 	if (!tarGUID.IsEmpty() && tarGUID.IsGameObject())
 	{
 		if (GameObject* pObject = me->GetMap()->GetGameObject(tarGUID))
@@ -2054,7 +2058,7 @@ void BotBGAI::FleeMovement()
 	//}
 	if (/*me->IsStopped() && */!IsNotMovement())
 	{
-		NearUnitVec& enemys = RangeEnemyListByTargetIsMe(NEEDFLEE_CHECKRANGE);
+		NearUnitVec enemys = RangeEnemyListByTargetIsMe(NEEDFLEE_CHECKRANGE);
 		Unit* selectEnemy = NULL;
 		if (enemys.empty())
 		{

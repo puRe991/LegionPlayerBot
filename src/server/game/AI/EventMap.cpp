@@ -17,6 +17,7 @@
  */
 
 #include "EventMap.h"
+#include "Util.h"
 
 EventMap::EventMap() : _time(0), _phase(0) { }
 

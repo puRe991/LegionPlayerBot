@@ -13,7 +13,11 @@
 #include "PartyPackets.h"
 #include "MiscPackets.h"
 #include "CharmInfo.h"
+#ifdef _MSC_VER
 #include <corecrt_math_defines.h>
+#else
+#include <cmath>
+#endif
 
 BotFieldAI* BotFieldAI::debugFieldAI = NULL;
 
@@ -440,7 +444,7 @@ Unit* BotFieldAI::GetCombatTarget(float range)
 		{
 			if (hasPlayerEnemy)
 			{
-				ObjectGuid& guid = pCreature->GetTargetGUID();
+				ObjectGuid guid = pCreature->GetTargetGUID();
 				if (guid == ObjectGuid::Empty)
 					continue;
 				if (guid != me->GetGUID())
@@ -760,7 +764,7 @@ void BotFieldAI::FleeMovement()
 {
 	if (/*me->IsStopped() && */!IsNotMovement())
 	{
-		NearUnitVec& enemys = RangeEnemyListByTargetIsMe(NEEDFLEE_CHECKRANGE);
+		NearUnitVec enemys = RangeEnemyListByTargetIsMe(NEEDFLEE_CHECKRANGE);
 		Unit* selectEnemy = NULL;
 		if (enemys.empty())
 		{
@@ -796,7 +800,7 @@ void BotFieldAI::ProcessHealth()
 {
 	if (me->HasUnitState(UNIT_STATE_CASTING))
 		return;
-	NearUnitVec& needHealth = SearchNeedHealth(BOTAI_SEARCH_RANGE * 1.5);
+	NearUnitVec needHealth = SearchNeedHealth(BOTAI_SEARCH_RANGE * 1.5);
 	if (needHealth.empty())
 	{
 		ProcessCombat(me->GetSelectedUnit());
@@ -945,9 +949,9 @@ void BotFieldAI::ChaseTarget(Unit* pTarget, bool isMelee, float range)
 	{
 		if (me->IsStopped())
 		{
-			Position& targetPos = pTarget->GetPosition();
+			Position targetPos = pTarget->GetPosition();
 			float rndOffset = frand(-float(M_PI_4) * 0.75f, float(M_PI_4) * 0.75f);
-			Position& pos = me->GetFirstCollisionPosition(me->GetDistance(targetPos) + range, me->GetRelativeAngle(&targetPos) + rndOffset);
+			Position pos = me->GetFirstCollisionPosition(me->GetDistance(targetPos) + range, me->GetRelativeAngle(&targetPos) + rndOffset);
 			m_Movement->MovementTo(pos.GetPositionX(), pos.GetPositionY(), pos.GetPositionZ());
 			//me->GetMotionMaster()->MovePoint(0, pos.GetPositionX(), pos.GetPositionY(), pos.GetPositionZ());
 		}
@@ -995,7 +999,7 @@ void BotFieldAI::SearchCreatureListFromRange(Unit* center, NearCreatureVec& near
 		}
 		else if (!selfFaction)
 		{
-			ObjectGuid& targetGUID = pCreature->GetTargetGUID();
+			ObjectGuid targetGUID = pCreature->GetTargetGUID();
 			if (targetGUID != ObjectGuid::Empty)
 				nearCreatures.push_back(pCreature);
 		}

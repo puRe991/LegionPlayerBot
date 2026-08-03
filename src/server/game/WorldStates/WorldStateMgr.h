@@ -2,6 +2,8 @@
 #ifndef WORLD_STATE_MGR_H
 #define WORLD_STATE_MGR_H
 
+#include <vector>
+
 #include "Common.h"
 #include "WorldState.h"
 

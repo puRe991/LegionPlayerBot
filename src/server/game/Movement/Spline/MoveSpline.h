@@ -19,6 +19,11 @@
 #ifndef TRINITYSERVER_MOVEPLINE_H
 #define TRINITYSERVER_MOVEPLINE_H
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <string>
+
 #include "Spline.h"
 #include "MoveSplineInitArgs.h"
 #include "MoveSplineInit.h"

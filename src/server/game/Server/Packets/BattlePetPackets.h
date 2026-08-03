@@ -18,6 +18,15 @@
 #ifndef BattlePetPacketsWorld_h__
 #define BattlePetPacketsWorld_h__
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <array>
+#include <list>
+#include <string>
+#include <unordered_map>
+#include <vector>
+
 #include "Packet.h"
 #include "LFGPacketsCommon.h"
 

@@ -2,6 +2,8 @@
 #ifndef _BOT_AI_SPELLS_H_
 #define _BOT_AI_SPELLS_H_
 
+#include "Define.h"
+
 #include "ScriptSystem.h"
 #include "BotAITool.h"
 

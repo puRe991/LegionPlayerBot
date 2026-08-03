@@ -124,7 +124,7 @@ void GroupHunterAI::ProcessFlee()
 	FleeMovement();
 
 	Unit* pSelectTarget = me->GetSelectedUnit();
-	NearUnitVec& enemys = RangeEnemyListByTargetIsMe(NEEDFLEE_CHECKRANGE);
+	NearUnitVec enemys = RangeEnemyListByTargetIsMe(NEEDFLEE_CHECKRANGE);
 	if (enemys.empty())
 		return;
 	if (!pSelectTarget && !enemys.empty())
@@ -281,7 +281,7 @@ void GroupHunterAI::ProcessMeleeSpell(Unit* pTarget)
 
 	uint32 minLifePct = 100;
 	Unit* pMinUnit = NULL;
-	NearUnitVec& enemys = RangeEnemyListByHasAura(0, BOTAI_RANGESPELL_DISTANCE);
+	NearUnitVec enemys = RangeEnemyListByHasAura(0, BOTAI_RANGESPELL_DISTANCE);
 	for (Unit* pUnit : enemys)
 	{
 		if (pUnit == pTarget || TargetIsSuppress(pUnit))
@@ -314,7 +314,7 @@ void GroupHunterAI::ProcessRangeSpell(Unit* pTarget)
 	if (ProcessAura(false))
 		return;
 
-	NearUnitVec& selMeEnemys = RangeEnemyListByTargetIsMe(BOTAI_RANGESPELL_DISTANCE);
+	NearUnitVec selMeEnemys = RangeEnemyListByTargetIsMe(BOTAI_RANGESPELL_DISTANCE);
 	if (selMeEnemys.size() > 0)
 	{
 		if (selMeEnemys.size() > 1 && TryCastSpell(HunterAssist_FalseDead, me) == SpellCastResult::SPELL_CAST_OK)
@@ -346,7 +346,7 @@ void GroupHunterAI::ProcessRangeSpell(Unit* pTarget)
 	uint32 minLifePct = 100;
 	Unit* pMinUnit = NULL;
 	Unit* pMeleeUnit = NULL;
-	NearUnitVec& enemys = RangeEnemyListByHasAura(0, BOTAI_RANGESPELL_DISTANCE);
+	NearUnitVec enemys = RangeEnemyListByHasAura(0, BOTAI_RANGESPELL_DISTANCE);
 	for (Unit* pUnit : enemys)
 	{
 		if (pUnit == pTarget || TargetIsSuppress(pUnit))
@@ -408,7 +408,7 @@ bool GroupHunterAI::CastRangeSpell(Unit* pTarget)
 		return false;
 	if (me->GetDistance(pTarget->GetPosition()) <= 9)
 		return false;
-	NearUnitVec& targetRanges = RangeEnemyListByTargetRange(pTarget, NEEDFLEE_CHECKRANGE);
+	NearUnitVec targetRanges = RangeEnemyListByTargetRange(pTarget, NEEDFLEE_CHECKRANGE);
 	if (targetRanges.size() > 3)
 	{
 		if (HunterShot_MulShot && TryCastSpell(HunterShot_MulShot, pTarget) == SpellCastResult::SPELL_CAST_OK)

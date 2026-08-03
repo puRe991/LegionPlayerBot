@@ -18,6 +18,9 @@
 #ifndef TalentPackets_h__
 #define TalentPackets_h__
 
+#include "Define.h"
+#include <vector>
+
 #include "Packet.h"
 
 namespace WorldPackets

@@ -19,6 +19,12 @@
 #ifndef CONVERSATIONOBJECT_H
 #define CONVERSATIONOBJECT_H
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <map>
+#include <set>
+
 #include "Object.h"
 #include "GridObject.h"
 

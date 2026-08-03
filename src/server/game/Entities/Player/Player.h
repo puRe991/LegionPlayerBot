@@ -18,6 +18,22 @@
 
 #ifndef _PLAYER_H
 #define _PLAYER_H
+#include "Position.h"
+
+#include "ObjectGuid.h"
+
+#include <array>
+#include <atomic>
+#include <deque>
+#include <functional>
+#include <list>
+#include <map>
+#include <set>
+#include <string>
+#include <unordered_map>
+#include <unordered_set>
+#include <vector>
+#include <memory>
 
 #include "AchievementMgr.h"
 #include "Bag.h"

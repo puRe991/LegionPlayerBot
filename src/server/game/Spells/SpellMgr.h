@@ -19,6 +19,13 @@
 #ifndef _SPELLMGR_H
 #define _SPELLMGR_H
 
+#include <list>
+#include <map>
+#include <set>
+#include <string>
+#include <unordered_map>
+#include <vector>
+
 // For static or at-server-startup loaded spell data
 
 #include "Common.h"

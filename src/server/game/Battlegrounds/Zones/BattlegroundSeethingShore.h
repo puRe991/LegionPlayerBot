@@ -2,6 +2,14 @@
 #ifndef __BATTLEGROUNDSS_H
 #define __BATTLEGROUNDSS_H
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <array>
+#include <list>
+#include <unordered_map>
+#include <vector>
+
 #include "Battleground.h"
 
 struct BattlegoundSeethingShoreScore final : BattlegroundScore

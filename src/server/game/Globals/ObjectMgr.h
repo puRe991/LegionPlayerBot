@@ -18,6 +18,18 @@
 
 #ifndef _OBJECTMGR_H
 #define _OBJECTMGR_H
+#include "Position.h"
+
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <atomic>
+#include <list>
+#include <map>
+#include <set>
+#include <string>
+#include <unordered_map>
+#include <vector>
 
 #include "Conversation.h"
 #include "Log.h"

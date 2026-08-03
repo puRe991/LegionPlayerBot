@@ -19,6 +19,11 @@
 #ifndef __TRINITY_VEHICLE_H
 #define __TRINITY_VEHICLE_H
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <list>
+
 #include "ObjectDefines.h"
 #include "VehicleDefines.h"
 #include "Unit.h"

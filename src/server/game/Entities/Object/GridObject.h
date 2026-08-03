@@ -1,6 +1,10 @@
 #ifndef GridObject_h__
 #define GridObject_h__
 
+#include <cstddef>
+#include <utility>
+#include <vector>
+
 template <typename ObjectType>
 class GridObject
 {

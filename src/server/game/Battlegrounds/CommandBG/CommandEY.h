@@ -2,6 +2,10 @@
 #ifndef _COMMAND_EY_H_
 #define _COMMAND_EY_H_
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+
 #include "CommandBG.h"
 #include "BattlegroundEyeOfTheStorm.h"
 

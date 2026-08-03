@@ -2,6 +2,14 @@
 #ifndef __PLAYERBOTMGR_H__
 #define __PLAYERBOTMGR_H__
 
+#include "ObjectGuid.h"
+
+#include <list>
+#include <map>
+#include <set>
+#include <string>
+#include <vector>
+
 //#include <chrono>
 
 #include "Log.h"

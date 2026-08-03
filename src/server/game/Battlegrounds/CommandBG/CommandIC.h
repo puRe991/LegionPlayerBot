@@ -2,6 +2,10 @@
 #ifndef _COMMAND_IC_H_
 #define _COMMAND_IC_H_
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+
 #include "CommandBG.h"
 #include "BattlegroundIsleOfConquest.h"
 

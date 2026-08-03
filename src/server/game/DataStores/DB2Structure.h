@@ -18,6 +18,11 @@
 #ifndef TRINITY_DB2STRUCTURE_H
 #define TRINITY_DB2STRUCTURE_H
 
+#include <array>
+#include <map>
+#include <set>
+#include <vector>
+
 #include "Common.h"
 #include "DBCEnums.h"
 #include "Util.h"

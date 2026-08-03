@@ -12,7 +12,13 @@
 #include <cds/container/feldman_hashset_hp.h>
 #include <cds/container/iterable_list_hp.h>
 
-class ObjectGuid;
+// The std::hash<ObjectGuid> specialisation lives in ObjectGuid.h. A forward
+// declaration is not enough here: the static hash objects further down are
+// instantiated at namespace scope, and without the specialisation in scope
+// that picks the deleted primary template. This header is only ever pulled in
+// from src/server/game, so the include resolves.
+#include "ObjectGuid.h"
+
 class WorldObject;
 class Item;
 class Transport;

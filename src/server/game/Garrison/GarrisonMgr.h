@@ -18,6 +18,14 @@
 #ifndef GarrisonMgr_h__
 #define GarrisonMgr_h__
 
+#include "Define.h"
+#include <list>
+#include <map>
+#include <set>
+#include <unordered_map>
+#include <unordered_set>
+#include <vector>
+
 #include "DB2Stores.h"
 
 struct randShipment

@@ -5,6 +5,11 @@
 #ifndef SC_ESCORTAI_H
 #define SC_ESCORTAI_H
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <list>
+
 #include "ScriptMgr.h"
 #include "ScriptedCreature.h"
 

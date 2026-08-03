@@ -19,6 +19,8 @@
 #ifndef TRINITY_RANDOMMOTIONGENERATOR_H
 #define TRINITY_RANDOMMOTIONGENERATOR_H
 
+#include "Define.h"
+
 #include "MovementGenerator.h"
 
 template<class T>

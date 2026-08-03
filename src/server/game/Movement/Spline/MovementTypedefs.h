@@ -19,6 +19,8 @@
 #ifndef TRINITYSERVER_TYPEDEFS_H
 #define TRINITYSERVER_TYPEDEFS_H
 
+#include <string>
+
 #include "Common.h"
 
 enum MonsterMoveType

@@ -19,6 +19,13 @@
 #ifndef EVENTOBJECTOBJECT_H
 #define EVENTOBJECTOBJECT_H
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <set>
+#include <string>
+#include <unordered_map>
+
 #include "Object.h"
 #include "GridObject.h"
 

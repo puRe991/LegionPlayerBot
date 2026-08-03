@@ -19,6 +19,8 @@
 #ifndef TRINITY_CELLIMPL_H
 #define TRINITY_CELLIMPL_H
 
+#include "Define.h"
+
 #include "Cell.h"
 #include "Map.h"
 #include "Object.h"

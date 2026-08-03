@@ -18,6 +18,13 @@
 #ifndef OUTDOOR_PVP_MGR_H_
 #define OUTDOOR_PVP_MGR_H_
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <map>
+#include <set>
+#include <vector>
+
 #define OUTDOORPVP_OBJECTIVE_UPDATE_INTERVAL 1000
 
 #include "OutdoorPvP.h"

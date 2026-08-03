@@ -18,6 +18,11 @@
 #ifndef AuthenticationPacketsWorld_h__
 #define AuthenticationPacketsWorld_h__
 
+#include <array>
+#include <string>
+#include <unordered_map>
+#include <vector>
+
 #include "Packet.h"
 #include "Define.h"
 

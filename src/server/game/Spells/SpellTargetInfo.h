@@ -18,6 +18,14 @@
 
 #ifndef _SpellTargetInfoH
 #define _SpellTargetInfoH
+#include "Position.h"
+
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <string>
+#include <vector>
+#include <memory>
 
 #include "SharedDefines.h"
 #include "ObjectMgr.h"

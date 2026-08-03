@@ -19,6 +19,12 @@
 #ifndef __TRINITY_VEHICLEDEFINES_H
 #define __TRINITY_VEHICLEDEFINES_H
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <map>
+#include <vector>
+
 struct VehicleSeatEntry;
 
 enum VehicleFlags

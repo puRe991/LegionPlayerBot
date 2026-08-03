@@ -18,6 +18,13 @@
 
 #ifndef __SPELL_H
 #define __SPELL_H
+#include "Position.h"
+
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <list>
+#include <vector>
 
 #include "GridDefines.h"
 #include "SharedDefines.h"

@@ -1,12 +1,14 @@
+#ifdef _MSC_VER
 #pragma execution_character_set("utf-8")
+#endif
 #include "_Bot.h"
 #include "Player.h"
 #include "Config.h"
-#include "..\..\src\server\game\Globals\ObjectAccessor.h"
+#include "ObjectAccessor.h"
 #include "LoginQueryHolder.h"
 #include "DatabaseEnv.h"
-#include "..\..\src\server\game\Server\WorldSession.h"
-#include "..\..\src\server\game\Maps\MapManager.h"
+#include "WorldSession.h"
+#include "MapManager.h"
 #include "ScriptMgr.h"
 #include "Chat.h"
 #include "CustomTalkMenu.h"

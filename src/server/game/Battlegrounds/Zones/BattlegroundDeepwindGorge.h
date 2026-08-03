@@ -19,6 +19,11 @@
 #ifndef __BATTLEGROUNDDG_H
 #define __BATTLEGROUNDDG_H
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <vector>
+
 #define BG_DG_MAX_TEAM_SCORE 1500
 
 enum BG_DG_ObjectTypes

@@ -1,5 +1,12 @@
 #pragma once
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <list>
+#include <map>
+#include <string>
+
 #include "LFGList.h"
 
 class LFGListMgr

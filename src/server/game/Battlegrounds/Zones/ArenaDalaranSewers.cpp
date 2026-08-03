@@ -213,7 +213,7 @@ void ArenaDalaranSewers::StartingEventOpenDoors()
                     telePoint = m_BLStartPoint;
                 if (telePoint)
                 {
-                    Position& telePos = telePoint->GetPosition();
+                    Position telePos = telePoint->GetPosition();
                     if (player->IsPlayerBot())
                     {
                         if (BotBGAI* pBotAI = dynamic_cast<BotBGAI*>(player->GetAI()))

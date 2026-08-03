@@ -18,6 +18,9 @@
 #ifndef PacketUtilities_h__
 #define PacketUtilities_h__
 
+#include "Define.h"
+#include <vector>
+
 #include "ByteBuffer.h"
 
 namespace WorldPackets

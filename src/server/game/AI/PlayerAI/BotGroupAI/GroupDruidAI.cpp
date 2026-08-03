@@ -199,7 +199,7 @@ bool GroupDruidAI::ProcessNormalSpell()
 		if (DruidGuard_Thorns && !me->HasAura(DruidGuard_Thorns) && TryCastSpell(DruidGuard_Thorns, me, true) == SpellCastResult::SPELL_CAST_OK)
 			return false;
 
-		NearUnitVec& needHealthPlayers = SearchNeedHealth(BOTAI_RANGESPELL_DISTANCE);
+		NearUnitVec needHealthPlayers = SearchNeedHealth(BOTAI_RANGESPELL_DISTANCE);
 		if (needHealthPlayers.empty())
 		{
 			SwitchStatus(0);
@@ -247,7 +247,7 @@ void GroupDruidAI::ProcessHealthSpell(Unit* pTarget)
 	ProcessCombatRevive();
 	if (ProcessActive())
 		return;
-	NearUnitVec& friends = SearchLifePctByFriendRange(pTarget, BOTAI_RANGESPELL_DISTANCE);
+	NearUnitVec friends = SearchLifePctByFriendRange(pTarget, BOTAI_RANGESPELL_DISTANCE);
 	if (friends.size() > 3)
 	{
 		if (DruidHeal_AOETranquility && TryCastSpell(DruidHeal_AOETranquility, me) == SpellCastResult::SPELL_CAST_OK)
@@ -475,7 +475,7 @@ bool GroupDruidAI::ProcessDispel()
 {
 	if (DruidAssist_DecCruse == 0 || !BotUtility::SpellHasReady(me, DruidAssist_DecCruse))
 		return false;
-	NearUnitVec& friends = SearchFriend(BOTAI_RANGESPELL_DISTANCE);
+	NearUnitVec friends = SearchFriend(BOTAI_RANGESPELL_DISTANCE);
 	if (friends.empty())
 		return false;
 	if (me->HasAura(DruidStatus_Tree) || me->HasAura(DruidStatus_Bear) || me->HasAura(DruidStatus_Cat) || me->HasAura(DruidStatus_Travel))
@@ -493,7 +493,7 @@ bool GroupDruidAI::ProcessCruel()
 {
 	if (DruidAssist_DecCruel == 0 || !BotUtility::SpellHasReady(me, DruidAssist_DecCruel))
 		return false;
-	NearUnitVec& friends = SearchFriend(BOTAI_RANGESPELL_DISTANCE);
+	NearUnitVec friends = SearchFriend(BOTAI_RANGESPELL_DISTANCE);
 	if (friends.empty())
 		return false;
 	if (me->HasAura(DruidStatus_Tree) || me->HasAura(DruidStatus_Bear) || me->HasAura(DruidStatus_Cat) || me->HasAura(DruidStatus_Travel))
@@ -537,13 +537,13 @@ void GroupDruidAI::ProcessBalanceCombat(Unit* pTarget)
 	if (!pTarget->HasAura(DruidAssist_PersonSpirit) && TryCastSpell(DruidAssist_PersonSpirit, pTarget) == SpellCastResult::SPELL_CAST_OK)
 		return;
 
-	NearUnitVec& rangeEnemy = RangeEnemyListByHasAura(0, BOTAI_RANGESPELL_DISTANCE);
+	NearUnitVec rangeEnemy = RangeEnemyListByHasAura(0, BOTAI_RANGESPELL_DISTANCE);
 	if (m_BotTalentType == 0 && DruidAOE_FallStar && rangeEnemy.size() > 3)
 	{
 		if (TryCastSpell(DruidAOE_FallStar, me) == SpellCastResult::SPELL_CAST_OK)
 			return;
 	}
-	NearUnitVec& targetRangeEnemy = RangeEnemyListByTargetRange(pTarget, NEEDFLEE_CHECKRANGE);
+	NearUnitVec targetRangeEnemy = RangeEnemyListByTargetRange(pTarget, NEEDFLEE_CHECKRANGE);
 	if (targetRangeEnemy.size() > 3 && m_BotTalentType != 2)
 	{
 		if (m_BotTalentType == 0 && DruidGuard_TreeMan && TryCastSpell(DruidGuard_TreeMan, me) == SpellCastResult::SPELL_CAST_OK)
@@ -593,7 +593,7 @@ void GroupDruidAI::ProcessCombatRevive()
 	Group* pGroup = me->GetGroup();
 	if (!pGroup)
 		return;
-	std::vector<ObjectGuid>& needPlayers = pGroup->GetGroupMemberFromNeedRevivePlayer(me->GetMapId());
+	std::vector<ObjectGuid> needPlayers = pGroup->GetGroupMemberFromNeedRevivePlayer(me->GetMapId());
 	if (needPlayers.empty())
 		return;
 	ObjectGuid& guid = needPlayers[urand(0, needPlayers.size() - 1)];
@@ -614,7 +614,7 @@ bool GroupDruidAI::ProcessActive()
 		if (TryCastSpell(DruidAssist_Active, me) == SpellCastResult::SPELL_CAST_OK)
 			return true;
 	}
-	NearUnitVec& friends = SearchFriend();
+	NearUnitVec friends = SearchFriend();
 	for (Unit* pUnit : friends)
 	{
 		uint8 cls = pUnit->getClass();
@@ -752,7 +752,7 @@ void GroupDruidAI::SwitchStatus(uint32 status)
 
 void GroupDruidAI::OnCastSneak()
 {
-	NearUnitVec& enemys = RangeEnemyListByTargetIsMe(BOTAI_SEARCH_RANGE);
+	NearUnitVec enemys = RangeEnemyListByTargetIsMe(BOTAI_SEARCH_RANGE);
 	for (Unit* player : enemys)
 	{
 		player->SetTarget(ObjectGuid::Empty);

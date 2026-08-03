@@ -19,7 +19,13 @@
 #ifndef QUEST_H
 #define QUEST_H
 
+#include "Define.h"
+#include <map>
+#include <string>
+#include <vector>
 
+
+#include "Common.h"
 #include "SharedDefines.h"
 #include "DatabaseEnvFwd.h"
 

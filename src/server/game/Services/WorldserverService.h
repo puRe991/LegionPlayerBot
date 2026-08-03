@@ -18,6 +18,11 @@
 #ifndef WorldserverService_h__
 #define WorldserverService_h__
 
+#include "Define.h"
+#include <functional>
+#include <string>
+#include <unordered_map>
+
 #include "WorldSession.h"
 #include "account_service.pb.h"
 #include "authentication_service.pb.h"

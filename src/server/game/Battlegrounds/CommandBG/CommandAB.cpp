@@ -167,7 +167,7 @@ void CommandAB::ProcessABNodeRequirement(uint32 abNode, AIWaypoint* waypoint, Pl
 	GameObject* pBGNode = m_pBattleground->GetBGObject(abNode * 8);
 	if (!pBGNode)
 		return;
-	PlayerGUIDs& nodeNearPlayers = GetABFlagRangePlayerByTeam(abNode, m_TeamID);
+	PlayerGUIDs nodeNearPlayers = GetABFlagRangePlayerByTeam(abNode, m_TeamID);
 	uint32 enemyCount = GetABFlagRangePlayerByTeam(abNode, (m_TeamID == TEAM_ALLIANCE) ? TEAM_HORDE : TEAM_ALLIANCE).size();
 	bool flagIsOvvupied = ABFlagIsOccupied(abNode, m_TeamID);
 	bool canStealFlag = (enemyCount == 0 && !flagIsOvvupied);
@@ -194,7 +194,7 @@ void CommandAB::ProcessABNodeRequirement(uint32 abNode, AIWaypoint* waypoint, Pl
 		uint64 minGUID = 0;
 		for (PlayerGUIDs::iterator itGuid = players.begin(); itGuid != players.end(); itGuid++)
 		{
-			Position& pos = GetPositionByGuid(*itGuid);
+			Position pos = GetPositionByGuid(*itGuid);
 			float posDis = pBGNode->GetDistance(pos);
 			if (minGUID == 0 || posDis < minDistance)
 			{

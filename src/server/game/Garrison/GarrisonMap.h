@@ -18,6 +18,10 @@
 #ifndef GarrisonMap_h__
 #define GarrisonMap_h__
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+
 #include "Map.h"
 
 class Garrison;

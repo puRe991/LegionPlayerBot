@@ -83,7 +83,7 @@ bool FieldShamanAI::ProcessNormalSpell()
 
 	if (me->HasAura(m_UseMountID))
 		return false;
-	NearUnitVec& needHealthPlayers = SearchNeedHealth(BOTAI_RANGESPELL_DISTANCE);
+	NearUnitVec needHealthPlayers = SearchNeedHealth(BOTAI_RANGESPELL_DISTANCE);
 	if (needHealthPlayers.empty())
 		return TryUpMount();
 	Unit* healthPlayer = needHealthPlayers[urand(0, needHealthPlayers.size() - 1)];
@@ -113,7 +113,7 @@ void FieldShamanAI::ProcessFlee()
 			return;
 	}
 
-	NearUnitVec& enemys = RangeEnemyListByTargetIsMe(NEEDFLEE_CHECKRANGE);
+	NearUnitVec enemys = RangeEnemyListByTargetIsMe(NEEDFLEE_CHECKRANGE);
 	if (enemys.size() > 0)
 	{
 		Unit* pRndPlayer = enemys[urand(0, enemys.size() - 1)];
@@ -318,7 +318,7 @@ void FieldShamanAI::ProcessRangeSpell(Unit* pTarget)
 
 bool FieldShamanAI::ProcessDispel()
 {
-	NearUnitVec& friends = SearchFriend(BOTAI_RANGESPELL_DISTANCE);
+	NearUnitVec friends = SearchFriend(BOTAI_RANGESPELL_DISTANCE);
 	if (friends.empty())
 		return false;
 	std::random_shuffle(friends.begin(), friends.end());
@@ -337,7 +337,7 @@ bool FieldShamanAI::ProcessHeroic()
 		//uint32 enemyCount = RangeEnemyListByHasAura(0, BOTAI_RANGESPELL_DISTANCE).size();
 		//if (enemyCount < 3)
 		//	return false;
-		NearUnitVec& friends = SearchFriend(BOTAI_RANGESPELL_DISTANCE);
+		NearUnitVec friends = SearchFriend(BOTAI_RANGESPELL_DISTANCE);
 		uint32 canHeroicCount = 0;
 		for (Unit* player : friends)
 		{

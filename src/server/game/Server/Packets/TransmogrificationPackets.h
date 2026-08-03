@@ -18,6 +18,11 @@
 #ifndef TransmogrificationPackets_h__
 #define TransmogrificationPackets_h__
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <vector>
+
 #include "Packet.h"
 
 namespace WorldPackets

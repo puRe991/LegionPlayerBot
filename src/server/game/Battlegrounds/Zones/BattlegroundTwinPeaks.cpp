@@ -22,6 +22,7 @@
 #include "Player.h"
 #include "World.h"
 #include "WorldStatePackets.h"
+#include "ObjectAccessor.h"
 
 void BattlegroundTPScore::UpdateScore(uint32 type, uint32 value)
 {

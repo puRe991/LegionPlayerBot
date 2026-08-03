@@ -19,6 +19,14 @@
 #ifndef ITEM_H
 #define ITEM_H
 
+#include "ObjectGuid.h"
+
+#include <array>
+#include <map>
+#include <string>
+#include <unordered_set>
+#include <vector>
+
 #include "Common.h"
 #include "Object.h"
 #include "LootMgr.h"

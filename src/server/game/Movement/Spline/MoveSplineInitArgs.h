@@ -19,6 +19,9 @@
 #ifndef TRINITYSERVER_MOVESPLINEINIT_ARGS_H
 #define TRINITYSERVER_MOVESPLINEINIT_ARGS_H
 
+#include "Define.h"
+#include <vector>
+
 #include "MoveSplineFlag.h"
 #include "ObjectGuid.h"
 

@@ -1,3 +1,4 @@
+#include "Player.h"
 #include "CommentatorPackets.h"
 #include "WorldSession.h"
 #include "DatabaseEnv.h"

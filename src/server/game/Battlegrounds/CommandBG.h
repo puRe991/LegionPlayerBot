@@ -2,6 +2,13 @@
 #ifndef _COMMANDBG_H_
 #define _COMMANDBG_H_
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <map>
+#include <set>
+#include <vector>
+
 #define COMMANDBG_UPDATE_TICK 5000
 #define COMMAND_POINT_IFDISTANCE 80
 

@@ -18,6 +18,11 @@
 #ifndef ScenePackets_h__
 #define ScenePackets_h__
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <string>
+
 #include "Packet.h"
 #include "BattlePetPackets.h"
 #include "AchievementPackets.h"

@@ -1,6 +1,11 @@
 #ifndef _BRACKETMGR_H
 #define _BRACKETMGR_H
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <map>
+
 #include "Bracket.h"
 #include "Player.h"
 

@@ -18,6 +18,10 @@
 #ifndef VehiclePackets_h__
 #define VehiclePackets_h__
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+
 #include "Packet.h"
 #include "MovementPackets.h"
 

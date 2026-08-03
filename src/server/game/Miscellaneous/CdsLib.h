@@ -19,6 +19,8 @@
 #ifndef TRINITY_CDSLIB_H
 #define TRINITY_CDSLIB_H
 
+#include "ObjectGuid.h"
+
 class ObjectGuid;
 
 #include "HashFuctor.h"

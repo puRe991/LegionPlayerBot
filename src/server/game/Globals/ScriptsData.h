@@ -1,5 +1,9 @@
 #pragma once
 
+#include <map>
+#include <set>
+#include <string>
+
 #include "Common.h"
 
 // DB scripting commands

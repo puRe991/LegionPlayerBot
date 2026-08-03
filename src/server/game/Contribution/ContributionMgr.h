@@ -3,6 +3,9 @@ Created by d7561985@gmail.com
 */
 #pragma once
 
+#include "Define.h"
+#include <map>
+
 #ifndef ContributionMgr_h__
 #define ContributionMgr_h__
 

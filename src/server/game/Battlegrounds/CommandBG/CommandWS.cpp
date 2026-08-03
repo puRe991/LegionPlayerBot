@@ -141,8 +141,8 @@ void CommandWS::RndStartCommand()
 void CommandWS::ProcessRegulation()
 {
 	InsureAttackAndDefance(7);
-	ObjectGuid& needGuaredTarget = EnemyBGFlagPicker();
-	ObjectGuid& needAttackTarget = SelfBGFlagPicker();
+	ObjectGuid needGuaredTarget = EnemyBGFlagPicker();
+	ObjectGuid needAttackTarget = SelfBGFlagPicker();
 	bool pickedFlagTarget = (needAttackTarget.IsEmpty()) ? true : false;
 
 	if (pickedFlagTarget)
@@ -266,7 +266,7 @@ void CommandWS::TryCaptureFlag(uint64 guid)
 
 void CommandWS::ProcessAllPicked() // Ë«·½Æì×ÓÒªÃ´ÔÚÍâµØÒªÃ´¶¼ÔÚ¼Ò
 {
-	ObjectGuid& defanceTarget = GetBGFlagFromSelf();
+	ObjectGuid defanceTarget = GetBGFlagFromSelf();
 	AIWaypoint* defancePoint = (defanceTarget.IsEmpty()) ? m_BGKeyWaypoints[AIWP_SELF_FLAG] : NULL;
 	Position defanceTargetPos;
 	if (defancePoint)
@@ -280,7 +280,7 @@ void CommandWS::ProcessAllPicked() // Ë«·½Æì×ÓÒªÃ´ÔÚÍâµØÒªÃ´¶¼ÔÚ¼Ò
 		defanceTargetPos = GetPositionByGuid(defanceTarget.GetGUIDLow());
 	}
 
-	ObjectGuid& attackTarget = GetBGFlagFromEnemy();
+	ObjectGuid attackTarget = GetBGFlagFromEnemy();
 	AIWaypoint* attackPoint = (attackTarget.IsEmpty()) ? m_BGKeyWaypoints[AIWP_ENEMY_FLAG] : NULL;
 	Position attackTargetPos;
 	if (attackPoint)
@@ -351,7 +351,7 @@ void CommandWS::ProcessAllPicked() // Ë«·½Æì×ÓÒªÃ´ÔÚÍâµØÒªÃ´¶¼ÔÚ¼Ò
 
 void CommandWS::ProcessAllGuared(ObjectGuid guaredGuid) // µÐÈËÆì×Ó±»ÄÃµ½ÁË£¬×Ô¼ÒÆì×ÓÔÚ¼Ò»òÍâµØ
 {
-	ObjectGuid& defanceTarget = GetBGFlagFromSelf();
+	ObjectGuid defanceTarget = GetBGFlagFromSelf();
 	AIWaypoint* defancePoint = (defanceTarget.IsEmpty()) ? m_BGKeyWaypoints[AIWP_SELF_FLAG] : NULL;
 	Position defanceTargetPos;
 	if (defancePoint)
@@ -409,7 +409,7 @@ void CommandWS::ProcessAllGuared(ObjectGuid guaredGuid) // µÐÈËÆì×Ó±»ÄÃµ½ÁË£¬×Ô¼
 
 void CommandWS::ProcessAllAttack(ObjectGuid attackGuid) // ×Ô¼ÒÆì×Ó±»ÇÀ£¬µÐÈËÆì×ÓÔÚ¼Ò»òÍâµØ
 {
-	ObjectGuid& attackTarget = GetBGFlagFromEnemy();
+	ObjectGuid attackTarget = GetBGFlagFromEnemy();
 	AIWaypoint* attackPoint = (attackTarget.IsEmpty()) ? m_BGKeyWaypoints[AIWP_ENEMY_FLAG] : NULL;
 	Position attackTargetPos;
 	if (attackPoint)
@@ -448,7 +448,7 @@ void CommandWS::ProcessAllAttack(ObjectGuid attackGuid) // ×Ô¼ÒÆì×Ó±»ÇÀ£¬µÐÈËÆì×
 		if (!pBotAI)
 			continue;
 		pBotAI->SetNeedFindpathSearch();
-		Position& playerPos = GetPositionByGuid(itGuid->first);
+		Position playerPos = GetPositionByGuid(itGuid->first);
 		if (playerPos.IsInDist(&GetPositionByGuid(attackGuid.GetGUIDLow()), COMMAND_POINT_IFDISTANCE))
 			pBotAI->GetAIMovement()->AcceptCommand(attackGuid);
 		else
@@ -480,7 +480,7 @@ void CommandWS::ProcessAttackAndGuard(ObjectGuid attackGuid, ObjectGuid guaredGu
 			pBotAI->GetAIMovement()->AcceptCommand(pWaypoint);
 			continue;
 		}
-		Position& playerPos = GetPositionByGuid(itGuid->first);
+		Position playerPos = GetPositionByGuid(itGuid->first);
 		if (playerPos.IsInDist(&GetPositionByGuid(attackGuid.GetGUIDLow()), COMMAND_POINT_IFDISTANCE))
 		{
 			pBotAI->GetAIMovement()->AcceptCommand(attackGuid);
@@ -583,7 +583,7 @@ GameObject* CommandWS::SearchDropedFlag(uint64 guid, TeamId team)
 	if (!pBotAI)
 		return NULL;
 	uint32 goInfoEntry = (team == TEAM_ALLIANCE) ? BG_WS_ObjectEntry::BG_OBJECT_A_FLAG_GROUND_WS_ENTRY : BG_WS_ObjectEntry::BG_OBJECT_H_FLAG_GROUND_WS_ENTRY;
-	NearObjectList& objectList = pBotAI->SearchGameObject(COMMAND_POINT_IFDISTANCE / 2);
+	NearObjectList objectList = pBotAI->SearchGameObject(COMMAND_POINT_IFDISTANCE / 2);
 	for (GameObject* pObject : objectList)
 	{
 		if (pObject->GetGOInfo()->entry == goInfoEntry)

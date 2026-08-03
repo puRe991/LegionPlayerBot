@@ -18,6 +18,15 @@
 #ifndef TRINITYCORE_AREATRIGGER_H
 #define TRINITYCORE_AREATRIGGER_H
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <atomic>
+#include <list>
+#include <map>
+#include <vector>
+#include <memory>
+
 #include "GridObject.h"
 #include "MapObject.h"
 #include "Object.h"
@@ -26,6 +35,8 @@ class Unit;
 class SpellInfo;
 class Spell;
 class AreaTriggerAI;
+class Aura;
+struct SpellValue;
 
 namespace G3D
 {
@@ -36,6 +47,8 @@ namespace Movement
 {
     template<typename length_type>
     class Spline;
+
+    class MoveSpline;
 }
 
 enum AreaTriggerActionMoment

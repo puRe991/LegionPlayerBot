@@ -18,6 +18,8 @@
 #ifndef CollectionPackets_h__
 #define CollectionPackets_h__
 
+#include "Define.h"
+
 #include "Packet.h"
 #include "ObjectGuid.h"
 

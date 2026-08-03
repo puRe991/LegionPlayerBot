@@ -19,6 +19,8 @@
 #ifndef TRINITY_PETAI_H
 #define TRINITY_PETAI_H
 
+#include "Define.h"
+
 #include "CreatureAI.h"
 #include "Timer.h"
 

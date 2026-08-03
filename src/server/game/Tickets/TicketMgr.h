@@ -18,6 +18,12 @@
 #ifndef _TICKETMGR_H
 #define _TICKETMGR_H
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <map>
+#include <string>
+
 #include "ObjectMgr.h"
 
 class ChatHandler;

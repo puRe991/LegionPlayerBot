@@ -16,6 +16,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "WorldSession.h"
+#include "Player.h"
 #include "ObjectMgr.h"
 #include "ItemPackets.h"
 #include "TradeData.h"

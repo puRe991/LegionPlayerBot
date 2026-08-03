@@ -2,6 +2,12 @@
 #ifndef _BOT_FIELD_AI_
 #define _BOT_FIELD_AI_
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <list>
+#include <vector>
+
 #include "BotAITool.h"
 #include "BotAISpells.h"
 #include "SpellMgr.h"

@@ -92,7 +92,7 @@ void FieldWarlockAI::ProcessFlee()
 	if (ProcessMana())
 		return;
 
-	NearUnitVec& enemys = RangeEnemyListByTargetIsMe(NEEDFLEE_CHECKRANGE);
+	NearUnitVec enemys = RangeEnemyListByTargetIsMe(NEEDFLEE_CHECKRANGE);
 	if (enemys.empty())
 		return;
 	Unit* pRndPlayer = NULL;
@@ -370,7 +370,7 @@ void FieldWarlockAI::ProcessRangeSpell(Unit* pTarget)
 	if (ProcessMana())
 		return;
 
-	NearUnitVec& enemys = RangeEnemyListByTargetRange(pTarget, NEEDFLEE_CHECKRANGE);
+	NearUnitVec enemys = RangeEnemyListByTargetRange(pTarget, NEEDFLEE_CHECKRANGE);
 	if (enemys.size() > 3)
 	{
 		if (m_BotTalentType == 2 && TryCastSpell(WarlockAOE_ShadowRage, pTarget) == SpellCastResult::SPELL_CAST_OK)

@@ -2,6 +2,10 @@
 #ifndef _BOT_BGAI_MOVEMENT_H_
 #define _BOT_BGAI_MOVEMENT_H_
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+
 #include "ScriptSystem.h"
 #include "PlayerAI.h"
 #include "BotAI.h"
@@ -52,7 +56,7 @@ public:
 	void MovementTo(ObjectGuid guid, float offset = 0);
 	void MovementToTarget();
 	void ApplyFinishPath(PathParameter* pathParam);
-	void SyncPosition(Position& pos, bool immed = false);
+	void SyncPosition(const Position& pos, bool immed = false);
 	bool CanMovementTo(float x, float y, float z);
 	bool SimulationMovementTo(float x, float y, float z, Position& outPos);
 

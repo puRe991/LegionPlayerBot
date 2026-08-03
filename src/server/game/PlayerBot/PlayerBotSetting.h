@@ -2,6 +2,11 @@
 #ifndef __PLAYERBOTSETTING_H__
 #define __PLAYERBOTSETTING_H__
 
+#include <list>
+#include <map>
+#include <set>
+#include <vector>
+
 #include "Log.h"
 #include "Common.h"
 #include "SharedDefines.h"

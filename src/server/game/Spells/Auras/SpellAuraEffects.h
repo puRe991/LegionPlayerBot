@@ -19,6 +19,11 @@
 #ifndef TRINITY_SPELLAURAEFFECTS_H
 #define TRINITY_SPELLAURAEFFECTS_H
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <list>
+
 class Unit;
 class AuraEffect;
 class Aura;

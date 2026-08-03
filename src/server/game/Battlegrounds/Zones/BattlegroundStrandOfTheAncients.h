@@ -18,6 +18,13 @@
 
 #ifndef __BATTLEGROUNDSA_H
 #define __BATTLEGROUNDSA_H
+#include "Common.h"
+
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <map>
+#include <vector>
 
 #include "Battleground.h"
 #include "BattlegroundScore.h"

@@ -2,6 +2,9 @@
 #ifndef __ONLINE_MGR_H__
 #define __ONLINE_MGR_H__
 
+#include <map>
+#include <string>
+
 #include "Log.h"
 #include "Common.h"
 #include "SharedDefines.h"

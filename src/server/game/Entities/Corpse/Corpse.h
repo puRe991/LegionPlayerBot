@@ -19,6 +19,10 @@
 #ifndef CORPSE_H
 #define CORPSE_H
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+
 #include "Object.h"
 #include "GridDefines.h"
 #include "LootMgr.h"

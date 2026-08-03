@@ -19,6 +19,13 @@
 #ifndef TRINITY_GRIDNOTIFIERS_H
 #define TRINITY_GRIDNOTIFIERS_H
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <list>
+#include <set>
+#include <vector>
+
 #include "AreaTrigger.h"
 #include "Conversation.h"
 #include "Corpse.h"

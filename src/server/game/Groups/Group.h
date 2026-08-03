@@ -18,6 +18,19 @@
 
 #ifndef GROUP_H
 #define GROUP_H
+#include "Position.h"
+
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <array>
+#include <functional>
+#include <list>
+#include <map>
+#include <string>
+#include <unordered_map>
+#include <vector>
+#include <memory>
 
 #include "DBCEnums.h"
 #include "GroupRefManager.h"

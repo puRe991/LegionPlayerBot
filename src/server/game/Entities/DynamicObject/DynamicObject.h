@@ -19,6 +19,10 @@
 #ifndef DYNAMICOBJECT_H
 #define DYNAMICOBJECT_H
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+
 #include "Object.h"
 #include "GridObject.h"
 #include "MapObject.h"

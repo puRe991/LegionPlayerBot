@@ -9,6 +9,10 @@
 #ifndef SCRIPT_UTILS_H
 #define SCRIPT_UTILS_H
 
+#include "Define.h"
+#include <functional>
+#include <list>
+
 #include "GridNotifiers.h"
 #include "ObjectVisitors.hpp" 
 #include "CellImpl.h"

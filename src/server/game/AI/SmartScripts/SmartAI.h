@@ -18,6 +18,8 @@
 #ifndef TRINITY_SMARTAI_H
 #define TRINITY_SMARTAI_H
 
+#include "ObjectGuid.h"
+
 #include "Common.h"
 #include "Creature.h"
 #include "CreatureAI.h"

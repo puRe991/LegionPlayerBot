@@ -2,6 +2,9 @@
 #ifndef GarrisonFollower_h__
 #define GarrisonFollower_h__
 
+#include "Define.h"
+#include <unordered_map>
+
 #include "GarrisonGlobal.h"
 #include "Packets/GarrisonPackets.h"
 

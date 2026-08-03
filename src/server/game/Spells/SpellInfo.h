@@ -18,6 +18,12 @@
 #ifndef _SPELLINFO_H
 #define _SPELLINFO_H
 
+#include "Define.h"
+#include <array>
+#include <list>
+#include <unordered_map>
+#include <vector>
+
 #include "SharedDefines.h"
 #include "Util.h"
 #include "DB2Structure.h"

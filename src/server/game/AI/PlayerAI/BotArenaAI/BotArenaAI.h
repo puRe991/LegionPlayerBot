@@ -2,6 +2,8 @@
 #ifndef _BOT_ARENA_AI_
 #define _BOT_ARENA_AI_
 
+#include "Define.h"
+
 #include "BotAITool.h"
 #include "BotAISpells.h"
 #include "SpellMgr.h"
@@ -27,7 +29,7 @@ public:
 	virtual void ResetBotAI();
 	void SetResetAI() { m_HasReset = false; }
 	bool HasTeleport() { return !m_Teleporting.CanMovement(); }
-	void SetTeleport(Position& telePos) { m_Teleporting.SetTeleport(telePos); }
+	void SetTeleport(const Position& telePos) { m_Teleporting.SetTeleport(telePos); }
 	void UpdateTeleport(uint32 diff) { m_Teleporting.Update(diff, m_Movement); }
 	bool IsBGSchedule();
 

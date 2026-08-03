@@ -18,6 +18,16 @@
 #ifndef TRINITY_CHALLENGEMGR_H
 #define TRINITY_CHALLENGEMGR_H
 
+#include <array>
+#include <list>
+#include <set>
+
+#include "Define.h"
+#include "ObjectGuid.h"
+#include <map>
+#include <unordered_map>
+#include <vector>
+
 struct ChallengeMember
 {
     ObjectGuid guid;

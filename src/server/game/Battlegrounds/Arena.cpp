@@ -1026,10 +1026,10 @@ void Arena::FollowEnemyHealer(PLAYERS& selfPlayer, PLAYERS& enemyPlayer)
 {
     while (true)
     {
-        PLAYERS::iterator& itHealer = GetListHealer(enemyPlayer);
+        PLAYERS::iterator itHealer = GetListHealer(enemyPlayer);
         if (itHealer == enemyPlayer.end())
             return;
-        PLAYERS::iterator& itMeleer = GetListMeleer(selfPlayer);
+        PLAYERS::iterator itMeleer = GetListMeleer(selfPlayer);
         if (itMeleer == selfPlayer.end())
         {
             itMeleer = GetListRanger(selfPlayer);

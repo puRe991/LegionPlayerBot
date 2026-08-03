@@ -8,6 +8,7 @@
 
 #ifndef GARRISON_GLOBAL_H
 #define GARRISON_GLOBAL_H
+#include "Common.h"
 
 #include "Define.h"
 

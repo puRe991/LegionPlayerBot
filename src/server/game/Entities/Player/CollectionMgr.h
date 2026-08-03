@@ -18,6 +18,10 @@
 #ifndef CollectionMgr_h__
 #define CollectionMgr_h__
 
+#include "Define.h"
+#include <map>
+#include <unordered_map>
+
 #include "WorldSession.h"
 
 enum HeirloomPlayerFlags

@@ -18,6 +18,14 @@
 #ifndef TRINITY_CREATURE_TEXT_MGR_H
 #define TRINITY_CREATURE_TEXT_MGR_H
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <map>
+#include <string>
+#include <unordered_map>
+#include <vector>
+
 #include "GridNotifiers.h"
 #include "SharedDefines.h"
 #include "Opcodes.h"

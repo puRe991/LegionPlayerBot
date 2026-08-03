@@ -7,6 +7,13 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 #pragma once
+
+#include "ObjectGuid.h"
+
+#include <map>
+#include <set>
+#include <vector>
+#include <memory>
 #ifndef _WILDBATTLEPET_HEADER_
 #define _WILDBATTLEPET_HEADER_
 

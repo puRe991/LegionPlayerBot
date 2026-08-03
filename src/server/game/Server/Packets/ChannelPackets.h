@@ -18,6 +18,10 @@
 #ifndef ChannelPackets_h__
 #define ChannelPackets_h__
 
+#include "Define.h"
+#include <string>
+#include <vector>
+
 #include "Packet.h"
 #include "Channel.h"
 #include "ObjectGuid.h"

@@ -18,6 +18,12 @@
 #ifndef TRINITY_CALENDARMGR_H
 #define TRINITY_CALENDARMGR_H
 
+#include <deque>
+#include <map>
+#include <set>
+#include <string>
+#include <vector>
+
 #include "Common.h"
 #include "ObjectGuid.h"
 

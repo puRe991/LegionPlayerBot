@@ -18,6 +18,10 @@
 #ifndef _LFGPLAYERDATA_H
 #define _LFGPLAYERDATA_H
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+
 #include "LFG.h"
 #include "Packets/LFGPacketsCommon.h"
 

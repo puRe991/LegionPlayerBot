@@ -19,6 +19,9 @@
 #ifndef BATTLEFIELD_WG_
 #define BATTLEFIELD_WG_
 
+#include "Define.h"
+#include <set>
+
 #include "ObjectAccessor.h"
 #include "WorldPacket.h"
 #include "World.h"

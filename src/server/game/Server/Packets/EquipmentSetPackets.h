@@ -17,6 +17,11 @@
 
 #pragma once
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <vector>
+
 #include "Packet.h"
 #include "EquipementSet.h"
 #include "ItemPackets.h"

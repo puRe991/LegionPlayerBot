@@ -18,6 +18,10 @@
 #ifndef SocialPackets_h__
 #define SocialPackets_h__
 
+#include "Define.h"
+#include <string>
+#include <vector>
+
 #include "Packet.h"
 #include "ObjectGuid.h"
 #include "SharedDefines.h"

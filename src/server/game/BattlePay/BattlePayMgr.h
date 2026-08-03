@@ -19,6 +19,13 @@
 #ifndef __TRINITY_BATTLEPAYMGR_H
 #define __TRINITY_BATTLEPAYMGR_H
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <map>
+#include <string>
+#include <vector>
+
 #include "Packets/BattlePayPackets.h"
 
 class LoginQueryHolder;

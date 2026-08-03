@@ -18,6 +18,9 @@
 #ifndef ServiceRegistry_h__
 #define ServiceRegistry_h__
 
+#include <functional>
+#include <unordered_map>
+
 #include "WorldSession.h"
 #include "MessageBuffer.h"
 #include "Common.h"

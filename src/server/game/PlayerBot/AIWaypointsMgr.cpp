@@ -86,7 +86,7 @@ void AIWaypoint::NewToDatabase()
 		if (linkAWP[i] == NULL)
 			break;
 		memset(AIWaypoint::resolverBuffer, 0, RESOLVER_BUF_SIZE);
-		itoa(linkAWP[i]->entry, AIWaypoint::resolverBuffer, 10);
+		snprintf(AIWaypoint::resolverBuffer, RESOLVER_BUF_SIZE, "%u", linkAWP[i]->entry);
 		processLink += AIWaypoint::resolverBuffer;
 		processLink += ',';
 	}
@@ -109,7 +109,7 @@ void AIWaypoint::SaveToDatabase()
 		if (linkAWP[i] == NULL)
 			break;
 		memset(AIWaypoint::resolverBuffer, 0, RESOLVER_BUF_SIZE);
-		itoa(linkAWP[i]->entry, AIWaypoint::resolverBuffer, 10);
+		snprintf(AIWaypoint::resolverBuffer, RESOLVER_BUF_SIZE, "%u", linkAWP[i]->entry);
 		processLink += AIWaypoint::resolverBuffer;
 		processLink += ',';
 	}

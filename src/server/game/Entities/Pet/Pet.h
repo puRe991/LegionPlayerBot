@@ -19,6 +19,10 @@
 #ifndef PET_H
 #define PET_H
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+
 #include "Unit.h"
 #include "TemporarySummon.h"
 

@@ -19,6 +19,12 @@
 #ifndef _WARDENCHECKMGR_H
 #define _WARDENCHECKMGR_H
 
+#include "Define.h"
+#include <map>
+#include <string>
+#include <unordered_map>
+#include <vector>
+
 #include <boost/thread/locks.hpp>
 #include <boost/thread/shared_mutex.hpp>
 #include "BigNumber.h"

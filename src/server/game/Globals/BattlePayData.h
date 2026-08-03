@@ -19,6 +19,10 @@
 #ifndef _BATTLE_PAY_DATA_STORE_H
 #define _BATTLE_PAY_DATA_STORE_H
 
+#include "Define.h"
+#include <map>
+#include <vector>
+
 #include "BattlePayPackets.h"
 #include "BattlePayMgr.h"
 

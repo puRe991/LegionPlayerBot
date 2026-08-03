@@ -18,6 +18,9 @@
 #ifndef __CHATTEXT_BUILDER_H
 #define __CHATTEXT_BUILDER_H
 
+#include "Define.h"
+#include <string>
+
 #include "Chat.h"
 #include "CreatureTextMgr.h"
 

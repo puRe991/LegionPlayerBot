@@ -18,6 +18,12 @@
 
 #ifndef __BATTLEGROUNDEY_H
 #define __BATTLEGROUNDEY_H
+#include "Common.h"
+
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <vector>
 
 #include "Language.h"
 #include "Battleground.h"

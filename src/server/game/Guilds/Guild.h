@@ -19,6 +19,13 @@
 #ifndef GUILD_H
 #define GUILD_H
 
+#include "Define.h"
+#include <list>
+#include <map>
+#include <set>
+#include <string>
+#include <vector>
+
 #include "AchievementMgr.h"
 #include "DatabaseEnvFwd.h"
 #include "ObjectGuid.h"

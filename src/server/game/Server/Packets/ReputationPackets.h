@@ -18,6 +18,9 @@
 #ifndef ReputationPackets_h__
 #define ReputationPackets_h__
 
+#include "Define.h"
+#include <vector>
+
 #include "Packet.h"
 
 namespace WorldPackets

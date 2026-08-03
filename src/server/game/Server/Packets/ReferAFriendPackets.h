@@ -18,6 +18,9 @@
 #ifndef ReferAFriendPackets_h__
 #define ReferAFriendPackets_h__
 
+#include "Define.h"
+#include <string>
+
 #include "Packet.h"
 #include "ObjectGuid.h"
 

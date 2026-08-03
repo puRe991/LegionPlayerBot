@@ -16,6 +16,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "WorldSession.h"
+#include "Player.h"
 #include "DatabaseEnv.h"
 #include "BattlePayMgr.h"
 #include "Mail.h"
@@ -52,8 +54,8 @@
 #include "OnlineMgr.h"
 #include "BotMovementAI.h"
 
-#include "..\..\src\server\scripts\Custom\_Bot.h"
-#include "..\..\src\server\game\Maps\MapManager.h"
+#include "_Bot.h"
+#include "MapManager.h"
 
 void WorldSession::HandleCharEnum(PreparedQueryResult result, bool isDeleted)
 {

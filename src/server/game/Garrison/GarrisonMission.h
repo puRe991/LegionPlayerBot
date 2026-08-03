@@ -2,6 +2,10 @@
 #ifndef GarrisonMission_h__
 #define GarrisonMission_h__
 
+#include "Define.h"
+#include <list>
+#include <vector>
+
 #include "GarrisonGlobal.h"
 #include "Packets/GarrisonPackets.h"
 

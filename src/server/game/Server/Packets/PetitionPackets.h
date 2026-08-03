@@ -18,6 +18,10 @@
 #ifndef PetitionPackets_h__
 #define PetitionPackets_h__
 
+#include "Define.h"
+#include <string>
+#include <vector>
+
 #include "Packet.h"
 #include "ObjectGuid.h"
 #include "WorldSession.h"

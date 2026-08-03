@@ -18,6 +18,12 @@
 #ifndef ChallengeModePacketsWorld_h__
 #define ChallengeModePacketsWorld_h__
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <array>
+#include <vector>
+
 #include "Packet.h"
 
 namespace WorldPackets

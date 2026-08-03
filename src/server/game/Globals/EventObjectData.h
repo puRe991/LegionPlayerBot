@@ -19,6 +19,11 @@
 #ifndef _EventObjectDataStoreh_
 #define _EventObjectDataStoreh_
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <unordered_map>
+
 #include "EventObject.h"
 
 typedef std::unordered_map<ObjectGuid::LowType, EventObjectData> EventObjectDataContainer;

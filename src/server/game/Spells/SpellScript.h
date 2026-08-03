@@ -17,6 +17,14 @@
 
 #ifndef __SPELL_SCRIPT_H
 #define __SPELL_SCRIPT_H
+#include "Position.h"
+
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <list>
+#include <string>
+#include <vector>
 
 #include "Util.h"
 #include "SharedDefines.h"

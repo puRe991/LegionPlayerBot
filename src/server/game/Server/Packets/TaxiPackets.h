@@ -18,6 +18,9 @@
 #ifndef TaxiPackets_h__
 #define TaxiPackets_h__
 
+#include "Define.h"
+#include <vector>
+
 #include "Packet.h"
 #include "ObjectGuid.h"
 #include "DB2Structure.h"

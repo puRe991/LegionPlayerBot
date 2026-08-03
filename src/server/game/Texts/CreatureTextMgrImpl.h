@@ -18,6 +18,8 @@
 #ifndef CreatureTextMgrImpl_h__
 #define CreatureTextMgrImpl_h__
 
+#include <vector>
+
 #include "CreatureTextMgr.h"
 #include "CellImpl.h"
 #include "ChatPackets.h"

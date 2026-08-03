@@ -2,6 +2,8 @@
 #ifndef __TOOLSOCKET_H__
 #define __TOOLSOCKET_H__
 
+#include <string>
+
 #include "Common.h"
 #include "Socket.h"
 #include "Util.h"

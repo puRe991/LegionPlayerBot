@@ -17,6 +17,8 @@
  */
 
 #define MOVEMENT_PACKET_TIME_DELAY 0
+#include "WorldSession.h"
+#include "Player.h"
 #include "Anticheat.h"
 #include "ObjectMgr.h"
 #include "WaypointMovementGenerator.h"

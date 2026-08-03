@@ -18,6 +18,12 @@
 #ifndef __BattleGroundKT_H
 #define __BattleGroundKT_H
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <map>
+#include <vector>
+
 #include "Battleground.h"
 #include "BattlegroundScore.h"
 

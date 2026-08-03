@@ -2,6 +2,10 @@
 #ifndef _BOT_WARLOCK_AI_H
 #define _BOT_WARLOCK_AI_H
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+
 #include "ScriptSystem.h"
 #include "BotAI.h"
 #include "AIWaypointsMgr.h"
