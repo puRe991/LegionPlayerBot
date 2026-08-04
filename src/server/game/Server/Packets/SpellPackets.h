@@ -18,6 +18,9 @@
 #ifndef SpellPackets_h__
 #define SpellPackets_h__
 
+#include "Util.h"
+#include "Common.h"
+
 class WorldPacket;
 
 #include "Define.h"

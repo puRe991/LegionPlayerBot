@@ -18,6 +18,8 @@
 #ifndef GOPackets_h__
 #define GOPackets_h__
 
+#include "Position.h"
+
 class WorldPacket;
 
 #include "ObjectGuid.h"

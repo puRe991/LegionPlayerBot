@@ -18,6 +18,8 @@
 #ifndef WhoPackets_h__
 #define WhoPackets_h__
 
+#include "Common.h"
+
 class WorldPacket;
 
 #include "Define.h"

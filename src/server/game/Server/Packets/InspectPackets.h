@@ -17,6 +17,8 @@
 
 #pragma once
 
+#include "Common.h"
+
 class WorldPacket;
 
 #include "Define.h"

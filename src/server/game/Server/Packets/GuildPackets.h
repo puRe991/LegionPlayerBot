@@ -18,6 +18,8 @@
 #ifndef GuildPackets_h__
 #define GuildPackets_h__
 
+#include "Common.h"
+
 class WorldPacket;
 
 #include "Define.h"

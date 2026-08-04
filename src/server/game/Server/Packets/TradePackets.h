@@ -18,6 +18,8 @@
 #ifndef TradePackets_h__
 #define TradePackets_h__
 
+#include "Common.h"
+
 class WorldPacket;
 
 #include "ObjectGuid.h"

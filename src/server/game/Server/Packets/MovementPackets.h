@@ -18,6 +18,9 @@
 #ifndef MovementPackets_h__
 #define MovementPackets_h__
 
+#include "Position.h"
+#include "Common.h"
+
 class WorldPacket;
 
 #include "ObjectGuid.h"

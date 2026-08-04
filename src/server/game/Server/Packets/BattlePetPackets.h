@@ -18,6 +18,8 @@
 #ifndef BattlePetPacketsWorld_h__
 #define BattlePetPacketsWorld_h__
 
+#include "Common.h"
+
 #include "UnitDefines.h"
 
 #include "Position.h"

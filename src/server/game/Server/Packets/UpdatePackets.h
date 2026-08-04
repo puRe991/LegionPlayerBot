@@ -18,6 +18,8 @@
 #ifndef UpdatePackets_h__
 #define UpdatePackets_h__
 
+#include "Position.h"
+
 class WorldPacket;
 
 #include "ObjectGuid.h"

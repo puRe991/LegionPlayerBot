@@ -18,6 +18,10 @@
 #ifndef CharacterPackets_h__
 #define CharacterPackets_h__
 
+#include "Util.h"
+#include "Position.h"
+#include "Common.h"
+
 class WorldPacket;
 
 #include "ObjectGuid.h"

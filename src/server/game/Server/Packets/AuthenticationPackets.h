@@ -18,6 +18,8 @@
 #ifndef AuthenticationPacketsWorld_h__
 #define AuthenticationPacketsWorld_h__
 
+#include "Common.h"
+
 class WorldPacket;
 
 #include <array>

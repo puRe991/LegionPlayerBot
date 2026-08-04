@@ -18,6 +18,8 @@
 #ifndef CalendarPackets_h_
 #define CalendarPackets_h_
 
+#include "Util.h"
+
 #include "PacketUtilities.h"
 
 class WorldPacket;

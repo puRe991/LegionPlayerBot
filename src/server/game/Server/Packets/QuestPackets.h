@@ -18,6 +18,8 @@
 #ifndef QuestPackets_h__
 #define QuestPackets_h__
 
+#include "Common.h"
+
 class WorldPacket;
 
 #include "Define.h"

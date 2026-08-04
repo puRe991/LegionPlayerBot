@@ -18,6 +18,8 @@
 #ifndef AuctionHousePackets_h__
 #define AuctionHousePackets_h__
 
+#include "Util.h"
+
 class WorldPacket;
 
 #include "Define.h"

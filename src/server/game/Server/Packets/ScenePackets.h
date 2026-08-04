@@ -18,6 +18,8 @@
 #ifndef ScenePackets_h__
 #define ScenePackets_h__
 
+#include "Position.h"
+
 class WorldPacket;
 
 #include "ObjectGuid.h"

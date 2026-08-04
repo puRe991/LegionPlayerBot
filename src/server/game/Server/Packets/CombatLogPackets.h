@@ -18,6 +18,8 @@
 #ifndef CombatLogPackets_h__
 #define CombatLogPackets_h__
 
+#include "Common.h"
+
 class WorldPacket;
 
 #include "ObjectGuid.h"

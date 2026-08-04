@@ -18,6 +18,8 @@
 #ifndef ChatPackets_h__
 #define ChatPackets_h__
 
+#include "Util.h"
+
 class WorldPacket;
 
 #include "Define.h"

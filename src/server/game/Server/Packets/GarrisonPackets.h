@@ -18,6 +18,8 @@
 #ifndef GarrisonPackets_h__
 #define GarrisonPackets_h__
 
+#include "Common.h"
+
 class WorldPacket;
 
 #include "Position.h"

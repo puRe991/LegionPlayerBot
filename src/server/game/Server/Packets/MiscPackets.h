@@ -18,6 +18,10 @@
 #ifndef MiscPackets_h__
 #define MiscPackets_h__
 
+#include "Util.h"
+#include "Position.h"
+#include "Common.h"
+
 class WorldPacket;
 
 #include "Define.h"

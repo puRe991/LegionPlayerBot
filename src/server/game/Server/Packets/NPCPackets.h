@@ -18,6 +18,8 @@
 #ifndef NPCPackets_h__
 #define NPCPackets_h__
 
+#include "Position.h"
+
 class WorldPacket;
 
 #include "ObjectGuid.h"

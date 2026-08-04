@@ -18,6 +18,8 @@
 #ifndef TaxiPackets_h__
 #define TaxiPackets_h__
 
+#include "Common.h"
+
 class WorldPacket;
 
 #include "Define.h"
