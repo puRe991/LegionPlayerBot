@@ -18,6 +18,8 @@
 #ifndef PetPackets_h__
 #define PetPackets_h__
 
+#include "Position.h"
+
 class WorldPacket;
 
 #include "ObjectGuid.h"

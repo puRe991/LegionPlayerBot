@@ -1,5 +1,8 @@
 
 //#include "G3D/stringutils.h"
+#include "ObjectAccessor.h"
+#include "SpellMgr.h"
+#include "World.h"
 #include "BotGroupAI.h"
 #include "MoveSplineInit.h"
 #include "BotBGAIMovement.h"
@@ -392,7 +395,9 @@ void BotGroupAI::ProcessUpequip(Player* srcPlayer, std::string& equipLink)
 		WorldPackets::Item::AutoEquipItem packet(std::move(opcode));
 		packet.PackSlot = bag;
 		packet.Slot = index;
-		WorldPackets::Item::InvUpdate::InvItem inv{ bag, index };
+		WorldPackets::Item::InvUpdate::InvItem inv;
+		inv.ContainerSlot = bag;
+		inv.Slot = index;
 		packet.Inv.Items.resize(1);
 		packet.Inv.Items.push_back(inv);
 		me->GetSession()->HandleAutoEquipItem(packet);

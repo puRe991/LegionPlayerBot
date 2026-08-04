@@ -15,6 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "ObjectAccessor.h"
+#include "World.h"
 #include "Cell.h"
 #include "CellImpl.h"
 #include "ChatTextBuilder.h"

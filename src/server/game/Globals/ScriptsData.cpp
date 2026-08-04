@@ -1,3 +1,5 @@
+#include "ObjectMgr.h"
+#include "SpellMgr.h"
 #include "ScriptsData.h"
 #include "Timer.h"
 #include "Log.h"

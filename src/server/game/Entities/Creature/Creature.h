@@ -532,20 +532,9 @@ struct TrainerSpellData
 
 typedef std::map<uint32, time_t> CreatureSpellCooldowns;
 
-enum PetSpellState
-{
-    PETSPELL_UNCHANGED = 0,
-    PETSPELL_CHANGED   = 1,
-    PETSPELL_NEW       = 2,
-    PETSPELL_REMOVED   = 3
-};
-
-enum PetSpellType
-{
-    PETSPELL_NORMAL = 0,
-    PETSPELL_FAMILY = 1,
-    PETSPELL_TALENT = 2,
-};
+// PetSpellState and PetSpellType moved to UnitDefines.h: TemporarySummon.h
+// uses them as default arguments and is reached through Creature.h itself,
+// so they have to be defined below it in the include order.
 
 enum PetType
 {

@@ -15,6 +15,8 @@
 * with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "Errors.h"
+#include "Battleground.h"
 #include "BattlegroundScore.h"
 
 uint32 BattlegroundScore::GetScore(uint32 type) const

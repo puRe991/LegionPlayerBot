@@ -2,6 +2,10 @@
 #ifndef __BATTLEGROUNDAA_H
 #define __BATTLEGROUNDAA_H
 
+#include "Battleground.h"
+
+class Player;
+
 #include "ObjectGuid.h"
 
 #include "Define.h"

@@ -2,6 +2,11 @@
 #ifndef _PATHFINDING_H_
 #define _PATHFINDING_H_
 
+#include "Creature.h"
+
+#include <G3D/Vector3.h>
+#include "Unit.h"
+
 #include "ObjectGuid.h"
 
 #include "Define.h"

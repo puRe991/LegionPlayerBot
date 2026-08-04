@@ -24,7 +24,7 @@ void MyBot::Load()
 	InFakerMap.clear();
 	QueryResult result;
 
-	if (result = WorldDatabase.PQuery("SELECT 账号ID FROM _假人_在线假人"))
+	if (result = WorldDatabase.PQuery("SELECT accountId FROM playerbot_online"))
 	{
 		do
 		{

@@ -1,6 +1,8 @@
 /*
     Created by d7561985@gmail.com
 */
+#include "World.h"
+#include "Player.h"
 #include "ContributionMgr.h"
 #include "MiscPackets.h"
 #include "QuestData.h"

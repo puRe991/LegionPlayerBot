@@ -19,6 +19,8 @@
 #ifndef TRINITYSERVER_MOVEPLINE_H
 #define TRINITYSERVER_MOVEPLINE_H
 
+namespace Movement { class MoveSplineInit; }
+
 #include "ObjectGuid.h"
 
 #include "Define.h"

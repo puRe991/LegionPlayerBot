@@ -3,6 +3,8 @@ Created by d7561985@gmail.com
 */
 #pragma once
 
+class Player;
+
 #include "Define.h"
 #include <map>
 

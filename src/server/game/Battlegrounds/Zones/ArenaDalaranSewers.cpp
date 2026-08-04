@@ -1,4 +1,5 @@
 
+#include "ObjectAccessor.h"
 #include "ArenaDalaranSewers.h"
 #include "Battleground.h"
 #include "Player.h"

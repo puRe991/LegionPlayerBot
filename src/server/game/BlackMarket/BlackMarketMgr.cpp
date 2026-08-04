@@ -15,6 +15,7 @@
 * with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "Containers.h"
 #include "BlackMarketMgr.h"
 #include "BlackMarketPackets.h"
 #include "DatabaseEnv.h"

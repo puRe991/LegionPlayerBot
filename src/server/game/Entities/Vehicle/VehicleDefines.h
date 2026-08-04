@@ -19,6 +19,8 @@
 #ifndef __TRINITY_VEHICLEDEFINES_H
 #define __TRINITY_VEHICLEDEFINES_H
 
+#include "Position.h"
+
 #include "ObjectGuid.h"
 
 #include "Define.h"

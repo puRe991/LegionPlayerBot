@@ -1,6 +1,8 @@
 
 #pragma once
 
+#include "Common.h"
+
 #include "Define.h"
 #include "ObjectGuid.h"
 #include <map>

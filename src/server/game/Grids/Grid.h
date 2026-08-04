@@ -19,6 +19,8 @@
 #ifndef TRINITY_GRID_H
 #define TRINITY_GRID_H
 
+class Conversation;
+
 /*
   @class Grid
   Grid is a logical segment of the game world represented inside TrinIty.

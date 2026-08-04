@@ -15,6 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "Containers.h"
+#include "World.h"
 #include <boost/regex.hpp>
 #include "DB2HotfixGenerator.h"
 #include "DB2Stores.h"

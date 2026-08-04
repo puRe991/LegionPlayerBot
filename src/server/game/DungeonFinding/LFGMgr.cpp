@@ -15,6 +15,9 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "Containers.h"
+#include "ObjectAccessor.h"
+#include "World.h"
 #include "Common.h"
 #include "SharedDefines.h"
 #include "DisableMgr.h"

@@ -16,6 +16,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "ObjectAccessor.h"
+#include "World.h"
 #include "Anticheat.h"
 #include "Cell.h"
 #include "CellImpl.h"

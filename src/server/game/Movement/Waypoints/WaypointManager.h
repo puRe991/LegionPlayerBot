@@ -18,6 +18,7 @@
 
 #ifndef TRINITY_WAYPOINTMANAGER_H
 #define TRINITY_WAYPOINTMANAGER_H
+#include "Containers.h"
 
 #include "Define.h"
 #include <unordered_map>

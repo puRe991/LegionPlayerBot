@@ -19,6 +19,8 @@
 #ifndef _GlobalFunctionalH_
 #define _GlobalFunctionalH_
 
+#include "SharedDefines.h"
+
 #include "Define.h"
 #include <string>
 

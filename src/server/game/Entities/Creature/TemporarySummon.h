@@ -19,11 +19,13 @@
 #ifndef TEMPSUMMON_H
 #define TEMPSUMMON_H
 
+#include "Creature.h"
+#include "UnitDefines.h"
+
 #include "ObjectGuid.h"
 
 #include "Define.h"
 
-#include "Creature.h"
 
 enum SummonActionType
 {

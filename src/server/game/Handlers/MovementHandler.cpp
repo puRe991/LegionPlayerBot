@@ -17,6 +17,7 @@
  */
 
 #define MOVEMENT_PACKET_TIME_DELAY 0
+#include "World.h"
 #include "WorldSession.h"
 #include "Player.h"
 #include "Anticheat.h"

@@ -1,4 +1,5 @@
 
+#include "World.h"
 #include "PlayerBotSetting.h"
 #include "ObjectMgr.h"
 #include "Pet.h"

@@ -16,6 +16,9 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "Containers.h"
+#include "SpellMgr.h"
+#include "World.h"
 #include "CharacterData.h"
 #include "WordFilterMgr.h"
 #include "AuthenticationPackets.h"

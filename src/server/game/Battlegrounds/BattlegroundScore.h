@@ -18,6 +18,8 @@
 #ifndef TRINITY_BATTLEGROUND_SCORE_H
 #define TRINITY_BATTLEGROUND_SCORE_H
 
+#include "SharedDefines.h"
+
 #include <vector>
 
 #include "Define.h"

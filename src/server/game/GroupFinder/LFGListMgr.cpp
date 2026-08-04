@@ -1,3 +1,5 @@
+#include "Containers.h"
+#include "ObjectAccessor.h"
 #include "Object.h"
 #include "LFGListMgr.h"
 #include "GroupMgr.h"

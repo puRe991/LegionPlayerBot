@@ -1,4 +1,6 @@
 
+#include "ObjectAccessor.h"
+#include "SpellMgr.h"
 #include "BotPaladinAI.h"
 #include "BotBGAIMovement.h"
 #include "Group.h"

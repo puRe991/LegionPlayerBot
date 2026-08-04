@@ -1,3 +1,4 @@
+#include "World.h"
 #include "BattlegroundMap.h"
 #include "ObjectMgr.h"
 #include "Map.h"

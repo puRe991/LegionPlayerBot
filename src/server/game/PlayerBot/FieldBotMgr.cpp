@@ -1,4 +1,5 @@
 
+#include "ObjectAccessor.h"
 #include "FieldBotMgr.h"
 #include "PlayerBotTalkMgr.h"
 #include "World.h"

@@ -20,6 +20,8 @@
     \ingroup world
 */
 
+#include "Containers.h"
+#include "ObjectAccessor.h"
 #include <atomic>
 #include <boost/algorithm/string.hpp>
 
@@ -120,7 +122,7 @@
 #include "PathfindingMgr.h"
 #include "BotGroupAI.h"
 
-#include "_Bot.h"
+#include "../../scripts/Custom/_Bot.h"
 uint8 World::m_ExitCode = SHUTDOWN_EXIT_CODE;
 std::atomic<uint32> World::m_worldLoopCounter(0);
 

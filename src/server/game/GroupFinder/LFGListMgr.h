@@ -1,5 +1,8 @@
 #pragma once
 
+#include "LFGPackets.h"
+class WorldSession;
+
 #include "ObjectGuid.h"
 
 #include "Define.h"

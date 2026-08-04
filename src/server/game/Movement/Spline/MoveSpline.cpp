@@ -16,6 +16,8 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
+#include "UnitDefines.h"
+#include "Unit.h"
 #include "MoveSpline.h"
 #include "Log.h"
 #include "DB2Stores.h"

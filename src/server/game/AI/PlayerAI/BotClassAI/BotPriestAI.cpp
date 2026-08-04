@@ -1,4 +1,5 @@
 
+#include "ObjectAccessor.h"
 #include "BotPriestAI.h"
 #include "Group.h"
 

@@ -17,6 +17,7 @@
  */
 
 
+#include "ObjectAccessor.h"
 #include "WorldSession.h"
 #include "Player.h"
 #include "BattlegroundPackets.h"

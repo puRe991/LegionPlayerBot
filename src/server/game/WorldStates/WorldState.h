@@ -2,6 +2,8 @@
 #ifndef WORLD_STATE_H
 #define WORLD_STATE_H
 
+#include "HashFuctor.h"
+
 #include "ObjectGuid.h"
 
 #include <map>

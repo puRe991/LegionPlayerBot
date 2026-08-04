@@ -15,6 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "ObjectMgr.h"
+#include "SpellMgr.h"
 #include "Player.h"
 #include "Item.h"
 #include "ToyPackets.h"

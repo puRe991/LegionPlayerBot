@@ -18,6 +18,7 @@
 
 #ifndef __SPELL_H
 #define __SPELL_H
+#include "Containers.h"
 #include "Position.h"
 
 #include "ObjectGuid.h"

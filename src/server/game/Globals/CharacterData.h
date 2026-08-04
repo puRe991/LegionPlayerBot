@@ -19,6 +19,14 @@
 #ifndef _CHARACTER_DATA_STORE_H
 #define _CHARACTER_DATA_STORE_H
 
+#include "Pet.h"
+#include "UnitDefines.h"
+
+#include "Common.h"
+#include "SharedDefines.h"
+#include "Position.h"
+#include "DBCEnums.h"
+
 #include "Define.h"
 #include <map>
 #include <set>

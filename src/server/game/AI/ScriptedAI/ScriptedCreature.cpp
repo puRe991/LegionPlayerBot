@@ -5,6 +5,8 @@
  * This program is free software licensed under GPL version 2
  * Please see the included DOCS/LICENSE.TXT for more information */
 
+#include "ObjectAccessor.h"
+#include "SpellMgr.h"
 #include "BrawlersGuild.h"
 #include "Cell.h"
 #include "CellImpl.h"
@@ -28,7 +30,7 @@
 #endif
 
  // Spell summary for ScriptedAI::SelectSpell
-extern struct TSpellSummary
+struct TSpellSummary
 {
     uint8 Targets;                                          // set of enum SelectTarget
     uint8 Effects;                                          // set of enum SelectEffect
@@ -1237,7 +1239,8 @@ void ScriptedAI::BotFleeLineByAngle(Unit* center, float angle, bool force)
         float fleeRange = center->GetDistance(player->GetPosition());
         if (fleeRange <= 0)
             fleeRange = center->GetObjectSize() + 1.0f;
-        float pangle = center->GetAngle(&player->GetPosition()) - angle;
+        Position playerPos = player->GetPosition();
+        float pangle = center->GetAngle(&playerPos) - angle;
         if (pangle >= 0 && pangle <= float(M_PI_4))
         {
             if (BotGroupAI* pGroupAI = dynamic_cast<BotGroupAI*>(player->GetAI()))

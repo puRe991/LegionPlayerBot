@@ -20,6 +20,7 @@
     \ingroup u2w
 */
 
+#include "Containers.h"
 #include <zlib.h>
 #include <utility>
 

@@ -1,4 +1,5 @@
 
+#include "ObjectAccessor.h"
 #include "BotBGAIMovement.h"
 #include "PathfindingMgr.h"
 #include "CommandBG.h"

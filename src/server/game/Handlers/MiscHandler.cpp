@@ -16,6 +16,8 @@
 * with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "MapManager.h"
+#include "World.h"
 #include "WorldSession.h"
 #include "Player.h"
 #include "AccountMgr.h"

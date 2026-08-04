@@ -1,4 +1,5 @@
 //#include "Object.h"
+#include "Containers.h"
 #include "LFGListMgr.h"
 #include "GroupMgr.h"
 //#include "LFGPackets.h"

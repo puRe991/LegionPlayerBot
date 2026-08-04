@@ -8,6 +8,8 @@
 
 #pragma once
 
+class Player;
+
 #include "ObjectGuid.h"
 
 #include <map>

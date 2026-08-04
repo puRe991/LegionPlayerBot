@@ -19,6 +19,8 @@
 #ifndef _QuestDataStoreh_
 #define _QuestDataStoreh_
 
+#include "Creature.h"
+
 #include <atomic>
 #include <list>
 

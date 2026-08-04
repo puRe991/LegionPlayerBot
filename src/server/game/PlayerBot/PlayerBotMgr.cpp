@@ -1,4 +1,7 @@
 
+#include "Containers.h"
+#include "ObjectAccessor.h"
+#include "ObjectMgr.h"
 #include "PlayerBotMgr.h"
 #include "World.h"
 #include "DB2Stores.h"

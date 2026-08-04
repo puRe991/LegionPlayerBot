@@ -1,4 +1,6 @@
 
+#include "ObjectAccessor.h"
+#include "SpellMgr.h"
 #include "BotDuelAI.h"
 #include "PathfindingMgr.h"
 #include "WorldSession.h"

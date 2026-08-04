@@ -1,3 +1,6 @@
+#include "Containers.h"
+#include "ObjectMgr.h"
+#include "World.h"
 #include "Map.h"
 #include "WorldStateMgr.h"
 #include "Player.h"

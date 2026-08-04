@@ -15,6 +15,9 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "QuestDef.h"
+#include "Player.h"
+#include "World.h"
 #include "LFGPackets.h"
 #include "LFG.h"
 

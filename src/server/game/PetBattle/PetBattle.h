@@ -8,6 +8,14 @@
 
 #pragma once
 
+#include "Timer.h"
+
+#include "Position.h"
+#include "DatabaseEnvFwd.h"
+#include "UnitDefines.h"
+
+class Player;
+
 #include "ObjectGuid.h"
 
 #include <list>

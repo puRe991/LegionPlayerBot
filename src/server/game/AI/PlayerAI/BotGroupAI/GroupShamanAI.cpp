@@ -1,4 +1,5 @@
 
+#include "SpellMgr.h"
 #include "BotGroupClassAI.h"
 #include "Totem.h"
 

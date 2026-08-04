@@ -1,4 +1,7 @@
 
+#include "ObjectAccessor.h"
+#include "ObjectMgr.h"
+#include "SpellMgr.h"
 #include "BotWarlockAI.h"
 #include "PlayerBotSession.h"
 #include "Pet.h"

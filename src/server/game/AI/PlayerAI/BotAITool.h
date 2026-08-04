@@ -1,6 +1,7 @@
 
 #ifndef _BOT_AI_TOOL_H
 #define _BOT_AI_TOOL_H
+#include "ObjectAccessor.h"
 
 #include "ObjectGuid.h"
 

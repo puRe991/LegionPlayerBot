@@ -1,4 +1,6 @@
 
+#include "ObjectAccessor.h"
+#include "SpellMgr.h"
 #include "BotFieldAI.h"
 #include "MoveSplineInit.h"
 #include "BotBGAIMovement.h"

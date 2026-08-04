@@ -20,6 +20,7 @@
 #define _PLAYER_H
 
 class WorldPacket;
+#include "World.h"
 #include "Position.h"
 
 #include "ObjectGuid.h"

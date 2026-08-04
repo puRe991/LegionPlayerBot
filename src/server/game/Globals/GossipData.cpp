@@ -1,3 +1,4 @@
+#include "Containers.h"
 #include "GossipData.h"
 #include "DatabaseEnv.h"
 #include "ObjectMgr.h"

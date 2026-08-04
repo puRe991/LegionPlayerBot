@@ -18,6 +18,8 @@
 #ifndef TalentPackets_h__
 #define TalentPackets_h__
 
+#include "PacketUtilities.h"
+
 class WorldPacket;
 
 #include "Define.h"

@@ -1,4 +1,9 @@
 
+#include "Containers.h"
+#include "ObjectAccessor.h"
+#include "ObjectMgr.h"
+#include "SpellMgr.h"
+#include "World.h"
 #include "DB2Structure.h"
 #include "BotAITool.h"
 #include "Pet.h"

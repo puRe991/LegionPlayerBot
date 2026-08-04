@@ -43,7 +43,7 @@
 #include "GuildMgr.h"
 #include "NPCPackets.h"
 #include "MailPackets.h"
-#include "CustomTalkMenu.h"
+#include "../../scripts/Custom/CustomTalkMenu.h"
 
 void WorldSession::HandleTabardVendorActivate(WorldPackets::NPC::Hello& packet)
 {

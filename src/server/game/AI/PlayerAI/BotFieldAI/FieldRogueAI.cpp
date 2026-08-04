@@ -1,4 +1,5 @@
 
+#include "ObjectMgr.h"
 #include "BotFieldClassAI.h"
 #include "BotBGAIMovement.h"
 #include "Item.h"

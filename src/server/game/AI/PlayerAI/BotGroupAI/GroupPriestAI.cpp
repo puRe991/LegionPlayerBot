@@ -1,4 +1,5 @@
 
+#include "ObjectAccessor.h"
 #include "BotGroupClassAI.h"
 #include "Group.h"
 

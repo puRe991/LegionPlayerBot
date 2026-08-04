@@ -1,4 +1,5 @@
 
+#include "SpellMgr.h"
 #include "CommandAB.h"
 #include "BotAI.h"
 

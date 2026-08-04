@@ -16,6 +16,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "Containers.h"
+#include "World.h"
 #include <cds/gc/hp.h>
 
 #include "BattlefieldMgr.h"

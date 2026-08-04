@@ -16,6 +16,7 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "World.h"
 #include "GameObject.h"
 #include "ObjectAccessor.h"
 #include "WorldSession.h"

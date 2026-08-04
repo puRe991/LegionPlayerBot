@@ -18,6 +18,8 @@
 
 #ifndef SCRIPTEDCREATURE_H_
 #define SCRIPTEDCREATURE_H_
+#include "Containers.h"
+#include "SpellMgr.h"
 
 #include "ObjectGuid.h"
 

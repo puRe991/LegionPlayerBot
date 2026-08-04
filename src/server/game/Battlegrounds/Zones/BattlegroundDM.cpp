@@ -1,3 +1,5 @@
+#include "Containers.h"
+#include "ObjectAccessor.h"
 #include "BattlegroundDM.h"
 #include "BattlegroundMgr.h"
 #include "Chat.h"

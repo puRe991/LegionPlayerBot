@@ -1,4 +1,7 @@
 
+#include "ObjectAccessor.h"
+#include "ObjectMgr.h"
+#include "SpellMgr.h"
 #include "BotRogueAI.h"
 #include "BotBGAIMovement.h"
 #include "Item.h"

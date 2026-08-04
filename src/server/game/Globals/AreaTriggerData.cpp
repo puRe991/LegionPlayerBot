@@ -16,6 +16,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "Containers.h"
+#include "SpellMgr.h"
 #include "AreaTriggerData.h"
 #include "DatabaseEnv.h"
 #include "ObjectMgr.h"

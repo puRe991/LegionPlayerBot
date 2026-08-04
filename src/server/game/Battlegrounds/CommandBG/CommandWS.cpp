@@ -449,7 +449,8 @@ void CommandWS::ProcessAllAttack(ObjectGuid attackGuid) // ×Ô¼ÒÆì×Ó±»ÇÀ£¬µÐÈËÆì×
 			continue;
 		pBotAI->SetNeedFindpathSearch();
 		Position playerPos = GetPositionByGuid(itGuid->first);
-		if (playerPos.IsInDist(&GetPositionByGuid(attackGuid.GetGUIDLow()), COMMAND_POINT_IFDISTANCE))
+		Position attackPos = GetPositionByGuid(attackGuid.GetGUIDLow());
+		if (playerPos.IsInDist(&attackPos, COMMAND_POINT_IFDISTANCE))
 			pBotAI->GetAIMovement()->AcceptCommand(attackGuid);
 		else
 		{
@@ -481,7 +482,8 @@ void CommandWS::ProcessAttackAndGuard(ObjectGuid attackGuid, ObjectGuid guaredGu
 			continue;
 		}
 		Position playerPos = GetPositionByGuid(itGuid->first);
-		if (playerPos.IsInDist(&GetPositionByGuid(attackGuid.GetGUIDLow()), COMMAND_POINT_IFDISTANCE))
+		Position attackPos = GetPositionByGuid(attackGuid.GetGUIDLow());
+		if (playerPos.IsInDist(&attackPos, COMMAND_POINT_IFDISTANCE))
 		{
 			pBotAI->GetAIMovement()->AcceptCommand(attackGuid);
 		}

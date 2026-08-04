@@ -28,6 +28,7 @@
 #include "Common.h"
 #include "DatabaseEnvFwd.h"
 #include "ObjectGuid.h"
+#include "ItemTemplate.h"
 
 class Item;
 class Player;

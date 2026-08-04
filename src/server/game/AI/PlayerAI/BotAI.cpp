@@ -1,4 +1,5 @@
 
+#include "SpellMgr.h"
 #include "BotAI.h"
 #include "PathfindingMgr.h"
 #include "WorldSession.h"
@@ -1880,7 +1881,8 @@ bool BotBGAI::TryUpMount()
 	{
 		if (GameObject* pObject = me->GetMap()->GetGameObject(tarGUID))
 		{
-			if (me->GetPosition().GetExactDist(&pObject->GetPosition()) < NEEDFLEE_CHECKRANGE)
+			Position objPos = pObject->GetPosition();
+			if (me->GetPosition().GetExactDist(&objPos) < NEEDFLEE_CHECKRANGE)
 				return false;
 		}
 	}

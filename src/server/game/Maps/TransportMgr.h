@@ -17,6 +17,7 @@
 
 #ifndef TRANSPORTMGR_H
 #define TRANSPORTMGR_H
+#include "Containers.h"
 
 #include "Define.h"
 #include <map>

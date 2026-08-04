@@ -40,7 +40,7 @@ enum Direction
 };
 
 class WorldPacket;
-enum ConnectionType;
+enum ConnectionType : int;
 
 class PacketLog
 {

@@ -28,6 +28,10 @@
 
 #include "Utilities/Util.h"
 #include "SharedDefines.h"
+
+class Map;
+struct Loot;
+struct WorldSafeLocsEntry;
 #include "ZoneScript.h"
 #include <safe_ptr.h>
 

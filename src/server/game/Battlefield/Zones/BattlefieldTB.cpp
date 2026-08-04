@@ -5,6 +5,8 @@
  * This is no GPL code.
  */
 
+#include "ObjectAccessor.h"
+#include "World.h"
 #include "BattlefieldTB.h"
 #include "WorldStatePackets.h"
 

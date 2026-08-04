@@ -15,6 +15,10 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "Containers.h"
+#include "ObjectAccessor.h"
+#include "SpellMgr.h"
+#include "World.h"
 #include "Garrison.h"
 #include "Creature.h"
 #include "GameObject.h"

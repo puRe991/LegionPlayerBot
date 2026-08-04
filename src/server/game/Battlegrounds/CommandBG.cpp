@@ -1,4 +1,5 @@
 
+#include "ObjectAccessor.h"
 #include "CommandBG.h"
 #include "PlayerBotSession.h"
 #include "BotAI.h"
