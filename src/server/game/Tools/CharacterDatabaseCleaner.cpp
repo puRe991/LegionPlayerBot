@@ -21,6 +21,8 @@
 #include "World.h"
 #include "Database/DatabaseEnv.h"
 #include "SpellMgr.h"
+#include "DB2Stores.h"
+#include "Player.h"
 #include<string>
 #include<vector>
 

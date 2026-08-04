@@ -19,6 +19,8 @@
 #ifndef _WARDEN_TIMERS_H
 #define _WARDEN_TIMERS_H
 
+class Player;
+
 #include "Define.h"
 
 class WardenTimer
