@@ -987,33 +987,9 @@ private:
     GlobalCooldownList m_GlobalCooldowns;
 };
 
-enum ActiveStates : uint8
-{
-    ACT_PASSIVE  = 0x01,                                    // 0x01 - passive
-    ACT_DISABLED = 0x81,                                    // 0x80 - castable
-    ACT_ENABLED  = 0xC1,                                    // 0x40 | 0x80 - auto cast + castable
-    ACT_COMMAND  = 0x07,                                    // 0x01 | 0x02 | 0x04
-    ACT_REACTION = 0x06,                                    // 0x02 | 0x04
-    ACT_DECIDE   = 0x00                                     // custom
-};
-
-enum ReactStates
-{
-    REACT_PASSIVE    = 0,
-    REACT_DEFENSIVE  = 1,
-    REACT_AGGRESSIVE = 2,
-    REACT_HELPER     = 3,
-    REACT_ATTACK_OFF = 4
-};
-
-enum CommandStates : uint8
-{
-    COMMAND_STAY    = 0,
-    COMMAND_FOLLOW  = 1,
-    COMMAND_ATTACK  = 2,
-    COMMAND_ABANDON = 3,
-    COMMAND_MOVE_TO = 4
-};
+// ActiveStates, ReactStates and CommandStates moved to UnitDefines.h:
+// CharmInfo.h and the pet packets use them, and both are reached through
+// this header, so they have to be defined below it in the include order.
 
 typedef std::list<Player*> SharedVisionList;
 

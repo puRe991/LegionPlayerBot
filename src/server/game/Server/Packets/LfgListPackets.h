@@ -18,6 +18,8 @@
 #ifndef LfgListPackets_h__
 #define LfgListPackets_h__
 
+#include "SharedDefines.h"
+
 #include "Util.h"
 #include "Common.h"
 

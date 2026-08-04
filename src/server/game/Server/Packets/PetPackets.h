@@ -18,6 +18,8 @@
 #ifndef PetPackets_h__
 #define PetPackets_h__
 
+#include "UnitDefines.h"
+
 #include "Common.h"
 
 #include "Position.h"
