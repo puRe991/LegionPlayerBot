@@ -1,18 +1,71 @@
 # LegionPlayerBot
-LegionCore with playerbot embedding
 
-1. Fix bugs yourself if you like it.
+LegionCore — a TrinityCore derivative for World of Warcraft *Legion* (7.3.5) —
+with a playerbot subsystem built directly into the core rather than bolted on
+as a module.
 
-Known bugs:
-1. playerbots don't find path in BG aggressively, just passive now.
-2. db is lack except playerbot part. you can import a default db version.
-3. BotGroupAI work not completely.
+Bots are real characters on real accounts. They queue for battlegrounds and
+arenas, fight with class-specific combat AI, follow group commands in chat, and
+populate the open world.
 
-Known fix done:
-1. playerbots join arena opcode need be implemented.
-2. db sql involved playerbot.
-3. common.lib for vmap collision calculation.
+**[Setup instructions](docs/SETUP.md)** — requirements, build, databases,
+client data, configuration.
 
-Known settings:
-1. playerbot max count set to 10 in bot mgr
-2. playerbot account prefix is PLAYERBOT
+## Build
+
+```sh
+mkdir build && cd build
+cmake .. -DCMAKE_BUILD_TYPE=Release
+make -j$(nproc)
+```
+
+Builds with GCC and Clang on Linux and with MSVC 2017+ on Windows. Boost 1.60+,
+OpenSSL 1.0/1.1/3.x and MySQL 5.7+ or MariaDB 10.4+ are all supported.
+
+## Bot AI
+
+Five separate AI modes, each with per-class implementations:
+
+| Mode | Purpose |
+|---|---|
+| `BotBGAI` | battlegrounds |
+| `BotFieldAI` | open world |
+| `BotGroupAI` | party and dungeon |
+| `BotDuelAI` | duels |
+| `BotArenaAI` | arena |
+
+Class coverage is complete for Warrior, Paladin, Hunter, Rogue, Priest, Shaman,
+Mage, Warlock and Druid. Death Knight is covered everywhere except
+battlegrounds. Monk and Demon Hunter have combat AI, but see the limitations
+below.
+
+Objective AI — flags, bases, vehicles — exists for Arathi Basin, Warsong Gulch,
+Eye of the Storm, Alterac Valley and Isle of Conquest.
+
+## Configuration
+
+The `PLAYERBOT SETTINGS` block in `worldserver.conf.dist` documents every
+option, including the online limit and how bots answer loot rolls.
+
+## Database
+
+`sql/base/` holds the custom tables the core requires. The base TrinityCore
+7.3.5 content is not included and has to come from elsewhere.
+
+## Known limitations
+
+- Rated arena and the dungeon finder are not wired up for bots.
+- Monk and Demon Hunter bots are refused by the gear and spell provisioning,
+  so their combat AI is currently unreachable.
+- `PlayerBotSetting::LearnTalents` is empty — bots learn no talents.
+- Outside the five battlegrounds listed above, bots fight but ignore
+  objectives.
+
+## Security
+
+`src/server/bnetserver/bnetserver.key.pem` is the TrinityCore development key
+and is public. Replace it before exposing a realm.
+
+## Licence
+
+GPL v2, inherited from TrinityCore. See [COPYING](COPYING).
