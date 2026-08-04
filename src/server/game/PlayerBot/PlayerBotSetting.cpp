@@ -1,4 +1,7 @@
 
+#include <algorithm>
+#include "DB2Structure.h"
+#include "DB2Stores.h"
 #include "World.h"
 #include "PlayerBotSetting.h"
 #include "ObjectMgr.h"
@@ -1868,6 +1871,29 @@ bool PlayerBotSetting::ResetPlayerToLevel(uint32 level, uint32 talent, bool tena
 
 uint32 PlayerBotSetting::SwitchPlayerTalent(uint32 talent)
 {
+	// 0 to 2 request a specialisation, anything above means "pick one". The
+	// argument used to be ignored outright, so the command that reaches here
+	// never changed anything.
+	if (!m_Player)
+		return m_ActiveTalentType;
+
+	uint8 const classId = m_Player->getClass();
+
+	// Not every class has three: Demon Hunter has two. Collect what exists
+	// rather than assuming a fixed count.
+	std::vector<uint32> available;
+	available.reserve(3);
+	for (uint32 index = 0; index < 3; ++index)
+		if (sDB2Manager.GetChrSpecializationByIndex(classId, index))
+			available.push_back(index);
+
+	if (available.empty())
+		return m_ActiveTalentType;
+
+	if (talent > 2 || std::find(available.begin(), available.end(), talent) == available.end())
+		talent = available[urand(0, uint32(available.size() - 1))];
+
+	m_ActiveTalentType = talent;
 	return m_ActiveTalentType;
 }
 
@@ -1959,7 +1985,68 @@ void PlayerBotSetting::UpdateReset()
 
 void PlayerBotSetting::LearnTalents()
 {
-	
+	if (!m_Player)
+		return;
+
+	uint8 const classId = m_Player->getClass();
+	if (classId < CLASS_WARRIOR || classId >= MAX_CLASSES)
+		return;
+
+	uint32 const specId = m_Player->GetUInt32Value(PLAYER_FIELD_CURRENT_SPEC_ID);
+	if (!specId)
+		return;
+
+	uint8 const activeGroup = m_Player->GetActiveTalentGroup();
+	uint32 unlockedTiers = m_Player->GetUInt32Value(PLAYER_FIELD_MAX_TALENT_TIERS);
+	if (unlockedTiers > MAX_TALENT_TIERS)
+		unlockedTiers = MAX_TALENT_TIERS;
+
+	for (uint32 tier = 0; tier < unlockedTiers; ++tier)
+	{
+		// A tier holds one pick. Leave the ones that are already decided alone:
+		// changing them needs the player to be resting, and there is no reason
+		// to reshuffle a choice that is already in place.
+		bool tierDecided = false;
+		for (uint32 column = 0; column < MAX_TALENT_COLUMNS && !tierDecided; ++column)
+			for (TalentEntry const* talent : sDB2Manager._talentByPos[classId][tier][column])
+				if (m_Player->HasTalent(talent->ID, activeGroup))
+				{
+					tierDecided = true;
+					break;
+				}
+
+		if (tierDecided)
+			continue;
+
+		// One candidate per column: the entry matching the active
+		// specialisation, or the one shared by every specialisation of the
+		// class. This mirrors how Player::LearnTalent resolves a slot, so
+		// every id collected here is one it will accept.
+		std::vector<uint32> choices;
+		choices.reserve(MAX_TALENT_COLUMNS);
+		for (uint32 column = 0; column < MAX_TALENT_COLUMNS; ++column)
+		{
+			TalentEntry const* bestSlotMatch = nullptr;
+			for (TalentEntry const* talent : sDB2Manager._talentByPos[classId][tier][column])
+			{
+				if (!talent->SpecID)
+					bestSlotMatch = talent;
+				else if (talent->SpecID == specId)
+				{
+					bestSlotMatch = talent;
+					break;
+				}
+			}
+
+			if (bestSlotMatch && bestSlotMatch->SpellID)
+				choices.push_back(bestSlotMatch->ID);
+		}
+
+		if (choices.empty())
+			continue;
+
+		m_Player->LearnTalent(choices[urand(0, uint32(choices.size() - 1))]);
+	}
 }
 
 void PlayerBotSetting::LearnCommonSpells()
