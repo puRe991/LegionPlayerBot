@@ -78,6 +78,17 @@ set_target_properties(scripts
       FOLDER
         "server")
 
+# MSVC force includes the precompiled header into every script translation
+# unit, and all but a handful of the scripts depend on that: they include their
+# own header and expect everything else - ScriptedCreature, Player, Position,
+# the packet structs - to have arrived through the PCH. Reproduce that force
+# include for the other compilers so the same sources build there too.
+if (NOT MSVC)
+  target_compile_options(scripts
+    PRIVATE
+      -include ${CMAKE_CURRENT_SOURCE_DIR}/PrecompiledHeaders/ScriptPCH.h)
+endif()
+
 # Generate precompiled header
 if (USE_SCRIPTPCH)
   add_cxx_pch(scripts ${PRIVATE_PCH_HEADER} ${PRIVATE_PCH_SOURCE})
