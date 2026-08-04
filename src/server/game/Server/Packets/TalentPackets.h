@@ -18,6 +18,8 @@
 #ifndef TalentPackets_h__
 #define TalentPackets_h__
 
+#include "DBCEnums.h"
+
 #include "Util.h"
 
 #include "PacketUtilities.h"
