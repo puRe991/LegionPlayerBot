@@ -21,6 +21,9 @@
 #include "AccountMgr.h"
 #include "CharacterPackets.h"
 
+#include <type_traits>
+#include <vector>
+
 #include <boost/algorithm/string.hpp>
 //#include <boost/format.hpp>
 
@@ -392,30 +395,12 @@ PlayerBotBaseInfo* PlayerBotMgr::GetAccountBotAccountInfo(uint32 guid)
 
 bool PlayerBotMgr::ExistClassByRace(uint8 race, uint8 prof)
 {
-    switch (prof)
-    {
-        case 1:
-            return (race != 10);
-        case 2:
-            return (race == 1 || race == 3 || race == 10 || race == 11);
-        case 3:
-            return (race == 2 || race == 3 || race == 4 || race == 6 || race == 8 || race == 10 || race == 11);
-        case 4:
-            return (race == 1 || race == 2 || race == 3 || race == 4 || race == 5 || race == 7 || race == 8 || race == 10);
-        case 5:
-            return (race == 1 || race == 3 || race == 4 || race == 5 || race == 8 || race == 10 || race == 11);
-        case 6:
-            return true;
-        case 7:
-            return (race == 2 || race == 6 || race == 8 || race == 11);
-        case 8:
-            return (race == 1 || race == 5 || race == 7 || race == 8 || race == 10 || race == 11);
-        case 9:
-            return (race == 1 || race == 2 || race == 5 || race == 7 || race == 10);
-        case 11:
-            return (race == 4 || race == 6);
-    }
-    return false;
+    // The combinations used to be a hardcoded table that had not been updated
+    // past Wrath: it knew no Monk or Demon Hunter, no Worgen, Goblin or
+    // Pandaren, and was missing combinations added in Cataclysm and Mists.
+    // playercreateinfo is what the server itself validates character creation
+    // against, so ask it instead of keeping a second list in sync.
+    return sObjectMgr->GetPlayerInfo(race, prof) != nullptr;
 }
 void PlayerBotMgr::InitializeCreatePlayerBotName()
 {
@@ -472,35 +457,40 @@ std::string PlayerBotMgr::RandomArenaName()
 {
     return "Arena" + std::to_string(urand(0, 100));
 }
-uint8 PlayerBotMgr::RandomRace(bool group, uint8 prof)
+uint8 PlayerBotMgr::RandomRace(bool alliance, uint8 prof)
 {
-    uint8 race = 1;
-    for (int i = 0; i < 80; i++)
+    // Playable races per faction as of Legion. The previous version drew from
+    // 1..11 only, so Worgen, Goblin and Pandaren never appeared, and when no
+    // race matched - which was always the case for Monk and Demon Hunter - it
+    // fell back to Human or Orc and produced an invalid combination.
+    static uint8 const allianceRaces[] =
     {
-        race = irand(1, 11);
-        if (race == 9) continue;
-        if (group)
-        {
-            if (race == 1 || race == 3 || race == 4 || race == 7 || race == 11)
-            {
-                if (ExistClassByRace(race, prof))
-                    return race;
-            }
-        }
-        else
-        {
-            if (race == 2 || race == 5 || race == 6 || race == 8 || race == 10)
-            {
-                if (ExistClassByRace(race, prof))
-                    return race;
-            }
-        }
-    }
+        RACE_HUMAN, RACE_DWARF, RACE_NIGHTELF, RACE_GNOME, RACE_DRAENEI,
+        RACE_WORGEN, RACE_PANDAREN_ALLIANCE
+    };
+    static uint8 const hordeRaces[] =
+    {
+        RACE_ORC, RACE_UNDEAD_PLAYER, RACE_TAUREN, RACE_TROLL, RACE_GOBLIN,
+        RACE_BLOODELF, RACE_PANDAREN_HORDE
+    };
 
-    TC_LOG_INFO(LOG_FILTER_PLAYER, "server.loading", ">> Random player custom Race timeout!");
-    if (group)
-        return 1;
-    return 2;
+    uint8 const* races = alliance ? allianceRaces : hordeRaces;
+    std::size_t const raceCount = alliance ? std::extent<decltype(allianceRaces)>::value
+                                           : std::extent<decltype(hordeRaces)>::value;
+
+    // Collect what actually exists for this class rather than sampling blindly.
+    std::vector<uint8> candidates;
+    candidates.reserve(raceCount);
+    for (std::size_t i = 0; i < raceCount; ++i)
+        if (ExistClassByRace(races[i], prof))
+            candidates.push_back(races[i]);
+
+    if (!candidates.empty())
+        return candidates[urand(0, uint32(candidates.size() - 1))];
+
+    TC_LOG_ERROR(LOG_FILTER_PLAYER, "PlayerBotMgr::RandomRace found no %s race for class %u.",
+        alliance ? "alliance" : "horde", uint32(prof));
+    return 0;
 }
 uint8 PlayerBotMgr::RandomSkinColor(uint8 race, uint8 gender, uint8 prof)
 {
@@ -605,6 +595,9 @@ WorldPacket PlayerBotMgr::BuildCreatePlayerData(bool group, uint8 prof)
 {
     std::string name = RandomName();
     uint8 race = RandomRace(group, prof);
+    if (!race)
+        return WorldPacket();
+
     uint8 gender = irand(0, 1);
     uint8 skinColor = RandomSkinColor(race, gender, prof);
     uint8 faceID = RandomFace(race, gender, skinColor, prof);
@@ -1199,33 +1192,25 @@ void PlayerBotMgr::SupplementPlayerBot()
         }
         std::string firstName = pInfo->username.substr(6);
         char botname[30] ={ 0 };
-        for (int i = 1; i < 10; i++)
+        // Cover every playable class. This used to run 1..9 without Death
+        // Knight plus a hand written Druid case, which left out Death Knight,
+        // Monk and Demon Hunter entirely.
+        for (uint8 cls = CLASS_WARRIOR; cls <= CLASS_DEMON_HUNTER; ++cls)
         {
-            if (i == 6) continue;
-            if (!pInfo->ExistClass(true, i))
+            for (uint8 faction = 0; faction < 2; ++faction)
             {
-                memset(botname, 0, 30);
-                sprintf(botname, "%sA%d", firstName.c_str(), i);
-                pInfo->needCreateBots.push(BuildCreatePlayerData(true, i));
+                bool const alliance = faction == 0;
+                if (pInfo->ExistClass(alliance, cls))
+                    continue;
+
+                WorldPacket createData = BuildCreatePlayerData(alliance, cls);
+                if (createData.empty())
+                    continue;   // no race of that faction can be this class
+
+                memset(botname, 0, sizeof(botname));
+                snprintf(botname, sizeof(botname), "%s%c%u", firstName.c_str(), alliance ? 'A' : 'B', uint32(cls));
+                pInfo->needCreateBots.push(std::move(createData));
             }
-            if (!pInfo->ExistClass(false, i))
-            {
-                memset(botname, 0, 30);
-                sprintf(botname, "%sB%d", firstName.c_str(), i);
-                pInfo->needCreateBots.push(BuildCreatePlayerData(false, i));
-            }
-        }
-        if (!pInfo->ExistClass(true, 11))
-        {
-            memset(botname, 0, 30);
-            sprintf(botname, "%sA11", firstName.c_str());
-            pInfo->needCreateBots.push(BuildCreatePlayerData(true, 11));
-        }
-        if (!pInfo->ExistClass(false, 11))
-        {
-            memset(botname, 0, 30);
-            sprintf(botname, "%sB11", firstName.c_str());
-            pInfo->needCreateBots.push(BuildCreatePlayerData(false, 11));
         }
     }
     CreateOncePlayerBot();
@@ -1642,12 +1627,9 @@ void PlayerBotMgr::AddNewPlayerBot(bool faction, Classes prof, uint32 count)
 
     if (prof == CLASS_NONE)
     {
-        uint32 rndCls = 0;
-        while (rndCls == 0 || rndCls == 6 || rndCls == 10 || rndCls > 11)
-        {
-            rndCls = urand(Classes::CLASS_WARRIOR, Classes::CLASS_DRUID);
-        }
-        prof = Classes(rndCls);
+        // Every playable class is eligible. The loop this replaces excluded
+        // Death Knight, Monk and Demon Hunter.
+        prof = Classes(urand(Classes::CLASS_WARRIOR, Classes::CLASS_DEMON_HUNTER));
     }
 #ifdef INCOMPLETE_BOT
     if (prof != 1 && prof != 5 && prof != 9)
@@ -1744,12 +1726,9 @@ void PlayerBotMgr::AddNewAccountBot(bool faction, Classes prof)
 #endif
     if (prof == CLASS_NONE)
     {
-        uint32 rndCls = 0;
-        while (rndCls == 0 || rndCls == 6 || rndCls == 10 || rndCls > 11)
-        {
-            rndCls = urand(Classes::CLASS_WARRIOR, Classes::CLASS_DRUID);
-        }
-        prof = Classes(rndCls);
+        // Every playable class is eligible. The loop this replaces excluded
+        // Death Knight, Monk and Demon Hunter.
+        prof = Classes(urand(Classes::CLASS_WARRIOR, Classes::CLASS_DEMON_HUNTER));
     }
     //std::set<uint32> hasSessionIDs;
 //	const SessionMap& allSession = sWorld->GetAllSessions();

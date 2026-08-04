@@ -362,7 +362,7 @@ private:
 	bool ExistClassByRace(uint8 race, uint8 prof);
 	void InitializeCreatePlayerBotName();
 	std::string RandomName();
-	uint8 RandomRace(bool group, uint8 prof);
+	uint8 RandomRace(bool alliance, uint8 prof);
 	uint8 RandomSkinColor(uint8 race, uint8 gender, uint8 prof);
 	uint8 RandomFace(uint8 race, uint8 gender, uint8 skinColor, uint8 prof);
 	uint8 RandomHair(uint8 race, uint8 gender, uint8 prof);

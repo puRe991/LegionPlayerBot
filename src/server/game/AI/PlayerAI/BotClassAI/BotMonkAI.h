@@ -17,6 +17,7 @@ public:
 	~BotMonkAI() {}
 
 	void ResetBotAI() override;
+	bool IsHealerBotAI() override;
 
 protected:
 	void InitializeSpells();

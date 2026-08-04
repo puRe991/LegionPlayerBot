@@ -144,8 +144,12 @@ bool PlayerBotSetting::IsEquipByClasses(uint32 cls, const ItemTemplate* itemTemp
 		return IsMageEquip(itemTemplate);
 	case 9:
 		return IsWarlockEquip(itemTemplate);
+	case 10:
+		return IsMonkEquip(itemTemplate);
 	case 11:
 		return IsDruidEquip(itemTemplate);
+	case 12:
+		return IsDemonHunterEquip(itemTemplate);
 	default:
 		return false;
 	}
@@ -154,7 +158,7 @@ bool PlayerBotSetting::IsEquipByClasses(uint32 cls, const ItemTemplate* itemTemp
 
 bool PlayerBotSetting::IsEquipByClsAndTal(uint32 cls, uint32 tal, const ItemTemplate* itemTemplate, int32 rndPropID)
 {
-	if (tal > 2 || !itemTemplate || cls < 1 || cls == 10 || cls > 11)
+	if (tal > 2 || !itemTemplate || cls < CLASS_WARRIOR || cls >= MAX_CLASSES)
 		return false;
 	if (!itemTemplate || itemTemplate->AllowableClass == 0)
 		return false;
@@ -1077,6 +1081,105 @@ bool PlayerBotSetting::IsDruidEquip(const ItemTemplate* itemTemplate)
 	return false;
 }
 
+bool PlayerBotSetting::IsMonkEquip(const ItemTemplate* itemTemplate)
+{
+	if (itemTemplate->GetClass() == ItemClass::ITEM_CLASS_WEAPON)
+	{
+		switch (itemTemplate->GetSubClass())
+		{
+		// Monks use fist weapons, one handed axes, maces and swords, polearms
+		// and staves. Everything below is out of reach for them.
+		case ItemSubclassWeapon::ITEM_SUBCLASS_WEAPON_AXE2:
+		case ItemSubclassWeapon::ITEM_SUBCLASS_WEAPON_MACE2:
+		case ItemSubclassWeapon::ITEM_SUBCLASS_WEAPON_SWORD2:
+		case ItemSubclassWeapon::ITEM_SUBCLASS_WEAPON_WARGLAIVES:
+		case ItemSubclassWeapon::ITEM_SUBCLASS_WEAPON_DAGGER:
+		case ItemSubclassWeapon::ITEM_SUBCLASS_WEAPON_BOW:
+		case ItemSubclassWeapon::ITEM_SUBCLASS_WEAPON_GUN:
+		case ItemSubclassWeapon::ITEM_SUBCLASS_WEAPON_CROSSBOW:
+		case ItemSubclassWeapon::ITEM_SUBCLASS_WEAPON_THROWN:
+		case ItemSubclassWeapon::ITEM_SUBCLASS_WEAPON_WAND:
+		case ItemSubclassWeapon::ITEM_SUBCLASS_WEAPON_FISHING_POLE:
+			return false;
+		default:
+			break;
+		}
+		return true;
+	}
+	else if (itemTemplate->GetClass() == ItemClass::ITEM_CLASS_ARMOR)
+	{
+		switch (itemTemplate->GetSubClass())
+		{
+		// Leather wearers, and none of the relic types.
+		case ItemSubclassArmor::ITEM_SUBCLASS_ARMOR_CLOTH:
+		case ItemSubclassArmor::ITEM_SUBCLASS_ARMOR_MAIL:
+		case ItemSubclassArmor::ITEM_SUBCLASS_ARMOR_PLATE:
+		case ItemSubclassArmor::ITEM_SUBCLASS_ARMOR_SHIELD:
+		case ItemSubclassArmor::ITEM_SUBCLASS_ARMOR_LIBRAM:
+		case ItemSubclassArmor::ITEM_SUBCLASS_ARMOR_IDOL:
+		case ItemSubclassArmor::ITEM_SUBCLASS_ARMOR_TOTEM:
+		case ItemSubclassArmor::ITEM_SUBCLASS_ARMOR_SIGIL:
+			return false;
+		default:
+			break;
+		}
+		return true;
+	}
+
+	return false;
+}
+
+bool PlayerBotSetting::IsDemonHunterEquip(const ItemTemplate* itemTemplate)
+{
+	if (itemTemplate->GetClass() == ItemClass::ITEM_CLASS_WEAPON)
+	{
+		switch (itemTemplate->GetSubClass())
+		{
+		// Warglaives, one handed axes and swords, and fist weapons.
+		case ItemSubclassWeapon::ITEM_SUBCLASS_WEAPON_AXE2:
+		case ItemSubclassWeapon::ITEM_SUBCLASS_WEAPON_MACE:
+		case ItemSubclassWeapon::ITEM_SUBCLASS_WEAPON_MACE2:
+		case ItemSubclassWeapon::ITEM_SUBCLASS_WEAPON_SWORD2:
+		case ItemSubclassWeapon::ITEM_SUBCLASS_WEAPON_POLEARM:
+		case ItemSubclassWeapon::ITEM_SUBCLASS_WEAPON_SPEAR:
+		case ItemSubclassWeapon::ITEM_SUBCLASS_WEAPON_STAFF:
+		case ItemSubclassWeapon::ITEM_SUBCLASS_WEAPON_DAGGER:
+		case ItemSubclassWeapon::ITEM_SUBCLASS_WEAPON_BOW:
+		case ItemSubclassWeapon::ITEM_SUBCLASS_WEAPON_GUN:
+		case ItemSubclassWeapon::ITEM_SUBCLASS_WEAPON_CROSSBOW:
+		case ItemSubclassWeapon::ITEM_SUBCLASS_WEAPON_THROWN:
+		case ItemSubclassWeapon::ITEM_SUBCLASS_WEAPON_WAND:
+		case ItemSubclassWeapon::ITEM_SUBCLASS_WEAPON_FISHING_POLE:
+			return false;
+		default:
+			break;
+		}
+		return true;
+	}
+	else if (itemTemplate->GetClass() == ItemClass::ITEM_CLASS_ARMOR)
+	{
+		switch (itemTemplate->GetSubClass())
+		{
+		// Leather wearers, and none of the relic types.
+		case ItemSubclassArmor::ITEM_SUBCLASS_ARMOR_CLOTH:
+		case ItemSubclassArmor::ITEM_SUBCLASS_ARMOR_MAIL:
+		case ItemSubclassArmor::ITEM_SUBCLASS_ARMOR_PLATE:
+		case ItemSubclassArmor::ITEM_SUBCLASS_ARMOR_SHIELD:
+		case ItemSubclassArmor::ITEM_SUBCLASS_ARMOR_LIBRAM:
+		case ItemSubclassArmor::ITEM_SUBCLASS_ARMOR_IDOL:
+		case ItemSubclassArmor::ITEM_SUBCLASS_ARMOR_TOTEM:
+		case ItemSubclassArmor::ITEM_SUBCLASS_ARMOR_SIGIL:
+			return false;
+		default:
+			break;
+		}
+		return true;
+	}
+
+	return false;
+}
+
+
 bool PlayerBotSetting::IsHunterEquip(const ItemTemplate* itemTemplate)
 {
 	if (itemTemplate->GetClass() == ItemClass::ITEM_CLASS_WEAPON)
@@ -1494,6 +1597,14 @@ void PlayerBotSetting::Initialize()
 	classesTrainersGUID[Classes::CLASS_PRIEST][0] = 5141;
 	classesTrainersGUID[Classes::CLASS_PRIEST][1] = 4606;
 
+	// Monk and Demon Hunter had no trainers at all, which left their entries at
+	// zero. Pandaria and the Vault of the Wardens trainers respectively.
+	classesTrainersGUID[Classes::CLASS_MONK][0] = 61411;
+	classesTrainersGUID[Classes::CLASS_MONK][1] = 61411;
+
+	classesTrainersGUID[Classes::CLASS_DEMON_HUNTER][0] = 98229;
+	classesTrainersGUID[Classes::CLASS_DEMON_HUNTER][1] = 98229;
+
 	for (uint32 talentId = 0; talentId < sTalentStore.GetNumRows(); ++talentId)
 	{
 		TalentEntry const* talentInfo = sTalentStore.LookupEntry(talentId);
@@ -1854,7 +1965,7 @@ void PlayerBotSetting::LearnTalents()
 void PlayerBotSetting::LearnCommonSpells()
 {
 	uint8 cls = m_Player->getClass();
-	if (cls <= 0 || cls >= 12 || cls == 10)
+	if (cls < CLASS_WARRIOR || cls >= MAX_CLASSES)
 		return;
 	BotCommonSpells& commonSpells = classesCommonSpells[cls];
 	for (BotCommonSpells::iterator itSpell = commonSpells.begin();

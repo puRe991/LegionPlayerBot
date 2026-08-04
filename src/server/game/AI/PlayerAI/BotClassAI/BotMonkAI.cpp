@@ -22,6 +22,12 @@ void BotMonkAI::ResetBotAI()
 	InitializeSpells();
 }
 
+bool BotMonkAI::IsHealerBotAI()
+{
+	// Brewmaster and Windwalker are not healers; only Mistweaver is.
+	return me->FindTalentType() == 1;
+}
+
 bool BotMonkAI::ProcessNormalSpell()
 {
 	if (me->HasUnitState(UNIT_STATE_CASTING))

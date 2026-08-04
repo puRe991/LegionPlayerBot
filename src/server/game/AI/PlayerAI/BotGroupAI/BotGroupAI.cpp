@@ -220,6 +220,16 @@ bool BotGroupAI::CanReciveCommand(std::string& cmd, std::string& param)
 			if (target != "xd")
 				return false;
 		}
+		else if (me->getClass() == Classes::CLASS_MONK)
+		{
+			if (target != "ws")
+				return false;
+		}
+		else if (me->getClass() == Classes::CLASS_DEMON_HUNTER)
+		{
+			if (target != "dh")
+				return false;
+		}
 
 		int32 secondEndIndex = realCmd.find(' ');
 		if (secondEndIndex <= 0)

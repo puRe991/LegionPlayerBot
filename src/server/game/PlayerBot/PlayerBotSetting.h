@@ -95,6 +95,8 @@ private:
 	static bool IsMageEquip(const ItemTemplate* itemTemplate);
 	static bool IsWarlockEquip(const ItemTemplate* itemTemplate);
 	static bool IsPriestEquip(const ItemTemplate* itemTemplate);
+	static bool IsMonkEquip(const ItemTemplate* itemTemplate);
+	static bool IsDemonHunterEquip(const ItemTemplate* itemTemplate);
 	static bool IsEquipByClasses(uint32 cls, const ItemTemplate* itemTemplate);
 	static bool IsEquipByClsAndTal(uint32 cls, uint32 tal, const ItemTemplate* itemTemplate, int32 rndPropID);
 	static bool IsOnlyPhysicsAttributeEquip(const ItemTemplate* itemTemplate, bool coverIntellect);

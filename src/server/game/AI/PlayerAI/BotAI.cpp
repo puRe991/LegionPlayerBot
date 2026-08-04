@@ -257,6 +257,16 @@ bool BotBGAI::CanReciveCommand(std::string& cmd, std::string& param)
 			if (target != "xd")
 				return false;
 		}
+		else if (me->getClass() == Classes::CLASS_MONK)
+		{
+			if (target != "ws")
+				return false;
+		}
+		else if (me->getClass() == Classes::CLASS_DEMON_HUNTER)
+		{
+			if (target != "dh")
+				return false;
+		}
 
 		int32 secondEndIndex = realCmd.find(' ');
 		if (secondEndIndex <= 0)
@@ -2247,6 +2257,9 @@ bool BotBGAI::IsMeleeBotAI()
 	case CLASS_SHAMAN:
 	case CLASS_DRUID:
 		return true;
+	case CLASS_MONK:
+	case CLASS_DEMON_HUNTER:
+		return true;
 	case CLASS_MAGE:
 	case CLASS_WARLOCK:
 	case CLASS_PRIEST:
@@ -2264,6 +2277,8 @@ bool BotBGAI::IsRangeBotAI()
 	case CLASS_PALADIN:
 	case CLASS_ROGUE:
 	case CLASS_DEATH_KNIGHT:
+	case CLASS_MONK:
+	case CLASS_DEMON_HUNTER:
 		return false;
 	case CLASS_MAGE:
 	case CLASS_WARLOCK:
@@ -2286,11 +2301,14 @@ bool BotBGAI::IsHealerBotAI()
 	case CLASS_MAGE:
 	case CLASS_WARLOCK:
 	case CLASS_HUNTER:
+	case CLASS_DEMON_HUNTER:
 		return false;
 	case CLASS_PALADIN:
 	case CLASS_PRIEST:
 	case CLASS_SHAMAN:
 	case CLASS_DRUID:
+	// Mistweaver is a healing specialisation; BotMonkAI narrows this down.
+	case CLASS_MONK:
 		return true;
 	}
 	return false;
