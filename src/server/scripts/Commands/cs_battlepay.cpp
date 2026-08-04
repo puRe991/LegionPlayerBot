@@ -1,5 +1,6 @@
 
 #include "ScriptMgr.h"
+#include "Chat.h"
 #include "BattlePayMgr.h"
 #include "BattlePayData.h"
 
