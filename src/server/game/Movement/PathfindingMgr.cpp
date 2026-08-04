@@ -133,7 +133,7 @@ bool PFThread::ExecturePathfinding(bool force)
 			itPoints != points.end();
 			itPoints++)
 		{
-			G3D::Vector3& point = (G3D::Vector3)(*itPoints);
+			G3D::Vector3 point = *itPoints;
 			if (!m_pfParameter->findOK)
 				path.UpdateAllowedPositionZ(point.x, point.y, point.z);
 			m_pfParameter->finishPaths.push_back(point);
