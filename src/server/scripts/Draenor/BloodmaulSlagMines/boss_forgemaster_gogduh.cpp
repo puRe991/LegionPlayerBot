@@ -18,7 +18,7 @@
 #include "ScriptMgr.h"
 #include "ScriptedCreature.h"
 #include "bloodmaul_slag_mines.h"
-#include "ScriptPCH.h"
+#include "PrecompiledHeaders/ScriptPCH.h"
 enum Texts
 {
     TEXT_0, 

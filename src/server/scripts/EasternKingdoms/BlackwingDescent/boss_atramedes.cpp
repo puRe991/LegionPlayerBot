@@ -1,7 +1,7 @@
 ﻿#include "Spell.h"
 #include "ObjectMgr.h"
 #include "blackwing_descent.h"
-#include "ScriptPCH.h"
+#include "PrecompiledHeaders/ScriptPCH.h"
 
 /* 
 43404 - maloriak

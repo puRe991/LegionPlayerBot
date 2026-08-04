@@ -4,7 +4,7 @@
 */
 #include "ObjectAccessor.h"
 #include "AreaTriggerAI.h"
-#include "ScriptPCH.h"
+#include "PrecompiledHeaders/ScriptPCH.h"
 enum eSpells
 {
     // flotsam
