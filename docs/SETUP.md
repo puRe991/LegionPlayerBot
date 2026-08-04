@@ -30,6 +30,14 @@ Windows builds need MSVC 2017 or newer.
 
 ## 2. Build
 
+> **State of the Linux port.** This tree was MSVC-only. `common` and
+> `shared` build cleanly under GCC; `game` compiles without errors but has
+> not linked end to end yet, and `scripts`, `worldserver` and `bnetserver`
+> have not been through a compiler other than MSVC. Expect to fix further
+> missing includes in those, in the same shape as the ones already fixed:
+> a header using a type it does not include. Build with
+> `-DWITH_WARNINGS=1` while doing so.
+
 The build has to happen outside the source tree; in-source builds are
 rejected on purpose.
 
@@ -178,3 +186,5 @@ Documented so nobody has to rediscover them:
   Storm, Alterac Valley and Isle of Conquest only. In other battlegrounds
   the bots fight but do not play the objectives.
 - Rated arena and the dungeon finder are not wired up for bots.
+- Parts of the source still carry mis-encoded comments and a few
+  user-visible strings from the original Chinese sources.
