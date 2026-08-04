@@ -24,6 +24,9 @@
 #include <boost/algorithm/string.hpp>
 //#include <boost/format.hpp>
 
+// Grace period before an AI that was swapped out is actually freed.
+static uint32 const AI_DESTROY_DELAY = 5000;
+
 PlayerBotCharBaseInfo PlayerBotBaseInfo::empty;
 std::map<uint32, std::list<UnitAI*> > PlayerBotMgr::m_DelayDestroyAIs;
 std::mutex PlayerBotMgr::g_uniqueLock;
@@ -39,39 +42,39 @@ std::string PlayerBotCharBaseInfo::GetNameANDClassesText()
             clsEntry += 1;
             break;
         case 2:
-            //clsName = "  Ê¥ÆïÊ¿ : ";
+            //clsName = "  Ê¥ï¿½ï¿½Ê¿ : ";
             clsEntry += 2;
             break;
         case 3:
-            //clsName = "  ÁÔ  ÈË : ";
+            //clsName = "  ï¿½ï¿½  ï¿½ï¿½ : ";
             clsEntry += 3;
             break;
         case 4:
-            //clsName = "  µÁ  Ôô : ";
+            //clsName = "  ï¿½ï¿½  ï¿½ï¿½ : ";
             clsEntry += 4;
             break;
         case 5:
-            //clsName = "  ÄÁ  Ê¦ : ";
+            //clsName = "  ï¿½ï¿½  Ê¦ : ";
             clsEntry += 5;
             break;
         case 6:
-            //clsName = "  ËÀ  Æï : ";
+            //clsName = "  ï¿½ï¿½  ï¿½ï¿½ : ";
             clsEntry += 6;
             break;
         case 7:
-            //clsName = "  Èø  Âú : ";
+            //clsName = "  ï¿½ï¿½  ï¿½ï¿½ : ";
             clsEntry += 7;
             break;
         case 8:
-            //clsName = "  ·¨  Ê¦ : ";
+            //clsName = "  ï¿½ï¿½  Ê¦ : ";
             clsEntry += 8;
             break;
         case 9:
-            //clsName = "  Êõ  Ê¿ : ";
+            //clsName = "  ï¿½ï¿½  Ê¿ : ";
             clsEntry += 9;
             break;
         case 11:
-            //clsName = "  µÂÂ³ÒÁ : ";
+            //clsName = "  ï¿½ï¿½Â³ï¿½ï¿½ : ";
             clsEntry += 10;
             break;
     }
@@ -942,7 +945,7 @@ void PlayerBotMgr::OnPlayerBotLogin(WorldSession* pSession, Player* pPlayer)
     if (pSession)
     {
         std::string outString;
-        consoleToUtf8(std::string(" ÉÏ Ïß"), outString);
+        consoleToUtf8(std::string(" ï¿½ï¿½ ï¿½ï¿½"), outString);
         sWorld->SendGlobalText((GetPlayerLinkText(pPlayer) + outString).c_str(), NULL);
     }
     if (PlayerBotSession* pBotSession = dynamic_cast<PlayerBotSession*>(pSession))
@@ -968,7 +971,7 @@ void PlayerBotMgr::OnPlayerBotLogout(WorldSession* pSession)
     if (m_BotOnlineCount < 0) m_BotOnlineCount = 0;
 
     std::string outString;
-    consoleToUtf8(std::string("»úÆ÷ÈËÏÂÏß"), outString);
+    consoleToUtf8(std::string("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"), outString);
     sWorld->SendGlobalText(outString.c_str(), NULL);
     PlayerBotSession* pBotSession = dynamic_cast<PlayerBotSession*>(pSession);
     if (pBotSession && !pBotSession->HasScheduleByType(BotGlobleScheduleType::BGSType_Online) &&
@@ -1025,7 +1028,7 @@ void PlayerBotMgr::LoginFriendBotByPlayer(Player* pPlayer)
     //	}
     //#else
     //	std::string allonlineText;
-    //	consoleToUtf8(std::string("|cffff8800ÌåÑé°æÎÞ·¨ÕÙ»½ºÃÓÑ»úÆ÷ÈËÉÏÏß¡£|r"), allonlineText);
+    //	consoleToUtf8(std::string("|cffff8800ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Þ·ï¿½ï¿½Ù»ï¿½ï¿½ï¿½ï¿½Ñ»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß¡ï¿½|r"), allonlineText);
     //	sWorld->SendGlobalText(allonlineText.c_str(), NULL);
     //#endif
 }
@@ -1683,7 +1686,7 @@ void PlayerBotMgr::AddNewPlayerBot(bool faction, Classes prof, uint32 count)
     if (count > 0)
     {
         std::string allonlineText;
-        consoleToUtf8(std::string("|cffff8800ËùÓÐ»úÆ÷ÈËÕËºÅÒÑ¾­È«²¿ÔÚÏß£¬ÎÞ·¨ÉÏÏßÐÂ»úÆ÷ÈË¡£|r"), allonlineText);
+        consoleToUtf8(std::string("|cffff8800ï¿½ï¿½ï¿½Ð»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëºï¿½ï¿½Ñ¾ï¿½È«ï¿½ï¿½ï¿½ï¿½ï¿½ß£ï¿½ï¿½Þ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â»ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½|r"), allonlineText);
         sWorld->SendGlobalText(allonlineText.c_str(), NULL);
     }
 }
@@ -1731,7 +1734,7 @@ void PlayerBotMgr::AddNewAccountBot(bool faction, Classes prof)
     }
     std::string allonlineText;
 #ifdef INCOMPLETE_BOT
-    consoleToUtf8(std::string("|cffff8800ÌåÑé°æÎÞ·¨ÕÙ»½ÉÏÏß×Ô½¨ÕËºÅ½ÇÉ«|r"), allonlineText);
+    consoleToUtf8(std::string("|cffff8800ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Þ·ï¿½ï¿½Ù»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô½ï¿½ï¿½ËºÅ½ï¿½É«|r"), allonlineText);
     sWorld->SendGlobalText(allonlineText.c_str(), NULL);
     return;
 #endif
@@ -1796,7 +1799,7 @@ void PlayerBotMgr::AddNewAccountBot(bool faction, Classes prof)
         }
     }
 
-    consoleToUtf8(std::string("|cffff8800Ã»ÓÐÕÒµ½ºÍÄãÏàÍ¬ÕóÓªµÄÖ¸¶¨Ö°ÒµµÄ×Ô½¨ÕËºÅ½ÇÉ«|r"), allonlineText);
+    consoleToUtf8(std::string("|cffff8800Ã»ï¿½ï¿½ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¬ï¿½ï¿½Óªï¿½ï¿½Ö¸ï¿½ï¿½Ö°Òµï¿½ï¿½ï¿½Ô½ï¿½ï¿½ËºÅ½ï¿½É«|r"), allonlineText);
     sWorld->SendGlobalText(allonlineText.c_str(), NULL);
 }
 
@@ -1896,7 +1899,7 @@ void PlayerBotMgr::AddNewPlayerBotByClass(uint32 count, Classes prof)
     if (allianceCount > 0 || hordeCount > 0)
     {
         std::string allonlineText;
-        consoleToUtf8(std::string("|cffff8800ËùÓÐ»úÆ÷ÈËÕËºÅÒÑ¾­È«²¿ÔÚÏß£¬ÎÞ·¨ÉÏÏßÐÂ»úÆ÷ÈË¡£|r"), allonlineText);
+        consoleToUtf8(std::string("|cffff8800ï¿½ï¿½ï¿½Ð»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëºï¿½ï¿½Ñ¾ï¿½È«ï¿½ï¿½ï¿½ï¿½ï¿½ß£ï¿½ï¿½Þ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â»ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½|r"), allonlineText);
         sWorld->SendGlobalText(allonlineText.c_str(), NULL);
     }
 }
@@ -2022,7 +2025,7 @@ void PlayerBotMgr::AddNewPlayerBotToBG(TeamId team, uint32 minLV, uint32 maxLV, 
     }
 
     std::string allonlineText;
-    consoleToUtf8(std::string("|cffff8800ËùÓÐ»úÆ÷ÈËÕËºÅÒÑ¾­È«²¿ÔÚÏß£¬ÎÞ·¨¼ÓÈëÐÂ»úÆ÷ÈËµ½Õ½³¡ÖÐ¡£|r"), allonlineText);
+    consoleToUtf8(std::string("|cffff8800ï¿½ï¿½ï¿½Ð»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëºï¿½ï¿½Ñ¾ï¿½È«ï¿½ï¿½ï¿½ï¿½ï¿½ß£ï¿½ï¿½Þ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â»ï¿½ï¿½ï¿½ï¿½Ëµï¿½Õ½ï¿½ï¿½ï¿½Ð¡ï¿½|r"), allonlineText);
     sWorld->SendGlobalText(allonlineText.c_str(), NULL);
 }
 
@@ -2167,7 +2170,7 @@ void PlayerBotMgr::AddNewPlayerBotToBG(TeamId team, uint32 minLV, uint32 maxLV, 
 //	}
 //
 //	std::string allonlineText;
-//	consoleToUtf8(std::string("|cffff8800ËùÓÐ»úÆ÷ÈËÕËºÅÒÑ¾­È«²¿ÔÚÏß£¬ÎÞ·¨¼ÓÈëÐÂ»úÆ÷ÈËµ½µØÏÂ³Ç¶ÓÁÐÖÐ¡£|r"), allonlineText);
+//	consoleToUtf8(std::string("|cffff8800ï¿½ï¿½ï¿½Ð»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëºï¿½ï¿½Ñ¾ï¿½È«ï¿½ï¿½ï¿½ï¿½ï¿½ß£ï¿½ï¿½Þ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â»ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½ï¿½ï¿½Â³Ç¶ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½|r"), allonlineText);
 //	sWorld->SendGlobalText(allonlineText.c_str(), NULL);
 //}
 
@@ -2280,7 +2283,7 @@ void PlayerBotMgr::AddNewPlayerBotToAA(TeamId team, BattlegroundTypeId bgTypeID,
     }
 
     std::string allonlineText;
-    consoleToUtf8(std::string("|cffff8800ËùÓÐ»úÆ÷ÈËÕËºÅÒÑ¾­È«²¿ÔÚÏß£¬ÎÞ·¨¼ÓÈëÐÂ»úÆ÷ÈËµ½¾º¼¼³¡ÖÐ¡£|r"), allonlineText);
+    consoleToUtf8(std::string("|cffff8800ï¿½ï¿½ï¿½Ð»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëºï¿½ï¿½Ñ¾ï¿½È«ï¿½ï¿½ï¿½ï¿½ï¿½ß£ï¿½ï¿½Þ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â»ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½|r"), allonlineText);
     sWorld->SendGlobalText(allonlineText.c_str(), NULL);
 }
 
@@ -2973,7 +2976,11 @@ void PlayerBotMgr::Update()
         itDelayAi++)
     {
         uint32 delayTick = itDelayAi->first;
-        if (delayTick + 5000 >= currentTick)
+        // The delay exists so an AI that was swapped out is not freed while the
+        // current update cycle may still be holding it. Free it once the grace
+        // period has actually passed. getMSTime wraps around, so compare the
+        // difference rather than the raw values.
+        if (getMSTimeDiff(delayTick, currentTick) >= AI_DESTROY_DELAY)
         {
             for (std::list<UnitAI*>::iterator itAI = itDelayAi->second.begin();
                 itAI != itDelayAi->second.end();
