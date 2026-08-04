@@ -137,6 +137,15 @@ Bots are brought online by the manager itself: it fills battlegrounds and
 non-rated arenas once a real player queues, at most one bot per update
 tick.
 
+To drive them by hand, `.playerbot` (short form `.pbot`):
+
+| Command | Level | Effect |
+|---|---|---|
+| `.playerbot add <alliance\|horde> [class] [count]` | Game Master | Queue bots. Class by name (`monk`, `dh`, …) or id, omitted means any. |
+| `.playerbot remove <all\|account id>` | Game Master | Log bots out. |
+| `.playerbot limit [count]` | Administrator | Read or set the online limit for this session. |
+| `.playerbot status` | Game Master | Online counts and the current loot settings. |
+
 ### Security
 
 Two things must be changed before running this publicly:
@@ -169,6 +178,3 @@ Documented so nobody has to rediscover them:
   Storm, Alterac Valley and Isle of Conquest only. In other battlegrounds
   the bots fight but do not play the objectives.
 - Rated arena and the dungeon finder are not wired up for bots.
-- Monk and Demon Hunter bots have combat AI but the provisioning layer
-  still refuses those classes.
-- `PlayerBotSetting::LearnTalents` is empty: bots learn no talents.

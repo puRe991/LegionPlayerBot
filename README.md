@@ -35,9 +35,9 @@ Five separate AI modes, each with per-class implementations:
 | `BotArenaAI` | arena |
 
 Class coverage is complete for Warrior, Paladin, Hunter, Rogue, Priest, Shaman,
-Mage, Warlock and Druid. Death Knight is covered everywhere except
-battlegrounds. Monk and Demon Hunter have combat AI, but see the limitations
-below.
+Mage, Warlock and Druid. Monk and Demon Hunter are playable, including the
+Mistweaver healing and the Brewmaster and Vengeance tanking roles. Death Knight
+is covered everywhere except battlegrounds.
 
 Objective AI — flags, bases, vehicles — exists for Arathi Basin, Warsong Gulch,
 Eye of the Storm, Alterac Valley and Isle of Conquest.
@@ -52,12 +52,14 @@ option, including the online limit and how bots answer loot rolls.
 `sql/base/` holds the custom tables the core requires. The base TrinityCore
 7.3.5 content is not included and has to come from elsewhere.
 
+## Administration
+
+`.playerbot add`, `remove`, `limit` and `status` drive the subsystem in game.
+See [the setup guide](docs/SETUP.md) for the details.
+
 ## Known limitations
 
 - Rated arena and the dungeon finder are not wired up for bots.
-- Monk and Demon Hunter bots are refused by the gear and spell provisioning,
-  so their combat AI is currently unreachable.
-- `PlayerBotSetting::LearnTalents` is empty — bots learn no talents.
 - Outside the five battlegrounds listed above, bots fight but ignore
   objectives.
 
