@@ -30,13 +30,19 @@ Windows builds need MSVC 2017 or newer.
 
 ## 2. Build
 
-> **State of the Linux port.** This tree was MSVC-only. `common` and
-> `shared` build cleanly under GCC; `game` compiles without errors but has
-> not linked end to end yet, and `scripts`, `worldserver` and `bnetserver`
-> have not been through a compiler other than MSVC. Expect to fix further
-> missing includes in those, in the same shape as the ones already fixed:
-> a header using a type it does not include. Build with
-> `-DWITH_WARNINGS=1` while doing so.
+> **State of the Linux port.** This tree used to be MSVC-only. The whole
+> build — `common`, `shared`, `game`, `scripts`, `worldserver` and
+> `bnetserver` — now completes under GCC with no errors and links without
+> unresolved symbols. Verified on Ubuntu 24.04 with GCC 13.3, CMake 3.28,
+> Boost 1.83, OpenSSL 3.0.13 and MariaDB 10.11. `worldserver` starts,
+> reports the SSL and Boost versions it was linked against, and opens the
+> auth, characters and hotfixes databases; it stops on the base
+> TrinityCore world content, which this repository does not ship (see
+> section 3).
+>
+> A full build takes roughly half an hour on eight cores and needs about
+> 6 GB of disk for the objects; `libscripts.a` alone is around 200 MB.
+> Build with `-DWITH_WARNINGS=1` when changing code.
 
 The build has to happen outside the source tree; in-source builds are
 rejected on purpose.
@@ -63,6 +69,15 @@ Useful options:
 ## 3. Databases
 
 Four databases are required: `auth`, `characters`, `world` and `hotfixes`.
+
+The core connects over TCP, never over the unix socket. On a default
+MariaDB installation `root` authenticates through `unix_socket` and will be
+refused over `127.0.0.1`, so give the server a user of its own:
+
+```sql
+CREATE USER 'trinity'@'127.0.0.1' IDENTIFIED BY 'trinity';
+GRANT ALL PRIVILEGES ON *.* TO 'trinity'@'127.0.0.1' WITH GRANT OPTION;
+```
 
 ```sql
 CREATE DATABASE auth       DEFAULT CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci;

@@ -23,11 +23,12 @@ Boost 1.60+, OpenSSL 1.0/1.1/3.x and MySQL 5.7+ or MariaDB 10.4+ are all
 supported; the version differences are handled in the build system rather than
 pinned. Windows builds need MSVC 2017 or newer.
 
-The tree was MSVC-only and is being ported to GCC and Clang. `common` and
-`shared` build cleanly; the port of `game` is essentially finished but the
-library has not linked end to end yet, and `scripts` and the two server
-binaries have not been through a compiler other than MSVC. See
-[docs/SETUP.md](docs/SETUP.md) for what that means in practice.
+The tree used to be MSVC-only. It now builds all the way through on Linux with
+GCC — verified on GCC 13.3, CMake 3.28, Boost 1.83, OpenSSL 3.0 and MariaDB
+10.11 — producing `worldserver` and `bnetserver` with no unresolved symbols.
+`worldserver` starts, reads its configuration and opens the auth, characters
+and hotfixes databases; it then stops on the base TrinityCore world content,
+which this repository does not ship. See [docs/SETUP.md](docs/SETUP.md).
 
 ## Bot AI
 
