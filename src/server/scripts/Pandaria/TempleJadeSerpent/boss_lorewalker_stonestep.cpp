@@ -1,6 +1,7 @@
 /*==============
 ==============*/
 
+#include "ObjectAccessor.h"
 #include "CreatureTextMgr.h"
 
 #define TYPE_SET_SUNS_SELECTABLE 2

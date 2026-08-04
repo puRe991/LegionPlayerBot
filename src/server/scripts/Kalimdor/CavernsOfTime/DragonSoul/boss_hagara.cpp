@@ -1,3 +1,4 @@
+#include "ObjectAccessor.h"
 #include "MoveSplineInit.h"
 #include "dragon_soul.h"
 #include "ObjectVisitors.hpp"

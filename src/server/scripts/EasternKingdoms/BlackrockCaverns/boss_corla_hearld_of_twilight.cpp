@@ -1,3 +1,4 @@
+#include "ObjectAccessor.h"
 #include "blackrock_caverns.h"
 
 enum ScriptTexts

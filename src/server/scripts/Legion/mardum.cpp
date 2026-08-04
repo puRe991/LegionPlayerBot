@@ -1,3 +1,5 @@
+#include "ObjectAccessor.h"
+#include "ObjectMgr.h"
 #include "ScriptedEscortAI.h"
 #include "CreatureTextMgr.h"
 #include "MapManager.h"

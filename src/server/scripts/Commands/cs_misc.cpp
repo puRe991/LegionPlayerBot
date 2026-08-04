@@ -15,6 +15,9 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "DatabaseEnv.h"
+#include "World.h"
+#include "SpellMgr.h"
 #include "AccountMgr.h"
 #include "BattlegroundMgr.h"
 #include "CharmInfo.h"

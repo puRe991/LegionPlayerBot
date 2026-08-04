@@ -1,3 +1,5 @@
+#include "ObjectAccessor.h"
+#include "SpellMgr.h"
 #include "AchievementMgr.h"
 #include "BrawlersGuild.h"
 

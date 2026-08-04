@@ -35,6 +35,7 @@ at_brewfest
 at_area_52_entrance
 EndContentData */
 
+#include "World.h"
 #include "AreaTriggerAI.h"
 #include "InstanceScript.h"
 #include "ScriptedCreature.h"

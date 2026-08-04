@@ -19,6 +19,8 @@
 SDName: Boss Malygos
 Script Data End */
 
+#include "SpellMgr.h"
+#include "Containers.h"
 #include "CreatureTextMgr.h"
 #include "eye_of_eternity.h"
 #include "MoveSplineInit.h"

@@ -21,6 +21,8 @@
  * Scriptnames of files in this file should be prefixed with "spell_q#questID_".
  */
 
+#include "ObjectMgr.h"
+#include "SpellMgr.h"
 #include "CellImpl.h"
 #include "Chat.h"
 #include "GameTables.h"

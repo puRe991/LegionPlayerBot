@@ -1,3 +1,5 @@
+#include "ObjectAccessor.h"
+#include "Containers.h"
 #include "bastion_of_twilight.h"
 
 //todo: разобраться с entry мобов у orders

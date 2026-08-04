@@ -1,5 +1,7 @@
 
 
+#include "ObjectMgr.h"
+#include "MapManager.h"
 #include "blackwing_descent.h"
 
 enum NefYells

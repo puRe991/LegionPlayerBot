@@ -3,6 +3,7 @@
     To-DO: Conversation 5002/5003 when near. Now it don't work =C
 */
 
+#include "Containers.h"
 #include "tomb_of_sargeras.h"
 
 enum Spells

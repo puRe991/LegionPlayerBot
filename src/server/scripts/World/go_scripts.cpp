@@ -50,6 +50,8 @@ go_large_gjalerbron_cage
 go_veil_skith_cage
 EndContentData */
 
+#include "ObjectAccessor.h"
+#include "SpellMgr.h"
 #include "ScriptMgr.h"
 #include "ScriptedCreature.h"
 #include "ScriptedGossip.h"

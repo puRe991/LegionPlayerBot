@@ -22,6 +22,7 @@ Comment: All disable related commands
 Category: commandscripts
 EndScriptData */
 
+#include "SpellMgr.h"
 #include "ScriptMgr.h"
 #include "Chat.h"
 #include "DisableMgr.h"

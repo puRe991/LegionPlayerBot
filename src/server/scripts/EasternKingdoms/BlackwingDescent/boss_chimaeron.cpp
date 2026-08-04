@@ -1,3 +1,5 @@
+#include "ObjectAccessor.h"
+#include "ObjectMgr.h"
 #include"Spell.h"
 #include"blackwing_descent.h"
 

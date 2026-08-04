@@ -1,3 +1,5 @@
+#include "ObjectAccessor.h"
+#include "Containers.h"
 #include "dragon_soul.h"
 #include "LFGMgr.h"
 #include "Group.h"

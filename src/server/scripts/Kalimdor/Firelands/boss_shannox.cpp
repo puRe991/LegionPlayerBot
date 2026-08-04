@@ -1,3 +1,4 @@
+#include "ObjectAccessor.h"
 #include "firelands.h"
 
 enum ScriptTexts

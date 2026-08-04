@@ -1,3 +1,6 @@
+#include "ObjectAccessor.h"
+#include "ObjectMgr.h"
+#include "Containers.h"
 #include"Spell.h"
 #include "GameObjectAI.h"
 #include "blackwing_descent.h"

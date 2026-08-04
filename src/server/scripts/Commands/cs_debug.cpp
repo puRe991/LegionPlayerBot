@@ -22,6 +22,8 @@ Comment: All debug related commands
 Category: commandscripts
 EndScriptData */
 
+#include "DatabaseEnv.h"
+#include "World.h"
 #include "BattlegroundMgr.h"
 #include "Cell.h"
 #include "ChallengeMgr.h"

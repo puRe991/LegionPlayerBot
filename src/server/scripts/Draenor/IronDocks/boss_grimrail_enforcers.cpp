@@ -3,6 +3,7 @@
     Encounter: Grimrail Enforcers / Головорезы Мрачных Путей
 */
 
+#include "ObjectAccessor.h"
 #include "iron_docks.h"
 
 enum Says

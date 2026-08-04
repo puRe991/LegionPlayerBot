@@ -16,6 +16,7 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "SpellMgr.h"
 #include "ScriptMgr.h"
 #include "ScriptedCreature.h"
 #include "black_temple.h"

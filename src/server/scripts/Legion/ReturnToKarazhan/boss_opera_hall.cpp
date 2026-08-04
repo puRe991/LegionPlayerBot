@@ -1,3 +1,4 @@
+#include "ObjectAccessor.h"
 #include "return_to_karazhan.h"
 
 enum Says

@@ -4,6 +4,7 @@
     Normal: 100%, Heroic: 100%, Mythic: 100%
 */
 
+#include "ObjectAccessor.h"
 #include "black_rook_hold_dungeon.h"
 
 enum Says

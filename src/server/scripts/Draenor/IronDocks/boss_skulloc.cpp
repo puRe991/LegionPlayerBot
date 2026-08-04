@@ -3,6 +3,7 @@
     Encounter: Skulloc <Son of Gruul>
 */
 
+#include "ObjectAccessor.h"
 #include "iron_docks.h"
 
 enum Spells

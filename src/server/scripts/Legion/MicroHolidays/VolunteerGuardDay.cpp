@@ -1,6 +1,7 @@
 /*
 */
 
+#include "ObjectAccessor.h"
 #include "ChatPackets.h"
 
 enum eSpells

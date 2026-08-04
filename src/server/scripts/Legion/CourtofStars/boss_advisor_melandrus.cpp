@@ -4,6 +4,7 @@
     Mythic: 100%.
 */
 
+#include "ObjectMgr.h"
 #include "ScriptMgr.h"
 #include "ScriptedCreature.h"
 #include "court_of_stars.h"

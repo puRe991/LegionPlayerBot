@@ -20,6 +20,8 @@
 //    - They should be floating but they aren't respecting the floor =(
 //    - Hardcoded bullets spawner
 
+#include "ObjectAccessor.h"
+#include "SpellMgr.h"
 #include "ScriptMgr.h"
 #include "ScriptedCreature.h"
 #include "ScriptedGossip.h"

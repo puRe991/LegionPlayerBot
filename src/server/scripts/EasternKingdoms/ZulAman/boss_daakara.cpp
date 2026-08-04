@@ -1,3 +1,4 @@
+#include "ObjectAccessor.h"
 #include "zulaman.h"
 
 enum Scripttexts

@@ -2,6 +2,9 @@
     Paladin Specialization: Retribution
 */
 
+#include "ObjectAccessor.h"
+#include "ObjectMgr.h"
+#include "Containers.h"
 #include "ScriptMgr.h"
 #include "ScriptedCreature.h"
 #include "broken_shore.h"

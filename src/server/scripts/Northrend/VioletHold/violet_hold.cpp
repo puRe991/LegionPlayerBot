@@ -15,6 +15,7 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "ObjectAccessor.h"
 #include "ScriptedEscortAI.h"
 #include "violet_hold.h"
 

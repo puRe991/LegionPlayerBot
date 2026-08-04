@@ -1,3 +1,4 @@
+#include "ObjectAccessor.h"
 #include "blackwing_descent.h"
 
 enum ScriptTexts

@@ -1,6 +1,7 @@
 /*===============
 ================*/
 
+#include "Containers.h"
 #include "VMapFactory.h"
 #include "mogu_shan_palace.h"
 #include "Packets/WorldStatePackets.h"

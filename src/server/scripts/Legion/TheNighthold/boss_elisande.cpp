@@ -1,3 +1,6 @@
+#include "ObjectAccessor.h"
+#include "SpellMgr.h"
+#include "Containers.h"
 #include "the_nighthold.h"
 
 enum Says

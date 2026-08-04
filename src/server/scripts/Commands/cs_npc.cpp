@@ -22,6 +22,9 @@ Comment: All npc related commands
 Category: commandscripts
 EndScriptData */
 
+#include "DatabaseEnv.h"
+#include "ObjectAccessor.h"
+#include "World.h"
 #include "ScriptMgr.h"
 #include "ObjectMgr.h"
 #include "Chat.h"

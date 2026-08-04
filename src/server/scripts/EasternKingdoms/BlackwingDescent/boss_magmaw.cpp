@@ -1,3 +1,4 @@
+#include "ObjectAccessor.h"
 #include "Spell.h"
 #include "blackwing_descent.h"
 

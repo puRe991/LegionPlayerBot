@@ -22,6 +22,7 @@ Comment: All character related commands
 Category: commandscripts
 EndScriptData */
 
+#include "World.h"
 #include "AccountMgr.h"
 #include "CharacterData.h"
 #include "Chat.h"

@@ -21,6 +21,9 @@
  * Scriptnames of files in this file should be prefixed with "spell_item_".
  */
 
+#include "ObjectMgr.h"
+#include "SpellMgr.h"
+#include "Containers.h"
 #include "QuestData.h"
 #include "ScriptedCreature.h"
 #include "ScriptMgr.h"

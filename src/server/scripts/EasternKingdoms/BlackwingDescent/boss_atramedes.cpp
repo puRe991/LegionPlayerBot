@@ -1,4 +1,5 @@
 ﻿#include "Spell.h"
+#include "ObjectMgr.h"
 #include "blackwing_descent.h"
 #include "ScriptPCH.h"
 

@@ -23,6 +23,7 @@ SDComment: Temporary solution for orbital/shadow whip-ability. Needs more core s
 SDCategory: Hellfire Citadel, Hellfire Ramparts
 EndScriptData */
 
+#include "ObjectAccessor.h"
 #include "hellfire_ramparts.h"
 
 enum Says

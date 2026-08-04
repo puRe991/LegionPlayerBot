@@ -2,6 +2,8 @@
     Dungeon : Eye of Azshara 100-110
 */
 
+#include "ObjectAccessor.h"
+#include "Containers.h"
 #include "Group.h"
 #include "eye_of_azshara.h"
 

@@ -3,6 +3,8 @@
     Encounter: Rukhran
 */
 
+#include "ObjectAccessor.h"
+#include "Containers.h"
 #include "skyreach.h"
 
 enum Spells

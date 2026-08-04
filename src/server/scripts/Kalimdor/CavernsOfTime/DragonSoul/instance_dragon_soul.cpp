@@ -1,3 +1,4 @@
+#include "Containers.h"
 #include "dragon_soul.h"
 #include "Group.h"
 #include "LFGMgr.h"

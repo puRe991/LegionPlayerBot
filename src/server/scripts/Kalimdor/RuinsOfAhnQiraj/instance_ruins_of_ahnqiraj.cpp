@@ -15,6 +15,7 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "World.h"
 #include "ScriptMgr.h"
 #include "InstanceScript.h"
 #include "ruins_of_ahnqiraj.h"

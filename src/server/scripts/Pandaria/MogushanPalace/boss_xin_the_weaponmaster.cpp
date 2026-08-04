@@ -1,6 +1,8 @@
 /*===============
 ================*/
 
+#include "SpellMgr.h"
+#include "Containers.h"
 #include "mogu_shan_palace.h"
 
 enum eEvents

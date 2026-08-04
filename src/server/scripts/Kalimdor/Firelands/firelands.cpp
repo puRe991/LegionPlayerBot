@@ -1,3 +1,6 @@
+#include "ObjectAccessor.h"
+#include "SpellMgr.h"
+#include "Containers.h"
 #include "MoveSplineInit.h"
 #include "Cell.h"
 #include "CellImpl.h"

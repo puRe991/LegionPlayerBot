@@ -1,3 +1,4 @@
+#include "ObjectAccessor.h"
 #include"the_vortex_pinnacle.h"
 #include "ScriptedEscortAI.h"
 

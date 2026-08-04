@@ -1,3 +1,5 @@
+#include "ObjectAccessor.h"
+#include "Containers.h"
 #include "ScriptMgr.h"
 #include "ScriptedCreature.h"
 

@@ -1,3 +1,5 @@
+#include "ObjectAccessor.h"
+#include "Containers.h"
 #include "dragon_soul.h"
 #include "MoveSplineInit.h"
 #include "boss_warmaster_blackhorn.h"

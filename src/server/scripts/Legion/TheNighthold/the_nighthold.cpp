@@ -1,3 +1,4 @@
+#include "ObjectAccessor.h"
 #include "the_nighthold.h"
 #include "GameObjectAI.h"
 #include "Group.h"

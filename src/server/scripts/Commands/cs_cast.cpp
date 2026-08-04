@@ -22,6 +22,7 @@ Comment: All cast related commands
 Category: commandscripts
 EndScriptData */
 
+#include "SpellMgr.h"
 #include "ScriptMgr.h"
 #include "Chat.h"
 #include "SpellPackets.h"

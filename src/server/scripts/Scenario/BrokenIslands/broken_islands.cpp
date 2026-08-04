@@ -2,6 +2,8 @@
 The Broken Islands Scenario
 */
 
+#include "ObjectAccessor.h"
+#include "ObjectMgr.h"
 #include "LFGMgr.h"
 #include "LFGQueue.h"
 #include "LFGPackets.h"

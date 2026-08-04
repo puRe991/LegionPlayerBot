@@ -1,6 +1,7 @@
 /*
 */
 
+#include "ObjectAccessor.h"
 #include "WorldStatePackets.h"
 #include "Scenario.h"
 #include "ScenarioMgr.h"

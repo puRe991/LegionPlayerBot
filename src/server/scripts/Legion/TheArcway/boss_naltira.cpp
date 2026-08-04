@@ -4,6 +4,7 @@
     Mythic: 100%
 */
 
+#include "ObjectAccessor.h"
 #include "the_arcway.h"
 
 //TO-DO: pre-event

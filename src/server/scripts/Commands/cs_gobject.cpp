@@ -22,6 +22,7 @@ Comment: All gobject related commands
 Category: commandscripts
 EndScriptData */
 
+#include "ObjectAccessor.h"
 #include "ScriptMgr.h"
 #include "GameEventMgr.h"
 #include "ObjectMgr.h"

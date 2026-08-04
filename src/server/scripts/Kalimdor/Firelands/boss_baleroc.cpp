@@ -1,3 +1,4 @@
+#include "Containers.h"
 #include "firelands.h"
 
 enum ScriptTexts

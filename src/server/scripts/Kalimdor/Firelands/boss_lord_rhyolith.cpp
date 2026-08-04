@@ -1,3 +1,5 @@
+#include "ObjectAccessor.h"
+#include "Containers.h"
 #include "Vehicle.h"
 #include "firelands.h"
 #include "boss_lord_rhyolith.h"

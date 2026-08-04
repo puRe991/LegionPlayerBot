@@ -1,3 +1,5 @@
+#include "ObjectAccessor.h"
+#include "Containers.h"
 #include "tomb_of_sargeras.h"
 
 enum Says

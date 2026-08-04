@@ -1,4 +1,5 @@
 ﻿#include "AreaTriggerAI.h"
+#include "Containers.h"
 #include "QuestData.h"
 #include "../PrecompiledHeaders/ScriptPCH.h"
 enum eSays

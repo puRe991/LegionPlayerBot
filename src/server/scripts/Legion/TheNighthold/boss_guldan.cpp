@@ -1,3 +1,5 @@
+#include "ObjectAccessor.h"
+#include "Containers.h"
 #include "AreaTriggerAI.h"
 #include "the_nighthold.h"
 #include "WaypointManager.h"

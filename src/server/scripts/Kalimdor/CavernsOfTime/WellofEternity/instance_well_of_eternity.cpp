@@ -1,3 +1,4 @@
+#include "Containers.h"
 #include "ScriptedEscortAI.h"
 #include "well_of_eternity.h"
 

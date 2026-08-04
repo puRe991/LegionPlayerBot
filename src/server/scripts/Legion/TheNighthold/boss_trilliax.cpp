@@ -1,3 +1,5 @@
+#include "ObjectAccessor.h"
+#include "Containers.h"
 #include "the_nighthold.h"
 
 Position const sludgeraxSumPos[8] =

@@ -2,6 +2,7 @@
     Dungeon : Seat Of The Triumvirate 110
 */
 
+#include "ObjectMgr.h"
 #include "the_seat_of_the_triumvirate.h"
 
 DoorData const doorData[] =

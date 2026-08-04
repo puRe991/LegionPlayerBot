@@ -22,6 +22,10 @@
  * Scriptnames of files in this file should be prefixed with "spell_gen_"
  */
 
+#include "ObjectAccessor.h"
+#include "ObjectMgr.h"
+#include "World.h"
+#include "SpellMgr.h"
 #include "AreaTriggerAI.h"
 #include "AreaTrigger.h"
 #include "BattlegroundMgr.h"

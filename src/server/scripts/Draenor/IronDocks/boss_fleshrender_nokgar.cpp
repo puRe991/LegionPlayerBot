@@ -3,6 +3,7 @@
     Encounter: Fleshrender Nok'gar
 */
 
+#include "ObjectAccessor.h"
 #include "iron_docks.h"
 
 enum Says

@@ -4,6 +4,8 @@
     Normal: 100%, Heroic: 100%, Mythic: 100%
 */
 
+#include "ObjectMgr.h"
+#include "SpellMgr.h"
 #include "ScriptMgr.h"
 #include "ScriptedCreature.h"
 #include "violet_hold_legion.h"

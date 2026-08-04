@@ -3,6 +3,7 @@
     Encounter: Cordana
     TO-DO: Resizing AT, cast from invis for npc
 */
+#include "ObjectAccessor.h"
 #include "AreaTrigger.h"
 #include "AreaTriggerAI.h"
 #include "ScriptMgr.h"

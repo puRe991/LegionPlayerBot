@@ -4,6 +4,8 @@
     Normal: 100%, Heroic: 100%, Mythic: 100%
 */
 
+#include "SpellMgr.h"
+#include "Containers.h"
 #include "neltharions_lair.h"
 
 enum Says

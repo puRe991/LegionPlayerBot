@@ -1,3 +1,5 @@
+#include "ObjectMgr.h"
+#include "Containers.h"
 #include "antorus.h"
 #include "AreaTriggerAI.h"
 

@@ -2,6 +2,8 @@
     To-DO: More texts from sniffs
 */
 
+#include "ObjectMgr.h"
+#include "Containers.h"
 #include "AreaTriggerAI.h"
 #include "the_emerald_nightmare.h"
 

@@ -1,3 +1,4 @@
+#include "Containers.h"
 #include "ScriptMgr.h"
 
 enum Says

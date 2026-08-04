@@ -3,6 +3,7 @@
     Encounter: Witherbark
 */
 
+#include "ObjectAccessor.h"
 #include "the_everbloom.h"
 
 enum Says

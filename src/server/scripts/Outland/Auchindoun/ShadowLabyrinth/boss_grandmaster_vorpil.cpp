@@ -22,6 +22,7 @@ Name: Boss_Grandmaster_Vorpil
 Category: Auchindoun, Shadow Labyrinth
 */
 
+#include "ObjectAccessor.h"
 #include "ScriptMgr.h"
 #include "ScriptedCreature.h"
 #include "shadow_labyrinth.h"

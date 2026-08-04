@@ -1,3 +1,4 @@
+#include "SpellMgr.h"
 #include "zulaman.h"
 
 enum ScriptTexts

@@ -23,6 +23,7 @@ SDAuthor: PrinceCreed
 SD%Complete: 100
 EndScriptData */
 
+#include "ObjectAccessor.h"
 #include "ulduar.h"
 
 enum Says

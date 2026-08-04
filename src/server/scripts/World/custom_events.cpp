@@ -1,3 +1,6 @@
+#include "ObjectAccessor.h"
+#include "ObjectMgr.h"
+#include "World.h"
 #include "AreaTriggerAI.h"
 #include "Chat.h"
 #include "CombatAI.h"

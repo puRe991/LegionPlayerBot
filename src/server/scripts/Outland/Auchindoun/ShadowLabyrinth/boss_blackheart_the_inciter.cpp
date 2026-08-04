@@ -23,6 +23,7 @@ Comment: Incite Chaos not functional since core lacks Mind Control support
 Category: Auchindoun, Shadow Labyrinth
 */
 
+#include "ObjectAccessor.h"
 #include "ScriptMgr.h"
 #include "ScriptedCreature.h"
 #include "shadow_labyrinth.h"

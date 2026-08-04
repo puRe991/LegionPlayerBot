@@ -1,3 +1,4 @@
+#include "SpellMgr.h"
 #include "deadmines.h"
 
 enum Spells

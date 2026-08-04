@@ -23,6 +23,7 @@ SDComment:
 SDCategory: Tempest Keep, The Eye
 EndScriptData */
 
+#include "ObjectAccessor.h"
 #include "the_eye.h"
 
 enum Spells

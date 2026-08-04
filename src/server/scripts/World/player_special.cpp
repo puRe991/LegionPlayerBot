@@ -1,3 +1,6 @@
+#include "DatabaseEnv.h"
+#include "ObjectMgr.h"
+#include "World.h"
 #include "PrecompiledHeaders/ScriptPCH.h"
 #include <ScriptMgr.h>
 #include "GameEventMgr.h"

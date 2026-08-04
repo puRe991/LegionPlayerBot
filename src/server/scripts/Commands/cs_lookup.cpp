@@ -22,6 +22,8 @@ Comment: All lookup related commands
 Category: commandscripts
 EndScriptData */
 
+#include "World.h"
+#include "SpellMgr.h"
 #include "ScriptMgr.h"
 #include "Chat.h"
 #include "AccountMgr.h"

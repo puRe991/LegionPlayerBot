@@ -1,3 +1,5 @@
+#include "DatabaseEnv.h"
+#include "Containers.h"
 #include "ScriptMgr.h"
 #include "GameObject.h"
 #include "GameObjectAI.h"

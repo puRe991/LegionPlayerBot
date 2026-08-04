@@ -4,6 +4,7 @@ Event Boss Ahune Base Script
 
 */
 
+#include "Containers.h"
 #include "the_slave_pens.h"
 #include "LFGMgr.h"
 #include "Group.h"

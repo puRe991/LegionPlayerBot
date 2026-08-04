@@ -4,6 +4,7 @@
     Normal: 100%, Heroic: 100%, Mythic: 100%
 */
 
+#include "ObjectAccessor.h"
 #include "eye_of_azshara.h"
 
 enum Says

@@ -6,6 +6,7 @@ Cosmetic toDo:
 -- spell 74085 by 43359
 */
 
+#include "ObjectAccessor.h"
 #include "PrecompiledHeaders/ScriptPCH.h"
 #include "CreatureTextMgr.h"
 #include "ScriptedEscortAI.h"

@@ -2,6 +2,7 @@
     Dungeon : Cathedral of Eternal Night 7.2
 */
 
+#include "ObjectAccessor.h"
 #include "cathedral_of_eternal_night.h"
 #include "AreaTrigger.h"
 #include "AreaTriggerAI.h"

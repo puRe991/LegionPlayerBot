@@ -23,6 +23,8 @@ SDComment:
 SDCategory: Karazhan
 EndScriptData */
 
+#include "SpellMgr.h"
+#include "Containers.h"
 #include "ScriptMgr.h"
 #include "ScriptedCreature.h"
 #include "karazhan.h"

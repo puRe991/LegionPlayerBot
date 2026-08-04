@@ -3,6 +3,8 @@
 
 */
 
+#include "ObjectMgr.h"
+#include "Containers.h"
 #include "the_seat_of_the_triumvirate.h"
 #include "AreaTrigger.h"
 #include "AreaTriggerAI.h"

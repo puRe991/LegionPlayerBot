@@ -2,6 +2,7 @@
     Dungeon : Maw of Souls 100-110
 */
 
+#include "ObjectMgr.h"
 #include "maw_of_souls.h"
 #include "PrecompiledHeaders/ScriptPCH.h"
 #include "WorldPacket.h"

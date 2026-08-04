@@ -3,6 +3,7 @@
     Encounter: Yalnu
 */
 
+#include "Containers.h"
 #include "the_everbloom.h"
 
 enum Says

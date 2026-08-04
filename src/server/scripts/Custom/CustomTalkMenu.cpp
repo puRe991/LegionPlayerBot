@@ -1,6 +1,9 @@
 #ifdef _MSC_VER
 #pragma execution_character_set("utf-8")
 #endif
+#include "DatabaseEnv.h"
+#include "World.h"
+#include "SpellMgr.h"
 #include "CustomTalkMenu.h"
 #include "WorldSession.h"
 #include "GossipDef.h"

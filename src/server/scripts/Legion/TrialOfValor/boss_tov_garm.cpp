@@ -1,3 +1,4 @@
+#include "ObjectAccessor.h"
 #include "trial_of_valor.h"
 #include "AreaTriggerAI.h"
 #include "PrecompiledHeaders/ScriptPCH.h"

@@ -19,6 +19,7 @@
 //Known Bugs:
 // - Need better implementation of Gossip and correct gossip text and option
 
+#include "ObjectAccessor.h"
 #include "ScriptMgr.h"
 #include "ScriptedCreature.h"
 #include "ScriptedGossip.h"

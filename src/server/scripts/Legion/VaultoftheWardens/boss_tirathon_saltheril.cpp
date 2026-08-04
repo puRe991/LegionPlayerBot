@@ -3,6 +3,7 @@
     Encounter: Tirathon Saltheril
 */
 
+#include "ObjectMgr.h"
 #include "vault_of_the_wardens.h"
 
 enum Says

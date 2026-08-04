@@ -3,6 +3,8 @@
     TODO hp mods to boss and trash
 */
 
+#include "ObjectMgr.h"
+#include "Containers.h"
 #include "the_seat_of_the_triumvirate.h"
 
 enum Spells

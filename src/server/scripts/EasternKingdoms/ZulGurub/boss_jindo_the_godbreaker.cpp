@@ -1,3 +1,4 @@
+#include "Containers.h"
 #include "zulgurub.h"
 
 enum JindoScriptTexts

@@ -22,6 +22,7 @@ Comment: All server related commands
 Category: commandscripts
 EndScriptData */
 
+#include "World.h"
 #include "ScriptMgr.h"
 #include "Chat.h"
 #include "Config.h"

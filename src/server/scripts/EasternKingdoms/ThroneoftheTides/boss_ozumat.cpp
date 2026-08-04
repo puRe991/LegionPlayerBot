@@ -1,3 +1,4 @@
+#include "ObjectAccessor.h"
 #include "throne_of_the_tides.h"
 #include "Group.h"
 #include "LFGMgr.h"

@@ -2,6 +2,7 @@
     Priest: Tuure
 */
 
+#include "ObjectAccessor.h"
 #include "ScriptMgr.h"
 #include "ScriptedCreature.h"
 #include "CreatureTextMgr.h"

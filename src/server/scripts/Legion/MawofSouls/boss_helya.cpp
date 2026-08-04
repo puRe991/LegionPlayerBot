@@ -4,6 +4,8 @@
     Normal: 100%, Heroic: 100%, Mythic: 100%
 */
 
+#include "SpellMgr.h"
+#include "Containers.h"
 #include "maw_of_souls.h"
 #include "PrecompiledHeaders/ScriptPCH.h"
 

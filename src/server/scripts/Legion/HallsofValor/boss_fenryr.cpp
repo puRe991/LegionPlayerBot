@@ -4,6 +4,7 @@
     Normal: 100%, Heroic: 100%, Mythic: 100%
 */
 
+#include "Containers.h"
 #include "ScriptMgr.h"
 #include "ScriptedCreature.h"
 #include "halls_of_valor.h"

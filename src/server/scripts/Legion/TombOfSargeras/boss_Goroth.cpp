@@ -1,3 +1,4 @@
+#include "SpellMgr.h"
 #include "AreaTriggerAI.h"
 #include "tomb_of_sargeras.h"
 

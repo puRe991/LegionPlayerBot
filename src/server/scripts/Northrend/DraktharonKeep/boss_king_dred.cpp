@@ -19,6 +19,7 @@
  * Comment: MAYBE need more improve the "Raptor Call".
  */
 
+#include "ObjectAccessor.h"
 #include "ScriptMgr.h"
 #include "ScriptedCreature.h"
 #include "drak_tharon_keep.h"

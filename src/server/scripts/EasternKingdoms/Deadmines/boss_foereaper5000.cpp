@@ -1,3 +1,4 @@
+#include "ObjectAccessor.h"
 #include "deadmines.h"
 
 enum ScriptTexts

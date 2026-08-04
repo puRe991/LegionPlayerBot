@@ -6,6 +6,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
+#include "ObjectMgr.h"
 #include "ScriptMgr.h"
 #include "ScriptedGossip.h"
 #include "PetBattle.h"

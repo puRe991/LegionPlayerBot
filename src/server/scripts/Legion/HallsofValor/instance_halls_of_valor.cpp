@@ -2,6 +2,8 @@
     Dungeon : Halls of Valor 100-110
 */
 
+#include "ObjectAccessor.h"
+#include "ObjectMgr.h"
 #include "Group.h"
 #include "halls_of_valor.h"
 #include "PrecompiledHeaders/ScriptPCH.h"

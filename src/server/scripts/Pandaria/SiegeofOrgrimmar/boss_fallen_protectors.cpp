@@ -16,6 +16,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "ObjectMgr.h"
+#include "SpellMgr.h"
 #include "CreatureTextMgr.h"
 #include "siege_of_orgrimmar.h"
 

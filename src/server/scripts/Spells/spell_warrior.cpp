@@ -21,6 +21,8 @@
  * Scriptnames of files in this file should be prefixed with "spell_warr_".
  */
 
+#include "ObjectAccessor.h"
+#include "Containers.h"
 #include "ScriptMgr.h"
 #include "SpellScript.h"
 #include "ScriptUtils.h"

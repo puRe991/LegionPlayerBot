@@ -1,3 +1,5 @@
+#include "ObjectAccessor.h"
+#include "Containers.h"
 #include "Scenario.h"
 #include "OutdoorPvP.h"
 #include "AccountMgr.h"

@@ -17,6 +17,7 @@
 * with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "Containers.h"
 #include "GameObjectAI.h"
 #include "ScriptMgr.h"
 #include "ScriptedCreature.h"

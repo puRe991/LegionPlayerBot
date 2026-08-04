@@ -23,6 +23,7 @@ SDComment: Adds NYI
 SDCategory: Molten Core
 EndScriptData */
 
+#include "Containers.h"
 #include "ObjectMgr.h"
 #include "ScriptMgr.h"
 #include "ScriptedCreature.h"

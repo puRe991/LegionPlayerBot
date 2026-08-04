@@ -1,6 +1,7 @@
 /*==============
 ==============*/
 
+#include "ObjectAccessor.h"
 #include "shadopan_monastery.h"
 
 enum eSpells

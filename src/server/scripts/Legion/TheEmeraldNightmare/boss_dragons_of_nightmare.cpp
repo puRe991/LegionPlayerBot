@@ -2,6 +2,7 @@
     To-Do: нужны еще снифы для фраз/варнингов. Не хватает парочки
 */
 
+#include "Containers.h"
 #include "the_emerald_nightmare.h"
 #include "CreatureGroups.h"
 

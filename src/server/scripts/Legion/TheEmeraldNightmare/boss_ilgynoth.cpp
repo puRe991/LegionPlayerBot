@@ -2,6 +2,8 @@
     TODO: Нехватает инфы по евентам с суммонами, сколько суммонится и когда по времени.
 */
 
+#include "ObjectMgr.h"
+#include "Containers.h"
 #include "the_emerald_nightmare.h"
 #include "CreatureGroups.h"
 

@@ -1,3 +1,5 @@
+#include "ObjectAccessor.h"
+#include "ObjectMgr.h"
 #include "the_emerald_nightmare.h"
 
 enum Says

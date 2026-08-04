@@ -16,6 +16,7 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "ObjectAccessor.h"
 #include "ScriptMgr.h"
 #include "InstanceScript.h"
 #include "trial_of_the_crusader.h"

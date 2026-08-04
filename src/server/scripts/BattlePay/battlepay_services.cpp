@@ -1,3 +1,5 @@
+#include "DatabaseEnv.h"
+#include "ObjectMgr.h"
 #include "ScriptMgr.h"
 #include "Player.h"
 #include "BattlePayMgr.h"

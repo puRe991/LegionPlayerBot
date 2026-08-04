@@ -21,6 +21,8 @@
  * Scriptnames of files in this file should be prefixed with "spell_hun_".
  */
 
+#include "ObjectAccessor.h"
+#include "SpellMgr.h"
 #include "ScriptMgr.h"
 #include "SpellScript.h"
 #include "SpellAuraEffects.h"

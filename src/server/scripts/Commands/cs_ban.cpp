@@ -22,6 +22,8 @@ Comment: All ban related commands
 Category: commandscripts
 EndScriptData */
 
+#include "DatabaseEnv.h"
+#include "World.h"
 #include "ScriptMgr.h"
 #include "Chat.h"
 #include "AccountMgr.h"

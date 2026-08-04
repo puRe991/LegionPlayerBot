@@ -2,6 +2,7 @@
     Legion
     World boss
 */
+#include "ObjectAccessor.h"
 #include "AreaTriggerAI.h"
 #include "ScriptPCH.h"
 enum eSpells

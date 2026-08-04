@@ -1,3 +1,5 @@
+#include "ObjectAccessor.h"
+#include "Containers.h"
 #include "grim_batol.h"
 
 enum ScriptTexts

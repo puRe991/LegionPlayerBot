@@ -1,4 +1,5 @@
 
+#include "DatabaseEnv.h"
 #include "PrecompiledHeaders/ScriptPCH.h"
 
 #define GOSSIP_A_WRINKIE_IN_TIME "Yes, Anachronos. I am ready to witness your vision of the future."

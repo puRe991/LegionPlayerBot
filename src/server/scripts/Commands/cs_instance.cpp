@@ -22,6 +22,7 @@ Comment: All instance related commands
 Category: commandscripts
 EndScriptData */
 
+#include "DatabaseEnv.h"
 #include "ScriptMgr.h"
 #include "Chat.h"
 #include "Group.h"

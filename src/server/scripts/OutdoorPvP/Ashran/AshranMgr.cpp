@@ -6,6 +6,8 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
+#include "ObjectAccessor.h"
+#include "MapManager.h"
 #include "AshranMgr.hpp"
 #include "Packets/ChatPackets.h"
 #include "Packets/WorldStatePackets.h"

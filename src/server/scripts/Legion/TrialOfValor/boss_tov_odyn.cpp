@@ -1,3 +1,5 @@
+#include "ObjectAccessor.h"
+#include "Containers.h"
 #include "trial_of_valor.h"
 #include "ScriptUtils.h"
 #include "AreaTriggerAI.h"

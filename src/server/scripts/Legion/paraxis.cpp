@@ -1,3 +1,4 @@
+#include "ObjectAccessor.h"
 #include "OutdoorPvP.h"
 #include "OutdoorPvPMgr.h"
 #include "AreaTrigger.h"

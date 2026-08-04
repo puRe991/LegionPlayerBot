@@ -1,3 +1,5 @@
+#include "SpellMgr.h"
+#include "Containers.h"
 #include "antorus.h"
 
 enum Says

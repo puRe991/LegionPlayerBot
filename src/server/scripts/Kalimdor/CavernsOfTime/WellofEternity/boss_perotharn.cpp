@@ -1,3 +1,4 @@
+#include "ObjectMgr.h"
 #include "well_of_eternity.h"
 #include "ScriptedEscortAI.h"
 

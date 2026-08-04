@@ -1,3 +1,6 @@
+#include "ObjectMgr.h"
+#include "SpellMgr.h"
+#include "Containers.h"
 #include "tomb_of_sargeras.h"
 
 enum Says

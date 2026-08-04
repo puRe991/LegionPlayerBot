@@ -21,6 +21,9 @@
  * Scriptnames of files in this file should be prefixed with "spell_sha_".
  */
 
+#include "ObjectAccessor.h"
+#include "SpellMgr.h"
+#include "Containers.h"
 #include "ScriptMgr.h"
 #include "GridNotifiers.h"
 #include "Unit.h"

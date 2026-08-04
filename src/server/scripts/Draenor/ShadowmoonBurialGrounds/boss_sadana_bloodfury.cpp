@@ -3,6 +3,7 @@
     Encounter: Sadana Bloodfury
 */
 
+#include "Containers.h"
 #include "shadowmoon_burial_grounds.h"
 
 enum Says

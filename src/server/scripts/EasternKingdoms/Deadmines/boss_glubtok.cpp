@@ -1,3 +1,4 @@
+#include "ObjectMgr.h"
 #include "deadmines.h"
 
 //todo: реализовать flame wall

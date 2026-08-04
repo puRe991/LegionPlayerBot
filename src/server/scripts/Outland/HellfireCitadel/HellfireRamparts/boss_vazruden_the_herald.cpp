@@ -23,6 +23,7 @@ Comment:
 Category: Hellfire Citadel, Hellfire Ramparts
 EndScriptData */
 
+#include "ObjectAccessor.h"
 #include "hellfire_ramparts.h"
 
 enum Says

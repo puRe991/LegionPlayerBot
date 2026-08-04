@@ -22,6 +22,8 @@ Comment: All quest related commands
 Category: commandscripts
 EndScriptData */
 
+#include "DatabaseEnv.h"
+#include "World.h"
 #include "ScriptMgr.h"
 #include "ObjectMgr.h"
 #include "Chat.h"

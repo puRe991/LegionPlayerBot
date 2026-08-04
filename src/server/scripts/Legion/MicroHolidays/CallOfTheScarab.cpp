@@ -1,6 +1,8 @@
 /*
 */
 
+#include "DatabaseEnv.h"
+#include "ObjectAccessor.h"
 #include "OutdoorPvP.h"
 #include "Packets/WorldStatePackets.h"
 #include "World.h"

@@ -23,6 +23,7 @@ SDComment: Normal and Heroic Support. Issues: Arcane Spheres do not initially fo
 SDCategory: Magisters' Terrace
 EndScriptData */
 
+#include "ObjectAccessor.h"
 #include "ScriptMgr.h"
 #include "ScriptedCreature.h"
 #include "magisters_terrace.h"

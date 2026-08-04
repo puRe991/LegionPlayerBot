@@ -30,6 +30,7 @@ npc_sironas
 npc_demolitionist_legoso
 EndContentData */
 
+#include "ObjectAccessor.h"
 #include "ScriptMgr.h"
 #include "ScriptedCreature.h"
 #include "ScriptedEscortAI.h"

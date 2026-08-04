@@ -1,3 +1,4 @@
+#include "ObjectMgr.h"
 #include "trial_of_valor.h"
 #include "PrecompiledHeaders/ScriptPCH.h"
 #include "WorldPacket.h"

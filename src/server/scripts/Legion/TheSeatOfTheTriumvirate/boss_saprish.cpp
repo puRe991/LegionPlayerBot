@@ -3,6 +3,7 @@
 
 */
 
+#include "ObjectMgr.h"
 #include "the_seat_of_the_triumvirate.h"
 #include "ScriptedCreature.h"
 #include "AreaTriggerAI.h"

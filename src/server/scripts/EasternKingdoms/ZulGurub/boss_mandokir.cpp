@@ -1,3 +1,4 @@
+#include "ObjectAccessor.h"
 #include "zulgurub.h"
 
 enum ScriptTexts

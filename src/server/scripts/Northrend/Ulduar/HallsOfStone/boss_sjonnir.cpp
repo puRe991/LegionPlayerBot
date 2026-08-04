@@ -23,6 +23,7 @@ SDComment:
 SDCategory:
 Script Data End */
 
+#include "ObjectAccessor.h"
 #include "ScriptMgr.h"
 #include "ScriptedCreature.h"
 #include "halls_of_stone.h"

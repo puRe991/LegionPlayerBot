@@ -27,6 +27,7 @@ EndScriptData */
 npc_kalecgos
 EndContentData */
 
+#include "SpellMgr.h"
 #include "ScriptMgr.h"
 #include "ScriptedCreature.h"
 #include "ScriptedGossip.h"

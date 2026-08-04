@@ -1,4 +1,6 @@
 
+#include "ObjectMgr.h"
+#include "SpellMgr.h"
 #include "BattlePayMgr.h"
 
 namespace BattlePay

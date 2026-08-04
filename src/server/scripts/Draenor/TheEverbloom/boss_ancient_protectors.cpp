@@ -3,6 +3,7 @@
     Encounter: Ancient Protectors
 */
 
+#include "ObjectAccessor.h"
 #include "the_everbloom.h"
 
 enum Says
