@@ -16,6 +16,10 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "ObjectAccessor.h"
+#include "ObjectMgr.h"
+#include "SpellMgr.h"
+#include "World.h"
 #include "InstanceScript.h"
 #include "DatabaseEnv.h"
 #include "Map.h"

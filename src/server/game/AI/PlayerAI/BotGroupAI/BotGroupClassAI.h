@@ -2,6 +2,11 @@
 #ifndef _BOT_GROUP_CLASS_AI_H_
 #define _BOT_GROUP_CLASS_AI_H_
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <set>
+
 #include "ScriptSystem.h"
 #include "BotGroupAI.h"
 
@@ -522,7 +527,9 @@ public:
 	bool IsMeleeBotAI() override { return true; }
 	bool IsRangeBotAI() override { return false; }
 	bool IsHealerBotAI() override { return false; }
-	bool IsAttacker() override { return true; }
+	// Havoc is the damage specialisation, Vengeance the tank one.
+	bool IsTankBotAI() override { return me->FindTalentType() == 1; }
+	bool IsAttacker() override { return me->FindTalentType() != 1; }
 };
 
 class GroupMonkAI : public BotGroupAI, public BotMonkSpells
@@ -544,6 +551,15 @@ protected:
 	void ProcessMeleeSpell(Unit* pTarget) override;
 	void ProcessRangeSpell(Unit* pTarget) override;
 	void ProcessFlee() override;
+
+public:
+	// Brewmaster tanks, Mistweaver heals, Windwalker deals damage. All three
+	// fight in melee.
+	bool IsMeleeBotAI() override { return true; }
+	bool IsRangeBotAI() override { return false; }
+	bool IsTankBotAI() override { return me->FindTalentType() == 0; }
+	bool IsHealerBotAI() override { return me->FindTalentType() == 1; }
+	bool IsAttacker() override { return me->FindTalentType() == 2; }
 };
 
 #endif // !_BOT_GROUP_CLASS_AI_H_

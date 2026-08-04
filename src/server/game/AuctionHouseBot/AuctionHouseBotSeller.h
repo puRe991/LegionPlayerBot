@@ -18,6 +18,8 @@
 #ifndef AUCTION_HOUSE_BOT_SELLER_H
 #define AUCTION_HOUSE_BOT_SELLER_H
 
+#include <vector>
+
 #include "Define.h"
 #include "ItemTemplate.h"
 #include "AuctionHouseBot.h"

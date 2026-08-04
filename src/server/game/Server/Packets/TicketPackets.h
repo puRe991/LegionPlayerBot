@@ -18,6 +18,17 @@
 #ifndef TicketPackets_h__
 #define TicketPackets_h__
 
+#include "Position.h"
+#include "Common.h"
+
+class WorldPacket;
+
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <string>
+#include <vector>
+
 #include "Packet.h"
 #include "LFGPacketsCommon.h"
 

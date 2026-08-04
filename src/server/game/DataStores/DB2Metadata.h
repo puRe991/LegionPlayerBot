@@ -18,6 +18,8 @@
 #ifndef DB2Metadata_h__
 #define DB2Metadata_h__
 
+#include "Define.h"
+
 #include "DB2Meta.h"
 
 struct AchievementMeta

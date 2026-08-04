@@ -18,6 +18,19 @@
 
 #ifndef __UNIT_H
 #define __UNIT_H
+#include "Position.h"
+
+#include "ObjectGuid.h"
+
+#include <array>
+#include <atomic>
+#include <functional>
+#include <list>
+#include <map>
+#include <set>
+#include <unordered_map>
+#include <vector>
+#include <memory>
 
 #include "Common.h"
 #include "DataContainers.h"
@@ -974,7 +987,7 @@ private:
     GlobalCooldownList m_GlobalCooldowns;
 };
 
-enum ActiveStates
+enum ActiveStates : uint8
 {
     ACT_PASSIVE  = 0x01,                                    // 0x01 - passive
     ACT_DISABLED = 0x81,                                    // 0x80 - castable
@@ -993,7 +1006,7 @@ enum ReactStates
     REACT_ATTACK_OFF = 4
 };
 
-enum CommandStates
+enum CommandStates : uint8
 {
     COMMAND_STAY    = 0,
     COMMAND_FOLLOW  = 1,

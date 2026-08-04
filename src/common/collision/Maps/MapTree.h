@@ -19,6 +19,9 @@
 #ifndef _MAPTREE_H
 #define _MAPTREE_H
 
+#include <string>
+#include <vector>
+
 #include "Define.h"
 #include "BoundingIntervalHierarchy.h"
 #include <unordered_map>

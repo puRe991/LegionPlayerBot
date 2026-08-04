@@ -149,7 +149,7 @@ bool FieldPriestAI::ProcessNormalSpell()
 
 	if (me->HasAura(m_UseMountID))
 		return false;
-	NearUnitVec& needHealthPlayers = SearchNeedHealth(BOTAI_RANGESPELL_DISTANCE);
+	NearUnitVec needHealthPlayers = SearchNeedHealth(BOTAI_RANGESPELL_DISTANCE);
 	if (needHealthPlayers.empty())
 		return TryUpMount();
 	//me->StopMoving();
@@ -171,13 +171,13 @@ void FieldPriestAI::ProcessFlee()
 		return;
 
 	float healthPct = me->GetHealthPct();
-	NearUnitVec& enemys = RangeEnemyListByHasAura(0, NEEDFLEE_CHECKRANGE);
+	NearUnitVec enemys = RangeEnemyListByHasAura(0, NEEDFLEE_CHECKRANGE);
 	if (enemys.size() > 1)
 	{
 		if (TryCastSpell(PriestGuard_AOEFear, me) == SpellCastResult::SPELL_CAST_OK)
 			return;
 	}
-	NearUnitVec& rangeEnemys = RangeEnemyListByTargetIsMe(BOTAI_RANGESPELL_DISTANCE);
+	NearUnitVec rangeEnemys = RangeEnemyListByTargetIsMe(BOTAI_RANGESPELL_DISTANCE);
 	if (rangeEnemys.size() > 0 && healthPct < 80 && !me->HasAura(PriestIDLE_ShadowStatus))
 	{
 		if (!me->HasAura(PriestGuard_DefShield) && TryCastSpell(PriestGuard_DefShield, me) == SpellCastResult::SPELL_CAST_OK)
@@ -196,7 +196,7 @@ void FieldPriestAI::ProcessFlee()
 	{
 		if (PriestHeal_RingHeal)
 		{
-			NearUnitVec& needHeals = SearchLifePctByFriendRange(me, 75);
+			NearUnitVec needHeals = SearchLifePctByFriendRange(me, 75);
 			if (needHeals.size() > 1)
 			{
 				if (TryCastSpell(PriestHeal_RingHeal, me) == SpellCastResult::SPELL_CAST_OK)
@@ -378,7 +378,7 @@ void FieldPriestAI::ProcessShadowRangeSpell(Unit* pTarget)
 
 bool FieldPriestAI::ProcessDispel()
 {
-	NearUnitVec& friends = SearchFriend(BOTAI_RANGESPELL_DISTANCE);
+	NearUnitVec friends = SearchFriend(BOTAI_RANGESPELL_DISTANCE);
 	if (friends.empty())
 		return false;
 	std::random_shuffle(friends.begin(), friends.end());

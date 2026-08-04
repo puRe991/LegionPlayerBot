@@ -45,10 +45,31 @@ typedef std::future<SQLQueryHolder*> QueryResultHolderFuture;
 typedef std::promise<SQLQueryHolder*> QueryResultHolderPromise;
 
 // mysql
+// MySQL 8.0 renamed the connector structs from st_mysql* to their public
+// names, so the forward declarations have to follow the client version we
+// actually build against. mysql_version.h is a pure define header and cheap
+// to include.
+#include <mysql_version.h>
+
+#if MYSQL_VERSION_ID >= 80000
+struct MYSQL;
+struct MYSQL_RES;
+struct MYSQL_FIELD;
+struct MYSQL_BIND;
+struct MYSQL_STMT;
+
+// my_bool was dropped in MySQL 8.0 in favour of plain bool.
+typedef bool MySQLBool;
+#else
 typedef struct st_mysql MYSQL;
 typedef struct st_mysql_res MYSQL_RES;
 typedef struct st_mysql_field MYSQL_FIELD;
 typedef struct st_mysql_bind MYSQL_BIND;
 typedef struct st_mysql_stmt MYSQL_STMT;
+
+// my_bool is a char typedef in the 5.x connectors; spelling it out here keeps
+// this header free of the heavyweight mysql.h include.
+typedef char MySQLBool;
+#endif
 
 #endif // DatabaseEnvFwd_h__

@@ -18,6 +18,11 @@
 
 #pragma once
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <string>
+
 #include "WorldPacket.h"
 
 enum SpectatorPrefix

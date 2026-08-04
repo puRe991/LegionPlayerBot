@@ -18,6 +18,9 @@
 #ifndef _TRANSACTION_H
 #define _TRANSACTION_H
 
+#include <functional>
+#include <list>
+
 #include "SQLOperation.h"
 #include "DatabaseEnvFwd.h"
 #include "StringFormat.h"

@@ -2,6 +2,13 @@
 #ifndef _BOT_GROUP_AI_H
 #define _BOT_GROUP_AI_H
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <list>
+#include <string>
+#include <vector>
+
 #include "BotAITool.h"
 #include "BotAISpells.h"
 #include "SpellMgr.h"
@@ -39,15 +46,15 @@ public:
 	void StartFullDispel();
 	void ClearFullDispel() { m_FullDispel = 0; }
 	bool HasTeleport() { return !m_Teleporting.CanMovement(); }
-	void SetTeleport(Position& telePos) { m_Teleporting.SetTeleport(telePos); }
+	void SetTeleport(const Position& telePos) { m_Teleporting.SetTeleport(telePos); }
 	void SetTeleportToMaster() { m_Teleporting.SetTeleport(m_MasterPlayer, 0); }
 	void UpdateTeleport(uint32 diff) { m_Teleporting.Update(diff, m_Movement); }
 	void ClearCruxMovement();
-	void SetCruxMovement(Position& pos) { me->SetSelection(ObjectGuid::Empty); m_CruxMovement.SetMovement(pos); }
+	void SetCruxMovement(const Position& pos) { me->SetSelection(ObjectGuid::Empty); m_CruxMovement.SetMovement(pos); }
 	void RndCruxMovement(float dist = 12.0f) { m_CruxMovement.RandomMovement(dist); }
 	void AddTankTarget(Creature* pCreature);
 	void ClearTankTarget() { m_TankTargets.ClearTarget(); }
-	void SetTankPosition(Position& pos) { m_TankTargets.SetMovement(pos); }
+	void SetTankPosition(const Position& pos) { m_TankTargets.SetMovement(pos); }
 	bool ExistPullTarget() { return m_TankTargets.ExistPullTarget(); }
 	bool IsNotSelect(Unit* pTarget);
 	bool IsIDLEBot();

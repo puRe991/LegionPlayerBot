@@ -9,6 +9,9 @@
 #ifndef GARRISON_GLOBAL_H
 #define GARRISON_GLOBAL_H
 
+#include "SharedDefines.h"
+#include "Common.h"
+
 #include "Define.h"
 
 enum GarrisonFactionIndex

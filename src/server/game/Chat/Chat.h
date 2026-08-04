@@ -19,6 +19,12 @@
 #ifndef CHAT_H
 #define CHAT_H
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <string>
+#include <vector>
+
 #include "Player.h"
 #include <boost/any.hpp>
 #include "StringFormat.h"

@@ -18,6 +18,9 @@
 #ifndef Trinity_game_Position_h__
 #define Trinity_game_Position_h__
 
+#include <list>
+#include <string>
+
 #include "Common.h"
 #include "DBCEnums.h"
 #include <G3D/Vector3.h>

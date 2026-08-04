@@ -18,6 +18,15 @@
 #ifndef TalentPackets_h__
 #define TalentPackets_h__
 
+#include "Util.h"
+
+#include "PacketUtilities.h"
+
+class WorldPacket;
+
+#include "Define.h"
+#include <vector>
+
 #include "Packet.h"
 
 namespace WorldPackets

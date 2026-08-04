@@ -1,4 +1,5 @@
 
+#include "ObjectAccessor.h"
 #include "BotPriestAI.h"
 #include "Group.h"
 
@@ -197,7 +198,7 @@ bool BotPriestAI::NeedFlee()
 {
 	if (m_Flee.Fleeing())
 		return true;
-	NearUnitVec& nearEnemys = RangeEnemyListByTargetIsMe(NEEDFLEE_CHECKRANGE);
+	NearUnitVec nearEnemys = RangeEnemyListByTargetIsMe(NEEDFLEE_CHECKRANGE);
 	if (me->InArena())
 	{
 		for (Unit* pUnit : nearEnemys)
@@ -266,7 +267,7 @@ bool BotPriestAI::ProcessNormalSpell()
 
 	if (me->HasAura(m_UseMountID))
 		return false;
-	NearUnitVec& needHealthPlayers = SearchNeedHealth(BOTAI_RANGESPELL_DISTANCE);
+	NearUnitVec needHealthPlayers = SearchNeedHealth(BOTAI_RANGESPELL_DISTANCE);
 	if (needHealthPlayers.empty())
 		return TryUpMount();
 	//me->StopMoving();
@@ -288,13 +289,13 @@ void BotPriestAI::ProcessFlee()
 		return;
 
 	float healthPct = me->GetHealthPct();
-	NearUnitVec& enemys = RangeEnemyListByHasAura(0, NEEDFLEE_CHECKRANGE);
+	NearUnitVec enemys = RangeEnemyListByHasAura(0, NEEDFLEE_CHECKRANGE);
 	if (enemys.size() > 1)
 	{
 		if (TryCastSpell(PriestGuard_AOEFear, me) == SpellCastResult::SPELL_CAST_OK)
 			return;
 	}
-	NearUnitVec& rangeEnemys = RangeEnemyListByTargetIsMe(BOTAI_RANGESPELL_DISTANCE);
+	NearUnitVec rangeEnemys = RangeEnemyListByTargetIsMe(BOTAI_RANGESPELL_DISTANCE);
 	if (rangeEnemys.size() > 0 && healthPct < 80)
 	{
 		if (!me->HasAura(PriestGuard_DefShield) && !me->HasAura(PriestFlag_NonShield))
@@ -329,7 +330,7 @@ void BotPriestAI::ProcessFlee()
 	{
 		if (PriestHeal_RingHeal)
 		{
-			NearUnitVec& needHeals = SearchLifePctByFriendRange(me, 75);
+			NearUnitVec needHeals = SearchLifePctByFriendRange(me, 75);
 			if (needHeals.size() > 1)
 			{
 				if (TryCastSpell(PriestHeal_RingHeal, me) == SpellCastResult::SPELL_CAST_OK)
@@ -516,7 +517,7 @@ bool BotPriestAI::ProcessArenaHealthMember()
 		return false;
 	float minLife = 100;
 	Unit* minLifeUnit = NULL;
-	NearUnitVec& friends = SearchFriend(BOTAI_RANGESPELL_DISTANCE);
+	NearUnitVec friends = SearchFriend(BOTAI_RANGESPELL_DISTANCE);
 	for (Unit* pUnit : friends)
 	{
 		float healPct = pUnit->GetHealthPct();
@@ -543,7 +544,7 @@ bool BotPriestAI::ProcessManaBurn()
 	if (GetManaPowerPer() < 30)
 		return false;
 	NearUnitVec minorUnits;
-	NearUnitVec& enemys = RangeEnemyListByHasAura(0, BOTAI_RANGESPELL_DISTANCE);
+	NearUnitVec enemys = RangeEnemyListByHasAura(0, BOTAI_RANGESPELL_DISTANCE);
 	for (Unit* pUnit : enemys)
 	{
 		if (!TargetCanManaBurn(pUnit->ToPlayer()))
@@ -586,7 +587,7 @@ bool BotPriestAI::ProcessManaRevive()
 
 bool BotPriestAI::ProcessDispel()
 {
-	NearUnitVec& friends = SearchFriend(BOTAI_RANGESPELL_DISTANCE);
+	NearUnitVec friends = SearchFriend(BOTAI_RANGESPELL_DISTANCE);
 	if (friends.empty())
 		return false;
 	std::random_shuffle(friends.begin(), friends.end());

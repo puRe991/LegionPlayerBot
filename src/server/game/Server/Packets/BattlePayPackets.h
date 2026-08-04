@@ -18,6 +18,16 @@
 #ifndef BattlePayPackets_h__
 #define BattlePayPackets_h__
 
+#include "Common.h"
+
+class WorldPacket;
+
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <string>
+#include <vector>
+
 #include "Packet.h"
 #include "Packets/ItemPackets.h"
 #include "WorldSession.h"

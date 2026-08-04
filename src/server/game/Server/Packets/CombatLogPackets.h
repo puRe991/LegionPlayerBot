@@ -18,6 +18,15 @@
 #ifndef CombatLogPackets_h__
 #define CombatLogPackets_h__
 
+#include "Common.h"
+
+class WorldPacket;
+
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <vector>
+
 #include "Packet.h"
 #include "Spell.h"
 

@@ -19,6 +19,11 @@
 #ifndef _INSTANCESAVEMGR_H
 #define _INSTANCESAVEMGR_H
 
+#include "Define.h"
+#include <list>
+#include <map>
+#include <string>
+
 #include "DBCEnums.h"
 #include "ObjectDefines.h"
 #include <safe_ptr.h>

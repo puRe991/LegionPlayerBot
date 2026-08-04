@@ -19,6 +19,8 @@
 #ifndef TRINITY_CREATUREAIFACTORY_H
 #define TRINITY_CREATUREAIFACTORY_H
 
+#include <string>
+
 #include "FactoryHolder.h"
 #include "GameObjectAI.h"
 

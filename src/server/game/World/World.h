@@ -23,6 +23,13 @@
 #ifndef __WORLD_H
 #define __WORLD_H
 
+#include <list>
+#include <map>
+#include <string>
+#include <unordered_map>
+#include <vector>
+#include <memory>
+
 #include "Common.h"
 #include "Realm/Realm.h"
 #include "ObjectGuid.h"
@@ -233,6 +240,8 @@ enum WorldBoolConfigs
     CONFIG_PLAYER_ALLOW_PVP_TALENTS_ALL_THE_TIME,
     CONFIG_GAIN_HONOR_GUARD,
     CONFIG_GAIN_HONOR_ELITE,
+    CONFIG_PLAYERBOT_ENABLE,
+    CONFIG_PLAYERBOT_ACCOUNT_ALL,
     BOOL_CONFIG_VALUE_COUNT
 };
 
@@ -475,6 +484,9 @@ enum WorldIntConfigs
     CONFIG_PLAYER_AFK_TIMEOUT,
     CONFIG_PLAYER_LEGION_LEGENDARY_EQUIP_COUNT,
     CONFIG_LEGION_ENABLED_PATCH,
+    CONFIG_PLAYERBOT_MAX_ONLINE,
+    CONFIG_PLAYERBOT_LOOT_NEEDROLL,
+    CONFIG_PLAYERBOT_LOOT_MINQUALITY,
     INT_CONFIG_VALUE_COUNT
 };
 

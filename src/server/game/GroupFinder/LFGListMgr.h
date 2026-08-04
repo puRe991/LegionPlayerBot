@@ -1,5 +1,15 @@
 #pragma once
 
+#include "LFGPackets.h"
+class WorldSession;
+
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <list>
+#include <map>
+#include <string>
+
 #include "LFGList.h"
 
 class LFGListMgr

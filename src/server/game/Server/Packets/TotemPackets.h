@@ -18,6 +18,10 @@
 #ifndef TotemPackets_h__
 #define TotemPackets_h__
 
+class WorldPacket;
+
+#include "Define.h"
+
 #include "Packet.h"
 #include "ObjectGuid.h"
 

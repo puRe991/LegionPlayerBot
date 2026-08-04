@@ -18,6 +18,10 @@
 #ifndef BankPackets_h__
 #define BankPackets_h__
 
+class WorldPacket;
+
+#include "Define.h"
+
 #include "ItemPackets.h"
 #include "Packet.h"
 #include "ObjectGuid.h"

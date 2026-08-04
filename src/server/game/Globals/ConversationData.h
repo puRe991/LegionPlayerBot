@@ -19,6 +19,12 @@
 #ifndef _ConversationDataStoreh_
 #define _ConversationDataStoreh_
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <unordered_map>
+#include <vector>
+
 #include "Conversation.h"
 
 struct ConversationActor

@@ -1,4 +1,6 @@
 
+#include "Containers.h"
+#include "ObjectAccessor.h"
 #include "BattlegroundSeethingShore.h"
 #include "BattlegroundPackets.h"
 #include "WorldStatePackets.h"

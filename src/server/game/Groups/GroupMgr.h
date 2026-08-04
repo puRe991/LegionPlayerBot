@@ -18,6 +18,13 @@
 #ifndef _GROUPMGR_H
 #define _GROUPMGR_H
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <functional>
+#include <map>
+#include <vector>
+
 #include "Group.h"
 
 class GroupMgr

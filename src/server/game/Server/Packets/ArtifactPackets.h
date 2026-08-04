@@ -18,7 +18,14 @@
 #ifndef ArtifactPackets_h__
 #define ArtifactPackets_h__
 
+class WorldPacket;
+
+#include "Define.h"
+#include <vector>
+
 #include "Packet.h"
+#include "ObjectGuid.h"
+
 
 namespace WorldPackets
 {

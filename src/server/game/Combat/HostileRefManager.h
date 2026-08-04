@@ -19,6 +19,8 @@
 #ifndef _HOSTILEREFMANAGER
 #define _HOSTILEREFMANAGER
 
+#include "Define.h"
+
 #include "RefManager.h"
 
 class Unit;

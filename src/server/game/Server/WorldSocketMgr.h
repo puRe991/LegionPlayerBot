@@ -25,6 +25,9 @@
 #ifndef __WORLDSOCKETMGR_H
 #define __WORLDSOCKETMGR_H
 
+#include "Define.h"
+#include <string>
+
 #include "SocketMgr.h"
 
 class WorldSocket;

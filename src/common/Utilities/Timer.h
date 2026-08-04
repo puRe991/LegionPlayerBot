@@ -19,6 +19,8 @@
 #ifndef TRINITY_TIMER_H
 #define TRINITY_TIMER_H
 
+#include "Define.h"
+
 #include "Duration.h"
 
 inline uint32 getMSTime()

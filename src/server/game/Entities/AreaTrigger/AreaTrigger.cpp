@@ -15,6 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "ObjectAccessor.h"
+#include "SpellMgr.h"
 #include "AreaTrigger.h"
 #include "AreaTriggerAI.h"
 #include "AreaTriggerData.h"

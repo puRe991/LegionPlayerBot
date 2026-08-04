@@ -18,6 +18,9 @@
 #ifndef TAXIPATHGRAPH_HPP
 #define TAXIPATHGRAPH_HPP
 
+#include "Define.h"
+#include <vector>
+
 #include <boost/graph/adjacency_list.hpp>
 
 class Player;

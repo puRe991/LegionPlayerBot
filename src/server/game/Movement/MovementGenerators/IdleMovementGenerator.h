@@ -19,6 +19,8 @@
 #ifndef TRINITY_IDLEMOVEMENTGENERATOR_H
 #define TRINITY_IDLEMOVEMENTGENERATOR_H
 
+#include "Define.h"
+
 #include "MovementGenerator.h"
 
 class IdleMovementGenerator : public MovementGenerator

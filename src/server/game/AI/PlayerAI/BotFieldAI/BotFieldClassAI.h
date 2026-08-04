@@ -2,6 +2,9 @@
 #ifndef _BOT_GROUP_CLASS_AI_H_
 #define _BOT_GROUP_CLASS_AI_H_
 
+#include "Define.h"
+#include <set>
+
 #include "ScriptSystem.h"
 #include "BotFieldAI.h"
 

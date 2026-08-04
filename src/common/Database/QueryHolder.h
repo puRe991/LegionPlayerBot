@@ -18,6 +18,8 @@
 #ifndef _QUERYHOLDER_H
 #define _QUERYHOLDER_H
 
+#include <vector>
+
 #include "DatabaseEnvFwd.h"
 
 class SQLQueryHolder

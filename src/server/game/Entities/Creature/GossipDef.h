@@ -19,6 +19,12 @@
 #ifndef GOSSIP_H
 #define GOSSIP_H
 
+#include "ObjectGuid.h"
+
+#include <map>
+#include <string>
+#include <vector>
+
 #include "Common.h"
 #include "QuestDef.h"
 #include "NPCHandler.h"

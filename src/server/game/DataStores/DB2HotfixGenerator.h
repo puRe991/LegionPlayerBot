@@ -2,6 +2,9 @@
 #ifndef DB2HotfixGenerator_h__
 #define DB2HotfixGenerator_h__
 
+#include "Define.h"
+#include <string>
+
 #include "DB2Store.h"
 #include <initializer_list>
 

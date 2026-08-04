@@ -185,7 +185,7 @@ void FieldWarriorAI::ProcessRangeSpell(Unit* pTarget)
 void FieldWarriorAI::ProcessFlee()
 {
 	Unit* pTarget = me->GetSelectedUnit();
-	NearPlayerVec& farFriends = SearchFarFriend(20, BOTAI_RANGESPELL_DISTANCE, false);
+	NearPlayerVec farFriends = SearchFarFriend(20, BOTAI_RANGESPELL_DISTANCE, false);
 	if (!farFriends.empty())
 	{
 		if (me->HasAura(WarriorDefance_Status) && WarriorDefance_Support)
@@ -199,7 +199,7 @@ void FieldWarriorAI::ProcessFlee()
 		}
 	}
 	FleeMovement();
-	NearUnitVec& range8Players = RangeEnemyListByTargetIsMe(NEEDFLEE_CHECKRANGE);
+	NearUnitVec range8Players = RangeEnemyListByTargetIsMe(NEEDFLEE_CHECKRANGE);
 	//if (range8Players.size() >= 2 && TryCastSpell(WarriorCommon_AOEFear, pTarget) == SpellCastResult::SPELL_CAST_OK)
 	//	return;
 	if (m_BotTalentType == 2 && range8Players.size() >= 2)
@@ -279,7 +279,7 @@ void FieldWarriorAI::ProcessRageMeleeSpell(Unit* pTarget)
 		return;
 	//if (!pTarget->HasAura(WarriorWeaponRage_Backfillet) && TryCastSpell(WarriorWeaponRage_Backfillet, pTarget) == SpellCastResult::SPELL_CAST_OK)
 	//	return;
-	NearUnitVec& playerVec8Range = RangeEnemyListByHasAura(0, NEEDFLEE_CHECKRANGE);
+	NearUnitVec playerVec8Range = RangeEnemyListByHasAura(0, NEEDFLEE_CHECKRANGE);
 	if (playerVec8Range.size() >= 2 && TryCastSpell(WarriorRage_Whirlwind, pTarget) == SpellCastResult::SPELL_CAST_OK)
 		return;
 	if (WarriorRage_Needdead && TryCastSpell(WarriorRage_Needdead, pTarget) == SpellCastResult::SPELL_CAST_OK)
@@ -310,7 +310,7 @@ void FieldWarriorAI::ProcessDefanceMeleeSpell(Unit* pTarget)
 		return;
 	if (ragePer >= 40 && TryCastSpell(WarriorDefance_HPojia, pTarget) == SpellCastResult::SPELL_CAST_OK)
 		return;
-	NearUnitVec& range8Players = RangeEnemyListByTargetIsMe(NEEDFLEE_CHECKRANGE);
+	NearUnitVec range8Players = RangeEnemyListByTargetIsMe(NEEDFLEE_CHECKRANGE);
 	if (range8Players.size() >= 1 && TryCastSpell(WarriorDefance_ShieldBlock, pTarget) == SpellCastResult::SPELL_CAST_OK)
 		return;
 	if (range8Players.size() >= 2 && TryCastSpell(WarriorDefance_AOEConk, pTarget) == SpellCastResult::SPELL_CAST_OK)
@@ -321,7 +321,7 @@ void FieldWarriorAI::ProcessDefanceMeleeSpell(Unit* pTarget)
 		return;
 	if (ragePer >= 40 && range8Players.size() >= 1 && TryCastSpell(WarriorWeaponDefance_AOEAtt, pTarget) == SpellCastResult::SPELL_CAST_OK)
 		return;
-	NearUnitVec& range30Players = RangeEnemyListByTargetIsMe(BOTAI_RANGESPELL_DISTANCE);
+	NearUnitVec range30Players = RangeEnemyListByTargetIsMe(BOTAI_RANGESPELL_DISTANCE);
 	if (range30Players.size() >= 3 && WarriorWeaponDefance_SpellReflect)
 	{
 		uint32 castCount = 0;

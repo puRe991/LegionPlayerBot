@@ -23,6 +23,11 @@
 #ifndef __BattlegroundBFG_H
 #define __BattlegroundBFG_H
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <vector>
+
 enum GILNEAS_BG_ObjectType
 {
     BG_BFG_OBJECT_BANNER                        = 0,

@@ -18,6 +18,9 @@
 #ifndef __ASYNCACCEPT_H_
 #define __ASYNCACCEPT_H_
 
+#include "Define.h"
+#include <string>
+
 #include "Log.h"
 #include <boost/asio.hpp>
 #include <functional>

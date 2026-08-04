@@ -18,6 +18,10 @@
 #ifndef _DATABASEWORKERPOOL_H
 #define _DATABASEWORKERPOOL_H
 
+#include <functional>
+#include <string>
+#include <vector>
+
 #include "Common.h"
 #include "MySQLConnection.h"
 #include "Transaction.h"

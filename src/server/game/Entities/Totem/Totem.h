@@ -19,6 +19,8 @@
 #ifndef TOTEM_H
 #define TOTEM_H
 
+#include "Define.h"
+
 #include "TemporarySummon.h"
 
 enum TotemType

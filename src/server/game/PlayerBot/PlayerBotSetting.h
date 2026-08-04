@@ -2,11 +2,24 @@
 #ifndef __PLAYERBOTSETTING_H__
 #define __PLAYERBOTSETTING_H__
 
+#include <list>
+#include <map>
+#include <set>
+#include <vector>
+
 #include "Log.h"
 #include "Common.h"
 #include "SharedDefines.h"
 #include "DatabaseEnv.h"
 #include "Player.h"
+
+// Values of the PlayerBot.Loot.NeedRoll config option.
+enum PlayerBotLootBehaviour
+{
+	PLAYERBOT_LOOT_ALWAYS_PASS    = 0,
+	PLAYERBOT_LOOT_GREED_ONLY     = 1,
+	PLAYERBOT_LOOT_NEED_ON_UPGRADE = 2
+};
 
 typedef std::vector<const ItemTemplate*> BotItems;
 class ItemsForLevel
@@ -59,6 +72,8 @@ public:
 	static bool MatchEquipmentSlot(uint8 pos, const ItemTemplate* itemTemplate);
 	static uint32 GetItemLevelByAI(const ItemTemplate* item);
 	static bool IsBetterEquip(Player* player, const ItemTemplate* itemTemplate, int32 rndPropID);
+	// Decides how a bot answers a group loot roll. Returns a RollType value.
+	static uint8 DecideLootRoll(Player* bot, uint32 itemID, int32 rndPropID, uint8 rollVoteMask);
 	static void ClearUnknowMount(Player* player);
 	static uint32 CheckMaxLevel(uint32 level);
 	static bool IsBotFlyMountAura(uint32 aura);
@@ -80,6 +95,8 @@ private:
 	static bool IsMageEquip(const ItemTemplate* itemTemplate);
 	static bool IsWarlockEquip(const ItemTemplate* itemTemplate);
 	static bool IsPriestEquip(const ItemTemplate* itemTemplate);
+	static bool IsMonkEquip(const ItemTemplate* itemTemplate);
+	static bool IsDemonHunterEquip(const ItemTemplate* itemTemplate);
 	static bool IsEquipByClasses(uint32 cls, const ItemTemplate* itemTemplate);
 	static bool IsEquipByClsAndTal(uint32 cls, uint32 tal, const ItemTemplate* itemTemplate, int32 rndPropID);
 	static bool IsOnlyPhysicsAttributeEquip(const ItemTemplate* itemTemplate, bool coverIntellect);

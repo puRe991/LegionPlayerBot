@@ -1,3 +1,4 @@
+#include "ObjectAccessor.h"
 #include "BrawlBattlegroundShadoPan.h"
 #include "WorldStatePackets.h"
 #include "ScriptedCreature.h"

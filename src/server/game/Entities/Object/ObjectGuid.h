@@ -19,9 +19,14 @@
 #ifndef ObjectGuid_h__
 #define ObjectGuid_h__
 
+#include "Define.h"
+#include <string>
+
 #include "ByteBuffer.h"
 #include "ObjectDefines.h"
 #include <deque>
+#include <map>
+#include <unordered_map>
 #include <list>
 #include <set>
 #include <unordered_set>

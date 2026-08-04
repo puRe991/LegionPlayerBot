@@ -18,8 +18,17 @@
 #ifndef TRINITY_CALENDARMGR_H
 #define TRINITY_CALENDARMGR_H
 
+class WorldPacket;
+
+#include <deque>
+#include <map>
+#include <set>
+#include <string>
+#include <vector>
+
 #include "Common.h"
 #include "ObjectGuid.h"
+#include "DatabaseEnvFwd.h"
 
 enum CalendarMailAnswers
 {

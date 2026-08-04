@@ -19,6 +19,8 @@
 #ifndef _MODELINSTANCE_H_
 #define _MODELINSTANCE_H_
 
+#include <string>
+
 #include <G3D/Matrix3.h>
 #include <G3D/Vector3.h>
 #include <G3D/AABox.h>

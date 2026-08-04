@@ -1,4 +1,4 @@
-#include <json/writer.h>
+#include "writer.h"
 #include <utility>
 #include <assert.h>
 #include <stdio.h>
@@ -67,7 +67,7 @@ std::string valueToString( double value )
 {
    char buffer[32];
 #if defined(_MSC_VER) && defined(__STDC_SECURE_LIB__) // Use secure version with visual studio 2005 to avoid warning. 
-   sprintf_s(buffer, sizeof(buffer), "%#.16g", value); 
+   snprintf(buffer, sizeof(buffer), "%#.16g", value); 
 #else	
    sprintf(buffer, "%#.16g", value); 
 #endif

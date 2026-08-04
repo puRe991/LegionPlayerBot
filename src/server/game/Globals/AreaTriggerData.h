@@ -19,6 +19,12 @@
 #ifndef _AreaTriggerDataStoreh_
 #define _AreaTriggerDataStoreh_
 
+#include "Define.h"
+#include <set>
+#include <unordered_map>
+#include <unordered_set>
+#include <vector>
+
 #include "AreaTrigger.h"
 
 struct AreaTriggerStruct

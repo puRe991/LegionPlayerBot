@@ -1,4 +1,7 @@
 
+#include "Containers.h"
+#include "ObjectAccessor.h"
+#include "ObjectMgr.h"
 #include "PlayerBotMgr.h"
 #include "World.h"
 #include "DB2Stores.h"
@@ -18,8 +21,14 @@
 #include "AccountMgr.h"
 #include "CharacterPackets.h"
 
+#include <type_traits>
+#include <vector>
+
 #include <boost/algorithm/string.hpp>
 //#include <boost/format.hpp>
+
+// Grace period before an AI that was swapped out is actually freed.
+static uint32 const AI_DESTROY_DELAY = 5000;
 
 PlayerBotCharBaseInfo PlayerBotBaseInfo::empty;
 std::map<uint32, std::list<UnitAI*> > PlayerBotMgr::m_DelayDestroyAIs;
@@ -36,39 +45,39 @@ std::string PlayerBotCharBaseInfo::GetNameANDClassesText()
             clsEntry += 1;
             break;
         case 2:
-            //clsName = "  Ê¥ÆïÊ¿ : ";
+            //clsName = "  Ê¥ï¿½ï¿½Ê¿ : ";
             clsEntry += 2;
             break;
         case 3:
-            //clsName = "  ÁÔ  ÈË : ";
+            //clsName = "  ï¿½ï¿½  ï¿½ï¿½ : ";
             clsEntry += 3;
             break;
         case 4:
-            //clsName = "  µÁ  Ôô : ";
+            //clsName = "  ï¿½ï¿½  ï¿½ï¿½ : ";
             clsEntry += 4;
             break;
         case 5:
-            //clsName = "  ÄÁ  Ê¦ : ";
+            //clsName = "  ï¿½ï¿½  Ê¦ : ";
             clsEntry += 5;
             break;
         case 6:
-            //clsName = "  ËÀ  Æï : ";
+            //clsName = "  ï¿½ï¿½  ï¿½ï¿½ : ";
             clsEntry += 6;
             break;
         case 7:
-            //clsName = "  Èø  Âú : ";
+            //clsName = "  ï¿½ï¿½  ï¿½ï¿½ : ";
             clsEntry += 7;
             break;
         case 8:
-            //clsName = "  ·¨  Ê¦ : ";
+            //clsName = "  ï¿½ï¿½  Ê¦ : ";
             clsEntry += 8;
             break;
         case 9:
-            //clsName = "  Êõ  Ê¿ : ";
+            //clsName = "  ï¿½ï¿½  Ê¿ : ";
             clsEntry += 9;
             break;
         case 11:
-            //clsName = "  µÂÂ³ÒÁ : ";
+            //clsName = "  ï¿½ï¿½Â³ï¿½ï¿½ : ";
             clsEntry += 10;
             break;
     }
@@ -386,30 +395,12 @@ PlayerBotBaseInfo* PlayerBotMgr::GetAccountBotAccountInfo(uint32 guid)
 
 bool PlayerBotMgr::ExistClassByRace(uint8 race, uint8 prof)
 {
-    switch (prof)
-    {
-        case 1:
-            return (race != 10);
-        case 2:
-            return (race == 1 || race == 3 || race == 10 || race == 11);
-        case 3:
-            return (race == 2 || race == 3 || race == 4 || race == 6 || race == 8 || race == 10 || race == 11);
-        case 4:
-            return (race == 1 || race == 2 || race == 3 || race == 4 || race == 5 || race == 7 || race == 8 || race == 10);
-        case 5:
-            return (race == 1 || race == 3 || race == 4 || race == 5 || race == 8 || race == 10 || race == 11);
-        case 6:
-            return true;
-        case 7:
-            return (race == 2 || race == 6 || race == 8 || race == 11);
-        case 8:
-            return (race == 1 || race == 5 || race == 7 || race == 8 || race == 10 || race == 11);
-        case 9:
-            return (race == 1 || race == 2 || race == 5 || race == 7 || race == 10);
-        case 11:
-            return (race == 4 || race == 6);
-    }
-    return false;
+    // The combinations used to be a hardcoded table that had not been updated
+    // past Wrath: it knew no Monk or Demon Hunter, no Worgen, Goblin or
+    // Pandaren, and was missing combinations added in Cataclysm and Mists.
+    // playercreateinfo is what the server itself validates character creation
+    // against, so ask it instead of keeping a second list in sync.
+    return sObjectMgr->GetPlayerInfo(race, prof) != nullptr;
 }
 void PlayerBotMgr::InitializeCreatePlayerBotName()
 {
@@ -421,7 +412,7 @@ void PlayerBotMgr::InitializeCreatePlayerBotName()
         do
         {
             Field* fields = result->Fetch();
-            std::string& dbName = fields[0].GetString();
+            std::string dbName = fields[0].GetString();
             if (dbName.size() > 0)
                 allName.push_back(dbName);
         } while (result->NextRow());
@@ -435,7 +426,7 @@ void PlayerBotMgr::InitializeCreatePlayerBotName()
         do
         {
             Field* fields = result2->Fetch();
-            std::string& dbName = fields[0].GetString();
+            std::string dbName = fields[0].GetString();
             if (dbName.size() > 0)
                 allArenaName.push_back(dbName);
         } while (result2->NextRow());
@@ -466,35 +457,40 @@ std::string PlayerBotMgr::RandomArenaName()
 {
     return "Arena" + std::to_string(urand(0, 100));
 }
-uint8 PlayerBotMgr::RandomRace(bool group, uint8 prof)
+uint8 PlayerBotMgr::RandomRace(bool alliance, uint8 prof)
 {
-    uint8 race = 1;
-    for (int i = 0; i < 80; i++)
+    // Playable races per faction as of Legion. The previous version drew from
+    // 1..11 only, so Worgen, Goblin and Pandaren never appeared, and when no
+    // race matched - which was always the case for Monk and Demon Hunter - it
+    // fell back to Human or Orc and produced an invalid combination.
+    static uint8 const allianceRaces[] =
     {
-        race = irand(1, 11);
-        if (race == 9) continue;
-        if (group)
-        {
-            if (race == 1 || race == 3 || race == 4 || race == 7 || race == 11)
-            {
-                if (ExistClassByRace(race, prof))
-                    return race;
-            }
-        }
-        else
-        {
-            if (race == 2 || race == 5 || race == 6 || race == 8 || race == 10)
-            {
-                if (ExistClassByRace(race, prof))
-                    return race;
-            }
-        }
-    }
+        RACE_HUMAN, RACE_DWARF, RACE_NIGHTELF, RACE_GNOME, RACE_DRAENEI,
+        RACE_WORGEN, RACE_PANDAREN_ALLIANCE
+    };
+    static uint8 const hordeRaces[] =
+    {
+        RACE_ORC, RACE_UNDEAD_PLAYER, RACE_TAUREN, RACE_TROLL, RACE_GOBLIN,
+        RACE_BLOODELF, RACE_PANDAREN_HORDE
+    };
 
-    TC_LOG_INFO(LOG_FILTER_PLAYER, "server.loading", ">> Random player custom Race timeout!");
-    if (group)
-        return 1;
-    return 2;
+    uint8 const* races = alliance ? allianceRaces : hordeRaces;
+    std::size_t const raceCount = alliance ? std::extent<decltype(allianceRaces)>::value
+                                           : std::extent<decltype(hordeRaces)>::value;
+
+    // Collect what actually exists for this class rather than sampling blindly.
+    std::vector<uint8> candidates;
+    candidates.reserve(raceCount);
+    for (std::size_t i = 0; i < raceCount; ++i)
+        if (ExistClassByRace(races[i], prof))
+            candidates.push_back(races[i]);
+
+    if (!candidates.empty())
+        return candidates[urand(0, uint32(candidates.size() - 1))];
+
+    TC_LOG_ERROR(LOG_FILTER_PLAYER, "PlayerBotMgr::RandomRace found no %s race for class %u.",
+        alliance ? "alliance" : "horde", uint32(prof));
+    return 0;
 }
 uint8 PlayerBotMgr::RandomSkinColor(uint8 race, uint8 gender, uint8 prof)
 {
@@ -599,6 +595,9 @@ WorldPacket PlayerBotMgr::BuildCreatePlayerData(bool group, uint8 prof)
 {
     std::string name = RandomName();
     uint8 race = RandomRace(group, prof);
+    if (!race)
+        return WorldPacket();
+
     uint8 gender = irand(0, 1);
     uint8 skinColor = RandomSkinColor(race, gender, prof);
     uint8 faceID = RandomFace(race, gender, skinColor, prof);
@@ -688,7 +687,7 @@ void PlayerBotMgr::SupplementAccount()
     {
         ++m_LastBotAccountIndex;
         char indexText[25] ={ 0 };
-        itoa(m_LastBotAccountIndex, indexText, 10);
+        snprintf(indexText, sizeof(indexText), "%u", m_LastBotAccountIndex);
         std::string userName = "playerbot";
         userName += indexText;
         if (AccountMgr::CreateAccount(userName, "botxxx") == AccountOpResult::AOR_OK)
@@ -721,10 +720,10 @@ void PlayerBotMgr::SupplementAccount()
 void PlayerBotMgr::DestroyBotMail(uint32 guid)
 {
     char sql[256] ={ 0 };
-    sprintf_s(sql, 255, "DELETE FROM mail WHERE receiver = %d", guid);
+    snprintf(sql, sizeof(sql), "DELETE FROM mail WHERE receiver = %d", guid);
     CharacterDatabase.Execute(sql);
     //memset(sql, 0, 256);
-    //sprintf_s(sql, 255, "DELETE FROM mail_items WHERE receiver = %d", guid);
+    //snprintf(sql, sizeof(sql), "DELETE FROM mail_items WHERE receiver = %d", guid);
     //CharacterDatabase.Execute(sql);
     PreparedStatement* stmt = CharacterDatabase.GetPreparedStatement(CHAR_DEL_MAIL_ITEMS);
     stmt->setUInt32(0, guid);
@@ -752,6 +751,10 @@ void PlayerBotMgr::AddNewAccountBotBaseInfo(std::string name)
 void PlayerBotMgr::LoadPlayerBotBaseInfo()
 {
     uint32 oldMSTime = getMSTime();
+
+    // The online limit used to be fixed at construction time. Pick it up from
+    // the configuration here, which runs after the config has been read.
+    m_MaxOnlineBot = int32(sWorld->getIntConfig(CONFIG_PLAYERBOT_MAX_ONLINE));
 
     ClearBaseInfo();
     QueryResult result = LoginDatabase.Query("SELECT id, username, sha_pass_hash FROM account");
@@ -939,7 +942,7 @@ void PlayerBotMgr::OnPlayerBotLogin(WorldSession* pSession, Player* pPlayer)
     if (pSession)
     {
         std::string outString;
-        consoleToUtf8(std::string(" ÉÏ Ïß"), outString);
+        consoleToUtf8(std::string(" ï¿½ï¿½ ï¿½ï¿½"), outString);
         sWorld->SendGlobalText((GetPlayerLinkText(pPlayer) + outString).c_str(), NULL);
     }
     if (PlayerBotSession* pBotSession = dynamic_cast<PlayerBotSession*>(pSession))
@@ -965,7 +968,7 @@ void PlayerBotMgr::OnPlayerBotLogout(WorldSession* pSession)
     if (m_BotOnlineCount < 0) m_BotOnlineCount = 0;
 
     std::string outString;
-    consoleToUtf8(std::string("»úÆ÷ÈËÏÂÏß"), outString);
+    consoleToUtf8(std::string("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"), outString);
     sWorld->SendGlobalText(outString.c_str(), NULL);
     PlayerBotSession* pBotSession = dynamic_cast<PlayerBotSession*>(pSession);
     if (pBotSession && !pBotSession->HasScheduleByType(BotGlobleScheduleType::BGSType_Online) &&
@@ -1022,7 +1025,7 @@ void PlayerBotMgr::LoginFriendBotByPlayer(Player* pPlayer)
     //	}
     //#else
     //	std::string allonlineText;
-    //	consoleToUtf8(std::string("|cffff8800ÌåÑé°æÎÞ·¨ÕÙ»½ºÃÓÑ»úÆ÷ÈËÉÏÏß¡£|r"), allonlineText);
+    //	consoleToUtf8(std::string("|cffff8800ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Þ·ï¿½ï¿½Ù»ï¿½ï¿½ï¿½ï¿½Ñ»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß¡ï¿½|r"), allonlineText);
     //	sWorld->SendGlobalText(allonlineText.c_str(), NULL);
     //#endif
 }
@@ -1189,33 +1192,25 @@ void PlayerBotMgr::SupplementPlayerBot()
         }
         std::string firstName = pInfo->username.substr(6);
         char botname[30] ={ 0 };
-        for (int i = 1; i < 10; i++)
+        // Cover every playable class. This used to run 1..9 without Death
+        // Knight plus a hand written Druid case, which left out Death Knight,
+        // Monk and Demon Hunter entirely.
+        for (uint8 cls = CLASS_WARRIOR; cls <= CLASS_DEMON_HUNTER; ++cls)
         {
-            if (i == 6) continue;
-            if (!pInfo->ExistClass(true, i))
+            for (uint8 faction = 0; faction < 2; ++faction)
             {
-                memset(botname, 0, 30);
-                sprintf(botname, "%sA%d", firstName.c_str(), i);
-                pInfo->needCreateBots.push(BuildCreatePlayerData(true, i));
+                bool const alliance = faction == 0;
+                if (pInfo->ExistClass(alliance, cls))
+                    continue;
+
+                WorldPacket createData = BuildCreatePlayerData(alliance, cls);
+                if (createData.empty())
+                    continue;   // no race of that faction can be this class
+
+                memset(botname, 0, sizeof(botname));
+                snprintf(botname, sizeof(botname), "%s%c%u", firstName.c_str(), alliance ? 'A' : 'B', uint32(cls));
+                pInfo->needCreateBots.push(std::move(createData));
             }
-            if (!pInfo->ExistClass(false, i))
-            {
-                memset(botname, 0, 30);
-                sprintf(botname, "%sB%d", firstName.c_str(), i);
-                pInfo->needCreateBots.push(BuildCreatePlayerData(false, i));
-            }
-        }
-        if (!pInfo->ExistClass(true, 11))
-        {
-            memset(botname, 0, 30);
-            sprintf(botname, "%sA11", firstName.c_str());
-            pInfo->needCreateBots.push(BuildCreatePlayerData(true, 11));
-        }
-        if (!pInfo->ExistClass(false, 11))
-        {
-            memset(botname, 0, 30);
-            sprintf(botname, "%sB11", firstName.c_str());
-            pInfo->needCreateBots.push(BuildCreatePlayerData(false, 11));
         }
     }
     CreateOncePlayerBot();
@@ -1632,12 +1627,9 @@ void PlayerBotMgr::AddNewPlayerBot(bool faction, Classes prof, uint32 count)
 
     if (prof == CLASS_NONE)
     {
-        uint32 rndCls = 0;
-        while (rndCls == 0 || rndCls == 6 || rndCls == 10 || rndCls > 11)
-        {
-            rndCls = urand(Classes::CLASS_WARRIOR, Classes::CLASS_DRUID);
-        }
-        prof = Classes(rndCls);
+        // Every playable class is eligible. The loop this replaces excluded
+        // Death Knight, Monk and Demon Hunter.
+        prof = Classes(urand(Classes::CLASS_WARRIOR, Classes::CLASS_DEMON_HUNTER));
     }
 #ifdef INCOMPLETE_BOT
     if (prof != 1 && prof != 5 && prof != 9)
@@ -1680,7 +1672,7 @@ void PlayerBotMgr::AddNewPlayerBot(bool faction, Classes prof, uint32 count)
     if (count > 0)
     {
         std::string allonlineText;
-        consoleToUtf8(std::string("|cffff8800ËùÓÐ»úÆ÷ÈËÕËºÅÒÑ¾­È«²¿ÔÚÏß£¬ÎÞ·¨ÉÏÏßÐÂ»úÆ÷ÈË¡£|r"), allonlineText);
+        consoleToUtf8(std::string("|cffff8800ï¿½ï¿½ï¿½Ð»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëºï¿½ï¿½Ñ¾ï¿½È«ï¿½ï¿½ï¿½ï¿½ï¿½ß£ï¿½ï¿½Þ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â»ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½|r"), allonlineText);
         sWorld->SendGlobalText(allonlineText.c_str(), NULL);
     }
 }
@@ -1728,18 +1720,15 @@ void PlayerBotMgr::AddNewAccountBot(bool faction, Classes prof)
     }
     std::string allonlineText;
 #ifdef INCOMPLETE_BOT
-    consoleToUtf8(std::string("|cffff8800ÌåÑé°æÎÞ·¨ÕÙ»½ÉÏÏß×Ô½¨ÕËºÅ½ÇÉ«|r"), allonlineText);
+    consoleToUtf8(std::string("|cffff8800ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Þ·ï¿½ï¿½Ù»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô½ï¿½ï¿½ËºÅ½ï¿½É«|r"), allonlineText);
     sWorld->SendGlobalText(allonlineText.c_str(), NULL);
     return;
 #endif
     if (prof == CLASS_NONE)
     {
-        uint32 rndCls = 0;
-        while (rndCls == 0 || rndCls == 6 || rndCls == 10 || rndCls > 11)
-        {
-            rndCls = urand(Classes::CLASS_WARRIOR, Classes::CLASS_DRUID);
-        }
-        prof = Classes(rndCls);
+        // Every playable class is eligible. The loop this replaces excluded
+        // Death Knight, Monk and Demon Hunter.
+        prof = Classes(urand(Classes::CLASS_WARRIOR, Classes::CLASS_DEMON_HUNTER));
     }
     //std::set<uint32> hasSessionIDs;
 //	const SessionMap& allSession = sWorld->GetAllSessions();
@@ -1793,7 +1782,7 @@ void PlayerBotMgr::AddNewAccountBot(bool faction, Classes prof)
         }
     }
 
-    consoleToUtf8(std::string("|cffff8800Ã»ÓÐÕÒµ½ºÍÄãÏàÍ¬ÕóÓªµÄÖ¸¶¨Ö°ÒµµÄ×Ô½¨ÕËºÅ½ÇÉ«|r"), allonlineText);
+    consoleToUtf8(std::string("|cffff8800Ã»ï¿½ï¿½ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¬ï¿½ï¿½Óªï¿½ï¿½Ö¸ï¿½ï¿½Ö°Òµï¿½ï¿½ï¿½Ô½ï¿½ï¿½ËºÅ½ï¿½É«|r"), allonlineText);
     sWorld->SendGlobalText(allonlineText.c_str(), NULL);
 }
 
@@ -1893,7 +1882,7 @@ void PlayerBotMgr::AddNewPlayerBotByClass(uint32 count, Classes prof)
     if (allianceCount > 0 || hordeCount > 0)
     {
         std::string allonlineText;
-        consoleToUtf8(std::string("|cffff8800ËùÓÐ»úÆ÷ÈËÕËºÅÒÑ¾­È«²¿ÔÚÏß£¬ÎÞ·¨ÉÏÏßÐÂ»úÆ÷ÈË¡£|r"), allonlineText);
+        consoleToUtf8(std::string("|cffff8800ï¿½ï¿½ï¿½Ð»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëºï¿½ï¿½Ñ¾ï¿½È«ï¿½ï¿½ï¿½ï¿½ï¿½ß£ï¿½ï¿½Þ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â»ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½|r"), allonlineText);
         sWorld->SendGlobalText(allonlineText.c_str(), NULL);
     }
 }
@@ -2019,7 +2008,7 @@ void PlayerBotMgr::AddNewPlayerBotToBG(TeamId team, uint32 minLV, uint32 maxLV, 
     }
 
     std::string allonlineText;
-    consoleToUtf8(std::string("|cffff8800ËùÓÐ»úÆ÷ÈËÕËºÅÒÑ¾­È«²¿ÔÚÏß£¬ÎÞ·¨¼ÓÈëÐÂ»úÆ÷ÈËµ½Õ½³¡ÖÐ¡£|r"), allonlineText);
+    consoleToUtf8(std::string("|cffff8800ï¿½ï¿½ï¿½Ð»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëºï¿½ï¿½Ñ¾ï¿½È«ï¿½ï¿½ï¿½ï¿½ï¿½ß£ï¿½ï¿½Þ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â»ï¿½ï¿½ï¿½ï¿½Ëµï¿½Õ½ï¿½ï¿½ï¿½Ð¡ï¿½|r"), allonlineText);
     sWorld->SendGlobalText(allonlineText.c_str(), NULL);
 }
 
@@ -2164,7 +2153,7 @@ void PlayerBotMgr::AddNewPlayerBotToBG(TeamId team, uint32 minLV, uint32 maxLV, 
 //	}
 //
 //	std::string allonlineText;
-//	consoleToUtf8(std::string("|cffff8800ËùÓÐ»úÆ÷ÈËÕËºÅÒÑ¾­È«²¿ÔÚÏß£¬ÎÞ·¨¼ÓÈëÐÂ»úÆ÷ÈËµ½µØÏÂ³Ç¶ÓÁÐÖÐ¡£|r"), allonlineText);
+//	consoleToUtf8(std::string("|cffff8800ï¿½ï¿½ï¿½Ð»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëºï¿½ï¿½Ñ¾ï¿½È«ï¿½ï¿½ï¿½ï¿½ï¿½ß£ï¿½ï¿½Þ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â»ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½ï¿½ï¿½Â³Ç¶ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½|r"), allonlineText);
 //	sWorld->SendGlobalText(allonlineText.c_str(), NULL);
 //}
 
@@ -2277,7 +2266,7 @@ void PlayerBotMgr::AddNewPlayerBotToAA(TeamId team, BattlegroundTypeId bgTypeID,
     }
 
     std::string allonlineText;
-    consoleToUtf8(std::string("|cffff8800ËùÓÐ»úÆ÷ÈËÕËºÅÒÑ¾­È«²¿ÔÚÏß£¬ÎÞ·¨¼ÓÈëÐÂ»úÆ÷ÈËµ½¾º¼¼³¡ÖÐ¡£|r"), allonlineText);
+    consoleToUtf8(std::string("|cffff8800ï¿½ï¿½ï¿½Ð»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëºï¿½ï¿½Ñ¾ï¿½È«ï¿½ï¿½ï¿½ï¿½ï¿½ß£ï¿½ï¿½Þ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â»ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½|r"), allonlineText);
     sWorld->SendGlobalText(allonlineText.c_str(), NULL);
 }
 
@@ -2970,7 +2959,11 @@ void PlayerBotMgr::Update()
         itDelayAi++)
     {
         uint32 delayTick = itDelayAi->first;
-        if (delayTick + 5000 >= currentTick)
+        // The delay exists so an AI that was swapped out is not freed while the
+        // current update cycle may still be holding it. Free it once the grace
+        // period has actually passed. getMSTime wraps around, so compare the
+        // difference rather than the raw values.
+        if (getMSTimeDiff(delayTick, currentTick) >= AI_DESTROY_DELAY)
         {
             for (std::list<UnitAI*>::iterator itAI = itDelayAi->second.begin();
                 itAI != itDelayAi->second.end();

@@ -18,6 +18,8 @@
 #ifndef NetworkThread_h__
 #define NetworkThread_h__
 
+#include <vector>
+
 #include "Define.h"
 #include "Errors.h"
 #include "Log.h"

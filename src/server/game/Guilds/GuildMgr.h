@@ -18,6 +18,13 @@
 #ifndef _GUILDMGR_H
 #define _GUILDMGR_H
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <string>
+#include <unordered_map>
+#include <vector>
+
 #include "Guild.h"
 
 struct GuildChallengeReward

@@ -1,3 +1,4 @@
+#include "ObjectAccessor.h"
 #include "WorldState.h"
 #include "WorldStatePackets.h"
 

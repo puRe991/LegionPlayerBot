@@ -18,6 +18,8 @@
 #ifndef TRINITY_CONTAINERS_H
 #define TRINITY_CONTAINERS_H
 
+#include <list>
+
 #include "Define.h"
 #include "Random.h"
 #include <algorithm>

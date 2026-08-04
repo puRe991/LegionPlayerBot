@@ -1,4 +1,5 @@
 
+#include "SpellMgr.h"
 #include "BotGroupClassAI.h"
 #include "Totem.h"
 
@@ -128,7 +129,7 @@ bool GroupShamanAI::ProcessNormalSpell()
 
 	if (me->HasAura(m_UseMountID))
 		return false;
-	NearUnitVec& needHealthPlayers = SearchNeedHealth(BOTAI_RANGESPELL_DISTANCE);
+	NearUnitVec needHealthPlayers = SearchNeedHealth(BOTAI_RANGESPELL_DISTANCE);
 	if (needHealthPlayers.empty())
 		return TryUpMount();
 	Unit* healthPlayer = needHealthPlayers[urand(0, needHealthPlayers.size() - 1)];
@@ -359,7 +360,7 @@ bool GroupShamanAI::ProcessDispel()
 {
 	if (ShamanDispel_Refine == 0 || !BotUtility::SpellHasReady(me, ShamanDispel_Refine))
 		return false;
-	NearUnitVec& friends = SearchFriend(BOTAI_RANGESPELL_DISTANCE);
+	NearUnitVec friends = SearchFriend(BOTAI_RANGESPELL_DISTANCE);
 	if (friends.empty())
 		return false;
 	std::random_shuffle(friends.begin(), friends.end());
@@ -375,7 +376,7 @@ bool GroupShamanAI::ProcessCruel()
 {
 	if (ShamanAssist_DecCruel == 0 || !BotUtility::SpellHasReady(me, ShamanAssist_DecCruel))
 		return false;
-	NearUnitVec& friends = SearchFriend(BOTAI_RANGESPELL_DISTANCE);
+	NearUnitVec friends = SearchFriend(BOTAI_RANGESPELL_DISTANCE);
 	if (friends.empty())
 		return false;
 	std::random_shuffle(friends.begin(), friends.end());
@@ -401,7 +402,7 @@ bool GroupShamanAI::ProcessHeroic()
 		//uint32 enemyCount = RangeEnemyListByHasAura(0, BOTAI_RANGESPELL_DISTANCE).size();
 		//if (enemyCount < 3)
 		//	return false;
-		NearUnitVec& friends = SearchFriend(BOTAI_RANGESPELL_DISTANCE);
+		NearUnitVec friends = SearchFriend(BOTAI_RANGESPELL_DISTANCE);
 		uint32 canHeroicCount = 0;
 		for (Unit* player : friends)
 		{
@@ -417,12 +418,12 @@ bool GroupShamanAI::ProcessHeroic()
 bool GroupShamanAI::ProcessShield()
 {
 	bool hasEarth = false;
-	NearUnitVec& nearEnemys = RangeEnemyListByTargetIsMe(BOTAI_RANGESPELL_DISTANCE);
+	NearUnitVec nearEnemys = RangeEnemyListByTargetIsMe(BOTAI_RANGESPELL_DISTANCE);
 	if (nearEnemys.empty())
 	{
 		if (m_BotTalentType == 2 && ShamanShield_Earth)
 		{
-			NearUnitVec& friends = SearchFriend(BOTAI_RANGESPELL_DISTANCE);
+			NearUnitVec friends = SearchFriend(BOTAI_RANGESPELL_DISTANCE);
 			Unit* pNeedEarthUnit = NULL;
 			float pMinLifePct = 100;
 			for (Unit* pFriend : friends)

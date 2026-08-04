@@ -26,7 +26,7 @@
 #include "Define.h"
 #include <string>
 
-enum ConnectionType
+enum ConnectionType : int
 {
     CONNECTION_TYPE_REALM       = 0,
     CONNECTION_TYPE_INSTANCE    = 1,

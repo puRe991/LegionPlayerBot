@@ -1,4 +1,9 @@
 
+#include "Containers.h"
+#include "ObjectAccessor.h"
+#include "ObjectMgr.h"
+#include "SpellMgr.h"
+#include "World.h"
 #include "DB2Structure.h"
 #include "BotAITool.h"
 #include "Pet.h"
@@ -11,7 +16,11 @@
 #include "SpellAuras.h"
 #include "WorldSession.h"
 #include "TradeData.h"
+#ifdef _MSC_VER
 #include <corecrt_math_defines.h>
+#else
+#include <cmath>
+#endif
 
 float BotUtility::BattlegroundScoreRate = 1.0f;
 float BotUtility::DungeonBotDamageModify = 1.0f;
@@ -200,7 +209,7 @@ bool BotUtility::SpellHasReady(Player* player, uint32 spellID)
 	return true;
 }
 
-uint32 BotUtility::GetFirstNumberByString(std::string& text)
+uint32 BotUtility::GetFirstNumberByString(const std::string& text)
 {
 	char numStr[21] = { 0 };
 	char* pCur = numStr;
@@ -451,7 +460,7 @@ Position BotUtility::GetPositionFromGroup(Player* pCenterPlayer, ObjectGuid self
 {
 	if (!pCenterPlayer || !pGroup || !pCenterPlayer->IsInWorld())
 		return Position();
-	Position& centerPos = pCenterPlayer->GetPosition();
+	Position centerPos = pCenterPlayer->GetPosition();
 	uint32 index = 0;
 	uint32 count = 0;
 	if (!pGroup->GiveAtGroupPos(self, index, count))
@@ -467,8 +476,8 @@ Position BotUtility::GetPositionFromGroup(Player* pCenterPlayer, ObjectGuid self
 		distance = 6.0f;
 	float onceAngle = (M_PI * 2) / float(count);
 	float angle = pCenterPlayer->GetOrientation() + onceAngle * float(index);
-	float distX = centerPos.GetPositionX() + distance * std::cosf(angle);
-	float distY = centerPos.GetPositionY() + distance * std::sinf(angle);
+	float distX = centerPos.GetPositionX() + distance * std::cos(angle);
+	float distY = centerPos.GetPositionY() + distance * std::sin(angle);
 	float distZ = centerPos.GetPositionZ();
 	if (!pCenterPlayer->IsFlying())
 		distZ = pCenterPlayer->GetMap()->GetHeight(pCenterPlayer->GetPhaseMask(), distX, distY, distZ);
@@ -595,11 +604,11 @@ void BotUtility::ProcessGroupRingMovement(Player* pCenterPlayer, BOTAI_WORKTYPE 
 		BotGroupAI* pAI = dynamic_cast<BotGroupAI*>(pGroupPlayer->GetAI());
 		if (!pAI)
 			continue;
-		Position& centerPos = pCenterUnit->GetPosition();
+		Position centerPos = pCenterUnit->GetPosition();
 		float onceAngle = (M_PI * 2) / float(meleePlayers.size());
 		float angle = pCenterUnit->GetOrientation() + onceAngle * float(i);
-		float distX = centerPos.GetPositionX() + meleeDistance * std::cosf(angle);
-		float distY = centerPos.GetPositionY() + meleeDistance * std::sinf(angle);
+		float distX = centerPos.GetPositionX() + meleeDistance * std::cos(angle);
+		float distY = centerPos.GetPositionY() + meleeDistance * std::sin(angle);
 		float distZ = centerPos.GetPositionZ();
 		distZ = pCenterUnit->GetMap()->GetHeight(pCenterUnit->GetPhaseMask(), distX, distY, distZ);
 		Position resultPos(distX, distY, distZ, pCenterUnit->GetOrientation());
@@ -616,11 +625,11 @@ void BotUtility::ProcessGroupRingMovement(Player* pCenterPlayer, BOTAI_WORKTYPE 
 		BotGroupAI* pAI = dynamic_cast<BotGroupAI*>(pGroupPlayer->GetAI());
 		if (!pAI)
 			continue;
-		Position& centerPos = pCenterUnit->GetPosition();
+		Position centerPos = pCenterUnit->GetPosition();
 		float onceAngle = (M_PI * 2) / float(rangePlayers.size());
 		float angle = pCenterUnit->GetOrientation() + onceAngle * float(i);
-		float distX = centerPos.GetPositionX() + rangeDistance * std::cosf(angle);
-		float distY = centerPos.GetPositionY() + rangeDistance * std::sinf(angle);
+		float distX = centerPos.GetPositionX() + rangeDistance * std::cos(angle);
+		float distY = centerPos.GetPositionY() + rangeDistance * std::sin(angle);
 		float distZ = centerPos.GetPositionZ();
 		distZ = pCenterUnit->GetMap()->GetHeight(pCenterUnit->GetPhaseMask(), distX, distY, distZ);
 		Position resultPos(distX, distY, distZ, pCenterUnit->GetOrientation());
@@ -670,7 +679,7 @@ void BotUtility::ProcessGroupCombatMovement(Player* pCenterPlayer, BOTAI_WORKTYP
 	Unit* pCenterUnit = (pCenterPlayer->GetSelectedUnit()) ? pCenterPlayer->GetSelectedUnit() : pCenterPlayer;
 	G3D::Vector3 relativePos = (pCenterUnit->GetVector3() - pCenterPlayer->GetVector3()) + pCenterUnit->GetVector3();
 	float relativeAngle = pCenterUnit->GetAngle(relativePos.x, relativePos.y);
-	Position& centerPos = pCenterUnit->GetPosition();
+	Position centerPos = pCenterUnit->GetPosition();
 	float baseAngle = Position::NormalizeOrientation(relativeAngle) - ((M_PI * 0.25) * 0.5);
 	float meleeDistance = pCenterUnit->GetObjectSize() + 5.0f;
 	for (uint32 i = 0; i < tankPlayers.size(); i++)
@@ -681,8 +690,8 @@ void BotUtility::ProcessGroupCombatMovement(Player* pCenterPlayer, BOTAI_WORKTYP
 			continue;
 		float onceAngle = (M_PI * 0.25) / float(tankPlayers.size());
 		float angle = baseAngle + (onceAngle * float(i)) + onceAngle * 0.5;
-		float distX = centerPos.GetPositionX() + meleeDistance * std::cosf(angle);
-		float distY = centerPos.GetPositionY() + meleeDistance * std::sinf(angle);
+		float distX = centerPos.GetPositionX() + meleeDistance * std::cos(angle);
+		float distY = centerPos.GetPositionY() + meleeDistance * std::sin(angle);
 		float distZ = centerPos.GetPositionZ();
 		distZ = pCenterUnit->GetMap()->GetHeight(pCenterUnit->GetPhaseMask(), distX, distY, distZ);
 		Position resultPos(distX, distY, distZ, pCenterUnit->GetOrientation());
@@ -702,8 +711,8 @@ void BotUtility::ProcessGroupCombatMovement(Player* pCenterPlayer, BOTAI_WORKTYP
 			continue;
 		float onceAngle = (M_PI * 0.6) / float(meleePlayers.size());
 		float angle = baseAngle + (onceAngle * float(i)) + onceAngle * 0.5;
-		float distX = centerPos.GetPositionX() + meleeDistance * std::cosf(angle);
-		float distY = centerPos.GetPositionY() + meleeDistance * std::sinf(angle);
+		float distX = centerPos.GetPositionX() + meleeDistance * std::cos(angle);
+		float distY = centerPos.GetPositionY() + meleeDistance * std::sin(angle);
 		float distZ = centerPos.GetPositionZ();
 		distZ = pCenterUnit->GetMap()->GetHeight(pCenterUnit->GetPhaseMask(), distX, distY, distZ);
 		Position resultPos(distX, distY, distZ, pCenterUnit->GetOrientation());
@@ -723,8 +732,8 @@ void BotUtility::ProcessGroupCombatMovement(Player* pCenterPlayer, BOTAI_WORKTYP
 			continue;
 		float onceAngle = (M_PI * 0.6) / float(rangePlayers.size());
 		float angle = baseAngle + (onceAngle * float(i)) + onceAngle * 0.5;
-		float distX = centerPos.GetPositionX() + rangeDistance * std::cosf(angle);
-		float distY = centerPos.GetPositionY() + rangeDistance * std::sinf(angle);
+		float distX = centerPos.GetPositionX() + rangeDistance * std::cos(angle);
+		float distY = centerPos.GetPositionY() + rangeDistance * std::sin(angle);
 		float distZ = centerPos.GetPositionZ();
 		distZ = pCenterUnit->GetMap()->GetHeight(pCenterUnit->GetPhaseMask(), distX, distY, distZ);
 		Position resultPos(distX, distY, distZ, pCenterUnit->GetOrientation());
@@ -828,16 +837,16 @@ bool BotUtility::FindFirstCollisionPosition(Unit* pTargetUnit, float range, Unit
 	for (float angle = 0; angle < (float(M_PI) * 2.0f); angle += float(M_PI_4))
 	{
 		float calcRange = range;
-		float distX = pRefUnit->GetPositionX() + calcRange * std::cosf(angle);
-		float distY = pRefUnit->GetPositionY() + calcRange * std::sinf(angle);
+		float distX = pRefUnit->GetPositionX() + calcRange * std::cos(angle);
+		float distY = pRefUnit->GetPositionY() + calcRange * std::sin(angle);
 		float distZ = pMap->GetHeight(pTargetUnit->GetPhaseMask(), distX, distY, pRefUnit->GetPositionZ());
 		while (!pTargetUnit->IsWithinLOS(distX, distY, distZ))
 		{
 			if (calcRange <= once)
 				break;
 			calcRange -= once;
-			distX = pRefUnit->GetPositionX() + calcRange * std::cosf(angle);
-			distY = pRefUnit->GetPositionY() + calcRange * std::sinf(angle);
+			distX = pRefUnit->GetPositionX() + calcRange * std::cos(angle);
+			distY = pRefUnit->GetPositionY() + calcRange * std::sin(angle);
 			distZ = pMap->GetHeight(pTargetUnit->GetPhaseMask(), distX, distY, pRefUnit->GetPositionZ());
 		}
 		if (calcRange >= range * 0.75f)
@@ -905,7 +914,7 @@ void BotAIGuild::UpdateGuildProcess()
 	//}
 }
 
-void BotAITeleport::SetTeleport(Position& telePos)
+void BotAITeleport::SetTeleport(const Position& telePos)
 {
 	if (m_Teleporting)
 		return;
@@ -915,7 +924,7 @@ void BotAITeleport::SetTeleport(Position& telePos)
 	m_TeleportStep = 1;
 }
 
-void BotAITeleport::SetTeleport(uint32 mapID, Position& telePos)
+void BotAITeleport::SetTeleport(uint32 mapID, const Position& telePos)
 {
 	if (m_Teleporting)
 		return;
@@ -938,7 +947,7 @@ void BotAITeleport::SetTeleport(Player* pTarget, float offset)
 if (pTarget->GetMapId()==1116 ||  pTarget->GetMapId()==449 || pTarget->GetMapId()==489 || pTarget->GetMapId()==529 || pTarget->GetMapId()==566 || pTarget->GetMapId()==638 || pTarget->GetMapId()==643 || pTarget->GetMapId()==644 || pTarget->GetMapId()==645 || pTarget->GetMapId()==646 || pTarget->GetMapId()==648 || pTarget->GetMapId()==654 || pTarget->GetMapId()==657 || pTarget->GetMapId()==669 || pTarget->GetMapId()==670 || pTarget->GetMapId()==671 || pTarget->GetMapId()==720 || pTarget->GetMapId()==725 || pTarget->GetMapId()==726 || pTarget->GetMapId()==730 || pTarget->GetMapId()==732 || pTarget->GetMapId()==754 || pTarget->GetMapId()==755 || pTarget->GetMapId()==757 || pTarget->GetMapId()==761 || pTarget->GetMapId()==859 || pTarget->GetMapId()==860 || pTarget->GetMapId()==861 || pTarget->GetMapId()==870 || pTarget->GetMapId()==938 || pTarget->GetMapId()==939 || pTarget->GetMapId()==940 || pTarget->GetMapId()==959 || pTarget->GetMapId()==960 || pTarget->GetMapId()==961 || pTarget->GetMapId()==962 || pTarget->GetMapId()==967 || pTarget->GetMapId()==974 || pTarget->GetMapId()==994 || pTarget->GetMapId()==996 || pTarget->GetMapId()==998 || pTarget->GetMapId()==1001 || pTarget->GetMapId()==1004 || pTarget->GetMapId()==1007 || pTarget->GetMapId()==1008 || pTarget->GetMapId()==1009 || pTarget->GetMapId()==1011 || pTarget->GetMapId()==1064 || pTarget->GetMapId()==1098 || pTarget->GetMapId()==1136)
 		return;
 
-	Position& pos = pTarget->GetPosition();
+	Position pos = pTarget->GetPosition();
 	float x = pos.GetPositionX() + ((offset != 0) ? frand(offset * (-1), offset) : 0);
 	float y = pos.GetPositionY() + ((offset != 0) ? frand(offset * (-1), offset) : 0);
 	float z = pos.GetPositionZ();
@@ -1029,7 +1038,7 @@ void BotAIStoped::UpdatePosition(uint32 diff)
 {
 	//if (me->HasUnitState(UNIT_STATE_CASTING))
 	//	return;
-	Position& currentPos = me->GetPosition();
+	Position currentPos = me->GetPosition();
 	if (HasDifference(m_lastPosition, currentPos))
 	{
 		//SyncPosition(currentPos, MSG_MOVE_START_FORWARD);
@@ -1177,8 +1186,8 @@ Position BotAIHorrorState::FindNewHorrorPos(BotBGAIMovement* movement)
 	{
 		for (float dist = 0.1f; dist <= 1.0f; dist += 0.1f)
 		{
-			float distX = me->GetPositionX() + (moveMaxDistance*dist) * std::cosf(angle);
-			float distY = me->GetPositionY() + (moveMaxDistance*dist) * std::sinf(angle);
+			float distX = me->GetPositionX() + (moveMaxDistance*dist) * std::cos(angle);
+			float distY = me->GetPositionY() + (moveMaxDistance*dist) * std::sin(angle);
 			float distZ = me->GetPositionZ();
 			//distZ = me->GetMap()->GetHeight(me->GetPhaseMask(), distX, distY, distZ);
 			Position pos = me->GetPosition();
@@ -1830,7 +1839,7 @@ ObjectGuid BotAIRevivePlayer::SearchNeedRevive(uint32 diff)
 	Group* pGroup = me->GetGroup();
 	if (!pGroup)
 		return ObjectGuid::Empty;
-	std::vector<ObjectGuid>& needPlayers = pGroup->GetGroupMemberFromNeedRevivePlayer(me->GetMapId());
+	std::vector<ObjectGuid> needPlayers = pGroup->GetGroupMemberFromNeedRevivePlayer(me->GetMapId());
 	if (needPlayers.empty())
 		return ObjectGuid::Empty;
 	return needPlayers[urand(0, needPlayers.size() - 1)];
@@ -1939,7 +1948,7 @@ void BotAIFlee::UpdateFleeMovementByPVP(Unit* pRefUnit, BotBGAIMovement* pMoveme
 				for (float angle = 0.0f; angle < (float(M_PI) * 2.0f); angle += onceAngle)
 				{
 					float dist = 0;
-					Position& pos = CalculateFlee(fleeDistance, angle, pRefUnit, dist);
+					Position pos = CalculateFlee(fleeDistance, angle, pRefUnit, dist);
 					if (!pRefUnit->IsWithinLOS(pos.GetPositionX(), pos.GetPositionY(), pos.GetPositionZ()))
 						continue;
 					if (dist > maxDist)
@@ -1977,7 +1986,7 @@ void BotAIFlee::UpdateFleeMovementByPVP(Unit* pRefUnit, BotBGAIMovement* pMoveme
 		for (float angle = 0.0f; angle < (float(M_PI) * 2.0f); angle += onceAngle)
 		{
 			float dist = 0;
-			Position& pos = CalculateFlee(fleeDistance, angle, pRefUnit, dist);
+			Position pos = CalculateFlee(fleeDistance, angle, pRefUnit, dist);
 			if(!pRefUnit->IsWithinLOS(pos.GetPositionX(), pos.GetPositionY(), pos.GetPositionZ()))
 				continue;
 			if (dist > maxDist)
@@ -2033,7 +2042,7 @@ void BotAIFlee::UpdateFleeMovementByPosition(Unit* pRefUnit, Position centerPos,
 				for (float angle = 0.0f; angle < (float(M_PI) * 2.0f); angle += onceAngle)
 				{
 					float dist = 0;
-					Position& pos = CalculateFlee(fleeDistance, angle, pRefUnit, dist);
+					Position pos = CalculateFlee(fleeDistance, angle, pRefUnit, dist);
 					if (!pRefUnit->IsWithinLOS(pos.GetPositionX(), pos.GetPositionY(), pos.GetPositionZ()))
 						continue;
 					if (centerPos.GetExactDist(&pos) >= maxPosDist)
@@ -2073,7 +2082,7 @@ void BotAIFlee::UpdateFleeMovementByPosition(Unit* pRefUnit, Position centerPos,
 		for (float angle = 0.0f; angle < (float(M_PI) * 2.0f); angle += onceAngle)
 		{
 			float dist = 0;
-			Position& pos = CalculateFlee(fleeDistance, angle, pRefUnit, dist);
+			Position pos = CalculateFlee(fleeDistance, angle, pRefUnit, dist);
 			if (!pRefUnit->IsWithinLOS(pos.GetPositionX(), pos.GetPositionY(), pos.GetPositionZ()))
 				continue;
 			if (centerPos.GetExactDist(&pos) >= maxPosDist)
@@ -2107,7 +2116,7 @@ void BotAIFlee::AddCruxFlee(uint32 durTime, Unit* pRefUnit, BotBGAIMovement* pMo
 	for (float angle = 0.0f; angle < (float(M_PI) * 2.0f); angle += onceAngle)
 	{
 		float dist = 0;
-		Position& pos = CalculateFlee(fleeDistance, angle, pRefUnit, dist);
+		Position pos = CalculateFlee(fleeDistance, angle, pRefUnit, dist);
 		if (!pRefUnit->IsWithinLOS(pos.GetPositionX(), pos.GetPositionY(), pos.GetPositionZ()))
 			continue;
 		if (dist > maxDist)
@@ -2180,7 +2189,7 @@ bool BotAIFlee::SearchPVEFleePosition(Unit* pMaster, Unit* pRefUnit, Position& f
 	for (float angle = 0.0f; angle < (float(M_PI) * 2.0f); angle += onceAngle)
 	{
 		float dist = 0;
-		Position& pos = CalculateFlee(fleeDistance, angle, pRefUnit, dist);
+		Position pos = CalculateFlee(fleeDistance, angle, pRefUnit, dist);
 		if (dist <= NEEDFLEE_CHECKRANGE)
 			continue;
 		if (!pRefUnit->IsWithinLOS(pos.GetPositionX(), pos.GetPositionY(), pos.GetPositionZ()))
@@ -2341,7 +2350,7 @@ void BotAIIDLEMovement::UpdateIDLEMovement(BotBGAIMovement* pMovement)
 		for (float angle = 0.0f; angle < (float(M_PI) * 2.0f); angle += onceAngle)
 		{
 			float dist = 0;
-			Position& pos = CalculateIDLE(idleDistance, angle, dist);
+			Position pos = CalculateIDLE(idleDistance, angle, dist);
 			uint32 rate = urand(0, 99);
 			if (rate < 8)
 			{
@@ -2374,7 +2383,7 @@ Position BotAIIDLEMovement::CalculateIDLE(float dist, float angle, float& outDis
 	return targetPos;
 }
 
-void BotAICruxMovement::SetMovement(Position& pos)
+void BotAICruxMovement::SetMovement(const Position& pos)
 {
 	if (HasCruxMovement())
 		return;
@@ -2428,7 +2437,7 @@ void BotAITankTarget::ClearTarget()
 	m_MovementTick = 0;
 }
 
-void BotAITankTarget::SetMovement(Position& pos)
+void BotAITankTarget::SetMovement(const Position& pos)
 {
 	m_MovementTick = 0;
 	if (m_MovementTarget)
@@ -2570,7 +2579,7 @@ void BotAIFly::FlyToTarget(Player* player, bool offset)
 	}
 	else
 	{
-		Position& pos = BotUtility::GetPositionFromGroup(player, me->GetGUID(), pGroup);
+		Position pos = BotUtility::GetPositionFromGroup(player, me->GetGUID(), pGroup);
 		float dist = pos.GetExactDist(&m_LastFlyPos);
 		if (dist > 2.0f)
 		{

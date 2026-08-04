@@ -18,6 +18,11 @@
 #ifndef BattlenetPackets_h__
 #define BattlenetPackets_h__
 
+class WorldPacket;
+
+#include "Define.h"
+#include <array>
+
 #include "Packet.h"
 #include "MessageBuffer.h"
 #include "BattlenetRpcErrorCodes.h"

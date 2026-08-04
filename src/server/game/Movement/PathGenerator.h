@@ -19,6 +19,14 @@
 #ifndef _PATH_GENERATOR_H
 #define _PATH_GENERATOR_H
 
+class Transport;
+class GameObject;
+class WorldObject;
+
+#include <G3D/Vector3.h>
+
+#include "Define.h"
+
 #include "MapDefines.h"
 #include "DetourNavMesh.h"
 #include "DetourNavMeshQuery.h"

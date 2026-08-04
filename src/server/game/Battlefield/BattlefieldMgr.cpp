@@ -16,6 +16,7 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "MapManager.h"
 #include "BattlefieldMgr.h"
 #include "Zones/BattlefieldWG.h"
 #include "Zones/BattlefieldTB.h"

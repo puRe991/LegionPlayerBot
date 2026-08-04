@@ -18,6 +18,11 @@
 #ifndef __TRINITY_GUILDFINDER_H
 #define __TRINITY_GUILDFINDER_H
 
+#include <list>
+#include <map>
+#include <string>
+#include <vector>
+
 #include "Common.h"
 #include "World.h"
 #include "GuildMgr.h"

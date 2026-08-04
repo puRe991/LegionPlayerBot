@@ -16,6 +16,7 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "ObjectAccessor.h"
 #include "Battleground.h"
 #include "GarrisonMap.h"
 #include "Group.h"

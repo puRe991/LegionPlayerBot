@@ -20,6 +20,7 @@
 #define TRINITY_SHAREDDEFINES_H
 
 //#include "DetourNavMesh.h"
+#include "Define.h"
 #include <cassert>
 #include <mutex>
 

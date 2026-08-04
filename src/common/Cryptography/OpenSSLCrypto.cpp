@@ -17,9 +17,12 @@
 
 #include <OpenSSLCrypto.h>
 #include <openssl/crypto.h>
+#include <openssl/opensslv.h>
 #include <vector>
 #include <thread>
 #include <mutex>
+
+#if OPENSSL_VERSION_NUMBER < 0x10100000L
 
 std::vector<std::mutex*> cryptoLocks;
 
@@ -62,3 +65,20 @@ void OpenSSLCrypto::threadsCleanup()
     }
     cryptoLocks.resize(0);
 }
+
+#else
+
+// OpenSSL 1.1.0 and newer serialise access to their internal state on their
+// own, so the locking and thread id callbacks were removed from the API.
+// Nothing is left to set up here, but the entry points stay so that callers
+// remain identical across both branches.
+
+void OpenSSLCrypto::threadsSetup()
+{
+}
+
+void OpenSSLCrypto::threadsCleanup()
+{
+}
+
+#endif

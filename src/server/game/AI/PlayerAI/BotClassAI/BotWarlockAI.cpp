@@ -1,4 +1,7 @@
 
+#include "ObjectAccessor.h"
+#include "ObjectMgr.h"
+#include "SpellMgr.h"
 #include "BotWarlockAI.h"
 #include "PlayerBotSession.h"
 #include "Pet.h"
@@ -166,7 +169,7 @@ bool BotWarlockAI::NeedFlee()
 {
 	if (m_Flee.Fleeing())
 		return true;
-	NearUnitVec& nearEnemys = RangeEnemyListByTargetIsMe(NEEDFLEE_CHECKRANGE);
+	NearUnitVec nearEnemys = RangeEnemyListByTargetIsMe(NEEDFLEE_CHECKRANGE);
 	if (me->InArena())
 	{
 		for (Unit* pUnit : nearEnemys)
@@ -207,7 +210,7 @@ void BotWarlockAI::ProcessFlee()
 	if (ProcessMana(true))
 		return;
 
-	NearUnitVec& enemys = RangeEnemyListByTargetIsMe(NEEDFLEE_CHECKRANGE);
+	NearUnitVec enemys = RangeEnemyListByTargetIsMe(NEEDFLEE_CHECKRANGE);
 	if (enemys.empty())
 		return;
 	Unit* pRndPlayer = NULL;
@@ -389,7 +392,7 @@ bool BotWarlockAI::TryStartControlCommand()
 		m_CruxControlTarget = ObjectGuid::Empty;
 		return false;
 	}
-	NearUnitVec& friends = SearchFriend();
+	NearUnitVec friends = SearchFriend();
 	for (Unit* pUnit : friends)
 	{
 		Player* pPlayer = pUnit->ToPlayer();
@@ -457,7 +460,7 @@ bool BotWarlockAI::ProcessGate(Unit* pTarget, bool onlyBuild)
 	if (manaPct < 15)
 		return false;
 	float distGate = me->GetDistance(m_GatePos);
-	NearUnitVec& enemys = RangeEnemyListByHasAura(0, NEEDFLEE_CHECKRANGE);
+	NearUnitVec enemys = RangeEnemyListByHasAura(0, NEEDFLEE_CHECKRANGE);
 	if (me->HasAura(WarlockFlag_OpenGate) && distGate > 8 && distGate < 30 && m_GatePos.GetPositionZ() != 0)
 	{
 		if (enemys.size() > 1)
@@ -559,7 +562,7 @@ bool BotWarlockAI::ProcessDot(Unit* pTarget, bool canCastTime)
 			if (TryCastSpell(WarlockCurse_MoveLow, pTarget) == SpellCastResult::SPELL_CAST_OK)
 				return true;
 		}
-		NearUnitVec& enemys = RangeEnemyListByHasAura(0, BOTAI_RANGESPELL_DISTANCE);
+		NearUnitVec enemys = RangeEnemyListByHasAura(0, BOTAI_RANGESPELL_DISTANCE);
 		for (Unit* pUnit : enemys)
 		{
 			if (TargetIsMelee(pUnit->ToPlayer()) && !pUnit->HasAura(WarlockCurse_MoveLow, me->GetGUID()) && !TargetIsFear(pTarget))
@@ -601,7 +604,7 @@ bool BotWarlockAI::ProcessFear(Unit* pTarget)
 		return false;
 	if (me->InArena())
 	{
-		NearUnitVec& targetMeEnemys = RangeEnemyListByHasAura(0, NEEDFLEE_CHECKRANGE);
+		NearUnitVec targetMeEnemys = RangeEnemyListByHasAura(0, NEEDFLEE_CHECKRANGE);
 		if (WarlockAssist_AOEFear && targetMeEnemys.size() > 2)
 		{
 			me->StopMoving();
@@ -613,7 +616,7 @@ bool BotWarlockAI::ProcessFear(Unit* pTarget)
 		return false;
 	if (TargetIsFear(pTarget))
 	{
-		NearUnitVec& enemys = RangeEnemyListByHasAura(0, BOTAI_SEARCH_RANGE);
+		NearUnitVec enemys = RangeEnemyListByHasAura(0, BOTAI_SEARCH_RANGE);
 		for (Unit* pUnit : enemys)
 		{
 			if (TargetIsFear(pUnit))
@@ -753,7 +756,7 @@ void BotWarlockAI::ProcessRangeSpell(Unit* pTarget)
 	if (ProcessGate(pTarget, true))
 		return;
 
-	NearUnitVec& enemys = RangeEnemyListByTargetRange(pTarget, NEEDFLEE_CHECKRANGE);
+	NearUnitVec enemys = RangeEnemyListByTargetRange(pTarget, NEEDFLEE_CHECKRANGE);
 	if (enemys.size() > 1)
 	{
 		if (m_BotTalentType == 2 && TryCastSpell(WarlockAOE_ShadowRage, pTarget) == SpellCastResult::SPELL_CAST_OK)

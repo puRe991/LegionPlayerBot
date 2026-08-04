@@ -19,6 +19,9 @@
 #ifndef QUERYRESULT_H
 #define QUERYRESULT_H
 
+#include "Define.h"
+#include <vector>
+
 #include "Field.h"
 #include "DatabaseEnvFwd.h"
 
@@ -78,7 +81,7 @@ private:
     MYSQL_STMT* m_stmt;
     MYSQL_RES* m_res;
 
-    my_bool* m_isNull;
+    MySQLBool* m_isNull;
     unsigned long* m_length;
 
     void FreeBindBuffer();

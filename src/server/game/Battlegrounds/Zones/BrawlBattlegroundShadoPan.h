@@ -1,6 +1,11 @@
 #ifndef __BrawlBattlegroundShadoPan
 #define __BrawlBattlegroundShadoPan
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <vector>
+
 #include "Battleground.h"
 
 

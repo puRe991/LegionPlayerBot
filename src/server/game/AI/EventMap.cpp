@@ -17,6 +17,8 @@
  */
 
 #include "EventMap.h"
+#include "Util.h"
+#include "ObjectDefines.h"
 
 EventMap::EventMap() : _time(0), _phase(0) { }
 

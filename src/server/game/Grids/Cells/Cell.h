@@ -19,6 +19,8 @@
 #ifndef TRINITY_CELL_H
 #define TRINITY_CELL_H
 
+#include "Define.h"
+
 #include "GridDefines.h"
 #include <cmath>
 

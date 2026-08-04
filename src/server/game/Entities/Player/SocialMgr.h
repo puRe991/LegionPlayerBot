@@ -19,6 +19,10 @@
 #ifndef __TRINITY_SOCIALMGR_H
 #define __TRINITY_SOCIALMGR_H
 
+#include <map>
+#include <string>
+#include <vector>
+
 #include "DatabaseEnv.h"
 #include "Common.h"
 #include "ObjectGuid.h"

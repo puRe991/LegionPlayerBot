@@ -18,6 +18,19 @@
 #ifndef GarrisonPackets_h__
 #define GarrisonPackets_h__
 
+#include "Common.h"
+
+class WorldPacket;
+
+#include "Position.h"
+#include "SharedDefines.h"
+
+#include "Define.h"
+#include <list>
+#include <string>
+#include <unordered_set>
+#include <vector>
+
 #include "Packet.h"
 #include "ObjectGuid.h"
 

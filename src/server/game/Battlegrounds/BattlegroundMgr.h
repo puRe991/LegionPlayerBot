@@ -19,6 +19,16 @@
 #ifndef __BATTLEGROUNDMGR_H
 #define __BATTLEGROUNDMGR_H
 
+#include "ObjectGuid.h"
+
+#include <functional>
+#include <list>
+#include <map>
+#include <set>
+#include <string>
+#include <unordered_map>
+#include <vector>
+
 #include "Battleground.h"
 #include "BattlegroundQueue.h"
 #include "Common.h"

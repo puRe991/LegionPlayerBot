@@ -1,6 +1,12 @@
 #ifndef __BATTLEGROUNDDM_H
 #define __BATTLEGROUNDDM_H
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <map>
+#include <vector>
+
 #include "Battleground.h"
 #include "BattlegroundScore.h"
 

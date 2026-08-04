@@ -1,4 +1,5 @@
 
+#include "ObjectAccessor.h"
 #include "BotFieldClassAI.h"
 #include "BotBGAIMovement.h"
 
@@ -167,7 +168,7 @@ bool FieldDruidAI::ProcessNormalSpell()
 		if (DruidGuard_Thorns && !me->HasAura(DruidGuard_Thorns) && TryCastSpell(DruidGuard_Thorns, me, true) == SpellCastResult::SPELL_CAST_OK)
 			return false;
 
-		NearUnitVec& needHealthPlayers = SearchNeedHealth(BOTAI_RANGESPELL_DISTANCE);
+		NearUnitVec needHealthPlayers = SearchNeedHealth(BOTAI_RANGESPELL_DISTANCE);
 		if (needHealthPlayers.empty())
 		{
 			SwitchStatus(0);
@@ -200,7 +201,7 @@ void FieldDruidAI::ProcessHealthSpell(Unit* pTarget)
 		if (TryCastSpell(DruidAssist_Active, me) == SpellCastResult::SPELL_CAST_OK)
 			return;
 	}
-	NearUnitVec& friends = SearchLifePctByFriendRange(pTarget, BOTAI_RANGESPELL_DISTANCE);
+	NearUnitVec friends = SearchLifePctByFriendRange(pTarget, BOTAI_RANGESPELL_DISTANCE);
 	if (friends.size() > 3)
 	{
 		if (DruidHeal_AOETranquility && TryCastSpell(DruidHeal_AOETranquility, me) == SpellCastResult::SPELL_CAST_OK)
@@ -419,13 +420,13 @@ void FieldDruidAI::ProcessBalanceCombat(Unit* pTarget)
 	if (!pTarget->HasAura(DruidAssist_PersonSpirit) && TryCastSpell(DruidAssist_PersonSpirit, pTarget) == SpellCastResult::SPELL_CAST_OK)
 		return;
 
-	NearUnitVec& rangeEnemy = RangeEnemyListByHasAura(0, BOTAI_RANGESPELL_DISTANCE);
+	NearUnitVec rangeEnemy = RangeEnemyListByHasAura(0, BOTAI_RANGESPELL_DISTANCE);
 	if (m_BotTalentType == 0 && DruidAOE_FallStar && rangeEnemy.size() > 3)
 	{
 		if (TryCastSpell(DruidAOE_FallStar, me) == SpellCastResult::SPELL_CAST_OK)
 			return;
 	}
-	NearUnitVec& targetRangeEnemy = RangeEnemyListByTargetRange(pTarget, NEEDFLEE_CHECKRANGE);
+	NearUnitVec targetRangeEnemy = RangeEnemyListByTargetRange(pTarget, NEEDFLEE_CHECKRANGE);
 	if (targetRangeEnemy.size() > 5 && m_BotTalentType != 2)
 	{
 		if (m_BotTalentType == 0 && DruidGuard_TreeMan && TryCastSpell(DruidGuard_TreeMan, me) == SpellCastResult::SPELL_CAST_OK)
@@ -596,7 +597,7 @@ void FieldDruidAI::SwitchStatus(uint32 status)
 
 void FieldDruidAI::OnCastSneak()
 {
-	NearUnitVec& enemys = RangeEnemyListByTargetIsMe(BOTAI_SEARCH_RANGE);
+	NearUnitVec enemys = RangeEnemyListByTargetIsMe(BOTAI_SEARCH_RANGE);
 	for (Unit* player : enemys)
 	{
 		player->SetTarget(ObjectGuid::Empty);

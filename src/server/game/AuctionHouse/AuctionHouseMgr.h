@@ -19,8 +19,16 @@
 #ifndef _AUCTION_HOUSE_MGR_H
 #define _AUCTION_HOUSE_MGR_H
 
+#include <array>
+#include <map>
+#include <string>
+#include <unordered_map>
+#include <vector>
+
 #include "Common.h"
 #include "DatabaseEnvFwd.h"
+#include "ObjectGuid.h"
+#include "ItemTemplate.h"
 
 class Item;
 class Player;

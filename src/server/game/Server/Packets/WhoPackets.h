@@ -18,6 +18,14 @@
 #ifndef WhoPackets_h__
 #define WhoPackets_h__
 
+#include "Common.h"
+
+class WorldPacket;
+
+#include "Define.h"
+#include <string>
+#include <vector>
+
 #include "Packet.h"
 #include "ObjectGuid.h"
 #include "QueryPackets.h"

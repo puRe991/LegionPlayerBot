@@ -18,6 +18,12 @@
 #ifndef game_AchievementPackets_h__
 #define game_AchievementPackets_h__
 
+class WorldPacket;
+
+#include "Define.h"
+#include <string>
+#include <vector>
+
 #include "ObjectGuid.h"
 #include "Packet.h"
 

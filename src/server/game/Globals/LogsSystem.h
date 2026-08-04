@@ -1,6 +1,15 @@
 
 #pragma once
 
+#include "Common.h"
+
+#include "Define.h"
+#include "ObjectGuid.h"
+#include <map>
+#include <string>
+#include <unordered_map>
+#include <vector>
+
 namespace LogsSystem
 {
     struct KillCreatureData

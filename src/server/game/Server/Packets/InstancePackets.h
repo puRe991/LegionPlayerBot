@@ -18,6 +18,14 @@
 #ifndef InstancePackets_h__
 #define InstancePackets_h__
 
+#include "Duration.h"
+#include "SharedDefines.h"
+
+class WorldPacket;
+
+#include "Define.h"
+#include <vector>
+
 #include "Packet.h"
 #include "ObjectGuid.h"
 

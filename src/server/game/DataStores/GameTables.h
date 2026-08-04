@@ -18,6 +18,9 @@
 #ifndef GameTables_h__
 #define GameTables_h__
 
+#include <string>
+#include <vector>
+
 #include "SharedDefines.h"
 #include "Common.h"
 

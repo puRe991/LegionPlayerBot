@@ -18,6 +18,9 @@
 #ifndef _PROCESSPRIO_H
 #define _PROCESSPRIO_H
 
+#include "Define.h"
+#include <string>
+
 #include "Configuration/Config.h"
 
 #ifdef __linux__

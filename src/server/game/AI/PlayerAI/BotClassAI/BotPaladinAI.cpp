@@ -1,4 +1,6 @@
 
+#include "ObjectAccessor.h"
+#include "SpellMgr.h"
 #include "BotPaladinAI.h"
 #include "BotBGAIMovement.h"
 #include "Group.h"
@@ -143,7 +145,7 @@ bool BotPaladinAI::ProcessNormalSpell()
 	if (!me->HasAura(m_UseMountID) && ProcessStamp())
 		return false;
 
-	NearUnitVec& friends = SearchFriend(BOTAI_RANGESPELL_DISTANCE);
+	NearUnitVec friends = SearchFriend(BOTAI_RANGESPELL_DISTANCE);
 	for (Unit* player : friends)
 	{
 		if (!player->ToPlayer())
@@ -164,7 +166,7 @@ bool BotPaladinAI::ProcessNormalSpell()
 	{
 		return false;
 	}
-	NearUnitVec& needHealthPlayers = SearchNeedHealth(BOTAI_RANGESPELL_DISTANCE);
+	NearUnitVec needHealthPlayers = SearchNeedHealth(BOTAI_RANGESPELL_DISTANCE);
 	if (needHealthPlayers.empty())
 		return TryUpMount();
 	//me->StopMoving();
@@ -207,7 +209,7 @@ void BotPaladinAI::ProcessFlee()
 		return;
 	if (ProcessFreeAura())
 		return;
-	NearUnitVec& enemys = RangeEnemyListByTargetIsMe(NEEDFLEE_CHECKRANGE);
+	NearUnitVec enemys = RangeEnemyListByTargetIsMe(NEEDFLEE_CHECKRANGE);
 	if (enemys.size() > 0)
 	{
 		Unit* player = enemys[urand(0, enemys.size() - 1)];
@@ -233,7 +235,7 @@ bool BotPaladinAI::ProcessArenaHealthMember()
 		return false;
 	float minLife = 100;
 	Unit* minLifeUnit = NULL;
-	NearUnitVec& friends = SearchFriend(BOTAI_RANGESPELL_DISTANCE);
+	NearUnitVec friends = SearchFriend(BOTAI_RANGESPELL_DISTANCE);
 	for (Unit* pUnit : friends)
 	{
 		float healPct = pUnit->GetHealthPct();
@@ -267,7 +269,7 @@ bool BotPaladinAI::ProcessControl(Unit* pTarget)
 	}
 	if (PaladinAssist_StunMace && me->InArena() && BotUtility::SpellHasReady(me, PaladinAssist_StunMace))
 	{
-		NearUnitVec& enemys = RangeEnemyListByHasAura(0, NEEDFLEE_CHECKRANGE);
+		NearUnitVec enemys = RangeEnemyListByHasAura(0, NEEDFLEE_CHECKRANGE);
 		for (Unit* pUnit : enemys)
 		{
 			if (pTarget == pUnit)
@@ -283,7 +285,7 @@ bool BotPaladinAI::ProcessControl(Unit* pTarget)
 	}
 	if (m_BotTalentType == 2 && PaladinAssist_Confession && !m_NeedReserveCtrlSpell)
 	{
-		NearUnitVec& enemys = RangeEnemyListByHasAura(0, BOTAI_TOTEMRANGE);
+		NearUnitVec enemys = RangeEnemyListByHasAura(0, BOTAI_TOTEMRANGE);
 		if (enemys.size() <= 1)
 			return false;
 		for (Unit* pUnit : enemys)
@@ -310,7 +312,7 @@ bool BotPaladinAI::ProcessFreeAura()
 
 	if (!me->InArena())
 		return false;
-	NearUnitVec& friends = SearchFriend();
+	NearUnitVec friends = SearchFriend();
 	for (Unit* pUnit : friends)
 	{
 		if (pUnit == me || IsInvincible(pUnit))
@@ -329,7 +331,7 @@ bool BotPaladinAI::ProcessTryFriendImmune()
 		return true;
 	if (!PaladinGuard_PhyImmune || !me->InArena())
 		return false;
-	NearUnitVec& friends = SearchFriend();
+	NearUnitVec friends = SearchFriend();
 	for (Unit* pUnit : friends)
 	{
 		if (pUnit->GetHealthPct() > 12)
@@ -458,7 +460,7 @@ void BotPaladinAI::ProcessMeleeSpell(Unit* pTarget)
 		return;
 	if (!me->InArena())
 	{
-		NearUnitVec& enemys = RangeEnemyListByHasAura(0, NEEDFLEE_CHECKRANGE);
+		NearUnitVec enemys = RangeEnemyListByHasAura(0, NEEDFLEE_CHECKRANGE);
 		if (enemys.size() > 2 && TryCastSpell(PaladinMelee_AOEOffertory, me, true) == SpellCastResult::SPELL_CAST_OK)
 			return;
 	}
@@ -475,7 +477,7 @@ void BotPaladinAI::ProcessMeleeSpell(Unit* pTarget)
 	float meLife = me->GetHealthPct();
 	if (PaladinAssist_UpPower && meLife > 80 && TryCastSpell(PaladinAssist_UpPower, me) == SpellCastResult::SPELL_CAST_OK)
 		return;
-	NearUnitVec& tryKills = RangeEnemyListByHasAura(0, BOTAI_RANGESPELL_DISTANCE);
+	NearUnitVec tryKills = RangeEnemyListByHasAura(0, BOTAI_RANGESPELL_DISTANCE);
 	for (Unit* pUnit : tryKills)
 	{
 		if (pUnit->GetHealthPct() >= 20)
@@ -577,7 +579,7 @@ bool BotPaladinAI::ProcessStamp()
 				return true;
 			if (me->InArena())
 			{
-				NearUnitVec& enemys = RangeEnemyListByHasAura(0, BOTAI_RANGESPELL_DISTANCE);
+				NearUnitVec enemys = RangeEnemyListByHasAura(0, BOTAI_RANGESPELL_DISTANCE);
 				for (Unit* pUnit : enemys)
 				{
 					if (TryCastSpell(PaladinMelee_ManaJudge, pUnit) == SpellCastResult::SPELL_CAST_OK)
@@ -629,7 +631,7 @@ bool BotPaladinAI::ProcessStamp()
 
 bool BotPaladinAI::ProcessDispel()
 {
-	NearUnitVec& friends = SearchFriend(BOTAI_RANGESPELL_DISTANCE);
+	NearUnitVec friends = SearchFriend(BOTAI_RANGESPELL_DISTANCE);
 	if (friends.empty())
 		return false;
 	std::random_shuffle(friends.begin(), friends.end());
@@ -663,7 +665,7 @@ bool BotPaladinAI::TryStartControlCommand()
 		m_CruxControlTarget = ObjectGuid::Empty;
 		return false;
 	}
-	NearUnitVec& friends = SearchFriend();
+	NearUnitVec friends = SearchFriend();
 	for (Unit* pUnit : friends)
 	{
 		Player* pPlayer = pUnit->ToPlayer();

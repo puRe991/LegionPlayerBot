@@ -1,4 +1,6 @@
+#ifdef _MSC_VER
 #pragma execution_character_set("utf-8")
+#endif
 #include "CustomTalkMenu.h"
 #include "WorldSession.h"
 #include "GossipDef.h"
@@ -6,9 +8,9 @@
 #include "Group.h"
 #include "Player.h"
 #include "_Bot.h"
-#include "..\..\src\server\game\Entities\Object\Object.h"
-#include "..\..\src\server\game\Entities\Object\ObjectGuid.h"
-#include "..\..\src\server\game\Globals\ObjectAccessor.h"
+#include "Object.h"
+#include "ObjectGuid.h"
+#include "ObjectAccessor.h"
 
 CustomTalkMenu::~CustomTalkMenu()
 {

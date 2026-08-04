@@ -19,6 +19,8 @@
 #ifndef _GROUPREFERENCE_H
 #define _GROUPREFERENCE_H
 
+#include "Define.h"
+
 #include "LinkedReference/Reference.h"
 
 class Group;

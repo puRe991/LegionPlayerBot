@@ -1,4 +1,6 @@
 
+#include "ObjectAccessor.h"
+#include "SpellMgr.h"
 #include "BotDuelAI.h"
 #include "PathfindingMgr.h"
 #include "WorldSession.h"
@@ -11,7 +13,11 @@
 #include "PlayerBotMgr.h"
 #include "BotDuelClassAI.h"
 #include "CharmInfo.h"
+#ifdef _MSC_VER
 #include <corecrt_math_defines.h>
+#else
+#include <cmath>
+#endif
 
 BotDuelAI* BotDuelAI::CreateBotDuelAIByPlayerClass(Player* player)
 {
@@ -216,9 +222,9 @@ void BotDuelAI::ChaseTarget(Unit* pTarget, bool isMelee, float range)
 	{
 		if (me->IsStopped())
 		{
-			Position& targetPos = pTarget->GetPosition();
+			Position targetPos = pTarget->GetPosition();
 			float rndOffset = frand(-float(M_PI_4) * 0.75f, float(M_PI_4) * 0.75f);
-			Position& pos = me->GetFirstCollisionPosition(me->GetDistance(targetPos) + range, me->GetRelativeAngle(&targetPos) + rndOffset);
+			Position pos = me->GetFirstCollisionPosition(me->GetDistance(targetPos) + range, me->GetRelativeAngle(&targetPos) + rndOffset);
 			m_Movement->MovementTo(pos.GetPositionX(), pos.GetPositionY(), pos.GetPositionZ());
 			//me->GetMotionMaster()->MovePoint(0, pos.GetPositionX(), pos.GetPositionY(), pos.GetPositionZ());
 		}
@@ -244,7 +250,7 @@ void BotDuelAI::ChaseTarget(Unit* pTarget, bool isMelee, float range)
 NearObjectList BotDuelAI::SearchGameObject(float range)
 {
 	std::list<GameObject*> results;
-	Position& pos = me->GetPosition();
+	Position pos = me->GetPosition();
 	Trinity::GameObjectInRangeCheck checker(pos.GetPositionX(), pos.GetPositionY(), pos.GetPositionZ(), range);
 	Trinity::GameObjectListSearcher<Trinity::GameObjectInRangeCheck> searcher(me, results, checker);
 	me->VisitNearbyGridObject(range, searcher);

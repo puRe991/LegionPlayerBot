@@ -19,6 +19,12 @@
 #ifndef __BATTLEGROUNDQUEUE_H
 #define __BATTLEGROUNDQUEUE_H
 
+#include "ObjectGuid.h"
+
+#include <functional>
+#include <list>
+#include <map>
+
 #include "Common.h"
 #include "EventProcessor.h"
 #include "FunctionProcessor.h"

@@ -19,6 +19,15 @@
 #ifndef TRINITY_SPELLAURAS_H
 #define TRINITY_SPELLAURAS_H
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <array>
+#include <atomic>
+#include <list>
+#include <map>
+#include <vector>
+
 #include "SpellAuraDefines.h"
 #include "SpellInfo.h"
 #include "Unit.h"

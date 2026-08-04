@@ -19,6 +19,20 @@
 #ifndef TRINITY_LOOTMGR_H
 #define TRINITY_LOOTMGR_H
 
+class Condition;
+typedef std::list<Condition*> ConditionList;
+
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <atomic>
+#include <list>
+#include <map>
+#include <set>
+#include <string>
+#include <unordered_map>
+#include <vector>
+
 #include "ItemEnchantmentMgr.h"
 #include "SharedDefines.h"
 #include "ConditionMgr.h"

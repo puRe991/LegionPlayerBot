@@ -1,4 +1,7 @@
 
+#include "ObjectAccessor.h"
+#include "ObjectMgr.h"
+#include "SpellMgr.h"
 #include "BotRogueAI.h"
 #include "BotBGAIMovement.h"
 #include "Item.h"
@@ -182,7 +185,7 @@ bool BotRogueAI::ProcessSneakSpell(Unit* pTarget)
 	if (!pTarget || !me->HasAura(RogueGuard_Sneak))
 		return false;
 	Unit* pNoSappedUnit = HasAuraMechanic(pTarget, Mechanics::MECHANIC_SAPPED) ? NULL : pTarget;
-	NearUnitVec& enemys = RangeEnemyListByHasAura(0, NEEDFLEE_CHECKRANGE);
+	NearUnitVec enemys = RangeEnemyListByHasAura(0, NEEDFLEE_CHECKRANGE);
 	for (Unit* player : enemys)
 	{
 		if (player == pTarget || player->IsInCombat())
@@ -244,12 +247,12 @@ bool BotRogueAI::ProcessMeleeDance(Unit* pTarget)
 
 bool BotRogueAI::ProcessMeleeBlind(Unit* pTarget)
 {
-	NearUnitVec& enemys = RangeEnemyListByHasAura(0, BOTAI_TOTEMRANGE);
+	NearUnitVec enemys = RangeEnemyListByHasAura(0, BOTAI_TOTEMRANGE);
 	for (Unit* player : enemys)
 	{
 		if (player == pTarget || !CanBlind(player))
 			continue;
-		NearUnitVec& friends = SearchFriendTargetIsTarget(player);
+		NearUnitVec friends = SearchFriendTargetIsTarget(player);
 		if (!friends.empty())
 			continue;
 		//if (!BotUtility::ControllSpellDiminishing || TargetIsNotDiminishingByType(player, DiminishingGroup::DIMINISHING_DISORIENT))
@@ -278,7 +281,7 @@ void BotRogueAI::ProcessMeleeSpell(Unit* pTarget)
 		return;
 	if (ProcessSneakSpell(pTarget))
 		return;
-	NearUnitVec& enemys = RangeEnemyListByTargetIsMe(NEEDFLEE_CHECKRANGE);
+	NearUnitVec enemys = RangeEnemyListByTargetIsMe(NEEDFLEE_CHECKRANGE);
 	if (enemys.size() > 1 && TryCastSpell(RogueGuard_Dodge, me) == SpellCastResult::SPELL_CAST_OK)
 		return;
 	if (!me->InArena() && enemys.size() > 3)
@@ -310,7 +313,7 @@ void BotRogueAI::ProcessMeleeSpell(Unit* pTarget)
 	}
 	if (me->InArena() && RogueAssist_Disarm)
 	{
-		NearUnitVec& nearEnemys = RangeEnemyListByHasAura(0, NEEDFLEE_CHECKRANGE);
+		NearUnitVec nearEnemys = RangeEnemyListByHasAura(0, NEEDFLEE_CHECKRANGE);
 		for (Unit* pUnit : nearEnemys)
 		{
 			if (Player* pPlayer = pUnit->ToPlayer())
@@ -452,7 +455,7 @@ void BotRogueAI::ProcessFlee()
 
 	if (CastCloakByNeed())
 		return;
-	NearUnitVec& enemys = RangeEnemyListByTargetIsMe(NEEDFLEE_CHECKRANGE);
+	NearUnitVec enemys = RangeEnemyListByTargetIsMe(NEEDFLEE_CHECKRANGE);
 	for (Unit* player : enemys)
 	{
 		if (!m_NeedReserveCtrlSpell && !HasAuraMechanic(player, Mechanics::MECHANIC_CHARM) && !HasAuraMechanic(player, Mechanics::MECHANIC_DISORIENTED))
@@ -535,7 +538,7 @@ bool BotRogueAI::TryStartControlCommand()
 		m_CruxControlTarget = ObjectGuid::Empty;
 		return false;
 	}
-	NearUnitVec& friends = SearchFriend();
+	NearUnitVec friends = SearchFriend();
 	for (Unit* pUnit : friends)
 	{
 		Player* pPlayer = pUnit->ToPlayer();
@@ -616,7 +619,7 @@ bool BotRogueAI::CanStartSpell()
 
 void BotRogueAI::OnCastSneak()
 {
-	NearUnitVec& enemys = RangeEnemyListByTargetIsMe(BOTAI_SEARCH_RANGE);
+	NearUnitVec enemys = RangeEnemyListByTargetIsMe(BOTAI_SEARCH_RANGE);
 	for (Unit* pUnit : enemys)
 	{
 		if (Player* player = pUnit->ToPlayer())
@@ -629,7 +632,7 @@ void BotRogueAI::OnCastSneak()
 void BotRogueAI::OnCastFlash(Unit* pTarget)
 {
 	me->GetMotionMaster()->Clear();
-	Position& pos = pTarget->GetPosition();
+	Position pos = pTarget->GetPosition();
 	me->TeleportTo(me->GetMapId(), pos.GetPositionX(), pos.GetPositionY(), pos.GetPositionZ(), me->GetOrientation());
 	WorldSession* pSession = me->GetSession();
     WorldPacket opcode2(CMSG_MOVE_TELEPORT_ACK);

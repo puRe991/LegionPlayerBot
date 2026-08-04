@@ -387,6 +387,21 @@ enum HitInfo
 
 static uint8 const MAX_DECLINED_NAME_CASES = 5;
 
+enum PetSpellState
+{
+    PETSPELL_UNCHANGED = 0,
+    PETSPELL_CHANGED   = 1,
+    PETSPELL_NEW       = 2,
+    PETSPELL_REMOVED   = 3
+};
+
+enum PetSpellType
+{
+    PETSPELL_NORMAL = 0,
+    PETSPELL_FAMILY = 1,
+    PETSPELL_TALENT = 2,
+};
+
 struct DeclinedName
 {
     std::string name[MAX_DECLINED_NAME_CASES];

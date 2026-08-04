@@ -1,6 +1,16 @@
 
 #ifndef _BOT_AI_TOOL_H
 #define _BOT_AI_TOOL_H
+#include "ObjectAccessor.h"
+
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <list>
+#include <map>
+#include <set>
+#include <string>
+#include <vector>
 
 #include "ScriptSystem.h"
 #include "PlayerAI.h"
@@ -77,7 +87,7 @@ public:
 	static void RemoveArenaBotSpellsByPlayer(Player* player);
 	static void TryCancelDuel(Player* player);
 	static bool SpellHasReady(Player* player, uint32 spellID);
-	static uint32 GetFirstNumberByString(std::string& text);
+	static uint32 GetFirstNumberByString(const std::string& text);
 	static std::string BuildItemLinkText(const ItemTemplate* pItemTemplate);
 	static void UpdatePlayerBotRoll(Player* player);
 	static Item* FindItemFromAllBag(Player* player, uint32 entry, bool destroy = false);
@@ -120,8 +130,8 @@ public:
 	}
 	~BotAITeleport() {}
 
-	void SetTeleport(Position& telePos);
-	void SetTeleport(uint32 mapID, Position& telePos);
+	void SetTeleport(const Position& telePos);
+	void SetTeleport(uint32 mapID, const Position& telePos);
 	void SetTeleport(Player* pTarget, float offset = NEEDFLEE_CHECKRANGE);
 	void ClearTeleport();
 	void Update(uint32 diff, BotBGAIMovement* pMovement);
@@ -452,7 +462,7 @@ public:
 
 	void ClearMovement() { if (m_MovementTarget) { delete m_MovementTarget; m_MovementTarget = NULL; } m_LastFleeDistance = 0; }
 	bool HasCruxMovement() { return m_MovementTarget != NULL; }
-	void SetMovement(Position& pos);
+	void SetMovement(const Position& pos);
 	void RandomMovement(float range = NEEDFLEE_CHECKRANGE);
 	void UpdateCruxMovement(BotBGAIMovement* pMovement);
 
@@ -469,7 +479,7 @@ public:
 	~BotAITankTarget() {}
 
 	void ClearTarget();
-	void SetMovement(Position& pos);
+	void SetMovement(const Position& pos);
 	void AddTarget(Creature* pCreature);
 	bool IsSelfTarget(ObjectGuid& target);
 	bool AllTargetPullMe();

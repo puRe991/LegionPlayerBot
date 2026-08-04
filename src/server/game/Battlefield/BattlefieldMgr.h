@@ -19,6 +19,13 @@
 #ifndef BATTLEFIELD_MGR_H_
 #define BATTLEFIELD_MGR_H_
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <map>
+#include <set>
+#include <vector>
+
 #include "Battlefield.h"
 
 class Player;

@@ -2,6 +2,8 @@
 #ifndef _BOT_DRUID_AI_H
 #define _BOT_DRUID_AI_H
 
+#include "Define.h"
+
 #include "ScriptSystem.h"
 #include "BotAI.h"
 #include "AIWaypointsMgr.h"

@@ -21,6 +21,7 @@ playerdump.cpp if you get pdump
 unknown errors try using DTT_CHAR_TABLE.
 */
 
+#include "World.h"
 #include "Common.h"
 #include "PlayerDump.h"
 #include "DatabaseEnv.h"

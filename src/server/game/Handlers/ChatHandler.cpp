@@ -16,6 +16,10 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "ObjectAccessor.h"
+#include "World.h"
+#include "WorldSession.h"
+#include "Player.h"
 #include "AccountMgr.h"
 #include "ChatPackets.h"
 #include "ScriptMgr.h"

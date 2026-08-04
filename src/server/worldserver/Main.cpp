@@ -57,7 +57,7 @@
 #include "Banner.h"
 #include "PlayerBotMgr.h"
 #include "FieldBotMgr.h"
-#include "PathFindingMgr.h"
+#include "PathfindingMgr.h"
 
 #ifdef WIN32
 #include <windows.h>

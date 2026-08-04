@@ -2,6 +2,8 @@
 #ifndef __BATTLEGROUNDDS_H
 #define __BATTLEGROUNDDS_H
 
+#include "Define.h"
+
 #include "Arena.h"
 
 struct AIWaypoint;

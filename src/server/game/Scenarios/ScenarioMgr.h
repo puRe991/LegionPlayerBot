@@ -18,6 +18,9 @@
 #ifndef TRINITY_SCENARIOMGR_H
 #define TRINITY_SCENARIOMGR_H
 
+#include <map>
+#include <vector>
+
 #include "Common.h"
 #include "Scenario.h"
 

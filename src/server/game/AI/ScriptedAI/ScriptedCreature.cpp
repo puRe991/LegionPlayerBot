@@ -5,6 +5,8 @@
  * This program is free software licensed under GPL version 2
  * Please see the included DOCS/LICENSE.TXT for more information */
 
+#include "ObjectAccessor.h"
+#include "SpellMgr.h"
 #include "BrawlersGuild.h"
 #include "Cell.h"
 #include "CellImpl.h"
@@ -17,10 +19,18 @@
 #include "Spell.h"
 #include "BotGroupAI.h"
 #include "Group.h"
+#ifdef _MSC_VER
+#ifdef _MSC_VER
 #include <corecrt_math_defines.h>
+#else
+#include <cmath>
+#endif
+#else
+#include <cmath>
+#endif
 
  // Spell summary for ScriptedAI::SelectSpell
-extern struct TSpellSummary
+struct TSpellSummary
 {
     uint8 Targets;                                          // set of enum SelectTarget
     uint8 Effects;                                          // set of enum SelectEffect
@@ -1013,7 +1023,7 @@ void ScriptedAI::BotCruxFleeByArea(float range, float fleeDist, Unit* pCenter)
 {
     if (range < 3.0f || fleeDist < 3.0f || !pCenter)
         return;
-    Position& centerPos = pCenter->GetPosition();
+    Position centerPos = pCenter->GetPosition();
     std::list<Player*> players;
     SearchTargetPlayerAllGroup(players, 80);
     for (Player* player : players)
@@ -1229,14 +1239,15 @@ void ScriptedAI::BotFleeLineByAngle(Unit* center, float angle, bool force)
         float fleeRange = center->GetDistance(player->GetPosition());
         if (fleeRange <= 0)
             fleeRange = center->GetObjectSize() + 1.0f;
-        float pangle = center->GetAngle(&player->GetPosition()) - angle;
+        Position playerPos = player->GetPosition();
+        float pangle = center->GetAngle(&playerPos) - angle;
         if (pangle >= 0 && pangle <= float(M_PI_4))
         {
             if (BotGroupAI* pGroupAI = dynamic_cast<BotGroupAI*>(player->GetAI()))
             {
                 float fleeAngle = Position::NormalizeOrientation(angle + float(M_PI_4));
-                Position fleePos = Position(center->GetPositionX() + fleeRange * std::cosf(fleeAngle),
-                    center->GetPositionY() + fleeRange * std::sinf(fleeAngle), player->GetPositionZ(), player->GetOrientation());
+                Position fleePos = Position(center->GetPositionX() + fleeRange * std::cos(fleeAngle),
+                    center->GetPositionY() + fleeRange * std::sin(fleeAngle), player->GetPositionZ(), player->GetOrientation());
                 fleePos.m_positionZ = player->GetMap()->GetHeight(player->GetPhaseMask(), fleePos.GetPositionX(), fleePos.GetPositionY(), fleePos.GetPositionZ());
                 //if (pGroupAI->GetAIPayer()->HasUnitState(UNIT_STATE_CASTING))
                 //	pGroupAI->GetAIPayer()->CastStop();
@@ -1250,8 +1261,8 @@ void ScriptedAI::BotFleeLineByAngle(Unit* center, float angle, bool force)
             if (BotGroupAI* pGroupAI = dynamic_cast<BotGroupAI*>(player->GetAI()))
             {
                 float fleeAngle = Position::NormalizeOrientation(angle - float(M_PI_4));
-                Position fleePos = Position(center->GetPositionX() + fleeRange * std::cosf(fleeAngle),
-                    center->GetPositionY() + fleeRange * std::sinf(fleeAngle), player->GetPositionZ(), player->GetOrientation());
+                Position fleePos = Position(center->GetPositionX() + fleeRange * std::cos(fleeAngle),
+                    center->GetPositionY() + fleeRange * std::sin(fleeAngle), player->GetPositionZ(), player->GetOrientation());
                 fleePos.m_positionZ = player->GetMap()->GetHeight(player->GetPhaseMask(), fleePos.GetPositionX(), fleePos.GetPositionY(), fleePos.GetPositionZ());
                 //if (pGroupAI->GetAIPayer()->HasUnitState(UNIT_STATE_CASTING))
                 //	pGroupAI->GetAIPayer()->CastStop();

@@ -1,6 +1,8 @@
 #ifndef _BOT_SHAMAN_AI_H
 #define _BOT_SHAMAN_AI_H
 
+#include "Define.h"
+
 #include "ScriptSystem.h"
 #include "BotAI.h"
 #include "AIWaypointsMgr.h"

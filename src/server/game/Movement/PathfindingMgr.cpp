@@ -1,11 +1,12 @@
 
+#include "ObjectAccessor.h"
 #include "Log.h"
 #include "PathfindingMgr.h"
 #include "World.h"
 #include "WorldSession.h"
 #include "BotAI.h"
 #include "DisableMgr.h"
-#include <windows.h>
+#include <thread>
 
 PFThread::PFThread(PathfindingMgr* pfMgr, uint32 threadIndex) :
 m_pfMgr(pfMgr),
@@ -132,7 +133,7 @@ bool PFThread::ExecturePathfinding(bool force)
 			itPoints != points.end();
 			itPoints++)
 		{
-			G3D::Vector3& point = (G3D::Vector3)(*itPoints);
+			G3D::Vector3 point = *itPoints;
 			if (!m_pfParameter->findOK)
 				path.UpdateAllowedPositionZ(point.x, point.y, point.z);
 			m_pfParameter->finishPaths.push_back(point);
@@ -192,9 +193,9 @@ void PathfindingMgr::InitializePFMgr()
 
 int PathfindingMgr::GetCPUNumber() const
 {
-	SYSTEM_INFO info;
-	GetSystemInfo(&info);
-	return (int)info.dwNumberOfProcessors;
+	// hardware_concurrency reports 0 when it cannot determine the count.
+	unsigned int const cpus = std::thread::hardware_concurrency();
+	return cpus ? int(cpus) : 1;
 }
 
 void PathfindingMgr::ClearPFThreads()

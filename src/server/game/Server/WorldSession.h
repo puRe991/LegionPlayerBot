@@ -23,6 +23,19 @@
 #ifndef __WORLDSESSION_H
 #define __WORLDSESSION_H
 
+#include "ObjectGuid.h"
+
+#include <array>
+#include <atomic>
+#include <functional>
+#include <list>
+#include <map>
+#include <set>
+#include <string>
+#include <unordered_map>
+#include <vector>
+#include <memory>
+
 #include "AddonMgr.h"
 #include "Common.h"
 #include "Cryptography/BigNumber.h"

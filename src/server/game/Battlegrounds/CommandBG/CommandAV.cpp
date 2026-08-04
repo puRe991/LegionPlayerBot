@@ -1,4 +1,5 @@
 
+#include "SpellMgr.h"
 #include "CommandAV.h"
 #include "BotAI.h"
 #include "ReputationMgr.h"
@@ -318,7 +319,7 @@ void CommandAV::ProcessAttackGeneral(BattlegroundAV* pBattlegroundAV, PlayerGUID
 	if (!isOccupy)
 		return;
 	bool attackOrWait = false;
-	PlayerGUIDs& selfs = GetAVFlagRangePlayerByTeam(pBattlegroundAV, nodeType, (m_TeamID == TEAM_ALLIANCE) ? TEAM_ALLIANCE : TEAM_HORDE);
+	PlayerGUIDs selfs = GetAVFlagRangePlayerByTeam(pBattlegroundAV, nodeType, (m_TeamID == TEAM_ALLIANCE) ? TEAM_ALLIANCE : TEAM_HORDE);
 	if (selfs.size() < 28 && !m_IsStartGeneral)
 		attackOrWait = false;
 	else
@@ -342,7 +343,7 @@ void CommandAV::ProcessRequirementByNodeType(BattlegroundAV* pBattlegroundAV, BG
 	if (!nodeState)
 	{
 		uint32 enemyCount = GetAVFlagRangePlayerByTeam(pBattlegroundAV, nodeType, (m_TeamID == TEAM_ALLIANCE) ? TEAM_HORDE : TEAM_ALLIANCE).size();
-		PlayerGUIDs& selfPlayers = GetAVFlagRangePlayerByTeam(pBattlegroundAV, nodeType, (m_TeamID == TEAM_ALLIANCE) ? TEAM_ALLIANCE : TEAM_HORDE);
+		PlayerGUIDs selfPlayers = GetAVFlagRangePlayerByTeam(pBattlegroundAV, nodeType, (m_TeamID == TEAM_ALLIANCE) ? TEAM_ALLIANCE : TEAM_HORDE);
 		uint32 needCount = enemyCount + 5;
 		if (needCount > 12)
 			needCount = 12;
@@ -379,7 +380,7 @@ void CommandAV::ProcessRequirementByNodeType(BattlegroundAV* pBattlegroundAV, BG
             uint64 minGUID = 0;
             for (PlayerGUIDs::iterator itGuid = allPlayers.begin(); itGuid != allPlayers.end(); itGuid++)
             {
-                Position& pos = GetPositionByGuid(*itGuid);
+                Position pos = GetPositionByGuid(*itGuid);
                 float posDis = pBGNode->GetDistance(pos);
                 if (minGUID == 0 || posDis < minDistance)
                 {
@@ -407,7 +408,7 @@ void CommandAV::ProcessRequirementByCaptain(BattlegroundAV* pBattlegroundAV, Tea
 	uint32 enemyCount = GetAVCaptainRangePlayerByTeam(pBattlegroundAV, pCaptain, (m_TeamID == TEAM_ALLIANCE) ? TEAM_HORDE : TEAM_ALLIANCE).size();
 	if (!attOrDef && enemyCount <= 3)
 		return;
-	PlayerGUIDs& selfPlayers = GetAVCaptainRangePlayerByTeam(pBattlegroundAV, pCaptain, (m_TeamID == TEAM_ALLIANCE) ? TEAM_ALLIANCE : TEAM_HORDE);
+	PlayerGUIDs selfPlayers = GetAVCaptainRangePlayerByTeam(pBattlegroundAV, pCaptain, (m_TeamID == TEAM_ALLIANCE) ? TEAM_ALLIANCE : TEAM_HORDE);
 	uint32 needCount = enemyCount + 10;
 	for (PlayerGUIDs::iterator itGuid = selfPlayers.begin(); itGuid != selfPlayers.end(); itGuid++)
 	{
@@ -425,7 +426,7 @@ void CommandAV::ProcessRequirementByCaptain(BattlegroundAV* pBattlegroundAV, Tea
 		uint64 minGUID = 0;
 		for (PlayerGUIDs::iterator itGuid = allPlayers.begin(); itGuid != allPlayers.end(); itGuid++)
 		{
-			Position& pos = GetPositionByGuid(*itGuid);
+			Position pos = GetPositionByGuid(*itGuid);
 			float posDis = pCaptain->GetDistance(pos);
 			if (minGUID == 0 || posDis < minDistance)
 			{

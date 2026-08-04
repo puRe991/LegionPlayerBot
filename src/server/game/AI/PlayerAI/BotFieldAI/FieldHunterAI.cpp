@@ -62,7 +62,7 @@ void FieldHunterAI::ProcessFlee()
 {
 	FleeMovement();
 
-	NearUnitVec& enemys = RangeEnemyListByTargetIsMe(NEEDFLEE_CHECKRANGE);
+	NearUnitVec enemys = RangeEnemyListByTargetIsMe(NEEDFLEE_CHECKRANGE);
 	if (enemys.empty())
 		return;
 	Unit* pRndPlayer = enemys[urand(0, enemys.size() - 1)];
@@ -125,7 +125,7 @@ void FieldHunterAI::ProcessFlee()
 	if (TryCastSpell(HunterMelee_MeleeAtt, pRndPlayer) == SpellCastResult::SPELL_CAST_OK)
 		return;
 
-	NearUnitVec& farEnemys = SearchFarEnemy(NEEDFLEE_CHECKRANGE + 1, BOTAI_RANGESPELL_DISTANCE);
+	NearUnitVec farEnemys = SearchFarEnemy(NEEDFLEE_CHECKRANGE + 1, BOTAI_RANGESPELL_DISTANCE);
 	if (farEnemys.size() > 0)
 	{
 		for (Unit* enemy : farEnemys)
@@ -275,7 +275,7 @@ void FieldHunterAI::ProcessRangeSpell(Unit* pTarget)
 			return;
 	}
 
-	NearUnitVec& selMeEnemys = RangeEnemyListByTargetIsMe(BOTAI_RANGESPELL_DISTANCE);
+	NearUnitVec selMeEnemys = RangeEnemyListByTargetIsMe(BOTAI_RANGESPELL_DISTANCE);
 	if (selMeEnemys.size() > 0)
 	{
 		if (selMeEnemys.size() > 1 && TryCastSpell(HunterAssist_FalseDead, me) == SpellCastResult::SPELL_CAST_OK)
@@ -296,7 +296,7 @@ void FieldHunterAI::ProcessRangeSpell(Unit* pTarget)
 			return;
 	}
 
-	NearUnitVec& targetRanges = RangeEnemyListByTargetRange(pTarget, NEEDFLEE_CHECKRANGE);
+	NearUnitVec targetRanges = RangeEnemyListByTargetRange(pTarget, NEEDFLEE_CHECKRANGE);
 	if (targetRanges.size() > 5)
 	{
 		if (HunterShot_MulShot && TryCastSpell(HunterShot_MulShot, pTarget) == SpellCastResult::SPELL_CAST_OK)

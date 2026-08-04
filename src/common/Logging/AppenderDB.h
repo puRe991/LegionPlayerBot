@@ -18,6 +18,9 @@
 #ifndef APPENDERDB_H
 #define APPENDERDB_H
 
+#include "Define.h"
+#include <string>
+
 #include "Appender.h"
 
 class AppenderDB : public Appender

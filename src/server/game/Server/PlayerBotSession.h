@@ -2,6 +2,12 @@
 #ifndef __PlayerBotSESSION_H
 #define __PlayerBotSESSION_H
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <list>
+#include <string>
+
 #include "WorldSession.h"
 #include "PlayerBotMgr.h"
 #include <mutex>

@@ -25,6 +25,11 @@ void AddSC_battleground_shado_pan();
 
 //customs
 void AddSC_CustomStartups();
+void AddSC_BattlePay_Professions();
+void AddSC_battlepay_commandscript();
+void AddSC_bc_teleport();
+void AddSC_playerbot_commandscript();
+void AddSC_coren_direbrew();
 
 //battlepay
 void AddSC_BattlePay_Services();
@@ -1303,6 +1308,7 @@ void AddScripts()
 void AddBattlePayScripts()
 {
     AddSC_BattlePay_Services();
+    AddSC_BattlePay_Professions();
 }
 
 void AddSpellScripts()
@@ -1329,6 +1335,8 @@ void AddSpellScripts()
 void AddCommandScripts()
 {
     AddSC_account_commandscript();
+    AddSC_battlepay_commandscript();
+    AddSC_playerbot_commandscript();
     AddSC_achievement_commandscript();
     AddSC_ban_commandscript();
     AddSC_bf_commandscript();
@@ -2074,6 +2082,8 @@ void AddDraenorScripts()
 void AddEasternKingdomsScripts()
 {
 #ifdef SCRIPTS
+    AddSC_bc_teleport();                    //Blackrock Caverns
+    AddSC_coren_direbrew();                 //Molten Core
     AddSC_kezan();                          //Maelstrom
     AddSC_lost_isle();
     AddSC_alterac_valley();                 //Alterac Valley

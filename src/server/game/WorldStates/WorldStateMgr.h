@@ -2,6 +2,11 @@
 #ifndef WORLD_STATE_MGR_H
 #define WORLD_STATE_MGR_H
 
+class WorldObject;
+class Map;
+
+#include <vector>
+
 #include "Common.h"
 #include "WorldState.h"
 

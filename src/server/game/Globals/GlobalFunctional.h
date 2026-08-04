@@ -19,6 +19,11 @@
 #ifndef _GlobalFunctionalH_
 #define _GlobalFunctionalH_
 
+#include "SharedDefines.h"
+
+#include "Define.h"
+#include <string>
+
 #define MAX_PLAYER_NAME          12                         // max allowed by client name length
 #define MAX_INTERNAL_PLAYER_NAME 15                         // max server internal player name length (> MAX_PLAYER_NAME for support declined names)
 #define MAX_PET_NAME             12                         // max allowed by client name length

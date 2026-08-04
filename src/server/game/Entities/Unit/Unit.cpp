@@ -16,6 +16,7 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "Containers.h"
 #include "AreaTriggerAI.h"
 #include "Anticheat.h"
 #include "Battlefield.h"

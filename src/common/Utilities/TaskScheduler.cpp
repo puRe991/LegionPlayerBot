@@ -16,6 +16,7 @@
  */
 
 #include "TaskScheduler.h"
+#include <algorithm>
 #include <utility>
 #include "Errors.h"
 

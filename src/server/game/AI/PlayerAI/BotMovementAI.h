@@ -1,6 +1,8 @@
 #ifndef SC_BOTFOLLOWERAI_H
 #define SC_BOTFOLLOWERAI_H
 
+#include "Define.h"
+
 #include "ScriptSystem.h"
 #include "PlayerAI.h"
 #include "Pathfinding.h"

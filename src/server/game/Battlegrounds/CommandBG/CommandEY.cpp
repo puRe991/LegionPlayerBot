@@ -1,4 +1,5 @@
 
+#include "SpellMgr.h"
 #include "CommandEY.h"
 #include "BotAI.h"
 
@@ -236,7 +237,7 @@ void CommandEY::ProcessEYPointRequirement(uint32 point, AIWaypoint* waypoint, Pl
 	GameObject* pBGNode = m_pBattleground->GetBGObject(point + EYBattlegroundObjectTypes::BG_EY_OBJECT_TOWER_CAP_FEL_REAVER);
 	if (!pBGNode)
 		return;
-	PlayerGUIDs& nodeNearPlayers = GetEYPointRangePlayerByTeam(point, m_TeamID);
+	PlayerGUIDs nodeNearPlayers = GetEYPointRangePlayerByTeam(point, m_TeamID);
 	uint32 enemyCount = GetEYPointRangePlayerByTeam(point, (m_TeamID == TEAM_ALLIANCE) ? TEAM_HORDE : TEAM_ALLIANCE).size();
 	bool flagIsOvvupied = EYPointIsOccupied(point, m_TeamID);
 	int32 needCount = int32(enemyCount) + (flagIsOvvupied ? 1 : 3);
@@ -256,7 +257,7 @@ void CommandEY::ProcessEYPointRequirement(uint32 point, AIWaypoint* waypoint, Pl
 		uint64 minGUID = 0;
 		for (PlayerGUIDs::iterator itGuid = players.begin(); itGuid != players.end(); itGuid++)
 		{
-			Position& pos = GetPositionByGuid(*itGuid);
+			Position pos = GetPositionByGuid(*itGuid);
 			float posDis = pBGNode->GetDistance(pos);
 			if (minGUID == 0 || posDis < minDistance)
 			{
@@ -469,7 +470,7 @@ void CommandEY::ProcessFlagPicker(Player* player)
 		}
 	}
 
-	G3D::Vector3& playerPos = player->GetPosition().GetVector3();
+	G3D::Vector3 playerPos = player->GetPosition().GetVector3();
 	uint32 nearPointIndex = 0;
 	uint32 nearDistance = 999999;
 	for (uint32 point = AIWP_SELF_TOWER1; point <= AIWP_SELF_TOWER4; point++)

@@ -19,6 +19,9 @@
 #ifndef _REALMLIST_H
 #define _REALMLIST_H
 
+#include <string>
+#include <memory>
+
 #include "Define.h"
 #include "Realm.h"
 #include <array>
@@ -39,18 +42,9 @@ struct RealmBuildInfo
     std::array<uint8, 16> Mac64AuthSeed;
 };
 
-namespace boost
-{
-    namespace asio
-    {
-        class io_service;
-    }
-
-    namespace system
-    {
-        class error_code;
-    }
-}
+// boost/asio.hpp above already declares io_service (a typedef for io_context
+// since Boost 1.66) and error_code. Redeclaring them here as classes clashes
+// with the real definitions.
 
 namespace bgs
 {

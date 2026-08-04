@@ -16,6 +16,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "World.h"
+#include "Player.h"
 #include "Common.h"
 #include "WorldPacket.h"
 #include "WorldSession.h"

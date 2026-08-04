@@ -16,6 +16,7 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "ObjectMgr.h"
 #include "CombatAI.h"
 #include "CreatureTextMgr.h"
 #include "SpellMgr.h"

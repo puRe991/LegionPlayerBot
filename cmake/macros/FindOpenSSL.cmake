@@ -26,7 +26,7 @@
 # http://www.slproweb.com/products/Win32OpenSSL.html
 
 set(OPENSSL_EXPECTED_VERSION "1.0")
-set(OPENSSL_MAX_VERSION "1.2")
+set(OPENSSL_MAX_VERSION "4.0")
 
 SET(_OPENSSL_ROOT_HINTS
   "[HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\OpenSSL (32-bit)_is1;Inno Setup: App Path]"
@@ -196,6 +196,20 @@ if (OPENSSL_INCLUDE_DIR)
   if (_OPENSSL_VERSION)
     set(OPENSSL_VERSION "${_OPENSSL_VERSION}")
   else (_OPENSSL_VERSION)
+    # OpenSSL 3.0 and newer synthesize OPENSSL_VERSION_NUMBER from several
+    # macros spread over multiple lines, so the legacy hex parsing below cannot
+    # see it. Those releases do provide a plain OPENSSL_VERSION_STR instead.
+    set(openssl_version_str "")
+    if (EXISTS "${OPENSSL_INCLUDE_DIR}/openssl/opensslv.h")
+      file(STRINGS "${OPENSSL_INCLUDE_DIR}/openssl/opensslv.h" openssl_version_str_new
+           REGEX "^# *define[\t ]+OPENSSL_VERSION_STR[\t ]+\"[0-9]+\\.[0-9]+\\.[0-9]+\"")
+    endif()
+
+    if (openssl_version_str_new)
+      string(REGEX REPLACE "^.*OPENSSL_VERSION_STR[\t ]+\"([0-9]+\\.[0-9]+\\.[0-9]+)\".*$"
+             "\\1" OPENSSL_VERSION "${openssl_version_str_new}")
+    else()
+
     file(STRINGS "${OPENSSL_INCLUDE_DIR}/openssl/opensslv.h" openssl_version_str
          REGEX "^# *define[\t ]+OPENSSL_VERSION_NUMBER[\t ]+0x[0-9][0-9][0-9][0-9][0-9][0-9].*")
 
@@ -226,6 +240,7 @@ if (OPENSSL_INCLUDE_DIR)
     endif (NOT OPENSSL_VERSION_PATCH STREQUAL "00")
 
     set(OPENSSL_VERSION "${OPENSSL_VERSION_MAJOR}.${OPENSSL_VERSION_MINOR}.${OPENSSL_VERSION_FIX}${OPENSSL_VERSION_PATCH_STRING}")
+    endif()
   endif (_OPENSSL_VERSION)
 
   include(EnsureVersion)

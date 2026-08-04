@@ -19,6 +19,23 @@
 #ifndef GROUP_H
 #define GROUP_H
 
+#include "FunctionProcessor.h"
+#include "Position.h"
+
+#include "ObjectGuid.h"
+#include "DatabaseEnvFwd.h"
+#include "DB2Structure.h"
+
+#include "Define.h"
+#include <array>
+#include <functional>
+#include <list>
+#include <map>
+#include <string>
+#include <unordered_map>
+#include <vector>
+#include <memory>
+
 #include "DBCEnums.h"
 #include "GroupRefManager.h"
 #include "LootMgr.h"
@@ -400,6 +417,8 @@ class Group
         void ErraseRollbyRealSlot(uint8 slot, Loot* loot);
         void CountTheRoll(Rolls::iterator roll);
         void CountRollVote(ObjectGuid playerGUID, uint8 slot, uint8 Choise);
+        // Playerbots have no client to answer a roll prompt, so decide for them.
+        void AnswerBotLootRolls(Roll const& roll);
         void DoRollForAllMembers(ObjectGuid guid, uint8 slot, uint32 mapid, Loot*, LootItem&, Player*);
         void EndRoll(Loot* loot);
         void ClearAoeSlots();

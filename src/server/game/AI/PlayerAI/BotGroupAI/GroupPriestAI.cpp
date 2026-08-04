@@ -1,4 +1,5 @@
 
+#include "ObjectAccessor.h"
 #include "BotGroupClassAI.h"
 #include "Group.h"
 
@@ -199,7 +200,7 @@ bool GroupPriestAI::ProcessNormalSpell()
 
 	if (me->HasAura(m_UseMountID))
 		return false;
-	NearUnitVec& needHealthPlayers = SearchNeedHealth(BOTAI_RANGESPELL_DISTANCE);
+	NearUnitVec needHealthPlayers = SearchNeedHealth(BOTAI_RANGESPELL_DISTANCE);
 	if (needHealthPlayers.empty())
 		return TryUpMount();
 	//me->StopMoving();
@@ -221,13 +222,13 @@ void GroupPriestAI::ProcessFlee()
 		return;
 
 	float healthPct = me->GetHealthPct();
-	NearUnitVec& enemys = RangeEnemyListByHasAura(0, NEEDFLEE_CHECKRANGE);
+	NearUnitVec enemys = RangeEnemyListByHasAura(0, NEEDFLEE_CHECKRANGE);
 	if (enemys.size() > 1)
 	{
 		if (TryCastSpell(PriestGuard_AOEFear, me) == SpellCastResult::SPELL_CAST_OK)
 			return;
 	}
-	NearUnitVec& rangeEnemys = RangeEnemyListByTargetIsMe(BOTAI_RANGESPELL_DISTANCE);
+	NearUnitVec rangeEnemys = RangeEnemyListByTargetIsMe(BOTAI_RANGESPELL_DISTANCE);
 	if (rangeEnemys.size() > 0 && healthPct < 80)
 	{
 		if (!me->HasAura(PriestGuard_DefShield) && !me->HasAura(PriestFlag_NonShield))
@@ -262,7 +263,7 @@ void GroupPriestAI::ProcessFlee()
 	{
 		if (PriestHeal_RingHeal)
 		{
-			NearUnitVec& needHeals = SearchLifePctByFriendRange(me, 75);
+			NearUnitVec needHeals = SearchLifePctByFriendRange(me, 75);
 			if (needHeals.size() > 1)
 			{
 				if (TryCastSpell(PriestHeal_RingHeal, me) == SpellCastResult::SPELL_CAST_OK)
@@ -509,7 +510,7 @@ bool GroupPriestAI::ProcessDispel()
 {
 	if (PriestAssist_Dispel == 0 || !BotUtility::SpellHasReady(me, PriestAssist_Dispel))
 		return false;
-	NearUnitVec& friends = SearchFriend(BOTAI_RANGESPELL_DISTANCE);
+	NearUnitVec friends = SearchFriend(BOTAI_RANGESPELL_DISTANCE);
 	if (friends.empty())
 		return false;
 	std::random_shuffle(friends.begin(), friends.end());
@@ -532,7 +533,7 @@ bool GroupPriestAI::ProcessCruel()
 {
 	if (PriestAssist_DecIllness == 0 || !BotUtility::SpellHasReady(me, PriestAssist_DecIllness))
 		return false;
-	NearUnitVec& friends = SearchFriend(BOTAI_RANGESPELL_DISTANCE);
+	NearUnitVec friends = SearchFriend(BOTAI_RANGESPELL_DISTANCE);
 	if (friends.empty())
 		return false;
 	std::random_shuffle(friends.begin(), friends.end());

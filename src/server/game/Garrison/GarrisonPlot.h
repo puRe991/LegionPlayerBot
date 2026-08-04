@@ -2,6 +2,16 @@
 #ifndef GarrisonPlot_h_
 #define GarrisonPlot_h_
 
+class Map;
+class GameObject;
+class Garrison;
+
+class Player;
+
+#include "ObjectGuid.h"
+
+#include "Define.h"
+
 #include "GarrisonGlobal.h"
 #include "Packets/GarrisonPackets.h"
 

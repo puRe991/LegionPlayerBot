@@ -18,6 +18,8 @@
 #ifndef DB2STORE_H
 #define DB2STORE_H
 
+#include <string>
+
 #include "Common.h"
 #include "Errors.h"
 #include "DBStorageIterator.h"

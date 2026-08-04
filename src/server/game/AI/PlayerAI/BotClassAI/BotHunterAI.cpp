@@ -1,4 +1,6 @@
 
+#include "ObjectAccessor.h"
+#include "SpellMgr.h"
 #include "BotHunterAI.h"
 #include "PlayerBotSession.h"
 #include "Pet.h"
@@ -87,7 +89,7 @@ bool BotHunterAI::NeedFlee()
 {
 	if (m_Flee.Fleeing())
 		return true;
-	NearUnitVec& nearEnemys = RangeEnemyListByTargetIsMe(NEEDFLEE_CHECKRANGE);
+	NearUnitVec nearEnemys = RangeEnemyListByTargetIsMe(NEEDFLEE_CHECKRANGE);
 	if (me->InArena())
 	{
 		for (Unit* pUnit : nearEnemys)
@@ -141,7 +143,7 @@ void BotHunterAI::ProcessFlee()
 	FleeMovement();
 
 	Unit* pSelectTarget = me->GetSelectedUnit();
-	NearUnitVec& enemys = RangeEnemyListByTargetIsMe(NEEDFLEE_CHECKRANGE);
+	NearUnitVec enemys = RangeEnemyListByTargetIsMe(NEEDFLEE_CHECKRANGE);
 	if (enemys.empty())
 		return;
 	if (!pSelectTarget && !enemys.empty())
@@ -205,7 +207,7 @@ void BotHunterAI::ProcessFlee()
 		uint32 minLifePct = 100;
 		Unit* pMinUnit = NULL;
 		Unit* pMeleeUnit = NULL;
-		NearUnitVec& enemys = RangeEnemyListByHasAura(0, BOTAI_RANGESPELL_DISTANCE);
+		NearUnitVec enemys = RangeEnemyListByHasAura(0, BOTAI_RANGESPELL_DISTANCE);
 		for (Unit* pUnit : enemys)
 		{
 			if (pUnit == pSelectTarget || TargetIsSuppress(pUnit))
@@ -285,7 +287,7 @@ void BotHunterAI::ProcessMeleeSpell(Unit* pTarget)
 	{
 		uint32 minLifePct = 100;
 		Unit* pMinUnit = NULL;
-		NearUnitVec& enemys = RangeEnemyListByHasAura(0, BOTAI_RANGESPELL_DISTANCE);
+		NearUnitVec enemys = RangeEnemyListByHasAura(0, BOTAI_RANGESPELL_DISTANCE);
 		for (Unit* pUnit : enemys)
 		{
 			if (pUnit == pTarget || TargetIsSuppress(pUnit))
@@ -318,7 +320,7 @@ void BotHunterAI::ProcessRangeSpell(Unit* pTarget)
 	if (ProcessAura(false))
 		return;
 
-	NearUnitVec& selMeEnemys = RangeEnemyListByTargetIsMe(BOTAI_RANGESPELL_DISTANCE);
+	NearUnitVec selMeEnemys = RangeEnemyListByTargetIsMe(BOTAI_RANGESPELL_DISTANCE);
 	if (selMeEnemys.size() > 0)
 	{
 		if (selMeEnemys.size() > 1 && TryCastSpell(HunterAssist_FalseDead, me) == SpellCastResult::SPELL_CAST_OK)
@@ -349,7 +351,7 @@ void BotHunterAI::ProcessRangeSpell(Unit* pTarget)
 		uint32 minLifePct = 100;
 		Unit* pMinUnit = NULL;
 		Unit* pMeleeUnit = NULL;
-		NearUnitVec& enemys = RangeEnemyListByHasAura(0, BOTAI_RANGESPELL_DISTANCE);
+		NearUnitVec enemys = RangeEnemyListByHasAura(0, BOTAI_RANGESPELL_DISTANCE);
 		for (Unit* pUnit : enemys)
 		{
 			if (pUnit == pTarget || TargetIsSuppress(pUnit))
@@ -471,7 +473,7 @@ bool BotHunterAI::CastRangeSpell(Unit* pTarget)
 		return false;
 	if (me->GetDistance(pTarget->GetPosition()) <= 9)
 		return false;
-	NearUnitVec& targetRanges = RangeEnemyListByTargetRange(pTarget, NEEDFLEE_CHECKRANGE);
+	NearUnitVec targetRanges = RangeEnemyListByTargetRange(pTarget, NEEDFLEE_CHECKRANGE);
 	if (targetRanges.size() > 5)
 	{
 		if (HunterShot_MulShot && TryCastSpell(HunterShot_MulShot, pTarget) == SpellCastResult::SPELL_CAST_OK)

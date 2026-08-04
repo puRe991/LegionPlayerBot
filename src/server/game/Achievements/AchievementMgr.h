@@ -18,6 +18,13 @@
 #ifndef __TRINITY_ACHIEVEMENTMGR_H
 #define __TRINITY_ACHIEVEMENTMGR_H
 
+#include <map>
+#include <set>
+#include <string>
+#include <unordered_map>
+#include <vector>
+#include <memory>
+
 #include "Common.h"
 #include "DBCEnums.h"
 #include "DB2Stores.h"

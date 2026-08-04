@@ -16,6 +16,9 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "Containers.h"
+#include "ObjectAccessor.h"
+#include "World.h"
 #include "BattlegroundMgr.h"
 #include "BattlegroundQueue.h"
 #include "Bracket.h"

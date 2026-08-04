@@ -2,6 +2,12 @@
 #ifndef __FIELDBOTMGR__
 #define __FIELDBOTMGR__
 
+#include "ObjectGuid.h"
+
+#include <list>
+#include <string>
+#include <vector>
+
 #include "Log.h"
 #include "Common.h"
 #include "SharedDefines.h"

@@ -19,6 +19,12 @@
 #ifndef TRINITY_MAIL_H
 #define TRINITY_MAIL_H
 
+#include "DatabaseEnvFwd.h"
+
+#include <map>
+#include <string>
+#include <vector>
+
 #include "Common.h"
 #include "ObjectGuid.h"
 

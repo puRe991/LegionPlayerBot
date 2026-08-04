@@ -19,6 +19,10 @@
 #ifndef TRINITY_TOTEMAI_H
 #define TRINITY_TOTEMAI_H
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+
 #include "CreatureAI.h"
 #include "Timer.h"
 

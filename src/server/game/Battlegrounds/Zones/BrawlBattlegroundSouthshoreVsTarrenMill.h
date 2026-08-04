@@ -1,6 +1,11 @@
 #ifndef __BrawlBattlegroundSouthshoreVsTarrenMill
 #define __BrawlBattlegroundSouthshoreVsTarrenMill
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <unordered_map>
+
 #include "Battleground.h"
 
 class BrawlBattlegroundSouthshoreVsTarrenMill : public Battleground

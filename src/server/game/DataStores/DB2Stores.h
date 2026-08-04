@@ -18,6 +18,16 @@
 #ifndef TRINITY_DB2STORES_H
 #define TRINITY_DB2STORES_H
 
+#include "Define.h"
+#include <array>
+#include <list>
+#include <map>
+#include <set>
+#include <string>
+#include <unordered_map>
+#include <unordered_set>
+#include <vector>
+
 #include "DB2Store.h"
 #include "DB2Structure.h"
 #include "SharedDefines.h"

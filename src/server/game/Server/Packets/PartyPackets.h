@@ -18,6 +18,15 @@
 #ifndef PartyPackets_h__
 #define PartyPackets_h__
 
+#include "Common.h"
+
+class WorldPacket;
+
+#include "Define.h"
+#include <map>
+#include <string>
+#include <vector>
+
 #include "Packet.h"
 #include "ObjectGuid.h"
 #include "Group.h"

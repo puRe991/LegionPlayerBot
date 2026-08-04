@@ -19,6 +19,19 @@
 #ifndef TRINITY_INSTANCE_DATA_H
 #define TRINITY_INSTANCE_DATA_H
 
+class WorldPacket;
+#include "Position.h"
+#include "Common.h"
+
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <functional>
+#include <map>
+#include <set>
+#include <string>
+#include <vector>
+
 #include "ZoneScript.h"
 #include "World.h"
 #include "ObjectMgr.h"

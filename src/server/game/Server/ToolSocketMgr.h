@@ -2,6 +2,9 @@
 #ifndef __TOOLSOCKETMGR_H
 #define __TOOLSOCKETMGR_H
 
+#include "Define.h"
+#include <string>
+
 class ToolSocket;
 
 #include "SocketMgr.h"

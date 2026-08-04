@@ -8,6 +8,11 @@
 #ifndef BATTLEFIELD_TB_
 #define BATTLEFIELD_TB_
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <set>
+
 #include "../Battlefield.h"
 #include "Group.h"
 #include "WorldPacket.h"

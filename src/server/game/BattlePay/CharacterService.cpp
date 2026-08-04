@@ -1,3 +1,4 @@
+#include "Player.h"
 #include "CharacterService.h"
 #include "DatabaseEnv.h"
 

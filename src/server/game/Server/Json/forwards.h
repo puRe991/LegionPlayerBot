@@ -12,7 +12,7 @@ namespace Json {
    // reader.h
    class Reader;
 
-   // features.h
+   // json_features.h
    class Features;
 
    // value.h

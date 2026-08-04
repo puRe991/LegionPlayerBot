@@ -18,6 +18,13 @@
 #ifndef _LFGQUEUE_H
 #define _LFGQUEUE_H
 
+
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <map>
+#include <string>
+
 #include "LFG.h"
 #include <cds/gc/hp.h>
 #include <cds/container/impl/feldman_hashmap.h>

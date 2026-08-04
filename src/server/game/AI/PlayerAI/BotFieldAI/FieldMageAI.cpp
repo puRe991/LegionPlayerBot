@@ -161,7 +161,7 @@ void FieldMageAI::ProcessFlee()
 	}
 
 	float healthPct = me->GetHealthPct();
-	NearUnitVec& enemys = RangeEnemyListByTargetIsMe(NEEDFLEE_CHECKRANGE);
+	NearUnitVec enemys = RangeEnemyListByTargetIsMe(NEEDFLEE_CHECKRANGE);
 	if (enemys.size() > 0)
 	{
 		for (Unit* player : enemys)
@@ -207,7 +207,7 @@ void FieldMageAI::ProcessFlee()
 	if (enemys.size() > 0 && TryCastSpell(MageAssist_Stealth, me) == SpellCastResult::SPELL_CAST_OK)
 	{
 		me->SetSelection(ObjectGuid::Empty);
-		NearUnitVec& cancelTargets = RangeEnemyListByTargetIsMe(BOTAI_RANGESPELL_DISTANCE);
+		NearUnitVec cancelTargets = RangeEnemyListByTargetIsMe(BOTAI_RANGESPELL_DISTANCE);
 		for (Unit* target : cancelTargets)
 		{
 			target->SetTarget(ObjectGuid::Empty);
@@ -228,7 +228,7 @@ void FieldMageAI::ProcessFlee()
 
 bool FieldMageAI::ProcessArcaneFlee()
 {
-	NearUnitVec& enemys = RangeEnemyListByTargetIsMe(15.0f);
+	NearUnitVec enemys = RangeEnemyListByTargetIsMe(15.0f);
 	float healthPct = me->GetHealthPct();
 	if (healthPct <= 70 && enemys.size() > 0 && !me->HasAura(MageGuard_MagicShield) && TryCastSpell(MageGuard_MagicShield, me) == SpellCastResult::SPELL_CAST_OK)
 		return true;
@@ -263,7 +263,7 @@ bool FieldMageAI::ProcessArcaneFlee()
 
 bool FieldMageAI::ProcessFireFlee()
 {
-	NearUnitVec& enemys = RangeEnemyListByTargetIsMe(8.0f);
+	NearUnitVec enemys = RangeEnemyListByTargetIsMe(8.0f);
 	float healthPct = me->GetHealthPct();
 	if (healthPct <= 70 && enemys.size() > 0 && !me->HasAura(MageGuard_MagicShield) && TryCastSpell(MageGuard_MagicShield, me) == SpellCastResult::SPELL_CAST_OK)
 		return true;
@@ -280,7 +280,7 @@ bool FieldMageAI::ProcessFireFlee()
 
 bool FieldMageAI::ProcessFrostFlee()
 {
-	NearUnitVec& enemys = RangeEnemyListByTargetIsMe(8.0f);
+	NearUnitVec enemys = RangeEnemyListByTargetIsMe(8.0f);
 	float healthPct = me->GetHealthPct();
 	if (MageGuard_FrostShield)
 	{
@@ -474,7 +474,7 @@ bool FieldMageAI::ProcessDispel()
 {
 	if (!MageAssist_DecCurse)
 		return false;
-	NearUnitVec& friends = SearchFriend(BOTAI_RANGESPELL_DISTANCE);
+	NearUnitVec friends = SearchFriend(BOTAI_RANGESPELL_DISTANCE);
 	if (friends.empty())
 		return false;
 	std::random_shuffle(friends.begin(), friends.end());

@@ -17,6 +17,13 @@
 
 #pragma once
 
+#include "Common.h"
+
+class WorldPacket;
+
+#include "Define.h"
+#include <vector>
+
 #include "Packet.h"
 #include "ItemPackets.h"
 #include "ObjectGuid.h"

@@ -19,6 +19,11 @@
 #ifndef __TRINITY_REPUTATION_MGR_H
 #define __TRINITY_REPUTATION_MGR_H
 
+#include "DB2Structure.h"
+
+#include <map>
+#include <vector>
+
 #include "Common.h"
 #include "SharedDefines.h"
 #include "Language.h"

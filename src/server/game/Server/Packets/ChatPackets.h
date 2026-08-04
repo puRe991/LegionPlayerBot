@@ -18,6 +18,13 @@
 #ifndef ChatPackets_h__
 #define ChatPackets_h__
 
+#include "Util.h"
+
+class WorldPacket;
+
+#include "Define.h"
+#include <string>
+
 #include "Packet.h"
 #include "SharedDefines.h"
 #include "ObjectGuid.h"

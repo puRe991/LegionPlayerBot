@@ -18,13 +18,17 @@
 #ifndef ChramInfo_h__
 #define ChramInfo_h__
 
+#include "Define.h"
+#include <string>
+
 #include "ObjectGuid.h"
+#include "SharedDefines.h"
 
 class Unit;
 class SpellInfo;
 
-enum CommandStates;
-enum ActiveStates;
+enum CommandStates : uint8;
+enum ActiveStates : uint8;
 
 #define UNIT_ACTION_BUTTON_ACTION(X) (uint32(X) & 0x00FFFFFF)
 #define UNIT_ACTION_BUTTON_TYPE(X)   ((uint32(X) & 0xFF000000) >> 24)

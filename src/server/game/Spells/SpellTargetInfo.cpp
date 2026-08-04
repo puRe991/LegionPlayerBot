@@ -1,4 +1,5 @@
 
+#include "ObjectAccessor.h"
 #include "SpellTargetInfo.h"
 #include "SpellPackets.h"
 #include "TradeData.h"

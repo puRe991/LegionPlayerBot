@@ -19,6 +19,8 @@
 #ifndef TRINITY_CONFUSEDGENERATOR_H
 #define TRINITY_CONFUSEDGENERATOR_H
 
+#include "Define.h"
+
 #include "MovementGenerator.h"
 #include "Timer.h"
 

@@ -16,6 +16,7 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "Transport.h"
 #include "TargetedMovementGenerator.h"
 #include "Creature.h"
 #include "CreatureAI.h"

@@ -19,8 +19,17 @@
 #ifndef TRINITY_UNITAI_H
 #define TRINITY_UNITAI_H
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <functional>
+#include <list>
+#include <vector>
+
 //#include "Containers.h"
 #include "Unit.h"
+#include "Player.h"
+#include "Containers.h"
 
 class Unit;
 class Player;

@@ -18,6 +18,13 @@
 #ifndef HotfixPackets_h__
 #define HotfixPackets_h__
 
+class WorldPacket;
+
+#include "ObjectGuid.h"
+
+#include <map>
+#include <vector>
+
 #include "Packet.h"
 #include "Common.h"
 #include "DB2Stores.h"

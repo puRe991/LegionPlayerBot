@@ -19,10 +19,18 @@
 #ifndef GUILD_H
 #define GUILD_H
 
+#include "Define.h"
+#include <list>
+#include <map>
+#include <set>
+#include <string>
+#include <vector>
+
 #include "AchievementMgr.h"
 #include "DatabaseEnvFwd.h"
 #include "ObjectGuid.h"
 #include "SharedDefines.h"
+#include "Player.h"
 #include <unordered_map>
 
 class Player;

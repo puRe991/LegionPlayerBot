@@ -119,7 +119,7 @@ void GroupDeathknightAI::ProcessMeleeSpell(Unit* pTarget)
 		return;
 	if (DKAttack_NearAOE && BotUtility::SpellHasReady(me, DKAttack_NearAOE))
 	{
-		NearUnitVec& nearEnemys = RangeEnemyListByHasAura(0, NEEDFLEE_CHECKRANGE);
+		NearUnitVec nearEnemys = RangeEnemyListByHasAura(0, NEEDFLEE_CHECKRANGE);
 		if (nearEnemys.size() > 2)
 		{
 			if (TryCastSpell(DKAttack_NearAOE, me) == SpellCastResult::SPELL_CAST_OK)
@@ -128,7 +128,7 @@ void GroupDeathknightAI::ProcessMeleeSpell(Unit* pTarget)
 	}
 	if (DKIDLE_SummonAllPets && BotUtility::SpellHasReady(me, DKIDLE_SummonAllPets))
 	{
-		NearUnitVec& nearEnemys = RangeEnemyListByHasAura(0, NEEDFLEE_CHECKRANGE);
+		NearUnitVec nearEnemys = RangeEnemyListByHasAura(0, NEEDFLEE_CHECKRANGE);
 		if (nearEnemys.size() > 2)
 		{
 			if (TryCastSpell(DKIDLE_SummonAllPets, me) == SpellCastResult::SPELL_CAST_OK)
@@ -137,7 +137,7 @@ void GroupDeathknightAI::ProcessMeleeSpell(Unit* pTarget)
 	}
 	if (DKAttack_AreaAOE && BotUtility::SpellHasReady(me, DKAttack_AreaAOE))
 	{
-		NearUnitVec& targetRangeEnemys = RangeEnemyListByTargetRange(pTarget, NEEDFLEE_CHECKRANGE);
+		NearUnitVec targetRangeEnemys = RangeEnemyListByTargetRange(pTarget, NEEDFLEE_CHECKRANGE);
 		if (targetRangeEnemys.size() > 1)
 		{
 			if (TryCastSpell(DKAttack_AreaAOE, pTarget) == SpellCastResult::SPELL_CAST_OK)
@@ -268,7 +268,7 @@ bool GroupDeathknightAI::ProcessBlcokCast()
 {
 	if (!DKBlock_Cast || !BotUtility::SpellHasReady(me, DKBlock_Cast))
 		return false;
-	NearUnitVec& enemys = RangeEnemyListByHasAura(0, BOTAI_TOTEMRANGE);
+	NearUnitVec enemys = RangeEnemyListByHasAura(0, BOTAI_TOTEMRANGE);
 	if (enemys.empty())
 		return false;
 	for (Unit* pUnit : enemys)
@@ -283,7 +283,7 @@ bool GroupDeathknightAI::ProcessBlcokCast()
 
 bool GroupDeathknightAI::ProcessMgcShield()
 {
-	NearUnitVec& enemys = RangeEnemyListByHasAura(0, BOTAI_RANGESPELL_DISTANCE);
+	NearUnitVec enemys = RangeEnemyListByHasAura(0, BOTAI_RANGESPELL_DISTANCE);
 	if (DKDefense_MgcShield && BotUtility::SpellHasReady(me, DKDefense_MgcShield))
 	{
 		for (Unit* pUnit : enemys)
@@ -323,7 +323,7 @@ bool GroupDeathknightAI::ProcessInfected(Unit* pTarget)
 		return false;
 	//if (!HasAuraMechanic(pTarget, Mechanics::MECHANIC_INFECTED))
 	//	return false;
-	NearUnitVec& enemys = RangeEnemyListByHasAura(0, NEEDFLEE_CHECKRANGE);
+	NearUnitVec enemys = RangeEnemyListByHasAura(0, NEEDFLEE_CHECKRANGE);
 	uint32 noInfecctedCount = 0;
 	for (Unit* pUnit : enemys)
 	{

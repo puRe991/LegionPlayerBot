@@ -19,6 +19,14 @@
 #ifndef TRINITY_OBJECTACCESSOR_H
 #define TRINITY_OBJECTACCESSOR_H
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <atomic>
+#include <string>
+#include <unordered_map>
+#include <vector>
+
 #include "GridDefines.h"
 #include "UpdateData.h"
 #include "Object.h"

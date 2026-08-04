@@ -1,5 +1,5 @@
 
-#include "botDuelClassAI.h"
+#include "BotDuelClassAI.h"
 #include "BotBGAIMovement.h"
 #include "Group.h"
 
@@ -409,7 +409,7 @@ bool DuelMageAI::ProcessFreezeSpell(Unit* pTarget)
 
 void DuelMageAI::OnCastTeleport()
 {
-	Position& telePos = GetTeleportSpellPos();
+	Position telePos = GetTeleportSpellPos();
 	me->GetMotionMaster()->Clear();
 	m_Movement->ClearMovement();
 	SetTeleport(telePos);
@@ -437,7 +437,7 @@ Position DuelMageAI::GetTeleportSpellPos()
 	std::list<Position> allPosition;
 	for (float angle = 0.0f; angle < (float(M_PI) * 2.0f); angle += onceAngle)
 	{
-		Position& pos = me->GetFirstCollisionPosition(BOTAI_RANGESPELL_DISTANCE, angle);
+		Position pos = me->GetFirstCollisionPosition(BOTAI_RANGESPELL_DISTANCE, angle);
 		pos.m_positionZ = me->GetMap()->GetHeight(me->GetPhaseMask(), pos.GetPositionX(), pos.GetPositionY(), pos.GetPositionZ());
 		allPosition.push_back(pos);
 	}

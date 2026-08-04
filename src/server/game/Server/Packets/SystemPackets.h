@@ -18,6 +18,14 @@
 #ifndef SystemPackets_h__
 #define SystemPackets_h__
 
+#include "Common.h"
+
+class WorldPacket;
+
+#include "Define.h"
+#include <string>
+#include <vector>
+
 #include "Packet.h"
 
 namespace WorldPackets

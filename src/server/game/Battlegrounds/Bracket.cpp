@@ -16,6 +16,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "ObjectAccessor.h"
+#include "World.h"
 #include "BattlegroundMgr.h"
 #include "Bracket.h"
 #include "DatabaseEnv.h"

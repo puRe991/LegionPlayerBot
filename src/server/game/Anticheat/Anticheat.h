@@ -1,6 +1,10 @@
 #ifndef _HEADER_CHEATS
 #define _HEADER_CHEATS
 
+#include "ObjectGuid.h"
+
+#include <string>
+
 #include <vector>
 #include <map>
 

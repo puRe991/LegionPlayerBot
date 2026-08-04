@@ -1,6 +1,6 @@
 ﻿#include "Spell.h"
 #include "blackwing_descent.h"
-#include "..\..\src\server\scripts\PrecompiledHeaders\ScriptPCH.h"
+#include "ScriptPCH.h"
 
 /* 
 43404 - maloriak

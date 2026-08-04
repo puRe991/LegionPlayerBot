@@ -19,6 +19,10 @@
 #ifndef TrinityEventMap_H
 #define TrinityEventMap_H
 
+#include "Duration.h"
+
+#include <map>
+
 #include "Common.h"
 
 enum c_events

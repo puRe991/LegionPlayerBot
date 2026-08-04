@@ -19,6 +19,10 @@
 #ifndef _THREATMANAGER
 #define _THREATMANAGER
 
+#include "ObjectGuid.h"
+
+#include <list>
+
 #include "Common.h"
 #include "SharedDefines.h"
 #include "LinkedReference/Reference.h"

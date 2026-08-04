@@ -18,6 +18,14 @@
 #ifndef TRINITY_SCENARIO_H
 #define TRINITY_SCENARIO_H
 
+class Map;
+class OutdoorPvP;
+
+class WorldPacket;
+
+#include <map>
+#include <vector>
+
 #include "Common.h"
 #include "AchievementMgr.h"
 #include "Challenge.h"

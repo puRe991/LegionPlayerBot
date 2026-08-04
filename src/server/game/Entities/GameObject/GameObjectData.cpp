@@ -1,4 +1,5 @@
 
+#include "DB2Stores.h"
 #include "GameObjectData.h"
 
 bool GameObjectTemplate::IsDespawnAtAction() const

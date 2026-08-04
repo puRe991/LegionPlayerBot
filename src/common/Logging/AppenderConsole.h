@@ -18,6 +18,8 @@
 #ifndef APPENDERCONSOLE_H
 #define APPENDERCONSOLE_H
 
+#include "Define.h"
+
 #include <string>
 #include "Appender.h"
 #include "LogCommon.h"

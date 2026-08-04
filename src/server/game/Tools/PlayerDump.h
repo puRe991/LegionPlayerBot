@@ -19,6 +19,12 @@
 #ifndef _PLAYER_DUMP_H
 #define _PLAYER_DUMP_H
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <set>
+#include <string>
+
 enum DumpTableType
 {
     DTT_CHARACTER,      //                                  // characters

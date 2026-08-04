@@ -1,5 +1,8 @@
 
 //#include "G3D/stringutils.h"
+#include "ObjectAccessor.h"
+#include "SpellMgr.h"
+#include "World.h"
 #include "BotGroupAI.h"
 #include "MoveSplineInit.h"
 #include "BotBGAIMovement.h"
@@ -9,11 +12,15 @@
 #include "Spell.h"
 #include "Pet.h"
 #include "BotGroupClassAI.h"
-#include "config.h"
+#include "Config.h"
 #include "TradeData.h"
 #include "ItemPackets.h"
 #include "CharmInfo.h"
+#ifdef _MSC_VER
 #include <corecrt_math_defines.h>
+#else
+#include <cmath>
+#endif
 
 BotGroupAI* BotGroupAI::debugGroupAI = NULL;
 bool BotGroupAI::PVE_MAX_DUNGEON = false;
@@ -213,6 +220,16 @@ bool BotGroupAI::CanReciveCommand(std::string& cmd, std::string& param)
 			if (target != "xd")
 				return false;
 		}
+		else if (me->getClass() == Classes::CLASS_MONK)
+		{
+			if (target != "ws")
+				return false;
+		}
+		else if (me->getClass() == Classes::CLASS_DEMON_HUNTER)
+		{
+			if (target != "dh")
+				return false;
+		}
 
 		int32 secondEndIndex = realCmd.find(' ');
 		if (secondEndIndex <= 0)
@@ -312,9 +329,9 @@ void BotGroupAI::ProcessListEquip(Player* srcPlayer)
 		const ItemTemplate* pTemplate = pItem->GetTemplate();
 		if (!pTemplate)
 			continue;
-		std::string& itemLink = BotUtility::BuildItemLinkText(pTemplate);
+		std::string itemLink = BotUtility::BuildItemLinkText(pTemplate);
 		char outputText[256] = { 0 };
-		sprintf_s(outputText, 255, "%s x %d", itemLink.c_str(), pItem->GetCount());
+		snprintf(outputText, sizeof(outputText), "%s x %d", itemLink.c_str(), pItem->GetCount());
 		//me->Whisper(std::string(outputText), Language::LANG_COMMON, srcPlayer);
 		needSendText.push_back(std::string(outputText));
 
@@ -334,9 +351,9 @@ void BotGroupAI::ProcessListEquip(Player* srcPlayer)
 				const ItemTemplate* pTemplate = pItem->GetTemplate();
 				if (!pTemplate)
 					continue;
-				std::string& itemLink = BotUtility::BuildItemLinkText(pTemplate);
+				std::string itemLink = BotUtility::BuildItemLinkText(pTemplate);
 				char outputText[256] = { 0 };
-				sprintf_s(outputText, 255, "%s x %d", itemLink.c_str(), pItem->GetCount());
+				snprintf(outputText, sizeof(outputText), "%s x %d", itemLink.c_str(), pItem->GetCount());
 				//me->Whisper(std::string(outputText), Language::LANG_COMMON, srcPlayer);
 				needSendText.push_back(std::string(outputText));
 
@@ -388,7 +405,9 @@ void BotGroupAI::ProcessUpequip(Player* srcPlayer, std::string& equipLink)
 		WorldPackets::Item::AutoEquipItem packet(std::move(opcode));
 		packet.PackSlot = bag;
 		packet.Slot = index;
-		WorldPackets::Item::InvUpdate::InvItem inv{ bag, index };
+		WorldPackets::Item::InvUpdate::InvItem inv;
+		inv.ContainerSlot = bag;
+		inv.Slot = index;
 		packet.Inv.Items.resize(1);
 		packet.Inv.Items.push_back(inv);
 		me->GetSession()->HandleAutoEquipItem(packet);
@@ -1417,7 +1436,7 @@ Unit* BotGroupAI::GetCombatTarget(float range)
 			continue;
 		if (TargetIsControl(pCreature))
 			continue;
-        ObjectGuid& guid = pCreature->GetTargetGUID();
+        ObjectGuid guid = pCreature->GetTargetGUID();
         if (guid == ObjectGuid::Empty)
 			continue;
 		if(!pGroup->IsMember(guid))
@@ -1443,7 +1462,7 @@ void BotGroupAI::ProcessFollowToMaster()
 		m_Movement->ClearMovement();
 		return;
 	}
-	Position& targetPos = BotUtility::GetPositionFromGroup(m_MasterPlayer, me->GetGUID(), me->GetGroup());
+	Position targetPos = BotUtility::GetPositionFromGroup(m_MasterPlayer, me->GetGUID(), me->GetGroup());
 	m_Movement->MovementTo(targetPos.GetPositionX(), targetPos.GetPositionY(), targetPos.GetPositionZ(), 0);
 	//float distance = me->GetDistance(m_MasterPlayer->GetPosition());
 	//if (distance <= NEEDFLEE_CHECKRANGE && distance > 0.1f)
@@ -1497,7 +1516,7 @@ bool BotGroupAI::ProcessRevivePlayer()
 		return false;
 	if (me->HasUnitState(UNIT_STATE_CASTING))
 		return false;
-	ObjectGuid& guid = m_RevivePlayer.SearchNeedRevive(BOTAI_UPDATE_TICK);
+	ObjectGuid guid = m_RevivePlayer.SearchNeedRevive(BOTAI_UPDATE_TICK);
 	if (guid.IsEmpty())
 		return false;
 	Player* pRevive = ObjectAccessor::FindPlayer(guid);
@@ -1639,7 +1658,8 @@ SpellCastResult BotGroupAI::PetTryCastSpell(uint32 spellID, Unit* pTarget, bool 
 	SpellInfo const* spellInfo = sSpellMgr->GetSpellInfo(spellID);
 	if (!spellInfo || spellInfo->IsPassive())
 		return SpellCastResult::SPELL_FAILED_UNKNOWN;
-	Spell* spell = new Spell(pPet, spellInfo, TriggerCastData{});
+	TriggerCastData triggerData;
+		Spell* spell = new Spell(pPet, spellInfo, triggerData);
 	pTarget = pTarget ? pTarget : pPet;
 	SpellCastResult castResult = spell->CheckPetCast(pTarget);
 	if (castResult == SPELL_FAILED_UNIT_NOT_INFRONT && !pPet->isPossessed() && !pPet->IsVehicle())
@@ -1841,7 +1861,7 @@ void BotGroupAI::FleeMovement()
 {
 	if (/*me->IsStopped() && */!IsNotMovement())
 	{
-		NearUnitVec& enemys = RangeEnemyListByTargetIsMe(NEEDFLEE_CHECKRANGE);
+		NearUnitVec enemys = RangeEnemyListByTargetIsMe(NEEDFLEE_CHECKRANGE);
 		Unit* selectEnemy = NULL;
 		if (enemys.empty())
 		{
@@ -1994,7 +2014,7 @@ void BotGroupAI::ProcessPrepareHealth()
 		return;
 	}
 	std::vector<Unit*> preparaTargets;
-	NearUnitVec& friends = SearchFriend();
+	NearUnitVec friends = SearchFriend();
 	for (Unit* pUnit : friends)
 	{
 		if (!pUnit->isInCombat())
@@ -2050,7 +2070,7 @@ void BotGroupAI::ProcessHealth(bool canMove)
 		m_CruxHealTarget = ObjectGuid::Empty;
 		cruxHeal = NULL;
 	}
-	NearUnitVec& needHealth = SearchNeedHealth(BOTAI_SEARCH_RANGE * 1.6f);
+	NearUnitVec needHealth = SearchNeedHealth(BOTAI_SEARCH_RANGE * 1.6f);
 	if (needHealth.empty() && cruxHeal == NULL)
 	{
 		ProcessPrepareHealth();
@@ -2260,7 +2280,7 @@ bool BotGroupAI::ProcessTank(Unit* pTarget)
 	{
 		if (!HasAuraMechanic(pUnit, Mechanics::MECHANIC_FEAR) && !HasAuraMechanic(pUnit, Mechanics::MECHANIC_HORROR) && !HasAuraMechanic(pUnit, Mechanics::MECHANIC_STUN))
 		{
-			ObjectGuid& guid = pUnit->GetTargetGUID();
+			ObjectGuid guid = pUnit->GetTargetGUID();
 			if (guid.IsPlayer())
 			{
 				Player* pUnitTarget = ObjectAccessor::FindPlayer(guid);
@@ -2292,9 +2312,9 @@ void BotGroupAI::ChaseTarget(Unit* pTarget, bool isMelee, float range)
 	{
 		if (me->IsStopped())
 		{
-			Position& targetPos = pTarget->GetPosition();
+			Position targetPos = pTarget->GetPosition();
 			float rndOffset = frand(-float(M_PI_4) * 0.75f, float(M_PI_4) * 0.75f);
-			Position& pos = me->GetFirstCollisionPosition(me->GetDistance(targetPos) + range, me->GetRelativeAngle(&targetPos) + rndOffset);
+			Position pos = me->GetFirstCollisionPosition(me->GetDistance(targetPos) + range, me->GetRelativeAngle(&targetPos) + rndOffset);
 			m_Movement->MovementTo(pos.GetPositionX(), pos.GetPositionY(), pos.GetPositionZ());
 			//me->GetMotionMaster()->MovePoint(0, pos.GetPositionX(), pos.GetPositionY(), pos.GetPositionZ());
 		}
@@ -2563,7 +2583,7 @@ Unit* BotGroupAI::SearchTankTargetEnemy(float range)
 {
 	if (!me->IsInWorld())
 		return NULL;
-	NearUnitVec& enemys = RangeEnemyListByHasAura(0, range);
+	NearUnitVec enemys = RangeEnemyListByHasAura(0, range);
 	if (enemys.empty())
 		return NULL;
 	Group* pGroup = me->GetGroup();
@@ -2582,7 +2602,7 @@ Unit* BotGroupAI::SearchTankTargetEnemy(float range)
 			continue;
 		if (TargetIsStealth(pUnit->ToPlayer()))
 			continue;
-		ObjectGuid& guid = pUnit->GetTargetGUID();
+		ObjectGuid guid = pUnit->GetTargetGUID();
 		if (guid == ObjectGuid::Empty)
 			continue;
 		if (guid == me->GetGUID())
@@ -2636,7 +2656,7 @@ Unit* BotGroupAI::SearchTankTargetEnemy(float range)
 				{
 					if (IsNotSelect(pUnit) || IsInvincible(pUnit) || TargetIsControl(pUnit))
 						continue;
-					ObjectGuid& guid = pUnit->GetTargetGUID();
+					ObjectGuid guid = pUnit->GetTargetGUID();
 					if (guid != ObjectGuid::Empty && guid.IsPlayer())
 					{
 						if (!pGroup->IsMember(guid))

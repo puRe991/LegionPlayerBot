@@ -18,6 +18,14 @@
 #ifndef _LFGMGR_H
 #define _LFGMGR_H
 
+#include "ObjectGuid.h"
+
+#include <map>
+#include <set>
+#include <string>
+#include <unordered_map>
+#include <vector>
+
 #include "Common.h"
 #include "LFG.h"
 #include "LFGQueue.h"

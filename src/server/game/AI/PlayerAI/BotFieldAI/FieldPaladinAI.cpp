@@ -102,7 +102,7 @@ bool FieldPaladinAI::ProcessNormalSpell()
 		}
 	}
 
-	NearUnitVec& friends = SearchFriend(BOTAI_RANGESPELL_DISTANCE);
+	NearUnitVec friends = SearchFriend(BOTAI_RANGESPELL_DISTANCE);
 	for (Unit* player : friends)
 	{
 		if (!player->ToPlayer() || !player->IsAlive())
@@ -117,7 +117,7 @@ bool FieldPaladinAI::ProcessNormalSpell()
 			return false;
 	}
 
-	NearUnitVec& needHealthPlayers = SearchNeedHealth(BOTAI_RANGESPELL_DISTANCE);
+	NearUnitVec needHealthPlayers = SearchNeedHealth(BOTAI_RANGESPELL_DISTANCE);
 	if (needHealthPlayers.empty())
 		return TryUpMount();
 	//me->StopMoving();
@@ -175,7 +175,7 @@ void FieldPaladinAI::ProcessFlee()
 		return;
 	if (TargetNeedFree(me) && TryCastSpell(PaladinGuard_FreeAura, me) == SpellCastResult::SPELL_CAST_OK)
 		return;
-	NearUnitVec& enemys = RangeEnemyListByTargetIsMe(NEEDFLEE_CHECKRANGE);
+	NearUnitVec enemys = RangeEnemyListByTargetIsMe(NEEDFLEE_CHECKRANGE);
 	if (enemys.size() > 0)
 	{
 		Unit* player = enemys[urand(0, enemys.size() - 1)];
@@ -275,7 +275,7 @@ void FieldPaladinAI::ProcessMeleeSpell(Unit* pTarget)
 	}
 	if (TargetNeedFree(me) && TryCastSpell(PaladinGuard_FreeAura, me) == SpellCastResult::SPELL_CAST_OK)
 		return;
-	NearUnitVec& enemys = RangeEnemyListByHasAura(0, NEEDFLEE_CHECKRANGE);
+	NearUnitVec enemys = RangeEnemyListByHasAura(0, NEEDFLEE_CHECKRANGE);
 	if (enemys.size() > 1 && TryCastSpell(PaladinMelee_AOEOffertory, me) == SpellCastResult::SPELL_CAST_OK)
 		return;
 	if (m_BotTalentType != 1 && me->GetHealthPct() < 20 && manaPct > 25 && me->IsInCombat() && !IsInvincible(me) && enemys.size() > 0)
@@ -325,7 +325,7 @@ void FieldPaladinAI::ProcessMeleeSpell(Unit* pTarget)
 		return;
 	if (m_BotTalentType != 1)
 	{
-		NearUnitVec& friends = SearchFriend(BOTAI_RANGESPELL_DISTANCE);
+		NearUnitVec friends = SearchFriend(BOTAI_RANGESPELL_DISTANCE);
 		if (friends.size() > 0)
 		{
 			std::random_shuffle(friends.begin(), friends.end());
@@ -350,7 +350,7 @@ void FieldPaladinAI::ProcessRangeSpell(Unit* pTarget)
 
 bool FieldPaladinAI::ProcessDispel()
 {
-	NearUnitVec& friends = SearchFriend(BOTAI_RANGESPELL_DISTANCE);
+	NearUnitVec friends = SearchFriend(BOTAI_RANGESPELL_DISTANCE);
 	if (friends.empty())
 		return false;
 	std::random_shuffle(friends.begin(), friends.end());

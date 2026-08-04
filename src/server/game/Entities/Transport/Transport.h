@@ -19,6 +19,10 @@
 #ifndef TRANSPORTS_H
 #define TRANSPORTS_H
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+
 #include "GameObject.h"
 #include "TransportMgr.h"
 #include "VehicleDefines.h"

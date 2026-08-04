@@ -19,6 +19,8 @@
 #ifndef TRINITY_POINTMOVEMENTGENERATOR_H
 #define TRINITY_POINTMOVEMENTGENERATOR_H
 
+#include "Define.h"
+
 #include "MovementGenerator.h"
 #include "FollowerReference.h"
 #include "PathGenerator.h"

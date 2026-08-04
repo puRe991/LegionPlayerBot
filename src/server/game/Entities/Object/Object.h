@@ -18,6 +18,16 @@
 
 #ifndef _OBJECT_H
 #define _OBJECT_H
+#include "Position.h"
+
+#include "ObjectGuid.h"
+
+#include <atomic>
+#include <list>
+#include <set>
+#include <string>
+#include <unordered_map>
+#include <vector>
 
 #include "Common.h"
 #include "UpdateFields.h"

@@ -18,6 +18,16 @@
 #ifndef TRANSPORTMGR_H
 #define TRANSPORTMGR_H
 
+#include <G3D/Quat.h>
+#include "Containers.h"
+
+#include "Define.h"
+#include <map>
+#include <set>
+#include <string>
+#include <unordered_map>
+#include <vector>
+
 #include "DB2Stores.h"
 #include "ObjectGuid.h"
 #include <memory>

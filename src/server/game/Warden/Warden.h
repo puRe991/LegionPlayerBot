@@ -19,6 +19,10 @@
 #ifndef _WARDEN_BASE_H
 #define _WARDEN_BASE_H
 
+#include "Define.h"
+#include <string>
+#include <unordered_map>
+
 #include <map>
 #include "ARC4.h"
 #include "BigNumber.h"

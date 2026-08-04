@@ -19,6 +19,10 @@
 #ifndef _BRAWLERS_GUILD_H
 #define _BRAWLERS_GUILD_H
 
+#include "ObjectGuid.h"
+
+#include <list>
+
 #include "Common.h"
 #include "ScriptMgr.h"
 #include "ScriptedCreature.h"

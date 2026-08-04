@@ -21,6 +21,8 @@
 
 #pragma once
 
+#include "ObjectGuid.h"
+
 #include "SharedDefines.h"
 #include "ScriptMgr.h"
 

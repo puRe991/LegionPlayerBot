@@ -18,6 +18,11 @@
 #ifndef DuelPackets_h__
 #define DuelPackets_h__
 
+class WorldPacket;
+
+#include "Define.h"
+#include <string>
+
 #include "Packet.h"
 #include "ObjectGuid.h"
 

@@ -19,6 +19,10 @@
 #ifndef __BATTLEGROUNDRB_H
 #define __BATTLEGROUNDRB_H
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+
 class Battleground;
 
 class BattlegroundRandom : public Battleground

@@ -19,6 +19,8 @@
 #ifndef TRINITY_NGRID_H
 #define TRINITY_NGRID_H
 
+#include "Define.h"
+
 /** NGrid is nothing more than a wrapper of the Grid with an NxN cells
  */
 

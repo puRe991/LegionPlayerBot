@@ -20,6 +20,8 @@
     \ingroup u2w
 */
 
+#include "FieldBotMgr.h"
+#include "Containers.h"
 #include <zlib.h>
 #include <utility>
 
@@ -721,6 +723,9 @@ void WorldSession::LogoutPlayer(bool Save, std::string txt)
         // e.g if he got disconnected during a transfer to another map
         // calls to GetMap in this case may cause crashes
         volatile uint32 guidDebug = _player->GetGUIDLow();
+        // Keep the guid around: the field bot manager is told about the logout
+        // further down, by which point _player has already been cleared.
+        ObjectGuid logoutPlayerGUID = _player->GetGUID();
         _player->CleanupsBeforeDelete();
         TC_LOG_INFO(LOG_FILTER_CHARACTER, "Account: %d (IP: %s) Logout Character:[%s] (GUID: %u) Level: %d", GetAccountId(), GetRemoteAddress().c_str(), _player->GetName(), _player->GetGUIDLow(), _player->getLevel());
 
@@ -742,8 +747,8 @@ void WorldSession::LogoutPlayer(bool Save, std::string txt)
 
         if (IsBotSession())
             sPlayerBotMgr->OnPlayerBotLogout(this);
-        //else
-        //    sFieldBotMgr->OnRealPlayerLogout(logoutPlayerGUID);
+        else
+            sFieldBotMgr->OnRealPlayerLogout(logoutPlayerGUID);
     }
 
     if (m_Socket[CONNECTION_TYPE_INSTANCE])

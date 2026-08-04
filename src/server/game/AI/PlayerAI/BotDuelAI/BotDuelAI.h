@@ -2,6 +2,11 @@
 #ifndef _BOT_DUEL_AI_H_
 #define _BOT_DUEL_AI_H_
 
+#include "Define.h"
+#include <list>
+#include <set>
+#include <vector>
+
 #include "BotAITool.h"
 #include "BotAISpells.h"
 #include "AIWaypointsMgr.h"
@@ -38,7 +43,7 @@ public:
 	void UpdateAI(uint32 diff) override;
 	virtual void UpdateBotAI(uint32 diff);
 	virtual void ResetBotAI();
-	void SetTeleport(Position& telePos) { m_Teleporting.SetTeleport(telePos); }
+	void SetTeleport(const Position& telePos) { m_Teleporting.SetTeleport(telePos); }
 	NearObjectList SearchGameObject(float range);
 	bool TryUpMount();
 	void Dismount();

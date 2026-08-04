@@ -1,5 +1,10 @@
 #pragma once
 
+#include "ObjectGuid.h"
+
+#include <map>
+#include <string>
+
 #include "Common.h"
 #include "DB2Structure.h"
 

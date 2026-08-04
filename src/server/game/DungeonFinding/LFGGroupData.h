@@ -18,6 +18,10 @@
 #ifndef _LFGGROUPDATA_H
 #define _LFGGROUPDATA_H
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+
 #include "LFG.h"
 
 namespace lfg

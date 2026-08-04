@@ -18,6 +18,11 @@
 #ifndef ScenarioPackets_h__
 #define ScenarioPackets_h__
 
+class WorldPacket;
+
+#include "Define.h"
+#include <vector>
+
 #include "Packet.h"
 #include "AchievementPackets.h"
 

@@ -19,6 +19,10 @@
 #ifndef TRINITY_CREATUREAI_H
 #define TRINITY_CREATUREAI_H
 
+#include "ObjectGuid.h"
+
+#include <functional>
+
 #include "Creature.h"
 #include "UnitAI.h"
 #include "Common.h"

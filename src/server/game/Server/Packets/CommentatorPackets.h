@@ -1,6 +1,12 @@
 #ifndef CommentatorPackets_h__
 #define CommentatorPackets_h__
 
+class WorldPacket;
+
+#include "Define.h"
+#include <list>
+#include <string>
+
 #include "Packet.h"
 #include "ObjectGuid.h"
 

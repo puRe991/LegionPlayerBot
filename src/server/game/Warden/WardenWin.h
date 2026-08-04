@@ -19,6 +19,10 @@
 #ifndef _WARDEN_WIN_H
 #define _WARDEN_WIN_H
 
+#include "Define.h"
+#include <string>
+#include <vector>
+
 #include <map>
 #include "ARC4.h"
 #include "BigNumber.h"

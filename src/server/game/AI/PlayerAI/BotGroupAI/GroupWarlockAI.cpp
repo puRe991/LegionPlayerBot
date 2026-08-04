@@ -1,4 +1,7 @@
 
+#include "ObjectAccessor.h"
+#include "ObjectMgr.h"
+#include "SpellMgr.h"
 #include "BotGroupClassAI.h"
 #include "PlayerBotSession.h"
 #include "Pet.h"
@@ -122,7 +125,7 @@ void GroupWarlockAI::ProcessFlee()
 	if (ProcessMana())
 		return;
 
-	NearUnitVec& enemys = RangeEnemyListByTargetIsMe(NEEDFLEE_CHECKRANGE);
+	NearUnitVec enemys = RangeEnemyListByTargetIsMe(NEEDFLEE_CHECKRANGE);
 	if (enemys.empty())
 		return;
 	Unit* pRndPlayer = NULL;
@@ -207,7 +210,7 @@ void GroupWarlockAI::ProcessFlee()
 	}
 	if (m_BotTalentType == 0)
 	{
-		NearUnitVec& nearEnemys = RangeEnemyListByHasAura(0, BOTAI_RANGESPELL_DISTANCE);
+		NearUnitVec nearEnemys = RangeEnemyListByHasAura(0, BOTAI_RANGESPELL_DISTANCE);
 		for (Unit* pUnit : nearEnemys)
 		{
 			if (!pUnit->isInCombat() || !me->IsWithinLOSInMap(pUnit))
@@ -427,7 +430,7 @@ void GroupWarlockAI::ProcessRangeSpell(Unit* pTarget)
 	if (ProcessMana())
 		return;
 
-	NearUnitVec& enemys = RangeEnemyListByTargetRange(pTarget, NEEDFLEE_CHECKRANGE);
+	NearUnitVec enemys = RangeEnemyListByTargetRange(pTarget, NEEDFLEE_CHECKRANGE);
 	if (enemys.size() > 3)
 	{
 		if (m_BotTalentType == 2 && TryCastSpell(WarlockAOE_ShadowRage, pTarget) == SpellCastResult::SPELL_CAST_OK)
@@ -447,7 +450,7 @@ void GroupWarlockAI::ProcessRangeSpell(Unit* pTarget)
 	ProcessPetSpell(pTarget, false);
 	if (m_BotTalentType == 0)
 	{
-		NearUnitVec& nearEnemys = RangeEnemyListByHasAura(0, BOTAI_RANGESPELL_DISTANCE);
+		NearUnitVec nearEnemys = RangeEnemyListByHasAura(0, BOTAI_RANGESPELL_DISTANCE);
 		for (Unit* pUnit : nearEnemys)
 		{
 			if (!pUnit->isInCombat() || !me->IsWithinLOSInMap(pUnit))

@@ -18,6 +18,17 @@
 #ifndef TRINITYCORE_WORDFILTERMGR_H
 #define TRINITYCORE_WORDFILTERMGR_H
 
+#include "Common.h"
+
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <map>
+#include <set>
+#include <string>
+#include <unordered_map>
+#include <vector>
+
 // #include <locale>
 // #include <codecvt>
 

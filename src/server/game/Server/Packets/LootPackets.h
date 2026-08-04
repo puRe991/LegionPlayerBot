@@ -18,6 +18,14 @@
 #ifndef LootPackets_h__
 #define LootPackets_h__
 
+#include "Util.h"
+#include "Common.h"
+
+class WorldPacket;
+
+#include "Define.h"
+#include <vector>
+
 #include "Packet.h"
 #include "ObjectGuid.h"
 #include "ItemPackets.h"

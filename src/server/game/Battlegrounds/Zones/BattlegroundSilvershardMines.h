@@ -18,6 +18,12 @@
 #ifndef __BATTLEGROUNDSSM_H
 #define __BATTLEGROUNDSSM_H
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <unordered_map>
+#include <vector>
+
 #include "Battleground.h"
 #include "BattlegroundScore.h"
 

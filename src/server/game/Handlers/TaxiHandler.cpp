@@ -16,6 +16,9 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "Containers.h"
+#include "WorldSession.h"
+#include "Player.h"
 #include "CreatureAI.h"
 #include "TaxiPackets.h"
 #include "ObjectMgr.h"

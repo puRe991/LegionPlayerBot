@@ -1,4 +1,5 @@
 
+#include "ObjectAccessor.h"
 #include "BotBGAIMovement.h"
 #include "PathfindingMgr.h"
 #include "CommandBG.h"
@@ -540,7 +541,7 @@ void BotBGAIMovement::TeleportToValidPosition()
 {
 	if (!m_BGAI || !m_Player->GetMap())
 		return;
-	Position& selfPos = m_Player->GetPosition();
+	Position selfPos = m_Player->GetPosition();
 	Position nearPosition;
 	CommandBG* bgCommander = m_Player->GetMap()->GetCommander(m_Player->GetTeamId());
 	if (bgCommander)
@@ -613,7 +614,7 @@ void BotBGAIMovement::TeleportToValidPosition()
 	}
 }
 
-void BotBGAIMovement::SyncPosition(Position& pos, bool immed)
+void BotBGAIMovement::SyncPosition(const Position& pos, bool immed)
 {
 	++m_LastSyncTick;
 	if (m_LastSyncTick <= 8 && !immed)

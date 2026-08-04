@@ -1,4 +1,5 @@
 
+#include "World.h"
 #include "OnlineMgr.h"
 #include "PlayerBotMgr.h"
 

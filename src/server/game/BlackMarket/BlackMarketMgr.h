@@ -18,6 +18,9 @@
 #ifndef BLACK_MARKET_H
 #define BLACK_MARKET_H
 
+#include <map>
+#include <string>
+
 #include "Common.h"
 #include "ObjectGuid.h"
 #include "ItemPackets.h"

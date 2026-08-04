@@ -1,4 +1,5 @@
 
+#include "ObjectAccessor.h"
 #include "FieldBotMgr.h"
 #include "PlayerBotTalkMgr.h"
 #include "World.h"
@@ -15,6 +16,9 @@ bool FieldWarfare::AID_TARGET_TEAM = false;
 bool FieldBotMgr::FIELDBOT_CREATURE = true;
 bool FieldBotMgr::FIELDBOT_DRIVING = false;
 uint32 FieldBotMgr::FIELDWARFARE_SIZE = 2;
+
+// How often the field bot manager does its work, in milliseconds.
+static uint32 const FIELDBOT_UPDATE_INTERVAL = 5000;
 
 void WorldPoster::SendOnceGlobalPoster()
 {
@@ -38,16 +42,16 @@ void WorldPoster::SendOnceGlobalPoster()
 void WorldPoster::InitializePoster()
 {
 	m_AllPosterContent.clear();
-	PushPoster("ÄúÏÖÔÚÊ¹ÓÃµÄÊÇÌÔ±¦µêÆÌ¡¾ÐÀÓ±¿Æ¼¼Ä§ÊÞÖ±Óªµê¡¿µÄÌåÑé²úÆ·");
-	PushPoster("ÌÔ±¦ ÐÀÓ±¿Æ¼¼88ÌåÑé²úÆ·Ö»¿ª·Å°¢À­Ï£Õ½³¡");
-	PushPoster("ÌÔ±¦ ÐÀÓ±¿Æ¼¼88ÌåÑé²úÆ·Ö»¿ª·ÅÕ½Ê¿¡¢ÊõÊ¿¡¢ÄÁÊ¦Èý¸öÖ°Òµ");
-	PushPoster("ÌÔ±¦ ÐÀÓ±¿Æ¼¼88ÌåÑé²úÆ·²»¿ª·ÅÒ°ÍâÍÅÕ½ÏµÍ³");
-	PushPoster("ÌÔ±¦ ÐÀÓ±¿Æ¼¼88ÌåÑé²úÆ·²»¿ª·ÅËæ»úµØÏÂ³ÇÏµÍ³");
-	PushPoster("ÌÔ±¦ ÐÀÓ±¿Æ¼¼88ÌåÑé²úÆ·²»¿ª·Å¾º¼¼³¡");
-	PushPoster("ÌÔ±¦ ÐÀÓ±¿Æ¼¼88ÌåÑé²úÆ·ÎÞ·¨ÇÐ»»ÍÅ¶Ó£¬ÎÞ·¨½øÈëÍÅ¶Ó¸±±¾");
-	PushPoster("Èç¹ûÄúÏ²»¶ÎÒÃÇµÄ²úÆ·£¬Çë¹ºÂòÍêÕû°æ");
-	PushPoster("¹ºÂò·½Ê½£ºÇëÌÔ±¦ÁªÏµÍúÍú¡¾ÐÀÓ±¿Æ¼¼88¡¿»òÕßQQÁªÏµ277922486");
-	PushPoster("ÆäËüÈÎºÎÁªÏµ·½Ê½¶¼ÊÇÆÛÆ­Íæ¼Ò");
+	PushPoster("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½Ãµï¿½ï¿½ï¿½ï¿½Ô±ï¿½ï¿½ï¿½ï¿½Ì¡ï¿½ï¿½ï¿½Ó±ï¿½Æ¼ï¿½Ä§ï¿½ï¿½Ö±Óªï¿½ê¡¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·");
+	PushPoster("ï¿½Ô±ï¿½ ï¿½ï¿½Ó±ï¿½Æ¼ï¿½88ï¿½ï¿½ï¿½ï¿½ï¿½Æ·Ö»ï¿½ï¿½ï¿½Å°ï¿½ï¿½ï¿½Ï£Õ½ï¿½ï¿½");
+	PushPoster("ï¿½Ô±ï¿½ ï¿½ï¿½Ó±ï¿½Æ¼ï¿½88ï¿½ï¿½ï¿½ï¿½ï¿½Æ·Ö»ï¿½ï¿½ï¿½ï¿½Õ½Ê¿ï¿½ï¿½ï¿½ï¿½Ê¿ï¿½ï¿½ï¿½ï¿½Ê¦ï¿½ï¿½ï¿½ï¿½Ö°Òµ");
+	PushPoster("ï¿½Ô±ï¿½ ï¿½ï¿½Ó±ï¿½Æ¼ï¿½88ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò°ï¿½ï¿½ï¿½ï¿½Õ½ÏµÍ³");
+	PushPoster("ï¿½Ô±ï¿½ ï¿½ï¿½Ó±ï¿½Æ¼ï¿½88ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â³ï¿½ÏµÍ³");
+	PushPoster("ï¿½Ô±ï¿½ ï¿½ï¿½Ó±ï¿½Æ¼ï¿½88ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½Å¾ï¿½ï¿½ï¿½ï¿½ï¿½");
+	PushPoster("ï¿½Ô±ï¿½ ï¿½ï¿½Ó±ï¿½Æ¼ï¿½88ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½Þ·ï¿½ï¿½Ð»ï¿½ï¿½Å¶Ó£ï¿½ï¿½Þ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å¶Ó¸ï¿½ï¿½ï¿½");
+	PushPoster("ï¿½ï¿½ï¿½ï¿½ï¿½Ï²ï¿½ï¿½ï¿½ï¿½ï¿½ÇµÄ²ï¿½Æ·ï¿½ï¿½ï¿½ë¹ºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+	PushPoster("ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½Ô±ï¿½ï¿½ï¿½Ïµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó±ï¿½Æ¼ï¿½88ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½QQï¿½ï¿½Ïµ277922486");
+	PushPoster("ï¿½ï¿½ï¿½ï¿½ï¿½Îºï¿½ï¿½ï¿½Ïµï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ­ï¿½ï¿½ï¿½");
 }
 
 void WorldPoster::PushPoster(std::string content)
@@ -518,8 +522,8 @@ void FieldWarfare::TeleportToTargetVisible(Player* pBot, Player* pTarget)
 			break;
 		}
 		float targetAngle = frand(0, float(M_PI) * 2.0f);
-		distX = pTarget->GetPositionX() + (BOTAI_FIELDTELEPORT_DISTANCE * 1.7f) * std::cosf(targetAngle);
-		distY = pTarget->GetPositionY() + (BOTAI_FIELDTELEPORT_DISTANCE * 1.7f) * std::sinf(targetAngle);
+		distX = pTarget->GetPositionX() + (BOTAI_FIELDTELEPORT_DISTANCE * 1.7f) * std::cos(targetAngle);
+		distY = pTarget->GetPositionY() + (BOTAI_FIELDTELEPORT_DISTANCE * 1.7f) * std::sin(targetAngle);
 		distZ = pTarget->GetPositionZ();
 		distZ = pTarget->GetMap()->GetHeight(pTarget->GetPhaseMask(), distX, distY, distZ);
 	} while (!MapManager::IsValidMapCoord(pTarget->GetMapId(), distX, distY, distZ, pTarget->GetOrientation()));
@@ -554,8 +558,8 @@ Position FieldWarfare::GetEvadePosition(Player* centerPlayer, Player* evadePlaye
 	float maxDist = 0.0f;
 	for (float angle = 0.0f; angle < (float(M_PI) * 2.0f); angle += onceAngle)
 	{
-		float distX = evadePlayer->GetPositionX() + (BOTAI_FIELDTELEPORT_DISTANCE * 4) * std::cosf(angle);
-		float distY = evadePlayer->GetPositionY() + (BOTAI_FIELDTELEPORT_DISTANCE * 4) * std::sinf(angle);
+		float distX = evadePlayer->GetPositionX() + (BOTAI_FIELDTELEPORT_DISTANCE * 4) * std::cos(angle);
+		float distY = evadePlayer->GetPositionY() + (BOTAI_FIELDTELEPORT_DISTANCE * 4) * std::sin(angle);
 		float distZ = evadePlayer->GetPositionZ();
 		distZ = evadePlayer->GetMap()->GetHeight(evadePlayer->GetPhaseMask(), distX, distY, distZ);
 		Position pos(distX, distY, distZ, angle);
@@ -660,13 +664,22 @@ bool FieldBotMgr::MatchTeleportCondition(Player* p1, Player* p2)
 
 void FieldBotMgr::Update(ObjectGuid workGUID)
 {
+	// Map::Update calls this once per real player. Only one of them drives the
+	// field bots, so establish that first: adopting the caller whenever the
+	// current work player is gone keeps the system running when that player
+	// logs out, instead of stalling until the next server restart.
+	if (m_WorkPlayerGUID == ObjectGuid::Empty || !ObjectAccessor::FindPlayer(m_WorkPlayerGUID))
+		m_WorkPlayerGUID = workGUID;
+
+	if (m_WorkPlayerGUID != workGUID)
+		return;
+
+	// Throttle only after the caller is known to be the work player, otherwise
+	// any other player consumes the tick and the actual work never runs.
 	uint32 currentWorkTick = getMSTime();
-	if (m_WorkTick + 5000 > currentWorkTick)
+	if (getMSTimeDiff(m_WorkTick, currentWorkTick) < FIELDBOT_UPDATE_INTERVAL)
 		return;
 	m_WorkTick = currentWorkTick;
-
-	if (m_WorkPlayerGUID == ObjectGuid::Empty || m_WorkPlayerGUID != workGUID)
-		return;
 
 
 	if (m_FieldActing)
@@ -764,7 +777,7 @@ void FieldBotMgr::TeleportToTargetVisible(BotFieldAI* pFieldAI, Player* pTarget)
 		float farDist = BOTAI_FIELDTELEPORT_DISTANCE * 1.2f;
 		for (float angle = 0.0f; angle < (float(M_PI) * 2.0f); angle += onceAngle)
 		{
-			Position& pos = pTarget->GetFirstCollisionPosition(farDist, angle);
+			Position pos = pTarget->GetFirstCollisionPosition(farDist, angle);
 			float posDist = pTarget->GetDistance(pos);
 			if (posDist < farDist * 0.25f)
 				continue;
@@ -795,8 +808,8 @@ void FieldBotMgr::TeleportToTargetVisible(BotFieldAI* pFieldAI, Player* pTarget)
 				break;
 			}
 			float targetAngle = frand(0, float(M_PI) * 2.0f);
-			distX = pTarget->GetPositionX() + (BOTAI_FIELDTELEPORT_DISTANCE * 1.2f) * std::cosf(targetAngle);
-			distY = pTarget->GetPositionY() + (BOTAI_FIELDTELEPORT_DISTANCE * 1.2f) * std::sinf(targetAngle);
+			distX = pTarget->GetPositionX() + (BOTAI_FIELDTELEPORT_DISTANCE * 1.2f) * std::cos(targetAngle);
+			distY = pTarget->GetPositionY() + (BOTAI_FIELDTELEPORT_DISTANCE * 1.2f) * std::sin(targetAngle);
 			distZ = pTarget->GetPositionZ();
 			distZ = pTarget->GetMap()->GetHeight(pTarget->GetPhaseMask(), distX, distY, distZ);
 		} while (!MapManager::IsValidMapCoord(pTarget->GetMapId(), distX, distY, distZ, pTarget->GetOrientation()) ||
@@ -895,7 +908,7 @@ continue;
 
 	if (GetMaxNearPlayer() > nearAlliance)
 	{
-		FIELDAI_LIST& allianceBots = FieldBotMgr::GetAllFieldBotPlayer(TEAM_ALLIANCE);
+		FIELDAI_LIST allianceBots = FieldBotMgr::GetAllFieldBotPlayer(TEAM_ALLIANCE);
 		while (!allianceBots.empty())
 		{
 			BotFieldAI* pFieldAI = (*allianceBots.begin());
@@ -911,7 +924,7 @@ continue;
 	}
 	if (GetMaxNearPlayer() > nearHorde)
 	{
-		FIELDAI_LIST& hordeBots = FieldBotMgr::GetAllFieldBotPlayer(TEAM_HORDE);
+		FIELDAI_LIST hordeBots = FieldBotMgr::GetAllFieldBotPlayer(TEAM_HORDE);
 		while (!hordeBots.empty())
 		{
 			BotFieldAI* pFieldAI = (*hordeBots.begin());

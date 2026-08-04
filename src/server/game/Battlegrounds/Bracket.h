@@ -19,6 +19,8 @@
 #ifndef __BRACKET_H
 #define __BRACKET_H
 
+#include "ObjectGuid.h"
+
 #include "Common.h"
 #include "Player.h"
 

@@ -18,6 +18,33 @@
 #ifndef AsioHacksFwd_h__
 #define AsioHacksFwd_h__
 
+#include <boost/version.hpp>
+
+#if BOOST_VERSION >= 106600
+
+// Boost 1.66 dropped the trailing service template parameters from
+// basic_resolver and basic_deadline_timer and gave the remaining ones default
+// arguments. Those defaults cannot be repeated in a forward declaration, so
+// pull in the real headers instead of hand-rolling the declarations.
+#include <boost/asio/deadline_timer.hpp>
+#include <boost/asio/ip/address.hpp>
+#include <boost/asio/ip/tcp.hpp>
+#include <boost/date_time/posix_time/ptime.hpp>
+
+namespace boost
+{
+    namespace asio
+    {
+        namespace ip
+        {
+            typedef basic_endpoint<tcp> tcp_endpoint;
+            typedef tcp::resolver tcp_resolver;
+        }
+    }
+}
+
+#else
+
 namespace boost
 {
     namespace posix_time
@@ -59,6 +86,8 @@ namespace boost
         typedef basic_deadline_timer<posix_time::ptime, time_traits<posix_time::ptime>, deadline_timer_service<posix_time::ptime, time_traits<posix_time::ptime>>> deadline_timer;
     }
 }
+
+#endif
 
 namespace Trinity
 {

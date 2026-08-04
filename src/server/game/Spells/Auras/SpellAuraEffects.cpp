@@ -16,6 +16,7 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "Containers.h"
 #include "AreaTrigger.h"
 #include "AreaTriggerAI.h"
 #include "Battlefield.h"

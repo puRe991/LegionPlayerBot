@@ -86,7 +86,7 @@ void AIWaypoint::NewToDatabase()
 		if (linkAWP[i] == NULL)
 			break;
 		memset(AIWaypoint::resolverBuffer, 0, RESOLVER_BUF_SIZE);
-		itoa(linkAWP[i]->entry, AIWaypoint::resolverBuffer, 10);
+		snprintf(AIWaypoint::resolverBuffer, RESOLVER_BUF_SIZE, "%u", linkAWP[i]->entry);
 		processLink += AIWaypoint::resolverBuffer;
 		processLink += ',';
 	}
@@ -109,7 +109,7 @@ void AIWaypoint::SaveToDatabase()
 		if (linkAWP[i] == NULL)
 			break;
 		memset(AIWaypoint::resolverBuffer, 0, RESOLVER_BUF_SIZE);
-		itoa(linkAWP[i]->entry, AIWaypoint::resolverBuffer, 10);
+		snprintf(AIWaypoint::resolverBuffer, RESOLVER_BUF_SIZE, "%u", linkAWP[i]->entry);
 		processLink += AIWaypoint::resolverBuffer;
 		processLink += ',';
 	}
@@ -192,8 +192,8 @@ bool AIWaypointsMgr::LoadAIWaypoints()
 			float x = fields[2].GetFloat();
 			float y = fields[3].GetFloat();
 			float z = fields[4].GetFloat();
-			std::string& link = fields[5].GetString();
-			std::string& desc = fields[6].GetString();
+			std::string link = fields[5].GetString();
+			std::string desc = fields[6].GetString();
 			AIWaypoint* aiwp = new AIWaypoint(entry, map, x, y, z, link, desc);
 			if (m_AIWaypointMap.find(entry) == m_AIWaypointMap.end())
 				m_AIWaypointMap[entry] = aiwp;

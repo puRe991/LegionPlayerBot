@@ -1,5 +1,9 @@
 #pragma once
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+
 #include "DatabaseEnv.h"
 
 class LoginQueryHolder : public SQLQueryHolder

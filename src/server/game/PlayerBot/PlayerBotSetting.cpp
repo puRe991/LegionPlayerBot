@@ -1,4 +1,8 @@
 
+#include <algorithm>
+#include "DB2Structure.h"
+#include "DB2Stores.h"
+#include "World.h"
 #include "PlayerBotSetting.h"
 #include "ObjectMgr.h"
 #include "Pet.h"
@@ -143,8 +147,12 @@ bool PlayerBotSetting::IsEquipByClasses(uint32 cls, const ItemTemplate* itemTemp
 		return IsMageEquip(itemTemplate);
 	case 9:
 		return IsWarlockEquip(itemTemplate);
+	case 10:
+		return IsMonkEquip(itemTemplate);
 	case 11:
 		return IsDruidEquip(itemTemplate);
+	case 12:
+		return IsDemonHunterEquip(itemTemplate);
 	default:
 		return false;
 	}
@@ -153,7 +161,7 @@ bool PlayerBotSetting::IsEquipByClasses(uint32 cls, const ItemTemplate* itemTemp
 
 bool PlayerBotSetting::IsEquipByClsAndTal(uint32 cls, uint32 tal, const ItemTemplate* itemTemplate, int32 rndPropID)
 {
-	if (tal > 2 || !itemTemplate || cls < 1 || cls == 10 || cls > 11)
+	if (tal > 2 || !itemTemplate || cls < CLASS_WARRIOR || cls >= MAX_CLASSES)
 		return false;
 	if (!itemTemplate || itemTemplate->AllowableClass == 0)
 		return false;
@@ -449,6 +457,34 @@ bool PlayerBotSetting::IsBetterEquip(Player* player, const ItemTemplate* itemTem
 	}
 
 	return false;
+}
+
+uint8 PlayerBotSetting::DecideLootRoll(Player* bot, uint32 itemID, int32 rndPropID, uint8 rollVoteMask)
+{
+	if (!bot)
+		return ROLL_PASS;
+
+	uint32 const behaviour = sWorld->getIntConfig(CONFIG_PLAYERBOT_LOOT_NEEDROLL);
+	if (behaviour == PLAYERBOT_LOOT_ALWAYS_PASS)
+		return ROLL_PASS;
+
+	const ItemTemplate* itemTemplate = sObjectMgr->GetItemTemplate(itemID);
+	if (!itemTemplate)
+		return ROLL_PASS;
+
+	bool const mayNeed = (rollVoteMask & ROLL_FLAG_TYPE_NEED) != 0;
+	bool const mayGreed = (rollVoteMask & ROLL_FLAG_TYPE_GREED) != 0;
+
+	// Need is only for gear the bot can actually wear, that suits its class and
+	// current specialisation, and that beats what it has equipped in that slot.
+	// IsBetterEquip covers all of that, including the required level and the
+	// random property suffix.
+	if (behaviour == PLAYERBOT_LOOT_NEED_ON_UPGRADE && mayNeed &&
+		itemTemplate->GetQuality() >= sWorld->getIntConfig(CONFIG_PLAYERBOT_LOOT_MINQUALITY) &&
+		IsBetterEquip(bot, itemTemplate, rndPropID))
+		return ROLL_NEED;
+
+	return mayGreed ? ROLL_GREED : ROLL_PASS;
 }
 
 void PlayerBotSetting::ClearUnknowMount(Player* player)
@@ -1048,6 +1084,105 @@ bool PlayerBotSetting::IsDruidEquip(const ItemTemplate* itemTemplate)
 	return false;
 }
 
+bool PlayerBotSetting::IsMonkEquip(const ItemTemplate* itemTemplate)
+{
+	if (itemTemplate->GetClass() == ItemClass::ITEM_CLASS_WEAPON)
+	{
+		switch (itemTemplate->GetSubClass())
+		{
+		// Monks use fist weapons, one handed axes, maces and swords, polearms
+		// and staves. Everything below is out of reach for them.
+		case ItemSubclassWeapon::ITEM_SUBCLASS_WEAPON_AXE2:
+		case ItemSubclassWeapon::ITEM_SUBCLASS_WEAPON_MACE2:
+		case ItemSubclassWeapon::ITEM_SUBCLASS_WEAPON_SWORD2:
+		case ItemSubclassWeapon::ITEM_SUBCLASS_WEAPON_WARGLAIVES:
+		case ItemSubclassWeapon::ITEM_SUBCLASS_WEAPON_DAGGER:
+		case ItemSubclassWeapon::ITEM_SUBCLASS_WEAPON_BOW:
+		case ItemSubclassWeapon::ITEM_SUBCLASS_WEAPON_GUN:
+		case ItemSubclassWeapon::ITEM_SUBCLASS_WEAPON_CROSSBOW:
+		case ItemSubclassWeapon::ITEM_SUBCLASS_WEAPON_THROWN:
+		case ItemSubclassWeapon::ITEM_SUBCLASS_WEAPON_WAND:
+		case ItemSubclassWeapon::ITEM_SUBCLASS_WEAPON_FISHING_POLE:
+			return false;
+		default:
+			break;
+		}
+		return true;
+	}
+	else if (itemTemplate->GetClass() == ItemClass::ITEM_CLASS_ARMOR)
+	{
+		switch (itemTemplate->GetSubClass())
+		{
+		// Leather wearers, and none of the relic types.
+		case ItemSubclassArmor::ITEM_SUBCLASS_ARMOR_CLOTH:
+		case ItemSubclassArmor::ITEM_SUBCLASS_ARMOR_MAIL:
+		case ItemSubclassArmor::ITEM_SUBCLASS_ARMOR_PLATE:
+		case ItemSubclassArmor::ITEM_SUBCLASS_ARMOR_SHIELD:
+		case ItemSubclassArmor::ITEM_SUBCLASS_ARMOR_LIBRAM:
+		case ItemSubclassArmor::ITEM_SUBCLASS_ARMOR_IDOL:
+		case ItemSubclassArmor::ITEM_SUBCLASS_ARMOR_TOTEM:
+		case ItemSubclassArmor::ITEM_SUBCLASS_ARMOR_SIGIL:
+			return false;
+		default:
+			break;
+		}
+		return true;
+	}
+
+	return false;
+}
+
+bool PlayerBotSetting::IsDemonHunterEquip(const ItemTemplate* itemTemplate)
+{
+	if (itemTemplate->GetClass() == ItemClass::ITEM_CLASS_WEAPON)
+	{
+		switch (itemTemplate->GetSubClass())
+		{
+		// Warglaives, one handed axes and swords, and fist weapons.
+		case ItemSubclassWeapon::ITEM_SUBCLASS_WEAPON_AXE2:
+		case ItemSubclassWeapon::ITEM_SUBCLASS_WEAPON_MACE:
+		case ItemSubclassWeapon::ITEM_SUBCLASS_WEAPON_MACE2:
+		case ItemSubclassWeapon::ITEM_SUBCLASS_WEAPON_SWORD2:
+		case ItemSubclassWeapon::ITEM_SUBCLASS_WEAPON_POLEARM:
+		case ItemSubclassWeapon::ITEM_SUBCLASS_WEAPON_SPEAR:
+		case ItemSubclassWeapon::ITEM_SUBCLASS_WEAPON_STAFF:
+		case ItemSubclassWeapon::ITEM_SUBCLASS_WEAPON_DAGGER:
+		case ItemSubclassWeapon::ITEM_SUBCLASS_WEAPON_BOW:
+		case ItemSubclassWeapon::ITEM_SUBCLASS_WEAPON_GUN:
+		case ItemSubclassWeapon::ITEM_SUBCLASS_WEAPON_CROSSBOW:
+		case ItemSubclassWeapon::ITEM_SUBCLASS_WEAPON_THROWN:
+		case ItemSubclassWeapon::ITEM_SUBCLASS_WEAPON_WAND:
+		case ItemSubclassWeapon::ITEM_SUBCLASS_WEAPON_FISHING_POLE:
+			return false;
+		default:
+			break;
+		}
+		return true;
+	}
+	else if (itemTemplate->GetClass() == ItemClass::ITEM_CLASS_ARMOR)
+	{
+		switch (itemTemplate->GetSubClass())
+		{
+		// Leather wearers, and none of the relic types.
+		case ItemSubclassArmor::ITEM_SUBCLASS_ARMOR_CLOTH:
+		case ItemSubclassArmor::ITEM_SUBCLASS_ARMOR_MAIL:
+		case ItemSubclassArmor::ITEM_SUBCLASS_ARMOR_PLATE:
+		case ItemSubclassArmor::ITEM_SUBCLASS_ARMOR_SHIELD:
+		case ItemSubclassArmor::ITEM_SUBCLASS_ARMOR_LIBRAM:
+		case ItemSubclassArmor::ITEM_SUBCLASS_ARMOR_IDOL:
+		case ItemSubclassArmor::ITEM_SUBCLASS_ARMOR_TOTEM:
+		case ItemSubclassArmor::ITEM_SUBCLASS_ARMOR_SIGIL:
+			return false;
+		default:
+			break;
+		}
+		return true;
+	}
+
+	return false;
+}
+
+
 bool PlayerBotSetting::IsHunterEquip(const ItemTemplate* itemTemplate)
 {
 	if (itemTemplate->GetClass() == ItemClass::ITEM_CLASS_WEAPON)
@@ -1465,6 +1600,14 @@ void PlayerBotSetting::Initialize()
 	classesTrainersGUID[Classes::CLASS_PRIEST][0] = 5141;
 	classesTrainersGUID[Classes::CLASS_PRIEST][1] = 4606;
 
+	// Monk and Demon Hunter had no trainers at all, which left their entries at
+	// zero. Pandaria and the Vault of the Wardens trainers respectively.
+	classesTrainersGUID[Classes::CLASS_MONK][0] = 61411;
+	classesTrainersGUID[Classes::CLASS_MONK][1] = 61411;
+
+	classesTrainersGUID[Classes::CLASS_DEMON_HUNTER][0] = 98229;
+	classesTrainersGUID[Classes::CLASS_DEMON_HUNTER][1] = 98229;
+
 	for (uint32 talentId = 0; talentId < sTalentStore.GetNumRows(); ++talentId)
 	{
 		TalentEntry const* talentInfo = sTalentStore.LookupEntry(talentId);
@@ -1728,6 +1871,29 @@ bool PlayerBotSetting::ResetPlayerToLevel(uint32 level, uint32 talent, bool tena
 
 uint32 PlayerBotSetting::SwitchPlayerTalent(uint32 talent)
 {
+	// 0 to 2 request a specialisation, anything above means "pick one". The
+	// argument used to be ignored outright, so the command that reaches here
+	// never changed anything.
+	if (!m_Player)
+		return m_ActiveTalentType;
+
+	uint8 const classId = m_Player->getClass();
+
+	// Not every class has three: Demon Hunter has two. Collect what exists
+	// rather than assuming a fixed count.
+	std::vector<uint32> available;
+	available.reserve(3);
+	for (uint32 index = 0; index < 3; ++index)
+		if (sDB2Manager.GetChrSpecializationByIndex(classId, index))
+			available.push_back(index);
+
+	if (available.empty())
+		return m_ActiveTalentType;
+
+	if (talent > 2 || std::find(available.begin(), available.end(), talent) == available.end())
+		talent = available[urand(0, uint32(available.size() - 1))];
+
+	m_ActiveTalentType = talent;
 	return m_ActiveTalentType;
 }
 
@@ -1819,13 +1985,74 @@ void PlayerBotSetting::UpdateReset()
 
 void PlayerBotSetting::LearnTalents()
 {
-	
+	if (!m_Player)
+		return;
+
+	uint8 const classId = m_Player->getClass();
+	if (classId < CLASS_WARRIOR || classId >= MAX_CLASSES)
+		return;
+
+	uint32 const specId = m_Player->GetUInt32Value(PLAYER_FIELD_CURRENT_SPEC_ID);
+	if (!specId)
+		return;
+
+	uint8 const activeGroup = m_Player->GetActiveTalentGroup();
+	uint32 unlockedTiers = m_Player->GetUInt32Value(PLAYER_FIELD_MAX_TALENT_TIERS);
+	if (unlockedTiers > MAX_TALENT_TIERS)
+		unlockedTiers = MAX_TALENT_TIERS;
+
+	for (uint32 tier = 0; tier < unlockedTiers; ++tier)
+	{
+		// A tier holds one pick. Leave the ones that are already decided alone:
+		// changing them needs the player to be resting, and there is no reason
+		// to reshuffle a choice that is already in place.
+		bool tierDecided = false;
+		for (uint32 column = 0; column < MAX_TALENT_COLUMNS && !tierDecided; ++column)
+			for (TalentEntry const* talent : sDB2Manager._talentByPos[classId][tier][column])
+				if (m_Player->HasTalent(talent->ID, activeGroup))
+				{
+					tierDecided = true;
+					break;
+				}
+
+		if (tierDecided)
+			continue;
+
+		// One candidate per column: the entry matching the active
+		// specialisation, or the one shared by every specialisation of the
+		// class. This mirrors how Player::LearnTalent resolves a slot, so
+		// every id collected here is one it will accept.
+		std::vector<uint32> choices;
+		choices.reserve(MAX_TALENT_COLUMNS);
+		for (uint32 column = 0; column < MAX_TALENT_COLUMNS; ++column)
+		{
+			TalentEntry const* bestSlotMatch = nullptr;
+			for (TalentEntry const* talent : sDB2Manager._talentByPos[classId][tier][column])
+			{
+				if (!talent->SpecID)
+					bestSlotMatch = talent;
+				else if (talent->SpecID == specId)
+				{
+					bestSlotMatch = talent;
+					break;
+				}
+			}
+
+			if (bestSlotMatch && bestSlotMatch->SpellID)
+				choices.push_back(bestSlotMatch->ID);
+		}
+
+		if (choices.empty())
+			continue;
+
+		m_Player->LearnTalent(choices[urand(0, uint32(choices.size() - 1))]);
+	}
 }
 
 void PlayerBotSetting::LearnCommonSpells()
 {
 	uint8 cls = m_Player->getClass();
-	if (cls <= 0 || cls >= 12 || cls == 10)
+	if (cls < CLASS_WARRIOR || cls >= MAX_CLASSES)
 		return;
 	BotCommonSpells& commonSpells = classesCommonSpells[cls];
 	for (BotCommonSpells::iterator itSpell = commonSpells.begin();

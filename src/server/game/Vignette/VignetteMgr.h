@@ -1,6 +1,13 @@
 #ifndef VIGNETTE_MGR_HPP
 #define VIGNETTE_MGR_HPP
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <functional>
+#include <map>
+#include <set>
+
 #include "Vignette.h"
 
 class WorldObject;

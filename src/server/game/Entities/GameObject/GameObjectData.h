@@ -18,6 +18,10 @@
 #ifndef GameObjectData_h__
 #define GameObjectData_h__
 
+#include "ObjectGuid.h"
+
+#include <set>
+
 #include "Common.h"
 #include "SharedDefines.h"
 #include <string>

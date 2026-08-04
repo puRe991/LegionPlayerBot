@@ -2,6 +2,12 @@
 #ifndef GarrisonFollower_h__
 #define GarrisonFollower_h__
 
+class Player;
+class SpellInfo;
+
+#include "Define.h"
+#include <unordered_map>
+
 #include "GarrisonGlobal.h"
 #include "Packets/GarrisonPackets.h"
 

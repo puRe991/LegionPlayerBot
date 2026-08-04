@@ -87,7 +87,7 @@ bool GroupPaladinAI::ProcessTryFriendImmune()
 		return true;
 	if (!PaladinGuard_PhyImmune || BotUtility::SpellHasReady(me, PaladinGuard_PhyImmune))
 		return false;
-	NearUnitVec& friends = SearchFriend();
+	NearUnitVec friends = SearchFriend();
 	for (Unit* pUnit : friends)
 	{
 		if (pUnit->GetHealthPct() > 12)
@@ -109,7 +109,7 @@ bool GroupPaladinAI::ProcessTryFullHealth()
 		return false;
 	if (me->GetHealthPct() > 8)
 		return false;
-	NearUnitVec& friends = SearchFriend();
+	NearUnitVec friends = SearchFriend();
 	for (Unit* pUnit : friends)
 	{
 		if (pUnit->GetHealthPct() > 8)
@@ -139,7 +139,7 @@ bool GroupPaladinAI::ProcessNormalSpell()
 	if (!me->HasAura(m_UseMountID) && ProcessStamp())
 		return false;
 
-	NearUnitVec& friends = SearchFriend(BOTAI_RANGESPELL_DISTANCE);
+	NearUnitVec friends = SearchFriend(BOTAI_RANGESPELL_DISTANCE);
 	for (Unit* player : friends)
 	{
 		if (!player->ToPlayer() || !player->IsAlive())
@@ -193,7 +193,7 @@ bool GroupPaladinAI::ProcessNormalSpell()
 	{
 		return false;
 	}
-	NearUnitVec& needHealthPlayers = SearchNeedHealth(BOTAI_RANGESPELL_DISTANCE);
+	NearUnitVec needHealthPlayers = SearchNeedHealth(BOTAI_RANGESPELL_DISTANCE);
 	if (needHealthPlayers.empty())
 		return TryUpMount();
 	//me->StopMoving();
@@ -247,7 +247,7 @@ void GroupPaladinAI::ProcessFlee()
 		return;
 	if (TargetNeedFree(me) && TryCastSpell(PaladinGuard_FreeAura, me) == SpellCastResult::SPELL_CAST_OK)
 		return;
-	NearUnitVec& enemys = RangeEnemyListByTargetIsMe(NEEDFLEE_CHECKRANGE);
+	NearUnitVec enemys = RangeEnemyListByTargetIsMe(NEEDFLEE_CHECKRANGE);
 	if (enemys.size() > 0)
 	{
 		Unit* player = enemys[urand(0, enemys.size() - 1)];
@@ -364,7 +364,7 @@ void GroupPaladinAI::ProcessMeleeSpell(Unit* pTarget)
 
 	if (TargetNeedFree(me) && TryCastSpell(PaladinGuard_FreeAura, me) == SpellCastResult::SPELL_CAST_OK)
 		return;
-	NearUnitVec& enemys = RangeEnemyListByHasAura(0, NEEDFLEE_CHECKRANGE);
+	NearUnitVec enemys = RangeEnemyListByHasAura(0, NEEDFLEE_CHECKRANGE);
 	if (enemys.size() > 1 && TryCastSpell(PaladinMelee_AOEOffertory, me) == SpellCastResult::SPELL_CAST_OK)
 		return;
 	if (m_BotTalentType != 1 && me->GetHealthPct() < 20 && manaPct > 25 && me->IsInCombat() && !IsInvincible(me) && enemys.size() > 0)
@@ -378,7 +378,7 @@ void GroupPaladinAI::ProcessMeleeSpell(Unit* pTarget)
 		return;
 	if (PaladinAssist_UpPower && meLife > 80 && TryCastSpell(PaladinAssist_UpPower, me) == SpellCastResult::SPELL_CAST_OK)
 		return;
-	NearUnitVec& tryKills = RangeEnemyListByHasAura(0, BOTAI_RANGESPELL_DISTANCE);
+	NearUnitVec tryKills = RangeEnemyListByHasAura(0, BOTAI_RANGESPELL_DISTANCE);
 	for (Unit* pUnit : tryKills)
 	{
 		if (pUnit->GetHealthPct() >= 20)
@@ -417,7 +417,7 @@ void GroupPaladinAI::ProcessMeleeSpell(Unit* pTarget)
 		return;
 	if (m_BotTalentType != 1)
 	{
-		NearUnitVec& friends = SearchFriend(BOTAI_RANGESPELL_DISTANCE);
+		NearUnitVec friends = SearchFriend(BOTAI_RANGESPELL_DISTANCE);
 		if (friends.size() > 0)
 		{
 			std::random_shuffle(friends.begin(), friends.end());
@@ -503,7 +503,7 @@ bool GroupPaladinAI::ProcessStamp()
 				return true;
 			if (me->InArena())
 			{
-				NearUnitVec& enemys = RangeEnemyListByHasAura(0, BOTAI_RANGESPELL_DISTANCE);
+				NearUnitVec enemys = RangeEnemyListByHasAura(0, BOTAI_RANGESPELL_DISTANCE);
 				for (Unit* pUnit : enemys)
 				{
 					if (TryCastSpell(PaladinMelee_ManaJudge, pUnit) == SpellCastResult::SPELL_CAST_OK)
@@ -557,7 +557,7 @@ bool GroupPaladinAI::ProcessDispel()
 {
 	if (PaladinAssist_Dispel == 0 || !BotUtility::SpellHasReady(me, PaladinAssist_Dispel))
 		return false;
-	NearUnitVec& friends = SearchFriend(BOTAI_RANGESPELL_DISTANCE);
+	NearUnitVec friends = SearchFriend(BOTAI_RANGESPELL_DISTANCE);
 	if (friends.empty())
 		return false;
 	std::random_shuffle(friends.begin(), friends.end());

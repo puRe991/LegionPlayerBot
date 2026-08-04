@@ -17,6 +17,9 @@
  */
 
 
+#include "ObjectAccessor.h"
+#include "WorldSession.h"
+#include "Player.h"
 #include "BattlegroundPackets.h"
 
 void WorldSession::SendBfInvitePlayerToWar(uint64 const& queueID, uint32 areaID, uint32 pTime)

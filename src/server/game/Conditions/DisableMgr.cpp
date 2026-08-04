@@ -16,6 +16,7 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "World.h"
 #include "DisableMgr.h"
 #include "ObjectMgr.h"
 #include "OutdoorPvP.h"

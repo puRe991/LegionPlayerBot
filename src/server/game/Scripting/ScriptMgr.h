@@ -19,6 +19,13 @@
 #ifndef SC_SCRIPTMGR_H
 #define SC_SCRIPTMGR_H
 
+#include "ObjectGuid.h"
+
+#include <list>
+#include <set>
+#include <string>
+#include <vector>
+
 #include <atomic>
 #include "Common.h"
 #include "Player.h"

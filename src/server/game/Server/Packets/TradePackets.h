@@ -18,6 +18,15 @@
 #ifndef TradePackets_h__
 #define TradePackets_h__
 
+#include "Common.h"
+
+class WorldPacket;
+
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <vector>
+
 #include "Packet.h"
 #include "ItemPackets.h"
 

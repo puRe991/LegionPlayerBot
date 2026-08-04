@@ -18,6 +18,8 @@
 #ifndef _TASK_SCHEDULER_H_
 #define _TASK_SCHEDULER_H_
 
+#include <functional>
+
 #include "Random.h"
 #include "Common.h"
 #include <chrono>

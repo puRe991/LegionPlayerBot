@@ -1,4 +1,6 @@
 
+#include "ObjectAccessor.h"
+#include "SpellMgr.h"
 #include "BotDruidAI.h"
 #include "Group.h"
 #include "BotBGAIMovement.h"
@@ -137,7 +139,7 @@ bool BotDruidAI::NeedFlee()
 		return true;
 	if (m_BotTalentType == 1)
 		return m_NeedFlee.TargetHasFleeAura();
-	NearUnitVec& nearEnemys = RangeEnemyListByTargetIsMe(NEEDFLEE_CHECKRANGE);
+	NearUnitVec nearEnemys = RangeEnemyListByTargetIsMe(NEEDFLEE_CHECKRANGE);
 	if (me->InArena())
 	{
 		for (Unit* pUnit : nearEnemys)
@@ -292,7 +294,7 @@ bool BotDruidAI::ProcessNormalSpell()
 
 		if (me->HasAura(m_UseMountID))
 			return false;
-		NearUnitVec& needHealthPlayers = SearchNeedHealth(BOTAI_RANGESPELL_DISTANCE);
+		NearUnitVec needHealthPlayers = SearchNeedHealth(BOTAI_RANGESPELL_DISTANCE);
 		if (needHealthPlayers.empty())
 		{
 			SwitchStatus(0);
@@ -328,7 +330,7 @@ void BotDruidAI::ProcessHealthSpell(Unit* pTarget)
 		SwitchStatus(0);
 	if (ProcessActive())
 		return;
-	NearUnitVec& friends = SearchLifePctByFriendRange(pTarget, 70);
+	NearUnitVec friends = SearchLifePctByFriendRange(pTarget, 70);
 	if (friends.size() > 1)
 	{
 		if (m_BotTalentType == 2 && DruidHeal_AOEFerity && TryCastSpell(DruidHeal_AOEFerity, pTarget) == SpellCastResult::SPELL_CAST_OK)
@@ -564,7 +566,7 @@ bool BotDruidAI::ProcessArenaHealthMember()
 		return false;
 	float minLife = 100;
 	Unit* minLifeUnit = NULL;
-	NearUnitVec& friends = SearchFriend(BOTAI_RANGESPELL_DISTANCE);
+	NearUnitVec friends = SearchFriend(BOTAI_RANGESPELL_DISTANCE);
 	for (Unit* pUnit : friends)
 	{
 		float healPct = pUnit->GetHealthPct();
@@ -603,13 +605,13 @@ void BotDruidAI::ProcessBalanceCombat(Unit* pTarget)
 	if (!pTarget->HasAura(DruidAssist_PersonSpirit) && TryCastSpell(DruidAssist_PersonSpirit, pTarget) == SpellCastResult::SPELL_CAST_OK)
 		return;
 
-	NearUnitVec& rangeEnemy = RangeEnemyListByHasAura(0, BOTAI_RANGESPELL_DISTANCE);
+	NearUnitVec rangeEnemy = RangeEnemyListByHasAura(0, BOTAI_RANGESPELL_DISTANCE);
 	if (m_BotTalentType == 0 && DruidAOE_FallStar && rangeEnemy.size() > 3)
 	{
 		if (TryCastSpell(DruidAOE_FallStar, me) == SpellCastResult::SPELL_CAST_OK)
 			return;
 	}
-	NearUnitVec& targetRangeEnemy = RangeEnemyListByTargetRange(pTarget, NEEDFLEE_CHECKRANGE);
+	NearUnitVec targetRangeEnemy = RangeEnemyListByTargetRange(pTarget, NEEDFLEE_CHECKRANGE);
 	if (targetRangeEnemy.size() > 5)
 	{
 		if (m_BotTalentType == 0 && DruidGuard_TreeMan && TryCastSpell(DruidGuard_TreeMan, me) == SpellCastResult::SPELL_CAST_OK)
@@ -646,7 +648,7 @@ bool BotDruidAI::ProcessActive()
 	}
 	if (!me->InArena())
 		return false;
-	NearUnitVec& friends = SearchFriend();
+	NearUnitVec friends = SearchFriend();
 	for (Unit* pUnit : friends)
 	{
 		uint32 maxMana = pUnit->GetMaxPower(POWER_MANA);
@@ -702,7 +704,7 @@ bool BotDruidAI::TryStartControlCommand()
 		m_CruxControlTarget = ObjectGuid::Empty;
 		return false;
 	}
-	NearUnitVec& friends = SearchFriend();
+	NearUnitVec friends = SearchFriend();
 	for (Unit* pUnit : friends)
 	{
 		Player* pPlayer = pUnit->ToPlayer();
@@ -902,7 +904,7 @@ bool BotDruidAI::ProcessControl(Unit* pTarget)
 {
 	if (!CanAttackSpell())
 		return false;
-	NearUnitVec& rangeEnemy = RangeEnemyListByHasAura(0, BOTAI_RANGESPELL_DISTANCE);
+	NearUnitVec rangeEnemy = RangeEnemyListByHasAura(0, BOTAI_RANGESPELL_DISTANCE);
 	for (Unit* player : rangeEnemy)
 	{
 		if (player == pTarget)// || player->GetTarget() != me->GetGUID())
@@ -935,7 +937,7 @@ bool BotDruidAI::ProcessControl(Unit* pTarget)
 
 void BotDruidAI::OnCastSneak()
 {
-	NearUnitVec& enemys = RangeEnemyListByTargetIsMe(BOTAI_SEARCH_RANGE);
+	NearUnitVec enemys = RangeEnemyListByTargetIsMe(BOTAI_SEARCH_RANGE);
 	for (Unit* player : enemys)
 	{
 		player->SetTarget(ObjectGuid::Empty);

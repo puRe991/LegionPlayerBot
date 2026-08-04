@@ -18,6 +18,15 @@
 #ifndef ClientConfigPackets_h__
 #define ClientConfigPackets_h__
 
+class WorldPacket;
+
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <list>
+#include <string>
+#include <vector>
+
 #include "Packet.h"
 #include "WorldSession.h"
 

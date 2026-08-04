@@ -1,4 +1,5 @@
 
+#include "ObjectMgr.h"
 #include "BotGroupClassAI.h"
 #include "BotBGAIMovement.h"
 #include "Item.h"
@@ -192,7 +193,7 @@ bool GroupRogueAI::ProcessSneakSpell(Unit* pTarget)
 	if (!pTarget || !me->HasAura(RogueGuard_Sneak))
 		return false;
 	Unit* pNoSappedUnit = HasAuraMechanic(pTarget, Mechanics::MECHANIC_SAPPED) ? NULL : pTarget;
-	NearUnitVec& enemys = RangeEnemyListByHasAura(0, NEEDFLEE_CHECKRANGE);
+	NearUnitVec enemys = RangeEnemyListByHasAura(0, NEEDFLEE_CHECKRANGE);
 	for (Unit* player : enemys)
 	{
 		if (player == pTarget || player->isInCombat())
@@ -231,7 +232,7 @@ bool GroupRogueAI::ProcessSneakSpell(Unit* pTarget)
 
 bool GroupRogueAI::ProcessMeleeBlind(Unit* pTarget)
 {
-	NearUnitVec& enemys = RangeEnemyListByTargetIsMe(NEEDFLEE_CHECKRANGE);
+	NearUnitVec enemys = RangeEnemyListByTargetIsMe(NEEDFLEE_CHECKRANGE);
 	for (Unit* player : enemys)
 	{
 		if (player == pTarget || !CanBlind(pTarget))
@@ -266,7 +267,7 @@ void GroupRogueAI::ProcessMeleeSpell(Unit* pTarget)
 		return;
 	if (ProcessMeleeBlind(pTarget))
 		return;
-	NearUnitVec& enemys = RangeEnemyListByTargetIsMe(NEEDFLEE_CHECKRANGE);
+	NearUnitVec enemys = RangeEnemyListByTargetIsMe(NEEDFLEE_CHECKRANGE);
 	if (enemys.size() > 1 && TryCastSpell(RogueGuard_Dodge, me) == SpellCastResult::SPELL_CAST_OK)
 		return;
 	if (RangeEnemyListByNonAura(0, NEEDFLEE_CHECKRANGE).size() > 2)
@@ -404,7 +405,7 @@ void GroupRogueAI::ProcessFlee()
 
 	if (CastCloakByNeed())
 		return;
-	NearUnitVec& enemys = RangeEnemyListByTargetIsMe(NEEDFLEE_CHECKRANGE);
+	NearUnitVec enemys = RangeEnemyListByTargetIsMe(NEEDFLEE_CHECKRANGE);
 	for (Unit* player : enemys)
 	{
 		if (!HasAuraMechanic(player, Mechanics::MECHANIC_CHARM) && !HasAuraMechanic(player, Mechanics::MECHANIC_DISORIENTED))
@@ -503,7 +504,7 @@ bool GroupRogueAI::CanStartSpell()
 
 void GroupRogueAI::OnCastSneak()
 {
-	NearUnitVec& enemys = RangeEnemyListByTargetIsMe(BOTAI_SEARCH_RANGE);
+	NearUnitVec enemys = RangeEnemyListByTargetIsMe(BOTAI_SEARCH_RANGE);
 	for (Unit* player : enemys)
 	{
 		player->SetTarget(ObjectGuid::Empty);
@@ -514,7 +515,7 @@ void GroupRogueAI::OnCastSneak()
 void GroupRogueAI::OnCastFlash(Unit* pTarget)
 {
 	me->GetMotionMaster()->Clear();
-	Position& pos = pTarget->GetPosition();
+	Position pos = pTarget->GetPosition();
 	me->TeleportTo(me->GetMapId(), pos.GetPositionX(), pos.GetPositionY(), pos.GetPositionZ(), me->GetOrientation());
 	WorldSession* pSession = me->GetSession();
 

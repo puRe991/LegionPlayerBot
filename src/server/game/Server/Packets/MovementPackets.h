@@ -18,6 +18,16 @@
 #ifndef MovementPackets_h__
 #define MovementPackets_h__
 
+#include "Position.h"
+#include "Common.h"
+
+class WorldPacket;
+
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <vector>
+
 #include "Packet.h"
 #include "Object.h"
 
@@ -310,15 +320,8 @@ namespace WorldPackets
             uint8 PreloadWorld = 0;
         };
 
-        struct MovementForce
-        {
-            ObjectGuid ID;
-            TaggedPosition<Position::XYZ> Direction;
-            TaggedPosition<Position::XYZ> TransportPosition;
-            uint32 TransportID = 0;
-            float Magnitude = 0.0f;
-            uint8 Type = 0;
-        };
+        // MovementForce is defined in MovementInfo.h: MovementInfo stores a map
+        // of them by value and therefore needs the complete type.
 
         class MoveUpdateTeleport final : public ServerPacket
         {

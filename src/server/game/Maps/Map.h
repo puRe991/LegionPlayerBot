@@ -18,6 +18,20 @@
 
 #ifndef TRINITY_MAP_H
 #define TRINITY_MAP_H
+#include "Position.h"
+
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <atomic>
+#include <functional>
+#include <list>
+#include <map>
+#include <set>
+#include <string>
+#include <unordered_map>
+#include <vector>
+#include <memory>
 
 #include <bitset>
 

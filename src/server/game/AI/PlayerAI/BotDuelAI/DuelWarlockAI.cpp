@@ -1,4 +1,5 @@
 
+#include "ObjectMgr.h"
 #include "BotDuelClassAI.h"
 #include "PlayerBotSession.h"
 #include "Pet.h"

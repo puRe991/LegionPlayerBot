@@ -19,6 +19,8 @@
 #ifndef TRINITY_TARGETEDMOVEMENTGENERATOR_H
 #define TRINITY_TARGETEDMOVEMENTGENERATOR_H
 
+#include "Define.h"
+
 #include "MovementGenerator.h"
 #include "FollowerReference.h"
 #include "Timer.h"

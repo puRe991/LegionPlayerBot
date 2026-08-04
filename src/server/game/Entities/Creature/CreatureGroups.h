@@ -19,6 +19,14 @@
 #ifndef _FORMATIONS_H
 #define _FORMATIONS_H
 
+class Unit;
+
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <map>
+#include <unordered_map>
+
 class Creature;
 class CreatureGroup;
 

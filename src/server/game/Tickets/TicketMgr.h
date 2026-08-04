@@ -17,6 +17,14 @@
 
 #ifndef _TICKETMGR_H
 #define _TICKETMGR_H
+#include "Containers.h"
+#include "ObjectAccessor.h"
+
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <map>
+#include <string>
 
 #include "ObjectMgr.h"
 

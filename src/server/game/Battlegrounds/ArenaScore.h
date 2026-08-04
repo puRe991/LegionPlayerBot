@@ -18,6 +18,11 @@
 #ifndef TRINITY_ARENA_SCORE_H
 #define TRINITY_ARENA_SCORE_H
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <vector>
+
 #include "BattlegroundScore.h"
 
 struct ArenaScore : BattlegroundScore

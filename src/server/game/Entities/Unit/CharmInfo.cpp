@@ -15,6 +15,9 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "Transport.h"
+#include "SpellMgr.h"
+#include "Creature.h"
 #include "CharmInfo.h"
 #include "Unit.h"
 #include "MoveSpline.h"

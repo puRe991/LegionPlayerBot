@@ -20,6 +20,8 @@
     \ingroup world
 */
 
+#include "Containers.h"
+#include "ObjectAccessor.h"
 #include <atomic>
 #include <boost/algorithm/string.hpp>
 
@@ -116,11 +118,11 @@
 #include "PlayerBotTalkMgr.h"
 #include "AIWaypointsMgr.h"
 #include "WorldSocket.h"
-#include "Json.h"
+#include "json.h"
 #include "PathfindingMgr.h"
 #include "BotGroupAI.h"
 
-#include "..\..\src\server\scripts\Custom\_Bot.h"
+#include "../../scripts/Custom/_Bot.h"
 uint8 World::m_ExitCode = SHUTDOWN_EXIT_CODE;
 std::atomic<uint32> World::m_worldLoopCounter(0);
 
@@ -1395,6 +1397,28 @@ void World::LoadConfigSettings(bool reload)
 
     m_int_configs[CONFIG_BLACKMARKET_MAXAUCTIONS] = sConfigMgr->GetIntDefault("BlackMarket.MaxAuctions", 12);
     m_int_configs[CONFIG_BLACKMARKET_UPDATE_PERIOD] = sConfigMgr->GetIntDefault("BlackMarket.UpdatePeriod", 24);
+
+    // Playerbots
+    m_bool_configs[CONFIG_PLAYERBOT_ENABLE] = sConfigMgr->GetBoolDefault("PlayerBot.Enable", true);
+    m_bool_configs[CONFIG_PLAYERBOT_ACCOUNT_ALL] = sConfigMgr->GetBoolDefault("PlayerBot.AccountAll", true);
+    m_int_configs[CONFIG_PLAYERBOT_MAX_ONLINE] = sConfigMgr->GetIntDefault("PlayerBot.MaxOnline", 10);
+    if (m_int_configs[CONFIG_PLAYERBOT_MAX_ONLINE] > 500)
+    {
+        TC_LOG_ERROR(LOG_FILTER_SERVER_LOADING, "PlayerBot.MaxOnline (%i) must be between 0 and 500. Using 500 instead.", m_int_configs[CONFIG_PLAYERBOT_MAX_ONLINE]);
+        m_int_configs[CONFIG_PLAYERBOT_MAX_ONLINE] = 500;
+    }
+    m_int_configs[CONFIG_PLAYERBOT_LOOT_NEEDROLL] = sConfigMgr->GetIntDefault("PlayerBot.Loot.NeedRoll", 2);
+    if (m_int_configs[CONFIG_PLAYERBOT_LOOT_NEEDROLL] > 2)
+    {
+        TC_LOG_ERROR(LOG_FILTER_SERVER_LOADING, "PlayerBot.Loot.NeedRoll (%i) must be 0, 1 or 2. Using 2 instead.", m_int_configs[CONFIG_PLAYERBOT_LOOT_NEEDROLL]);
+        m_int_configs[CONFIG_PLAYERBOT_LOOT_NEEDROLL] = 2;
+    }
+    m_int_configs[CONFIG_PLAYERBOT_LOOT_MINQUALITY] = sConfigMgr->GetIntDefault("PlayerBot.Loot.MinQuality", ITEM_QUALITY_UNCOMMON);
+    if (m_int_configs[CONFIG_PLAYERBOT_LOOT_MINQUALITY] >= MAX_ITEM_QUALITY)
+    {
+        TC_LOG_ERROR(LOG_FILTER_SERVER_LOADING, "PlayerBot.Loot.MinQuality (%i) is out of range. Using %i instead.", m_int_configs[CONFIG_PLAYERBOT_LOOT_MINQUALITY], ITEM_QUALITY_UNCOMMON);
+        m_int_configs[CONFIG_PLAYERBOT_LOOT_MINQUALITY] = ITEM_QUALITY_UNCOMMON;
+    }
 
     // call ScriptMgr if we're reloading the configuration
     m_bool_configs[CONFIG_WINTERGRASP_ENABLE] = sConfigMgr->GetBoolDefault("Wintergrasp.Enable", false);

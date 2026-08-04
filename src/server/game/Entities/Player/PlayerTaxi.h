@@ -1,6 +1,11 @@
 #ifndef __PLAYERTAXI_H__
 #define __PLAYERTAXI_H__
 
+#include "Define.h"
+#include <deque>
+#include <string>
+#include <vector>
+
 #include "WorldSession.h"
 
 class PlayerTaxi

@@ -2,6 +2,9 @@
 #ifndef MovementInfo_h__
 #define MovementInfo_h__
 
+#include "Define.h"
+#include <map>
+
 #include "ObjectGuid.h"
 #include "Position.h"
 
@@ -9,7 +12,15 @@ namespace  WorldPackets
 {
     namespace  Movement
     {
-        struct MovementForce;
+        struct MovementForce
+        {
+            ObjectGuid ID;
+            TaggedPosition<Position::XYZ> Direction;
+            TaggedPosition<Position::XYZ> TransportPosition;
+            uint32 TransportID = 0;
+            float Magnitude = 0.0f;
+            uint8 Type = 0;
+        };
     }
 }
 

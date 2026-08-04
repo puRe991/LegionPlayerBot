@@ -8,6 +8,8 @@
 
 #pragma once
 
+#include <vector>
+
 #include "Common.h"
 
 struct BattlePetAbilityEffectEntry;

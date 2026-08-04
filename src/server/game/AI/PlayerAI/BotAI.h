@@ -2,6 +2,15 @@
 #ifndef _BOT_AI_H_
 #define _BOT_AI_H_
 
+#include "ObjectGuid.h"
+
+#include "Define.h"
+#include <list>
+#include <map>
+#include <set>
+#include <string>
+#include <vector>
+
 #include "BotAITool.h"
 #include "AIWaypointsMgr.h"
 #include "SpellMgr.h"
@@ -47,7 +56,7 @@ public:
 	void UpdateAI(uint32 diff) override;
 	virtual void UpdateBotAI(uint32 diff);
 	virtual void ResetBotAI();
-	void SetTeleport(Position& telePos) { m_Teleporting.SetTeleport(telePos); }
+	void SetTeleport(const Position& telePos) { m_Teleporting.SetTeleport(telePos); }
 	void ReadyBattleground();
 	void StartBattleground() { m_AIBGStateType = BotAIBGState::AIBGState_Start; }
 	void LeaveBattleground() { m_AIBGStateType = BotAIBGState::AIBGState_Leave; }

@@ -16,6 +16,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "Containers.h"
+#include "World.h"
 #include "ArenaAll.h"
 #include "ArenaAshamanesFall.h"
 #include "ArenaBlackrookHold.h"
@@ -48,7 +50,7 @@
 #include "BrawlBattlegroundSouthshoreVsTarrenMill.h"
 #include "GameEventMgr.h"
 #include "BrawlBattlegroundShadoPan.h"
-#include "..\..\src\server\game\Maps\MapManager.h"
+#include "MapManager.h"
 
 QueueSchedulerItem::QueueSchedulerItem(uint32 MMRating, uint8 joinType, uint8 bgQueueTypeId, uint16 bgTypeId, uint8 bracketid, Roles role, uint8 bracket_MinLevel) : MatchMakingRating(MMRating), BgTypeID(bgTypeId), _role(role), JoinType(joinType), BgQueueTypeID(bgQueueTypeId), BracketMinLevel(bracket_MinLevel), BracketID(bracketid)
 {

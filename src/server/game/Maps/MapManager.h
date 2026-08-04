@@ -19,6 +19,8 @@
 #ifndef TRINITY_MAPMANAGER_H
 #define TRINITY_MAPMANAGER_H
 
+#include <vector>
+
 #include "Common.h"
 #include "Map.h"
 #include "Position.h"

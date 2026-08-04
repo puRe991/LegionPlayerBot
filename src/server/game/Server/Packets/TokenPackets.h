@@ -18,6 +18,11 @@
 #ifndef TokenPackets_h__
 #define TokenPackets_h__
 
+class WorldPacket;
+
+#include "Define.h"
+#include <vector>
+
 #include "Packet.h"
 
 namespace WorldPackets
