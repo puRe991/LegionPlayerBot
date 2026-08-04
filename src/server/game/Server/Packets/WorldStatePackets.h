@@ -18,6 +18,8 @@
 #ifndef WorldStatePackets_h__
 #define WorldStatePackets_h__
 
+#include "WorldStates.h"
+
 class WorldPacket;
 
 #include "Define.h"
