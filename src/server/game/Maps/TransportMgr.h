@@ -17,6 +17,8 @@
 
 #ifndef TRANSPORTMGR_H
 #define TRANSPORTMGR_H
+
+#include <G3D/Quat.h>
 #include "Containers.h"
 
 #include "Define.h"

@@ -2992,3 +2992,55 @@ QuestPOI.DisableErrors = 1
 #
 ###################################################################################################
 
+
+###################################################################################################
+# PLAYERBOT SETTINGS
+#
+#    PlayerBot.Enable
+#       Description: Master switch for the playerbot subsystem. When disabled, no bot accounts are
+#                    created, no bots are logged in and battlegrounds and arenas are not filled.
+#       Default:     1 - (Enabled)
+#                    0 - (Disabled)
+
+PlayerBot.Enable = 1
+
+#
+#    PlayerBot.MaxOnline
+#       Description: Upper bound on how many bots may be online at the same time, counting both
+#                    factions. The manager brings at most one bot online per update tick, so a
+#                    large battleground takes a while to fill.
+#       Default:     10
+#       Range:       0 - 500
+
+PlayerBot.MaxOnline = 10
+
+#
+#    PlayerBot.AccountAll
+#       Description: Whether account bots (bots tied to a real player's account, used for the
+#                    group and friend list features) may be created alongside the shared pool.
+#       Default:     1 - (Enabled)
+#                    0 - (Disabled)
+
+PlayerBot.AccountAll = 1
+
+#
+#    PlayerBot.Loot.NeedRoll
+#       Description: How bots answer group loot rolls.
+#       Default:     2 - (Need on gear that suits the bot's class and specialisation and beats
+#                        what it currently has equipped, greed on anything else it may use,
+#                        pass otherwise)
+#                    1 - (Never roll need, greed on everything)
+#                    0 - (Always pass)
+
+PlayerBot.Loot.NeedRoll = 2
+
+#
+#    PlayerBot.Loot.MinQuality
+#       Description: Lowest item quality a bot will roll need on. Below this it greeds.
+#       Default:     2 - (Uncommon)
+#       Range:       0 (Poor) - 7 (Heirloom)
+
+PlayerBot.Loot.MinQuality = 2
+
+#
+###################################################################################################
