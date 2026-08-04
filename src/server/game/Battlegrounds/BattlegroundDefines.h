@@ -2,6 +2,8 @@
 #ifndef __BattlegroundDefinesH
 #define __BattlegroundDefinesH
 
+#include "SharedDefines.h"
+
 #include "Define.h"
 
 namespace MS

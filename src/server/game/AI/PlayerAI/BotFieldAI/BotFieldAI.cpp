@@ -237,7 +237,7 @@ void BotFieldAI::SetWarfareTarget(Unit* pTarget)
 		m_WarfareTargetID = ObjectGuid::Empty;
 }
 
-void BotFieldAI::SetCruxMovement(Position& pos)
+void BotFieldAI::SetCruxMovement(const Position& pos)
 {
 	me->SetSelection(ObjectGuid::Empty);
 	m_CruxMovement.SetMovement(pos);

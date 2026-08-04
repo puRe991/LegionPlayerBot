@@ -424,7 +424,7 @@ void PlayerBotMgr::InitializeCreatePlayerBotName()
         do
         {
             Field* fields = result->Fetch();
-            std::string& dbName = fields[0].GetString();
+            std::string dbName = fields[0].GetString();
             if (dbName.size() > 0)
                 allName.push_back(dbName);
         } while (result->NextRow());
@@ -438,7 +438,7 @@ void PlayerBotMgr::InitializeCreatePlayerBotName()
         do
         {
             Field* fields = result2->Fetch();
-            std::string& dbName = fields[0].GetString();
+            std::string dbName = fields[0].GetString();
             if (dbName.size() > 0)
                 allArenaName.push_back(dbName);
         } while (result2->NextRow());

@@ -45,7 +45,7 @@ public:
 	void SetTeleport(uint32 mapID, Position& telePos) { m_Teleporting.SetTeleport(mapID, telePos); }
 	void UpdateTeleport(uint32 diff) { m_Teleporting.Update(diff, m_Movement); }
 	bool HasCruxMovement() { return m_CruxMovement.HasCruxMovement(); }
-	void SetCruxMovement(Position& pos);
+	void SetCruxMovement(const Position& pos);
 	bool IsNotSelect(Unit* pTarget);
 	bool IsIDLEBot();
 	virtual void OnLevelUp(uint32 talentType) {}

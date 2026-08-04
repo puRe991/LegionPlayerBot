@@ -18,6 +18,10 @@
 #ifndef PacketUtilities_h__
 #define PacketUtilities_h__
 
+#include "Errors.h"
+#include "Util.h"
+#include <sstream>
+
 #include "Define.h"
 #include <vector>
 

@@ -50,7 +50,7 @@ public:
 	void SetTeleportToMaster() { m_Teleporting.SetTeleport(m_MasterPlayer, 0); }
 	void UpdateTeleport(uint32 diff) { m_Teleporting.Update(diff, m_Movement); }
 	void ClearCruxMovement();
-	void SetCruxMovement(Position& pos) { me->SetSelection(ObjectGuid::Empty); m_CruxMovement.SetMovement(pos); }
+	void SetCruxMovement(const Position& pos) { me->SetSelection(ObjectGuid::Empty); m_CruxMovement.SetMovement(pos); }
 	void RndCruxMovement(float dist = 12.0f) { m_CruxMovement.RandomMovement(dist); }
 	void AddTankTarget(Creature* pCreature);
 	void ClearTankTarget() { m_TankTargets.ClearTarget(); }

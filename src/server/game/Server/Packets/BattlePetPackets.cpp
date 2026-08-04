@@ -15,6 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "Realm.h"
+#include "World.h"
 #include "BattlePetPackets.h"
 #include "WowTime.hpp"
 

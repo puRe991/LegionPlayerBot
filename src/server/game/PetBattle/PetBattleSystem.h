@@ -8,15 +8,18 @@
 
 #pragma once
 
-class Player;
-
-#include "ObjectGuid.h"
-
-#include <map>
 #ifndef _PetBattleSystem
 #define _PetBattleSystem
 
 #include "Common.h"
+#include "ObjectGuid.h"
+#include "Timer.h"
+
+#include <map>
+
+class Player;
+class PetBattle;
+struct PetBattleRequest;
 
 enum eBattlePetRequests
 {

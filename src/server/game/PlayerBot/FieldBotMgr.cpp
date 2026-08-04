@@ -765,7 +765,7 @@ void FieldBotMgr::TeleportToTargetVisible(BotFieldAI* pFieldAI, Player* pTarget)
 		float farDist = BOTAI_FIELDTELEPORT_DISTANCE * 1.2f;
 		for (float angle = 0.0f; angle < (float(M_PI) * 2.0f); angle += onceAngle)
 		{
-			Position& pos = pTarget->GetFirstCollisionPosition(farDist, angle);
+			Position pos = pTarget->GetFirstCollisionPosition(farDist, angle);
 			float posDist = pTarget->GetDistance(pos);
 			if (posDist < farDist * 0.25f)
 				continue;
@@ -896,7 +896,7 @@ continue;
 
 	if (GetMaxNearPlayer() > nearAlliance)
 	{
-		FIELDAI_LIST& allianceBots = FieldBotMgr::GetAllFieldBotPlayer(TEAM_ALLIANCE);
+		FIELDAI_LIST allianceBots = FieldBotMgr::GetAllFieldBotPlayer(TEAM_ALLIANCE);
 		while (!allianceBots.empty())
 		{
 			BotFieldAI* pFieldAI = (*allianceBots.begin());
@@ -912,7 +912,7 @@ continue;
 	}
 	if (GetMaxNearPlayer() > nearHorde)
 	{
-		FIELDAI_LIST& hordeBots = FieldBotMgr::GetAllFieldBotPlayer(TEAM_HORDE);
+		FIELDAI_LIST hordeBots = FieldBotMgr::GetAllFieldBotPlayer(TEAM_HORDE);
 		while (!hordeBots.empty())
 		{
 			BotFieldAI* pFieldAI = (*hordeBots.begin());
