@@ -452,6 +452,34 @@ bool PlayerBotSetting::IsBetterEquip(Player* player, const ItemTemplate* itemTem
 	return false;
 }
 
+uint8 PlayerBotSetting::DecideLootRoll(Player* bot, uint32 itemID, int32 rndPropID, uint8 rollVoteMask)
+{
+	if (!bot)
+		return ROLL_PASS;
+
+	uint32 const behaviour = sWorld->getIntConfig(CONFIG_PLAYERBOT_LOOT_NEEDROLL);
+	if (behaviour == PLAYERBOT_LOOT_ALWAYS_PASS)
+		return ROLL_PASS;
+
+	const ItemTemplate* itemTemplate = sObjectMgr->GetItemTemplate(itemID);
+	if (!itemTemplate)
+		return ROLL_PASS;
+
+	bool const mayNeed = (rollVoteMask & ROLL_FLAG_TYPE_NEED) != 0;
+	bool const mayGreed = (rollVoteMask & ROLL_FLAG_TYPE_GREED) != 0;
+
+	// Need is only for gear the bot can actually wear, that suits its class and
+	// current specialisation, and that beats what it has equipped in that slot.
+	// IsBetterEquip covers all of that, including the required level and the
+	// random property suffix.
+	if (behaviour == PLAYERBOT_LOOT_NEED_ON_UPGRADE && mayNeed &&
+		itemTemplate->GetQuality() >= sWorld->getIntConfig(CONFIG_PLAYERBOT_LOOT_MINQUALITY) &&
+		IsBetterEquip(bot, itemTemplate, rndPropID))
+		return ROLL_NEED;
+
+	return mayGreed ? ROLL_GREED : ROLL_PASS;
+}
+
 void PlayerBotSetting::ClearUnknowMount(Player* player)
 {
 	for (uint32 mountID : normalMountSpells)

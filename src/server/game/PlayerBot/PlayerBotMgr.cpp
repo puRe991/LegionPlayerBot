@@ -759,6 +759,10 @@ void PlayerBotMgr::LoadPlayerBotBaseInfo()
 {
     uint32 oldMSTime = getMSTime();
 
+    // The online limit used to be fixed at construction time. Pick it up from
+    // the configuration here, which runs after the config has been read.
+    m_MaxOnlineBot = int32(sWorld->getIntConfig(CONFIG_PLAYERBOT_MAX_ONLINE));
+
     ClearBaseInfo();
     QueryResult result = LoginDatabase.Query("SELECT id, username, sha_pass_hash FROM account");
     if (!result)

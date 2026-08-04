@@ -13,6 +13,14 @@
 #include "DatabaseEnv.h"
 #include "Player.h"
 
+// Values of the PlayerBot.Loot.NeedRoll config option.
+enum PlayerBotLootBehaviour
+{
+	PLAYERBOT_LOOT_ALWAYS_PASS    = 0,
+	PLAYERBOT_LOOT_GREED_ONLY     = 1,
+	PLAYERBOT_LOOT_NEED_ON_UPGRADE = 2
+};
+
 typedef std::vector<const ItemTemplate*> BotItems;
 class ItemsForLevel
 {
@@ -64,6 +72,8 @@ public:
 	static bool MatchEquipmentSlot(uint8 pos, const ItemTemplate* itemTemplate);
 	static uint32 GetItemLevelByAI(const ItemTemplate* item);
 	static bool IsBetterEquip(Player* player, const ItemTemplate* itemTemplate, int32 rndPropID);
+	// Decides how a bot answers a group loot roll. Returns a RollType value.
+	static uint8 DecideLootRoll(Player* bot, uint32 itemID, int32 rndPropID, uint8 rollVoteMask);
 	static void ClearUnknowMount(Player* player);
 	static uint32 CheckMaxLevel(uint32 level);
 	static bool IsBotFlyMountAura(uint32 aura);

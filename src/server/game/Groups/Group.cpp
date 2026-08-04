@@ -1327,6 +1327,10 @@ void Group::GroupLoot(Loot* loot, WorldObject* pLootedObject)
                     go->m_groupLootTimer = isRaidGroup() ? RAID_ROLL_TIMER : NORMAL_ROLL_TIMER;
                     go->lootingGroupLowGUID = GetGUID();
                 }
+
+                // Last: this may resolve the roll outright when every voter is a bot,
+                // which destroys it.
+                AnswerBotLootRolls(*r);
             }
             else
                 delete r;
@@ -1386,6 +1390,10 @@ void Group::GroupLoot(Loot* loot, WorldObject* pLootedObject)
                 go->m_groupLootTimer = isRaidGroup() ? RAID_ROLL_TIMER : NORMAL_ROLL_TIMER;
                 go->lootingGroupLowGUID = GetGUID();
             }
+
+            // Last: this may resolve the roll outright when every voter is a bot,
+            // which destroys it.
+            AnswerBotLootRolls(*r);
         }
         else
             delete r;
@@ -1459,6 +1467,41 @@ void Group::DoRollForAllMembers(ObjectGuid guid, uint8 slot, uint32 mapid, Loot*
     }
 
     SendLootStartRoll(mapid, *r);
+}
+
+void Group::AnswerBotLootRolls(Roll const& roll)
+{
+    if (!sWorld->getBoolConfig(CONFIG_PLAYERBOT_ENABLE))
+        return;
+
+    uint8 const aoeSlot = roll.aoeSlot;
+    uint8 const voteMask = roll.rollVoteMask;
+
+    // Decide first, apply afterwards: CountRollVote finishes and destroys the
+    // roll once everyone has answered, so the vote map must not be walked while
+    // votes are being cast.
+    std::vector<std::pair<ObjectGuid, uint8>> decisions;
+    for (auto const& vote : roll.playerVote)
+    {
+        if (vote.second != NOT_EMITED_YET)
+            continue;
+
+        Player* member = ObjectAccessor::FindPlayer(vote.first);
+        if (!member || !member->IsPlayerBot())
+            continue;
+
+        decisions.emplace_back(vote.first, PlayerBotSetting::DecideLootRoll(member, roll.item.ItemID, int32(roll.item.RandomPropertiesID.Id), voteMask));
+    }
+
+    for (auto const& decision : decisions)
+    {
+        // Stop as soon as the roll is gone: the previous vote may have been the
+        // last one outstanding.
+        if (GetRoll(aoeSlot) == RollId.end())
+            break;
+
+        CountRollVote(decision.first, aoeSlot, decision.second);
+    }
 }
 
 void Group::CountRollVote(ObjectGuid playerGUID, uint8 AoeSlot, uint8 Choice)
