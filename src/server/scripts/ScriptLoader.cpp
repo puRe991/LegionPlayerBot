@@ -449,11 +449,15 @@ void AddSC_isle_of_conquest();
 //outland
 void AddSC_boss_exarch_maladaar();           //Auchindoun Auchenai Crypts
 void AddSC_boss_shirrak_the_dead_watcher();
+void AddSC_instance_auchenai_crypts();
 void AddSC_boss_nexusprince_shaffar();       //Auchindoun Mana Tombs
 void AddSC_boss_pandemonius();
+void AddSC_boss_tavarok();
+void AddSC_instance_mana_tombs();
 void AddSC_boss_darkweaver_syth();           //Auchindoun Sekketh Halls
 void AddSC_boss_talon_king_ikiss();
 void AddSC_instance_sethekk_halls();
+void AddSC_boss_anzu();
 void AddSC_instance_shadow_labyrinth();      //Auchindoun Shadow Labyrinth
 void AddSC_boss_ambassador_hellmaw();
 void AddSC_boss_blackheart_the_inciter();
@@ -486,6 +490,9 @@ void AddSC_instance_the_slave_pens();
 void AddSC_the_slave_pens();
 void AddSC_boss_ahune_frost_lord();          //CR Slave Pens
 void AddSC_boss_the_black_stalker();
+void AddSC_boss_ghazan();
+void AddSC_boss_swamplord_muselek();
+void AddSC_instance_the_underbog();
 void AddSC_boss_gruul();                     //Gruul's Lair
 void AddSC_boss_high_king_maulgar();
 void AddSC_instance_gruuls_lair();
@@ -512,6 +519,9 @@ void AddSC_boss_wrath_scryer_soccothrates();
 void AddSC_boss_high_botanist_freywinn();    //TK Botanica
 void AddSC_boss_laj();
 void AddSC_boss_warp_splinter();
+void AddSC_boss_commander_sarannis();
+void AddSC_boss_thorngrin_the_tender();
+void AddSC_instance_the_botanica();
 void AddSC_boss_alar();                      //TK The Eye
 void AddSC_boss_kaelthas();
 void AddSC_boss_void_reaver();
@@ -1577,11 +1587,15 @@ void AddOutlandScripts()
 #ifdef SCRIPTS
     AddSC_boss_exarch_maladaar();           //Auchindoun Auchenai Crypts
     AddSC_boss_shirrak_the_dead_watcher();
+    AddSC_instance_auchenai_crypts();
     AddSC_boss_nexusprince_shaffar();       //Auchindoun Mana Tombs
     AddSC_boss_pandemonius();
+    AddSC_boss_tavarok();
+    AddSC_instance_mana_tombs();
     AddSC_boss_darkweaver_syth();           //Auchindoun Sekketh Halls
     AddSC_boss_talon_king_ikiss();
     AddSC_instance_sethekk_halls();
+    AddSC_boss_anzu();
     AddSC_instance_shadow_labyrinth();      //Auchindoun Shadow Labyrinth
     AddSC_boss_ambassador_hellmaw();
     AddSC_boss_blackheart_the_inciter();
@@ -1614,6 +1628,9 @@ void AddOutlandScripts()
     AddSC_the_slave_pens();
     AddSC_boss_ahune_frost_lord();          //CR The Slave Pens
     AddSC_boss_the_black_stalker();
+    AddSC_boss_ghazan();
+    AddSC_boss_swamplord_muselek();
+    AddSC_instance_the_underbog();
     AddSC_boss_gruul();                     //Gruul's Lair
     AddSC_boss_high_king_maulgar();
     AddSC_instance_gruuls_lair();
@@ -1640,6 +1657,9 @@ void AddOutlandScripts()
     AddSC_boss_high_botanist_freywinn();    //TK Botanica
     AddSC_boss_laj();
     AddSC_boss_warp_splinter();
+    AddSC_boss_commander_sarannis();
+    AddSC_boss_thorngrin_the_tender();
+    AddSC_instance_the_botanica();
     AddSC_boss_alar();                      //TK The Eye
     AddSC_boss_kaelthas();
     AddSC_boss_void_reaver();
