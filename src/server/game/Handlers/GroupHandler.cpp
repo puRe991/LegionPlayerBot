@@ -532,7 +532,7 @@ void WorldSession::HandleDoReadyCheck(WorldPackets::Party::DoReadyCheck& packet)
 
     group->OfflineReadyCheck();
 
-    // bot自动准备
+    // bot鑷姩鍑嗗
     Group::MemberSlotList const& memList = group->GetMemberSlots();
     for (Group::MemberSlot const& slot : memList)
     {

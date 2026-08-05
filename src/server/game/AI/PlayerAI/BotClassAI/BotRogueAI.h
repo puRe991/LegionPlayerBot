@@ -56,46 +56,46 @@ private:
 	uint32 m_BotTalentType;
 	uint8 m_IsUpedPoison;
 
-	uint32 RogueGuard_Sneak;// 1784				Ç±ĞĞ
-	uint32 RogueGuard_ShadowCloak;// 31224		°µÓ°¶·Åñ
-	uint32 RogueGuard_Disappear;// 26889		ÏûÊ§
-	uint32 RogueGuard_Dodge;// 26669			ÉÁ¶ã
-	uint32 RogueGuard_Sprint;// 11305			¼²ÅÜ
+	uint32 RogueGuard_Sneak;// 1784				æ½œè¡Œ
+	uint32 RogueGuard_ShadowCloak;// 31224		æš—å½±æ–—ç¯·
+	uint32 RogueGuard_Disappear;// 26889		æ¶ˆå¤±
+	uint32 RogueGuard_Dodge;// 26669			é—ªèº²
+	uint32 RogueGuard_Sprint;// 11305			ç–¾è·‘
 
-	uint32 RogueSneak_Stick;// 51724			ÃÆ¹÷
-	uint32 RogueSneak_Premeditate;// 14183		Ô¤Ä±(ÃôÈñÏµ)
-	uint32 RogueSneak_Ambush;// 48691			·ü»÷
-	uint32 RogueSneak_Surprise;// 1833			ÍµÏ®
+	uint32 RogueSneak_Stick;// 51724			é—·æ£
+	uint32 RogueSneak_Premeditate;// 14183		é¢„è°‹(æ•é”ç³»)
+	uint32 RogueSneak_Ambush;// 48691			ä¼å‡»
+	uint32 RogueSneak_Surprise;// 1833			å·è¢­
 
-	uint32 RogueAssist_ShadowDance;// 51713		°µÓ°Ö®Îè(ÃôÈñÏµ)
-	uint32 RogueAssist_ShadowFlash;// 36554		°µÓ°²½(ÃôÈñÏµ)
-	uint32 RogueAssist_ReadyCD;// 14185			Ô¤±¸(ÃôÈñÏµ)
-	uint32 RogueAssist_Blind;// 2094			ÖÂÃ¤
-	uint32 RogueAssist_Disarm;// 51722			½ÉĞµ
-	uint32 RogueAssist_NextCrit;// 14177		ÀäÑª next±©»÷(´ÌÉ±Ïµ)
-	uint32 RogueAssist_blood;// 51662			ÏÊÑª Ä¿±êÁ÷ÑªÊ±Ê©·Å(´ÌÉ±Ïµ)
-	uint32 RogueAssist_FastEnergy;// 13750		ÄÜÁ¿¿ìËÙ»Ø¸´(Õ½¶·Ïµ)
-	uint32 RogueAssist_BlockCast;// 1766		½ÅÌß ´ò¶ÏÊ©·¨
-	uint32 RogueAssist_Paralyze;// 1776			Ôä»÷ Ì±»¾Ä¿±ê
-	uint32 RogueAssist_FastSpeed;// 13877		¼Ó¹¥»÷ËÙ¶È20(Õ½¶·Ïµ)
+	uint32 RogueAssist_ShadowDance;// 51713		æš—å½±ä¹‹èˆ(æ•é”ç³»)
+	uint32 RogueAssist_ShadowFlash;// 36554		æš—å½±æ­¥(æ•é”ç³»)
+	uint32 RogueAssist_ReadyCD;// 14185			é¢„å¤‡(æ•é”ç³»)
+	uint32 RogueAssist_Blind;// 2094			è‡´ç›²
+	uint32 RogueAssist_Disarm;// 51722			ç¼´æ¢°
+	uint32 RogueAssist_NextCrit;// 14177		å†·è¡€ nextæš´å‡»(åˆºæ€ç³»)
+	uint32 RogueAssist_blood;// 51662			é²œè¡€ ç›®æ ‡æµè¡€æ—¶æ–½æ”¾(åˆºæ€ç³»)
+	uint32 RogueAssist_FastEnergy;// 13750		èƒ½é‡å¿«é€Ÿå›å¤(æˆ˜æ–—ç³»)
+	uint32 RogueAssist_BlockCast;// 1766		è„šè¸¢ æ‰“æ–­æ–½æ³•
+	uint32 RogueAssist_Paralyze;// 1776			å‡¿å‡» ç˜«ç—ªç›®æ ‡
+	uint32 RogueAssist_FastSpeed;// 13877		åŠ æ”»å‡»é€Ÿåº¦20(æˆ˜æ–—ç³»)
 
-	uint32 RogueAOE_Knife;// 51723				µ¶ÈĞ·ÉÎè
-	uint32 RogueAOE_AllDance;// 51690			¿ñÎèÉ±½Ø(Õ½¶·Ïµ)
+	uint32 RogueAOE_Knife;// 51723				åˆ€åˆƒé£èˆ
+	uint32 RogueAOE_AllDance;// 51690			ç‹‚èˆæ€æˆª(æˆ˜æ–—ç³»)
 
-	uint32 RogueAttack_Blood;// 48660			³öÑª(ÃôÈñÏµ)
-	uint32 RogueAttack_Ghost;// 14278			¹í÷È¹¥»÷(ÃôÈñÏµ) ¹¥»÷ºó+ÉÁ¶ã
-	uint32 RogueAttack_Injure;// 48666			»ÙÉË(´ÌÉ±Ïµ)
-	uint32 RogueAttack_PoisonAtt;// 5938		¶¾ÈĞ
-	uint32 RogueAttack_BackAtt;// 48657			±³´Ì
-	uint32 RogueAttack_EvilAtt;// 48638			Ğ°¶ñ¹¥»÷
+	uint32 RogueAttack_Blood;// 48660			å‡ºè¡€(æ•é”ç³»)
+	uint32 RogueAttack_Ghost;// 14278			é¬¼é­…æ”»å‡»(æ•é”ç³») æ”»å‡»å+é—ªèº²
+	uint32 RogueAttack_Injure;// 48666			æ¯ä¼¤(åˆºæ€ç³»)
+	uint32 RogueAttack_PoisonAtt;// 5938		æ¯’åˆƒ
+	uint32 RogueAttack_BackAtt;// 48657			èƒŒåˆº
+	uint32 RogueAttack_EvilAtt;// 48638			é‚ªæ¶æ”»å‡»
 
-	uint32 RogueAttack_Damage;// 48668			ÌŞ¹Ç
-	uint32 RogueAttack_Separate;// 48672		¸îÁÑ
-	uint32 RogueAttack_Stun;// 8643				Éö»÷
-	uint32 RogueAttack_PoisonDmg;// 57993		¶¾ÉË
-	uint32 RogueRange_Throw;// 48674			ÖÂÃüÍ¶ÖÀ
+	uint32 RogueAttack_Damage;// 48668			å‰”éª¨
+	uint32 RogueAttack_Separate;// 48672		å‰²è£‚
+	uint32 RogueAttack_Stun;// 8643				è‚¾å‡»
+	uint32 RogueAttack_PoisonDmg;// 57993		æ¯’ä¼¤
+	uint32 RogueRange_Throw;// 48674			è‡´å‘½æŠ•æ·
 
-	uint32 RogueFlag_Dance;// 51713				°µÓ°Ö®Îè±ê¼Ç
+	uint32 RogueFlag_Dance;// 51713				æš—å½±ä¹‹èˆæ ‡è®°
 };
 
 #endif // !_BOT_ROGUE_AI_H

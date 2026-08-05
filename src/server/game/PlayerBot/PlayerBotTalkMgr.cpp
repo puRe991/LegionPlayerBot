@@ -199,7 +199,7 @@ bool PlayerBotTalkMgr::IsValidStoryStep(uint32 id, uint32 step)
 std::string PlayerBotTalkMgr::GetDefaultChannelName()
 {
 	std::string defaultChannelName;
-	consoleToUtf8(std::string(" ¿ΩÁ∆µµ¿"), defaultChannelName);
+	defaultChannelName = "World";
 	return defaultChannelName;
 }
 

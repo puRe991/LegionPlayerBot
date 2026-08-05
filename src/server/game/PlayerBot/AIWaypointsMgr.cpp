@@ -4,7 +4,7 @@
 #include "TemporarySummon.h"
 #include "Log.h"
 
-// ÈÓÑ©Çò¼¼ÄÜ 21343
+// æ‰”é›ªçƒæŠ€èƒ½ 21343
 #define AIWP_CREATURE_ENTRY 18593
 
 char AIWaypoint::resolverBuffer[128];

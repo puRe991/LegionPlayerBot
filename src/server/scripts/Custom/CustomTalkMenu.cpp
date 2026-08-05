@@ -65,7 +65,7 @@ void CustomTalkMenu::DisplayMenuToPlayer(Player* player, PlayerMenuState* pState
 			//if (pItem->price > 0)
 			//{
 			//	std::string topText;
-			//	consoleToUtf8(std::string(" Ehre erforderlich "), topText);
+			//	topText = " Honour required ";
 			//	std::string outputText = pItem->name + "|cffff0000 Need Honor |r";
 			//	menu.AddMenuItem(-1, icon, outputText, 0, 0, "", 0);
 			//}
@@ -167,7 +167,7 @@ void CustomTalkMenu::Initialize()
 
 	ClearMenu();
 	//std::string topText;
-	//consoleToUtf8(std::string("--<Erweiterte Funktionen>--"), topText);
+	//topText = "--<Extended features>--";
 	//m_MenuItems[0] = new CustomItem(0, -1, -1, 0, 0, topText, 0, 0, 0, 0, 0, 0);
 	do
 	{
@@ -270,7 +270,7 @@ void CustomTalkMenu::OnSelectMenuItem(Player* player, uint32 index)
 			{
 				DisplayMenuToPlayer(player, pMenu);
 				std::string topText;
-				consoleToUtf8(std::string("Nicht genug Ehrenpunkte!"), topText);
+				topText = "Not enough honour points.";
 				player->Whisper(topText, Language::LANG_COMMON, player->GetGUID());
 				return;
 			}
@@ -533,7 +533,7 @@ bool CustomTalkMenu::ProcessArenaList(CustomItem* pMenuItem, Player* player)
 	
 	{
 		std::string allonlineText;
-		consoleToUtf8(std::string("|cffff8800Ein Mitglied des gewaehlten Arenateams ist gerade beschaeftigt, Herausforderung nicht moeglich.|r"), allonlineText);
+		allonlineText = "|cffff8800A member of the selected arena team is busy; the challenge cannot start.|r";
 		sWorld->SendGlobalText(allonlineText.c_str(), NULL);
 	}
 	return true;

@@ -518,7 +518,7 @@ bool BotDuelAI::IsNotSelect(Unit* pTarget)
 		if (pPlayer->GetVehicleKit())
 			return true;
 	}
-	if (pTarget->HasAura(27827)) // (27827 ¾ÈÊêÖ®»ê ÉñÄÁËÀÍöºó)
+	if (pTarget->HasAura(27827)) // (27827 æ•‘èµŽä¹‹é­‚ ç¥žç‰§æ­»äº¡åŽ)
 		return true;
 	return false;
 }
@@ -1010,9 +1010,9 @@ bool BotDuelAI::TargetIsStealth(Player* pTarget)
 {
 	if (!pTarget)
 		return false;
-	if (pTarget->HasAura(1784) || pTarget->HasAura(5215) || pTarget->HasAura(66)) // (1784 µÁÔôÇ±ÐÐ || 5215 µÂÂ³ÒÁÇ±ÐÐ || 66 ·¨Ê¦ÒþÐÎ)
+	if (pTarget->HasAura(1784) || pTarget->HasAura(5215) || pTarget->HasAura(66)) // (1784 ç›—è´¼æ½œè¡Œ || 5215 å¾·é²ä¼Šæ½œè¡Œ || 66 æ³•å¸ˆéšå½¢)
 	{
-		if (!me->canSeeOrDetect(pTarget, false, true)) // Õì²âÇ±ÐÐ
+		if (!me->canSeeOrDetect(pTarget, false, true)) // ä¾¦æµ‹æ½œè¡Œ
 			return true;
 	}
 	return false;

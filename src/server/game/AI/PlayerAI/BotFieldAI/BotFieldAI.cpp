@@ -291,7 +291,7 @@ bool BotFieldAI::IsNotSelect(Unit* pTarget)
 {
 	if (!pTarget || !pTarget->isAlive())
 		return true;
-	if (pTarget->HasAura(27827)) // (27827 ¾ÈÊêÖ®»ê ÉñÄÁËÀÍöºó)
+	if (pTarget->HasAura(27827)) // (27827 æ•‘èµŽä¹‹é­‚ ç¥žç‰§æ­»äº¡åŽ)
 		return true;
 	return false;
 }
@@ -1454,11 +1454,11 @@ bool BotFieldAI::TargetIsStealth(Player* pTarget)
 {
 	if (!pTarget)
 		return false;
-	// (1784 µÁÔôÇ±ÐÐ || 5215 µÂÂ³ÒÁÇ±ÐÐ || 66 ·¨Ê¦ÒþÐÎ || 58984 °µÒ¹Òþ¶Ý)
+	// (1784 ç›—è´¼æ½œè¡Œ || 5215 å¾·é²ä¼Šæ½œè¡Œ || 66 æ³•å¸ˆéšå½¢ || 58984 æš—å¤œéšé)
 	if (pTarget->HasAura(1784) || pTarget->HasAura(5215) ||
 		pTarget->HasAura(66) || pTarget->HasAura(58984))
 	{
-		if (!me->canSeeOrDetect(pTarget, false, true)) // Õì²âÇ±ÐÐ
+		if (!me->canSeeOrDetect(pTarget, false, true)) // ä¾¦æµ‹æ½œè¡Œ
 			return true;
 	}
 	return false;

@@ -301,7 +301,7 @@ void BotBGAI::ProcessSummonRiteSpell(Player* srcPlayer)
 	if (!m_MovetoUseGO.CanCastSummonRite())
 	{
 		std::string outString;
-		consoleToUtf8(std::string("Ä¿Ç°ÎÞ·¨¿ªÊ¼ÕÙ»½ÒÇÊ½£¡"), outString);
+		outString = "The summoning ritual cannot be started right now.";
 		me->Whisper(outString, Language::LANG_COMMON, srcPlayer->GetGUID());
 		return;
 	}
@@ -310,13 +310,13 @@ void BotBGAI::ProcessSummonRiteSpell(Player* srcPlayer)
 	{
 		m_MovetoUseGO.StartSummonRite(castSpellID);
 		std::string outString;
-		consoleToUtf8(std::string("ÕÙ»½ÒÇÊ½Æô¶¯£¡"), outString);
+		outString = "Summoning ritual started.";
 		me->Whisper(outString, Language::LANG_COMMON, srcPlayer->GetGUID());
 	}
 	else
 	{
 		std::string outString;
-		consoleToUtf8(std::string("Ä¿Ç°ÎÞ·¨¿ªÊ¼ÕÙ»½ÒÇÊ½£¡"), outString);
+		outString = "The summoning ritual cannot be started right now.";
 		me->Whisper(outString, Language::LANG_COMMON, srcPlayer->GetGUID());
 	}
 }
@@ -1866,7 +1866,7 @@ bool BotBGAI::IsNotSelect(Unit* pTarget)
      //   if (!pTarget->IsInWorld())
     //    return true;
 if (pTarget && pTarget->IsInWorld()  && me  && me->IsInWorld())
-	if (pTarget->HasAura(27827)) // (27827 ¾ÈÊêÖ®»ê ÉñÄÁËÀÍöºó)
+	if (pTarget->HasAura(27827)) // (27827 æ•‘èµŽä¹‹é­‚ ç¥žç‰§æ­»äº¡åŽ)
 		return true;
 
 	return false;
@@ -2189,7 +2189,7 @@ void BotBGAI::PushFinishQueue(PathParameter* pathParam)
 
 bool BotBGAI::CanUseBGObject()
 {
-	if (me->HasAura(27827)) // (27827 ¾ÈÊêÖ®»ê ÉñÄÁËÀÍöºó)
+	if (me->HasAura(27827)) // (27827 æ•‘èµŽä¹‹é­‚ ç¥žç‰§æ­»äº¡åŽ)
 		return true;
 	if (HasAuraMechanic(me, Mechanics::MECHANIC_ROOT))
 	{
@@ -2498,11 +2498,11 @@ bool BotBGAI::TargetIsStealth(Player* pTarget)
 {
 	if (!pTarget)
 		return false;
-	// (1784 µÁÔôÇ±ÐÐ || 5215 µÂÂ³ÒÁÇ±ÐÐ || 66 ·¨Ê¦ÒþÐÎ || 58984 °µÒ¹Òþ¶Ý)
+	// (1784 ç›—è´¼æ½œè¡Œ || 5215 å¾·é²ä¼Šæ½œè¡Œ || 66 æ³•å¸ˆéšå½¢ || 58984 æš—å¤œéšé)
 	if (pTarget->HasAura(1784) || pTarget->HasAura(5215) ||
 		pTarget->HasAura(66) || pTarget->HasAura(58984))
 	{
-		if (!me->canSeeOrDetect(pTarget, false, true)) // Õì²âÇ±ÐÐ
+		if (!me->canSeeOrDetect(pTarget, false, true)) // ä¾¦æµ‹æ½œè¡Œ
 			return true;
 	}
 	return false;

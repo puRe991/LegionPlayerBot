@@ -67,64 +67,64 @@ private:
 	uint32 m_SummonFireTotemTick;
 	uint8 m_IsUpedWeapon;
 
-	uint32 ShamanIDLE_LifeWeapon;// 51994		ÉúÃüÎäÆ÷
-	uint32 ShamanIDLE_IceWeapon;// 58796		±ùËªÎäÆ÷
-	uint32 ShamanIDLE_FireWeapon;// 58790		»ğÑæÎäÆ÷
-	uint32 ShamanIDLE_PhyWeapon;// 10399		Ê¯»¯ÎäÆ÷
-	uint32 ShamanIDLE_FastWeapon;// 58804		·çÅ­ÎäÆ÷
+	uint32 ShamanIDLE_LifeWeapon;// 51994		ç”Ÿå‘½æ­¦å™¨
+	uint32 ShamanIDLE_IceWeapon;// 58796		å†°éœœæ­¦å™¨
+	uint32 ShamanIDLE_FireWeapon;// 58790		ç«ç„°æ­¦å™¨
+	uint32 ShamanIDLE_PhyWeapon;// 10399		çŸ³åŒ–æ­¦å™¨
+	uint32 ShamanIDLE_FastWeapon;// 58804		é£æ€’æ­¦å™¨
 
-	uint32 ShamanShield_Earth;// 49284			´óµØÖ®¶Ü(»Ö¸´Ïµ)
-	uint32 ShamanShield_Water;// 57960			Ë®Ö®¶Ü
-	uint32 ShamanShield_Lightning;// 49281		ÉÁµçÖ®¶Ü
+	uint32 ShamanShield_Earth;// 49284			å¤§åœ°ä¹‹ç›¾(æ¢å¤ç³»)
+	uint32 ShamanShield_Water;// 57960			æ°´ä¹‹ç›¾
+	uint32 ShamanShield_Lightning;// 49281		é—ªç”µä¹‹ç›¾
 
-	uint32 ShamanAssist_Frog;// 51514			±äĞÎÇàÍÜ
-	uint32 ShamanAssist_HealCrit;// 55198		next3¼¸ÂÊÖÎÁÆ±©»÷(»Ö¸´Ïµ)
-	uint32 ShamanAssist_MomentHeal;// 16188		nextHealÊ©·¨Ë²·¢(»Ö¸´Ïµ)
-	uint32 ShamanAssist_MomentCast;// 16166		nextCastÊ©·¨Ë²·¢(ÔªËØÏµ)
-	uint32 ShamanAssist_BlockCast;// 57994		´ò¶ÏÊ©·¨
-	uint32 ShamanAssist_Cleansing;// 8012		¾»»¯Ä¿±ê2¸öBUFF
-	uint32 ShamanAssist_FireNova;// 61657		ÈÃ»ğÑæÍ¼ÌÚAOEÒ»´Î
-	uint32 ShamanAssist_Heroic;// 32182			ÈøÂúÓ¢ÓÂ
+	uint32 ShamanAssist_Frog;// 51514			å˜å½¢é’è›™
+	uint32 ShamanAssist_HealCrit;// 55198		next3å‡ ç‡æ²»ç–—æš´å‡»(æ¢å¤ç³»)
+	uint32 ShamanAssist_MomentHeal;// 16188		nextHealæ–½æ³•ç¬å‘(æ¢å¤ç³»)
+	uint32 ShamanAssist_MomentCast;// 16166		nextCastæ–½æ³•ç¬å‘(å…ƒç´ ç³»)
+	uint32 ShamanAssist_BlockCast;// 57994		æ‰“æ–­æ–½æ³•
+	uint32 ShamanAssist_Cleansing;// 8012		å‡€åŒ–ç›®æ ‡2ä¸ªBUFF
+	uint32 ShamanAssist_FireNova;// 61657		è®©ç«ç„°å›¾è…¾AOEä¸€æ¬¡
+	uint32 ShamanAssist_Heroic;// 32182			è¨æ»¡è‹±å‹‡
 
-	uint32 ShamanAtt_StormStrike;// 17364		·ç±©´ò»÷(ÔöÇ¿Ïµ)
-	uint32 ShamanAtt_FireStrike;// 60103		ÈÛÑÒ´ò»÷(ÔöÇ¿Ïµ)
+	uint32 ShamanAtt_StormStrike;// 17364		é£æš´æ‰“å‡»(å¢å¼ºç³»)
+	uint32 ShamanAtt_FireStrike;// 60103		ç†”å²©æ‰“å‡»(å¢å¼ºç³»)
 
-	uint32 ShamanCast_LightningArrow;// 49238	ÉÁµç¼ı
-	uint32 ShamanCast_LightningChain;// 49271	ÉÁµçÁ´
-	uint32 ShamanCast_LightningStorm;// 59159	ÉÁµç·ç±©(ÔªËØÏµ)
-	uint32 ShamanCast_FireThud;// 49233			»ğÑæÕğ»÷
-	uint32 ShamanCast_IceThud;// 49236			±ùËªÕğ»÷
-	uint32 ShamanCast_EarthThud;// 49231		´óµØÕğ»÷
-	uint32 ShamanCast_FireStrike;// 60043		ÈÛÑÒ´ò»÷ Ô¶³Ì·¨Êõ
+	uint32 ShamanCast_LightningArrow;// 49238	é—ªç”µç®­
+	uint32 ShamanCast_LightningChain;// 49271	é—ªç”µé“¾
+	uint32 ShamanCast_LightningStorm;// 59159	é—ªç”µé£æš´(å…ƒç´ ç³»)
+	uint32 ShamanCast_FireThud;// 49233			ç«ç„°éœ‡å‡»
+	uint32 ShamanCast_IceThud;// 49236			å†°éœœéœ‡å‡»
+	uint32 ShamanCast_EarthThud;// 49231		å¤§åœ°éœ‡å‡»
+	uint32 ShamanCast_FireStrike;// 60043		ç†”å²©æ‰“å‡» è¿œç¨‹æ³•æœ¯
 
-	uint32 ShamanHealth_Fast;// 49276			¿ìËÙÖÎÁÆ
-	uint32 ShamanHealth_Bast;// 49273			´óÁ¦ÖÎÁÆ
-	uint32 ShamanHealth_Chain;// 55459			ÖÎÁÆÁ´
-	uint32 ShamanHealth_Torrent;// 61301		¼¤Á÷ Ë²·¢Ğ¡ÖÎÁÆ+³ÖĞøÖÎÁÆ(»Ö¸´Ïµ)
-	uint32 ShamanDispel_Refine;// 51886			ÇıÉ¢
+	uint32 ShamanHealth_Fast;// 49276			å¿«é€Ÿæ²»ç–—
+	uint32 ShamanHealth_Bast;// 49273			å¤§åŠ›æ²»ç–—
+	uint32 ShamanHealth_Chain;// 55459			æ²»ç–—é“¾
+	uint32 ShamanHealth_Torrent;// 61301		æ¿€æµ ç¬å‘å°æ²»ç–—+æŒç»­æ²»ç–—(æ¢å¤ç³»)
+	uint32 ShamanDispel_Refine;// 51886			é©±æ•£
 
-	uint32 ShamanTotem_Recycle;// 36936			»ØÊÕÍ¼ÌÚ
+	uint32 ShamanTotem_Recycle;// 36936			å›æ”¶å›¾è…¾
 
-	uint32 ShamanTotem_Life;// 58757			ÉúÃüÍ¼ÌÚ
-	uint32 ShamanTotem_Mana;// 58774			·¨Á¦Í¼ÌÚ
-	uint32 ShamanTotem_BMana;// 16190			´ó·¨Á¦Í¼ÌÚ
-	uint32 ShamanTotem_NonFear;// 8143			Õ½ÀõÍ¼ÌÚ
-	uint32 ShamanTotem_SummonFire;// 2894		ÕÙ»½»ğÔªËØÍ¼ÌÚ
-	uint32 ShamanTotem_MgcPower;// 57722		·¨ÊõÄÜÁ¿Í¼ÌÚ(ÔªËØÏµ)
-	uint32 ShamanTotem_Attack;// 58704			×ÔÖ÷»ğÑæ¹¥»÷Í¼ÌÚ
-	uint32 ShamanTotem_AOEAttack;// 58734		×ÔÖ÷»ğÑæÈº¹¥Í¼ÌÚ
-	uint32 ShamanTotem_MgcHeal;// 58656			·¨ÊõÄÜÁ¿ºÍÖÎÁÆĞ§¹ûÍ¼ÌÚ
+	uint32 ShamanTotem_Life;// 58757			ç”Ÿå‘½å›¾è…¾
+	uint32 ShamanTotem_Mana;// 58774			æ³•åŠ›å›¾è…¾
+	uint32 ShamanTotem_BMana;// 16190			å¤§æ³•åŠ›å›¾è…¾
+	uint32 ShamanTotem_NonFear;// 8143			æˆ˜æ —å›¾è…¾
+	uint32 ShamanTotem_SummonFire;// 2894		å¬å”¤ç«å…ƒç´ å›¾è…¾
+	uint32 ShamanTotem_MgcPower;// 57722		æ³•æœ¯èƒ½é‡å›¾è…¾(å…ƒç´ ç³»)
+	uint32 ShamanTotem_Attack;// 58704			è‡ªä¸»ç«ç„°æ”»å‡»å›¾è…¾
+	uint32 ShamanTotem_AOEAttack;// 58734		è‡ªä¸»ç«ç„°ç¾¤æ”»å›¾è…¾
+	uint32 ShamanTotem_MgcHeal;// 58656			æ³•æœ¯èƒ½é‡å’Œæ²»ç–—æ•ˆæœå›¾è…¾
 
-	uint32 ShamanTotem_DecMove;// 2484			¼õÒÆ¶¯ËÙ¶ÈÍ¼ÌÚ
-	uint32 ShamanTotem_SummonSoil;// 2062		ÕÙ»½ÍÁÔªËØÍ¼ÌÚ
-	uint32 ShamanTotem_PhyPower;// 58643		Á¦Á¿Ãô½İÍ¼ÌÚ
-	uint32 ShamanTotem_Armor;// 58753			»¤¼×Í¼ÌÚ
+	uint32 ShamanTotem_DecMove;// 2484			å‡ç§»åŠ¨é€Ÿåº¦å›¾è…¾
+	uint32 ShamanTotem_SummonSoil;// 2062		å¬å”¤åœŸå…ƒç´ å›¾è…¾
+	uint32 ShamanTotem_PhyPower;// 58643		åŠ›é‡æ•æ·å›¾è…¾
+	uint32 ShamanTotem_Armor;// 58753			æŠ¤ç”²å›¾è…¾
 
-	uint32 ShamanTotem_AbsorbBuff;// 8177		ÎüÊÕÓĞº¦BUFFÍ¼ÌÚ
-	uint32 ShamanTotem_AttSpeed;// 8512			½üÕ½¹¥»÷ËÙ¶ÈÍ¼ÌÚ
-	uint32 ShamanTotem_MgcSpeed;// 3738			·¨ÊõÊ©·¨ËÙ¶ÈÍ¼ÌÚ
+	uint32 ShamanTotem_AbsorbBuff;// 8177		å¸æ”¶æœ‰å®³BUFFå›¾è…¾
+	uint32 ShamanTotem_AttSpeed;// 8512			è¿‘æˆ˜æ”»å‡»é€Ÿåº¦å›¾è…¾
+	uint32 ShamanTotem_MgcSpeed;// 3738			æ³•æœ¯æ–½æ³•é€Ÿåº¦å›¾è…¾
 
-	uint32 ShamanFlag_NoHeroic;// 57723			ÎŞ·¨giveÓ¢ÓÂ×´Ì¬±êÊ¶
+	uint32 ShamanFlag_NoHeroic;// 57723			æ— æ³•giveè‹±å‹‡çŠ¶æ€æ ‡è¯†
 };
 
 #endif // !_BOT_SHAMAN_AI_H

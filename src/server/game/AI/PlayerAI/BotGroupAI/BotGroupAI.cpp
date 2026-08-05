@@ -397,7 +397,7 @@ void BotGroupAI::ProcessUpequip(Player* srcPlayer, std::string& equipLink)
 		if (msg != EQUIP_ERR_OK)
 		{
 			std::string outString;
-			consoleToUtf8(std::string("Ê§°Ü×°±¸"), outString);
+			outString = "Could not equip that.";
 			me->Whisper(outString, Language::LANG_COMMON, srcPlayer->GetGUID());
 			return;
 		}
@@ -413,7 +413,7 @@ void BotGroupAI::ProcessUpequip(Player* srcPlayer, std::string& equipLink)
 		me->GetSession()->HandleAutoEquipItem(packet);
 	}
 	std::string outString;
-	consoleToUtf8(std::string("³É¹¦×°±¸"), outString);
+	outString = "Equipped.";
 	me->Whisper(outString, Language::LANG_COMMON, srcPlayer->GetGUID());
 }
 
@@ -452,19 +452,19 @@ void BotGroupAI::ProcessUnequip(Player* srcPlayer, std::string& equipLink)
 		if (msg != EQUIP_ERR_OK)
 		{
 			std::string outString;
-			consoleToUtf8(std::string("È¡ÏÂÊ§°Ü"), outString);
+			outString = "Could not unequip that.";
 			me->Whisper(outString, Language::LANG_COMMON, srcPlayer->GetGUID());
 			return;
 		}
 		me->RemoveItem(255, slot, true);
 		me->StoreItem(dest, pItem, true);
 		std::string outString;
-		consoleToUtf8(std::string("³É¹¦È¡ÏÂ"), outString);
+		outString = "Unequipped.";
 		me->Whisper(outString, Language::LANG_COMMON, srcPlayer->GetGUID());
 		return;
 	}
 	std::string outString;
-	consoleToUtf8(std::string("È¡ÏÂÊ§°Ü"), outString);
+	outString = "Could not unequip that.";
 	me->Whisper(outString, Language::LANG_COMMON, srcPlayer->GetGUID());
 }
 
@@ -483,7 +483,7 @@ void BotGroupAI::ProcessDestroyItem(Player* srcPlayer, std::string& equipLink)
 		return;
 	BotUtility::FindItemFromAllBag(me, entry, true);
 	std::string outString;
-	consoleToUtf8(std::string("³É¹¦¶ªµô"), outString);
+	outString = "Discarded.";
 	me->Whisper(outString, Language::LANG_COMMON, srcPlayer->GetGUID());
 }
 
@@ -501,7 +501,7 @@ void BotGroupAI::ProcessTradeItem(Player* srcPlayer, std::string& equipLink)
 	if (entry == 0)
 	{
 		std::string outString;
-		consoleToUtf8(std::string("ÎÒÃ»ÓÐÕâ¸öµÀ¾ß"), outString);
+		outString = "I do not have that item.";
 		me->Whisper(outString, Language::LANG_COMMON, srcPlayer->GetGUID());
 		return;
 	}
@@ -509,7 +509,7 @@ void BotGroupAI::ProcessTradeItem(Player* srcPlayer, std::string& equipLink)
 	if (!pItem)
 	{
 		std::string outString;
-		consoleToUtf8(std::string("ÎÒÃ»ÓÐÕâ¸öµÀ¾ß"), outString);
+		outString = "I do not have that item.";
 		me->Whisper(outString, Language::LANG_COMMON, srcPlayer->GetGUID());
 		return;
 	}
@@ -517,7 +517,7 @@ void BotGroupAI::ProcessTradeItem(Player* srcPlayer, std::string& equipLink)
 	if (!pTrade)
 	{
 		std::string outString;
-		consoleToUtf8(std::string("Ã»ÓÐ¿ªÊ¼½»Ò×"), outString);
+		outString = "No trade is in progress.";
 		me->Whisper(outString, Language::LANG_COMMON, srcPlayer->GetGUID());
 		return;
 	}
@@ -525,7 +525,7 @@ void BotGroupAI::ProcessTradeItem(Player* srcPlayer, std::string& equipLink)
 	if (!pTradePlayer)
 	{
 		std::string outString;
-		consoleToUtf8(std::string("Ã»ÓÐ¿ªÊ¼½»Ò×"), outString);
+		outString = "No trade is in progress.";
 		me->Whisper(outString, Language::LANG_COMMON, srcPlayer->GetGUID());
 		return;
 	}
@@ -538,27 +538,27 @@ void BotGroupAI::ProcessTradeItem(Player* srcPlayer, std::string& equipLink)
 	if (pTrade->HasItem(pItem->GetGUID()))
 	{
 		std::string outString;
-		consoleToUtf8(std::string("Õâ¸öµÀ¾ßÒÑ¾­·ÅÉÏÈ¥ÁË"), outString);
+		outString = "That item is already in the trade window.";
 		me->Whisper(outString, Language::LANG_COMMON, srcPlayer->GetGUID());
 		return;
 	}
 	//if (!pItem->CanBeTraded(false, true))
 	//{
 	//	std::string outString;
-	//	consoleToUtf8(std::string("ÎÞ·¨·ÅÉÏÕâ¸öµÀ¾ß"), outString);
+	//	outString = "That item cannot be put into the trade.";
 	//	me->Whisper(outString, Language::LANG_COMMON, srcPlayer);
 	//	return;
 	//}
 	if (pTrade->SetItemAtNullSlot(pItem, true))
 	{
 		std::string outString;
-		consoleToUtf8(std::string("·ÅÉÏÈ¥ÁË"), outString);
+		outString = "Added to the trade.";
 		me->Whisper(outString, Language::LANG_COMMON, srcPlayer->GetGUID());
 	}
 	else
 	{
 		std::string outString;
-		consoleToUtf8(std::string("Ã»·¨ÔÙ·Å¶«Î÷ÁË"), outString);
+		outString = "No free trade slots left.";
 		me->Whisper(outString, Language::LANG_COMMON, srcPlayer->GetGUID());
 	}
 }
@@ -584,12 +584,12 @@ void BotGroupAI::ProcessUseItem(Player* srcPlayer, std::string& equipLink)
 	if (!me->CastItemUseSpell(pItem, targets, 0, ObjectGuid::Empty))
 	{
 		std::string outString;
-		consoleToUtf8(std::string("Ê§°ÜÊ¹ÓÃ"), outString);
+		outString = "Could not use that.";
 		me->Whisper(outString, Language::LANG_COMMON, srcPlayer->GetGUID());
 		return;
 	}
 	std::string outString;
-	consoleToUtf8(std::string("³É¹¦Ê¹ÓÃ"), outString);
+	outString = "Used.";
 	me->Whisper(outString, Language::LANG_COMMON, srcPlayer->GetGUID());
 }
 
@@ -608,7 +608,7 @@ void BotGroupAI::ProcessTalent(Player* srcPlayer, std::string& talentText)
 	m_HasReset = false;
 
 	std::string outString;
-	consoleToUtf8(std::string("ÇÐ»»Ìì¸³Íê³É"), outString);
+	outString = "Specialisation switched.";
 	me->Whisper(outString, Language::LANG_COMMON, srcPlayer->GetGUID());
 
 }
@@ -623,7 +623,7 @@ void BotGroupAI::ProcessSummonRiteSpell(Player* srcPlayer)
 	if (!m_MovetoUseGO.CanCastSummonRite())
 	{
 		std::string outString;
-		consoleToUtf8(std::string("Ä¿Ç°ÎÞ·¨¿ªÊ¼ÕÙ»½ÒÇÊ½£¡"), outString);
+		outString = "The summoning ritual cannot be started right now.";
 		me->Whisper(outString, Language::LANG_COMMON, srcPlayer->GetGUID());
 		return;
 	}
@@ -632,13 +632,13 @@ void BotGroupAI::ProcessSummonRiteSpell(Player* srcPlayer)
 	{
 		m_MovetoUseGO.StartSummonRite(castSpellID);
 		std::string outString;
-		consoleToUtf8(std::string("ÕÙ»½ÒÇÊ½Æô¶¯£¡"), outString);
+		outString = "Summoning ritual started.";
 		me->Whisper(outString, Language::LANG_COMMON, srcPlayer->GetGUID());
 	}
 	else
 	{
 		std::string outString;
-		consoleToUtf8(std::string("Ä¿Ç°ÎÞ·¨¿ªÊ¼ÕÙ»½ÒÇÊ½£¡"), outString);
+		outString = "The summoning ritual cannot be started right now.";
 		me->Whisper(outString, Language::LANG_COMMON, srcPlayer->GetGUID());
 	}
 }
@@ -1098,7 +1098,7 @@ bool BotGroupAI::IsNotSelect(Unit* pTarget)
 {
 	if (!pTarget || !pTarget->isAlive())
 		return true;
-	if (pTarget->HasAura(27827)) // (27827 ¾ÈÊêÖ®»ê ÉñÄÁËÀÍöºó)
+	if (pTarget->HasAura(27827)) // (27827 æ•‘èµŽä¹‹é­‚ ç¥žç‰§æ­»äº¡åŽ)
 		return true;
 	if (pTarget->HasFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NOT_SELECTABLE))
 		return true;
@@ -3034,11 +3034,11 @@ bool BotGroupAI::TargetIsStealth(Player* pTarget)
 {
 	if (!pTarget)
 		return false;
-	// (1784 µÁÔôÇ±ÐÐ || 5215 µÂÂ³ÒÁÇ±ÐÐ || 66 ·¨Ê¦ÒþÐÎ || 58984 °µÒ¹Òþ¶Ý)
+	// (1784 ç›—è´¼æ½œè¡Œ || 5215 å¾·é²ä¼Šæ½œè¡Œ || 66 æ³•å¸ˆéšå½¢ || 58984 æš—å¤œéšé)
 	if (pTarget->HasAura(1784) || pTarget->HasAura(5215) ||
 		pTarget->HasAura(66) || pTarget->HasAura(58984))
 	{
-		if (!me->canSeeOrDetect(pTarget, false, true)) // Õì²âÇ±ÐÐ
+		if (!me->canSeeOrDetect(pTarget, false, true)) // ä¾¦æµ‹æ½œè¡Œ
 			return true;
 	}
 	return false;

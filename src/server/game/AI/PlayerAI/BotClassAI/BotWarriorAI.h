@@ -60,58 +60,58 @@ private:
 	int32 m_ChargeWaitTick;
 	bool m_IsIDLEBuff;
 
-	uint32 WarriorIDLE_AOEAddLife;// = 47440;			// ÃüÁîÅ­ºğ
-	uint32 WarriorIDLE_AOEAddPower;// = 47436;			// ¹¥Ç¿Å­ºğ
+	uint32 WarriorIDLE_AOEAddLife;// = 47440;			// å‘½ä»¤æ€’å¼
+	uint32 WarriorIDLE_AOEAddPower;// = 47436;			// æ”»å¼ºæ€’å¼
 
 	uint32 WarriorWeapon_Status;// = 2457;
 	uint32 WarriorDefance_Status;// = 71;
 	uint32 WarriorRage_Status;// = 2458;
 
-	uint32 WarriorCommon_PowerAtt;// = 47450;			// Ó¢ÓÂ´ò»÷
-	uint32 WarriorCommon_PowerThrow;// = 57755;			// Ó¢ÓÂÍ¶ÖÀ
-	uint32 WarriorCommon_PowerRelife;// = 55694;		// ¿ñÅ­»Ö¸´£¨ÓĞ¿ñ±©Ê±Ê¹ÓÃ»ØÑª£©
-	uint32 WarriorCommon_ClearCtrl;// = 18499;			// ¿ñ±©Ö®Å­£¨ÒÆ³ı¿ØÖÆ£©
-	uint32 WarriorCommon_AOEFear;// = 5246;			// ½üÕ½·¶Î§Èº¿Ö¾å
-	uint32 WarriorCommon_SweepAtt;// = 47520;			// Ë³ÅüÕ¶
-	uint32 WarriorCommon_AddPower;// = 2687;			// ¼ÓÅ­Æø
-	uint32 WarriorCommon_AOEDecPower;// = 47437;		// ÈºÌå¼õ¹¥Ç¿ºğ
+	uint32 WarriorCommon_PowerAtt;// = 47450;			// è‹±å‹‡æ‰“å‡»
+	uint32 WarriorCommon_PowerThrow;// = 57755;			// è‹±å‹‡æŠ•æ·
+	uint32 WarriorCommon_PowerRelife;// = 55694;		// ç‹‚æ€’æ¢å¤ï¼ˆæœ‰ç‹‚æš´æ—¶ä½¿ç”¨å›è¡€ï¼‰
+	uint32 WarriorCommon_ClearCtrl;// = 18499;			// ç‹‚æš´ä¹‹æ€’ï¼ˆç§»é™¤æ§åˆ¶ï¼‰
+	uint32 WarriorCommon_AOEFear;// = 5246;			// è¿‘æˆ˜èŒƒå›´ç¾¤ææƒ§
+	uint32 WarriorCommon_SweepAtt;// = 47520;			// é¡ºåŠˆæ–©
+	uint32 WarriorCommon_AddPower;// = 2687;			// åŠ æ€’æ°”
+	uint32 WarriorCommon_AOEDecPower;// = 47437;		// ç¾¤ä½“å‡æ”»å¼ºå¼
 
-	uint32 WarriorDefance_HPojia;// = 47498;			// »ÙÃğ´ò»÷
-	uint32 WarriorDefance_Fuchou;// = 57823;			// ¸´³ğ
-	uint32 WarriorDefance_ShieldBlock;// = 2565;		// ¶ÜÅÆ¸ñµ²
-	uint32 WarriorDefance_ShieldAtt;// = 47488;			// ¶ÜÅÆÃÍ»÷
-	uint32 WarriorDefance_Pojia;// = 7386;				// ÆÆ¼×
-	uint32 WarriorDefance_MaxLife;// = 12975;			// ÆÆ¸ª³ÁÖÛ
-	uint32 WarriorDefance_ShiledWall;// = 871;			// ¶ÜÇ½
-	uint32 WarriorDefance_Disarm;// = 676;				// ½ÉĞµ
-	uint32 WarriorDefance_Support;// = 3411;			// Ô®Öú
-	uint32 WarriorDefance_Conk;// = 12809;				// µ¥Ìå»÷ÔÎ
-	uint32 WarriorDefance_AOEConk;// = 46968;			// Ç°·½·¶Î§»÷ÔÎ
+	uint32 WarriorDefance_HPojia;// = 47498;			// æ¯ç­æ‰“å‡»
+	uint32 WarriorDefance_Fuchou;// = 57823;			// å¤ä»‡
+	uint32 WarriorDefance_ShieldBlock;// = 2565;		// ç›¾ç‰Œæ ¼æŒ¡
+	uint32 WarriorDefance_ShieldAtt;// = 47488;			// ç›¾ç‰ŒçŒ›å‡»
+	uint32 WarriorDefance_Pojia;// = 7386;				// ç ´ç”²
+	uint32 WarriorDefance_MaxLife;// = 12975;			// ç ´é‡œæ²‰èˆŸ
+	uint32 WarriorDefance_ShiledWall;// = 871;			// ç›¾å¢™
+	uint32 WarriorDefance_Disarm;// = 676;				// ç¼´æ¢°
+	uint32 WarriorDefance_Support;// = 3411;			// æ´åŠ©
+	uint32 WarriorDefance_Conk;// = 12809;				// å•ä½“å‡»æ™•
+	uint32 WarriorDefance_AOEConk;// = 46968;			// å‰æ–¹èŒƒå›´å‡»æ™•
 
-	uint32 WarriorWeaponDefance_AOEAtt;// = 47502;		// À×öªÒ»»÷
-	uint32 WarriorWeaponDefance_Bleed;// = 47465;		// ËºÁÑ
-	uint32 WarriorWeaponDefance_SpellReflect;// = 23920;	// ·¨Êõ·´Éä
-	uint32 WarriorWeaponDefance_ShieldHit;// = 72;		// ¶Ü»÷£¨Ê©·¨´ò¶Ï£©
+	uint32 WarriorWeaponDefance_AOEAtt;// = 47502;		// é›·éœ†ä¸€å‡»
+	uint32 WarriorWeaponDefance_Bleed;// = 47465;		// æ’•è£‚
+	uint32 WarriorWeaponDefance_SpellReflect;// = 23920;	// æ³•æœ¯åå°„
+	uint32 WarriorWeaponDefance_ShieldHit;// = 72;		// ç›¾å‡»ï¼ˆæ–½æ³•æ‰“æ–­ï¼‰
 
-	uint32 WarriorWeapon_SwordStorm;// = 46924;			// ½£ÈĞ·ç±©
-	uint32 WarriorWeapon_HighThrow;// = 64382;			// ÆÆÎŞµĞÍ¶ÖÀ
-	uint32 WarriorWeapon_Charge;// = 11578;			// ³å·æ
-	uint32 WarriorWeapon_Suppress;// = 7384;			// Ñ¹ÖÆ
-	uint32 WarriorWeapon_Backstorm;// = 20230;			// ·´»÷·ç±©
-	uint32 WarriorWeapon_DeadAtt;// = 47486;			// ÖÂËÀ´ò»÷
+	uint32 WarriorWeapon_SwordStorm;// = 46924;			// å‰‘åˆƒé£æš´
+	uint32 WarriorWeapon_HighThrow;// = 64382;			// ç ´æ— æ•ŒæŠ•æ·
+	uint32 WarriorWeapon_Charge;// = 11578;			// å†²é”‹
+	uint32 WarriorWeapon_Suppress;// = 7384;			// å‹åˆ¶
+	uint32 WarriorWeapon_Backstorm;// = 20230;			// åå‡»é£æš´
+	uint32 WarriorWeapon_DeadAtt;// = 47486;			// è‡´æ­»æ‰“å‡»
 
-	uint32 WarriorWeaponRage_FullKill;// = 47471;		// Õ¶É±
-	uint32 WarriorWeaponRage_WinAttack;// = 34428;		// ³ËÊ¤×·»÷
-	uint32 WarriorWeaponRage_Backfillet;// = 1715;		// ¶Ï½î
+	uint32 WarriorWeaponRage_FullKill;// = 47471;		// æ–©æ€
+	uint32 WarriorWeaponRage_WinAttack;// = 34428;		// ä¹˜èƒœè¿½å‡»
+	uint32 WarriorWeaponRage_Backfillet;// = 1715;		// æ–­ç­‹
 
-	uint32 WarriorRage_Harsh;// = 12323;				// ´Ì¶úÅ­ºğ
-	uint32 WarriorRage_HeadAtt;// = 6552;				// È­»÷£¨Ê©·¨´ò¶Ï£©
-	uint32 WarriorRage_Intercept;// = 20252;			// À¹½Ø
-	uint32 WarriorRage_Whirlwind;// = 1680;			// Ğı·çÕ¶
-	uint32 WarriorRage_Impertinency;// = 1719;			// Â³Ã§
-	uint32 WarriorRage_Needdead;// = 12292;			// ËÀÍöÖ®Ô¸
-	uint32 WarriorRage_Bloodthirsty;// = 23881;			// ÊÈÑª
-	uint32 WarriorRage_ReIntercept;// = 60970;			// ½â³ıÒÆ¶¯ÏŞÖÆºÍ½â³ıÀ¹½ØCD
+	uint32 WarriorRage_Harsh;// = 12323;				// åˆºè€³æ€’å¼
+	uint32 WarriorRage_HeadAtt;// = 6552;				// æ‹³å‡»ï¼ˆæ–½æ³•æ‰“æ–­ï¼‰
+	uint32 WarriorRage_Intercept;// = 20252;			// æ‹¦æˆª
+	uint32 WarriorRage_Whirlwind;// = 1680;			// æ—‹é£æ–©
+	uint32 WarriorRage_Impertinency;// = 1719;			// é²è½
+	uint32 WarriorRage_Needdead;// = 12292;			// æ­»äº¡ä¹‹æ„¿
+	uint32 WarriorRage_Bloodthirsty;// = 23881;			// å—œè¡€
+	uint32 WarriorRage_ReIntercept;// = 60970;			// è§£é™¤ç§»åŠ¨é™åˆ¶å’Œè§£é™¤æ‹¦æˆªCD
 };
 
 #endif // !_BOT_WARRIOR_AI_H_

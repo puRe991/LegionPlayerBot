@@ -72,72 +72,72 @@ protected:
 private:
 	uint32 m_BotTalentType;
 
-	uint32 DruidIDLE_AOEFerityWish;// 48470		ÈºÌåÒ°ĞÔ×£¸£
+	uint32 DruidIDLE_AOEFerityWish;// 48470		ç¾¤ä½“é‡æ€§ç¥ç¦
 
-	uint32 DruidStatus_Travel;// 783			ÂÃĞĞĞÎÌ¬
-	uint32 DruidStatus_Bear;// 9634				¾ŞĞÜĞÎÌ¬
-	uint32 DruidStatus_Cat;// 768				ÁÔ±ªĞÎÌ¬
-	uint32 DruidStatus_Bird;// 24858			èÉÊŞĞÎÌ¬(Æ½ºâÏµ)
-	uint32 DruidStatus_Tree;// 33891			ÄÌÊ÷ĞÎÌ¬(»Ö¸´Ïµ)
+	uint32 DruidStatus_Travel;// 783			æ—…è¡Œå½¢æ€
+	uint32 DruidStatus_Bear;// 9634				å·¨ç†Šå½¢æ€
+	uint32 DruidStatus_Cat;// 768				çŒè±¹å½¢æ€
+	uint32 DruidStatus_Bird;// 24858			æ­å…½å½¢æ€(å¹³è¡¡ç³»)
+	uint32 DruidStatus_Tree;// 33891			å¥¶æ ‘å½¢æ€(æ¢å¤ç³»)
 
-	uint32 DruidGuard_Sneak;// 5215				ÁÔ±ªÇ±ĞĞ
-	uint32 DruidGuard_Harden;// 22812			Ê÷Æ¤Êõ ÃâÉË20%
-	uint32 DruidGuard_Thorns;// 53307			¾£¼¬Êõ ¹¥»÷·´ÉË
-	uint32 DruidGuard_AutoTwine;// 53312		ÊÜ»÷²øÈÆÄ¿±ê
-	uint32 DruidGuard_Twine;// 53308			²øÈÆÄ¿±ê
-	uint32 DruidGuard_Control;// 33786			´µ·ç ¿ØÖÆÄ¿±êÄ¿±ê·ÅÖğ
-	uint32 DruidGuard_Pofu;// 61336				Ò°ĞÔĞÎÌ¬ÆÆ¸ª³ÁÖÛ(Ò°ĞÔÏµ)
-	uint32 DruidGuard_TreeMan;// 33831			×ÔÈ»Ö®Á¦ÕÙ»½Ê÷ÈË(Æ½ºâÏµ)
+	uint32 DruidGuard_Sneak;// 5215				çŒè±¹æ½œè¡Œ
+	uint32 DruidGuard_Harden;// 22812			æ ‘çš®æœ¯ å…ä¼¤20%
+	uint32 DruidGuard_Thorns;// 53307			è†æ£˜æœ¯ æ”»å‡»åä¼¤
+	uint32 DruidGuard_AutoTwine;// 53312		å—å‡»ç¼ ç»•ç›®æ ‡
+	uint32 DruidGuard_Twine;// 53308			ç¼ ç»•ç›®æ ‡
+	uint32 DruidGuard_Control;// 33786			å¹é£ æ§åˆ¶ç›®æ ‡ç›®æ ‡æ”¾é€
+	uint32 DruidGuard_Pofu;// 61336				é‡æ€§å½¢æ€ç ´é‡œæ²‰èˆŸ(é‡æ€§ç³»)
+	uint32 DruidGuard_TreeMan;// 33831			è‡ªç„¶ä¹‹åŠ›å¬å”¤æ ‘äºº(å¹³è¡¡ç³»)
 
-	uint32 DruidAssist_PersonSpirit;// 770		ÈËĞÎÌ¬¾«ÁéÖ®»ğ
-	uint32 DruidAssist_BeastSpirit;// 16857		Ò°ĞÔĞÎÌ¬¾«ÁéÖ®»ğ
-	uint32 DruidAssist_Active;// 29166			¼¤»î Ä¿±ê»ØÀ¶
+	uint32 DruidAssist_PersonSpirit;// 770		äººå½¢æ€ç²¾çµä¹‹ç«
+	uint32 DruidAssist_BeastSpirit;// 16857		é‡æ€§å½¢æ€ç²¾çµä¹‹ç«
+	uint32 DruidAssist_Active;// 29166			æ¿€æ´» ç›®æ ‡å›è“
 
-	uint32 DruidCast_Moonfire;// 48463			ÔÂ»ğ ³ÖĞøÉËº¦¼¼ÄÜ
-	uint32 DruidCast_Insect;// 48468			³æÈº ³ÖĞøÉËº¦¼¼ÄÜ(Æ½ºâÏµ)
-	uint32 DruidCast_Anger;// 48461				·ßÅ­
-	uint32 DruidCast_Spark;// 48465				ĞÇ»ğ cast³¤
+	uint32 DruidCast_Moonfire;// 48463			æœˆç« æŒç»­ä¼¤å®³æŠ€èƒ½
+	uint32 DruidCast_Insect;// 48468			è™«ç¾¤ æŒç»­ä¼¤å®³æŠ€èƒ½(å¹³è¡¡ç³»)
+	uint32 DruidCast_Anger;// 48461				æ„¤æ€’
+	uint32 DruidCast_Spark;// 48465				æ˜Ÿç« casté•¿
 
-	uint32 DruidAOE_Hurricane;// 48467			ì«·ç AOE
-	uint32 DruidAOE_Typhoon;// 61384			Ì¨·ç AOE(Æ½ºâÏµ)
-	uint32 DruidAOE_FallStar;// 48505			ÈºĞÇ×¹Âä AOE(Æ½ºâÏµ)
+	uint32 DruidAOE_Hurricane;// 48467			é£“é£ AOE
+	uint32 DruidAOE_Typhoon;// 61384			å°é£ AOE(å¹³è¡¡ç³»)
+	uint32 DruidAOE_FallStar;// 48505			ç¾¤æ˜Ÿå è½ AOE(å¹³è¡¡ç³»)
 
-	uint32 DruidHeal_Nourishing;// 50464		×Ì²¹Êõ Ğ¡¶ÁÃë¼ÓÑª ÓĞ³ÖĞøÖÎÁÆĞ§¹ûÊ±¼ÓÇ¿
-	uint32 DruidHeal_Relife;// 48441			»Ø´ºÊõ Ğ¡³ÖĞø¼ÓÑª
-	uint32 DruidHeal_Coalescence;// 48443		ÓúºÏÊõ Ğ¡¼ÓÑª
-	uint32 DruidHeal_Touch;// 48378				ÖÎÁÆÖ®´¥ ´ó¼ÓÑª
-	uint32 DruidHeal_LifeBurst;// 48451			ÉúÃüÕÀ·Å ³ÖĞøĞ§¹û½áÊøÊ±ÔÙ¼ÓÑª
-	uint32 DruidHeal_MergerLife;// 18562		Ñ¸½İÖÎÁÆ ÍÌ²¢»Ø´º»òÓúºÏ ¼ÓÑª(»Ö¸´Ïµ)
-	uint32 DruidHeal_MomentHeal;// 17116		×ÔÈ»Ö®ÎÕ nextHealÊ©·¨Ë²·¢(»Ö¸´Ïµ)
+	uint32 DruidHeal_Nourishing;// 50464		æ»‹è¡¥æœ¯ å°è¯»ç§’åŠ è¡€ æœ‰æŒç»­æ²»ç–—æ•ˆæœæ—¶åŠ å¼º
+	uint32 DruidHeal_Relife;// 48441			å›æ˜¥æœ¯ å°æŒç»­åŠ è¡€
+	uint32 DruidHeal_Coalescence;// 48443		æ„ˆåˆæœ¯ å°åŠ è¡€
+	uint32 DruidHeal_Touch;// 48378				æ²»ç–—ä¹‹è§¦ å¤§åŠ è¡€
+	uint32 DruidHeal_LifeBurst;// 48451			ç”Ÿå‘½ç»½æ”¾ æŒç»­æ•ˆæœç»“æŸæ—¶å†åŠ è¡€
+	uint32 DruidHeal_MergerLife;// 18562		è¿…æ·æ²»ç–— åå¹¶å›æ˜¥æˆ–æ„ˆåˆ åŠ è¡€(æ¢å¤ç³»)
+	uint32 DruidHeal_MomentHeal;// 17116		è‡ªç„¶ä¹‹æ¡ nextHealæ–½æ³•ç¬å‘(æ¢å¤ç³»)
 
-	uint32 DruidHeal_AOETranquility;// 48447		Äş¾²
-	uint32 DruidHeal_AOEFerity;// 53251			Ò°ĞÔÈºÌåÖÎÁÆ(»Ö¸´Ïµ)
+	uint32 DruidHeal_AOETranquility;// 48447		å®é™
+	uint32 DruidHeal_AOEFerity;// 53251			é‡æ€§ç¾¤ä½“æ²»ç–—(æ¢å¤ç³»)
 
-	uint32 DruidCat_Stun;// 49802				Ã¨ »÷ÔÎ ÖÕ½á¼¼
-	uint32 DruidCat_Bite;// 48577				Ã¨ Ğ×ÃÍÒ§ Á¢¼´ÉËº¦ÖÕ½á¼¼
-	uint32 DruidCat_Roar;// 52610				Ã¨ ÅØÏø ¸ø×Ô¼º¼ÓÉËº¦Á¦ÖÕ½á¼¼
-	uint32 DruidCat_Separate;// 49800			Ã¨ ¸îÁÑ ³ÖĞøÉËº¦ÖÕ½á¼¼
+	uint32 DruidCat_Stun;// 49802				çŒ« å‡»æ™• ç»ˆç»“æŠ€
+	uint32 DruidCat_Bite;// 48577				çŒ« å‡¶çŒ›å’¬ ç«‹å³ä¼¤å®³ç»ˆç»“æŠ€
+	uint32 DruidCat_Roar;// 52610				çŒ« å’†å“® ç»™è‡ªå·±åŠ ä¼¤å®³åŠ›ç»ˆç»“æŠ€
+	uint32 DruidCat_Separate;// 49800			çŒ« å‰²è£‚ æŒç»­ä¼¤å®³ç»ˆç»“æŠ€
 
-	uint32 DruidCat_Tiger;// 50213				Ã¨ ÃÍ»¢Ö®Å­ ÉËº¦BUF
-	uint32 DruidCat_FastMove;// 33357			Ã¨ ¼²ÅÜ
-	uint32 DruidCat_Charge;// 49376				Ã¨ ³å·æ(Ò°ĞÔÏµ)
-	uint32 DruidCat_Surprise;// 49803			Ã¨ Ç±ĞĞÊ±µÚ1»÷»èÃÔ
-	uint32 DruidCat_Sack;// 48579				Ã¨ Ç±ĞĞÊ±µÚ1»÷ÉËº¦
-	uint32 DruidCat_Claw;// 48570				Ã¨ ×¦»÷
-	uint32 DruidCat_BackStab;// 48572			Ã¨ ±³´Ì
-	uint32 DruidCat_Attack;// 62078				Ã¨ »Ó»÷Èº¹¥
-	uint32 DruidCat_Sweep;// 48574				Ã¨ Á÷Ñª¹¥»÷
-	uint32 DruidCat_Laceration;// 48566			Ã¨ ÁÑÉË(Ò°ĞÔÏµ)
+	uint32 DruidCat_Tiger;// 50213				çŒ« çŒ›è™ä¹‹æ€’ ä¼¤å®³BUF
+	uint32 DruidCat_FastMove;// 33357			çŒ« ç–¾è·‘
+	uint32 DruidCat_Charge;// 49376				çŒ« å†²é”‹(é‡æ€§ç³»)
+	uint32 DruidCat_Surprise;// 49803			çŒ« æ½œè¡Œæ—¶ç¬¬1å‡»æ˜è¿·
+	uint32 DruidCat_Sack;// 48579				çŒ« æ½œè¡Œæ—¶ç¬¬1å‡»ä¼¤å®³
+	uint32 DruidCat_Claw;// 48570				çŒ« çˆªå‡»
+	uint32 DruidCat_BackStab;// 48572			çŒ« èƒŒåˆº
+	uint32 DruidCat_Attack;// 62078				çŒ« æŒ¥å‡»ç¾¤æ”»
+	uint32 DruidCat_Sweep;// 48574				çŒ« æµè¡€æ”»å‡»
+	uint32 DruidCat_Laceration;// 48566			çŒ« è£‚ä¼¤(é‡æ€§ç³»)
 
-	uint32 DruidBear_DecAtt;// 48560			ĞÜ ¼õ¹¥Ç¿ºğ
-	uint32 DruidBear_AddPower;// 5229			ĞÜ ¼ÓÅ­Æø
-	uint32 DruidBear_PowerLife;// 22842			ĞÜ Å­Æø»ØÑª
-	uint32 DruidBear_Laceration;// 48564		ĞÜ ÁÑÉË(Ò°ĞÔÏµ)
-	uint32 DruidBear_Sweep;// 48568				ĞÜ Á÷Ñª¹¥»÷
-	uint32 DruidBear_Attack;// 48562			ĞÜ »Ó»÷Èº¹¥
-	uint32 DruidBear_NextAtt;// 48480			ĞÜ Next¹¥»÷¼ÓÇ¿
-	uint32 DruidBear_Stun;// 8983				ĞÜ »÷ÔÎ
-	uint32 DruidBear_Charge;// 16979			ĞÜ ³å·æ(Ò°ĞÔÏµ)
+	uint32 DruidBear_DecAtt;// 48560			ç†Š å‡æ”»å¼ºå¼
+	uint32 DruidBear_AddPower;// 5229			ç†Š åŠ æ€’æ°”
+	uint32 DruidBear_PowerLife;// 22842			ç†Š æ€’æ°”å›è¡€
+	uint32 DruidBear_Laceration;// 48564		ç†Š è£‚ä¼¤(é‡æ€§ç³»)
+	uint32 DruidBear_Sweep;// 48568				ç†Š æµè¡€æ”»å‡»
+	uint32 DruidBear_Attack;// 48562			ç†Š æŒ¥å‡»ç¾¤æ”»
+	uint32 DruidBear_NextAtt;// 48480			ç†Š Nextæ”»å‡»åŠ å¼º
+	uint32 DruidBear_Stun;// 8983				ç†Š å‡»æ™•
+	uint32 DruidBear_Charge;// 16979			ç†Š å†²é”‹(é‡æ€§ç³»)
 };
 
 #endif // !_BOT_DRUID_AI_H

@@ -1093,7 +1093,7 @@ bool Arena::CanSelectTarget(Player* pTarget)
 {
     //if (HasAuraMechanic(pTarget, Mechanics::MECHANIC_IMMUNE_SHIELD))
     //    return false;
-    if (pTarget->HasAura(27827)) // (27827 ¾ÈÊêÖ®»ê ÉñÄÁËÀÍöºó)
+    if (pTarget->HasAura(27827)) // (27827 æ•‘èµä¹‹é­‚ ç¥ç‰§æ­»äº¡å)
         return false;
     if (HasAuraMechanic(pTarget, Mechanics::MECHANIC_CHARM))
         return false;
@@ -1107,7 +1107,7 @@ bool Arena::CanSelectTarget(Player* pTarget)
         return false;
     if (HasAuraMechanic(pTarget, Mechanics::MECHANIC_HORROR))
         return false;
-    if (pTarget->HasAura(1784) || pTarget->HasAura(5215) || pTarget->HasAura(66)) // (1784 µÁÔôÇ±ĞĞ || 5215 µÂÂ³ÒÁÇ±ĞĞ || 66 ·¨Ê¦ÒşĞÎ)
+    if (pTarget->HasAura(1784) || pTarget->HasAura(5215) || pTarget->HasAura(66)) // (1784 ç›—è´¼æ½œè¡Œ || 5215 å¾·é²ä¼Šæ½œè¡Œ || 66 æ³•å¸ˆéšå½¢)
         return false;
 
     return true;

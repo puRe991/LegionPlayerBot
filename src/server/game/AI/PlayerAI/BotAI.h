@@ -204,7 +204,7 @@ protected:
 
 	UINT_SET m_FilterCreatureEntrys;
 
-	uint32 BotCommon_ClearAllCtrl;// = 59752;		// ×ÔÀû
+	uint32 BotCommon_ClearAllCtrl;// = 59752;		// è‡ªåˆ©
 	uint32 m_lastClearCtrlTick;
 };
 

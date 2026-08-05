@@ -264,7 +264,7 @@ void CommandWS::TryCaptureFlag(uint64 guid)
 	pBGWS->HandleAreaTrigger(player, (m_TeamID == TEAM_ALLIANCE) ? 3646 : 3647);
 }
 
-void CommandWS::ProcessAllPicked() // Ë«·½Æì×ÓÒªÃ´ÔÚÍâµØÒªÃ´¶¼ÔÚ¼Ò
+void CommandWS::ProcessAllPicked() // åŒæ–¹æ——å­è¦ä¹ˆåœ¨å¤–åœ°è¦ä¹ˆéƒ½åœ¨å®¶
 {
 	ObjectGuid defanceTarget = GetBGFlagFromSelf();
 	AIWaypoint* defancePoint = (defanceTarget.IsEmpty()) ? m_BGKeyWaypoints[AIWP_SELF_FLAG] : NULL;
@@ -349,7 +349,7 @@ void CommandWS::ProcessAllPicked() // Ë«·½Æì×ÓÒªÃ´ÔÚÍâµØÒªÃ´¶¼ÔÚ¼Ò
 	}
 }
 
-void CommandWS::ProcessAllGuared(ObjectGuid guaredGuid) // µĞÈËÆì×Ó±»ÄÃµ½ÁË£¬×Ô¼ÒÆì×ÓÔÚ¼Ò»òÍâµØ
+void CommandWS::ProcessAllGuared(ObjectGuid guaredGuid) // æ•Œäººæ——å­è¢«æ‹¿åˆ°äº†ï¼Œè‡ªå®¶æ——å­åœ¨å®¶æˆ–å¤–åœ°
 {
 	ObjectGuid defanceTarget = GetBGFlagFromSelf();
 	AIWaypoint* defancePoint = (defanceTarget.IsEmpty()) ? m_BGKeyWaypoints[AIWP_SELF_FLAG] : NULL;
@@ -407,7 +407,7 @@ void CommandWS::ProcessAllGuared(ObjectGuid guaredGuid) // µĞÈËÆì×Ó±»ÄÃµ½ÁË£¬×Ô¼
 	}
 }
 
-void CommandWS::ProcessAllAttack(ObjectGuid attackGuid) // ×Ô¼ÒÆì×Ó±»ÇÀ£¬µĞÈËÆì×ÓÔÚ¼Ò»òÍâµØ
+void CommandWS::ProcessAllAttack(ObjectGuid attackGuid) // è‡ªå®¶æ——å­è¢«æŠ¢ï¼Œæ•Œäººæ——å­åœ¨å®¶æˆ–å¤–åœ°
 {
 	ObjectGuid attackTarget = GetBGFlagFromEnemy();
 	AIWaypoint* attackPoint = (attackTarget.IsEmpty()) ? m_BGKeyWaypoints[AIWP_ENEMY_FLAG] : NULL;
@@ -467,7 +467,7 @@ void CommandWS::ProcessAllAttack(ObjectGuid attackGuid) // ×Ô¼ÒÆì×Ó±»ÇÀ£¬µĞÈËÆì×
 	}
 }
 
-void CommandWS::ProcessAttackAndGuard(ObjectGuid attackGuid, ObjectGuid guaredGuid) // Ë«·½Æì×Ó¶¼±»ÇÀ
+void CommandWS::ProcessAttackAndGuard(ObjectGuid attackGuid, ObjectGuid guaredGuid) // åŒæ–¹æ——å­éƒ½è¢«æŠ¢
 {
 	for (PlayerStatus::iterator itGuid = m_PlayerGUIDs.begin(); itGuid != m_PlayerGUIDs.end(); itGuid++)
 	{

@@ -1020,7 +1020,7 @@ TalentChatLink::TalentChatLink(uint32 id) : SpellChatLink(), _talentId(0)
 }
 
 // |color|Htalent:talent_id|h[name]|h|r
-// |cff71d5ff|Htalent:21901|h[Обстрел Скверны]|h|r
+// |cff71d5ff|Htalent:21901|h[Fel Barrage]|h|r
 bool TalentChatLink::Initialize(std::istringstream& iss)
 {
     if (_color != CHAT_LINK_COLOR_SPELL)
@@ -1058,7 +1058,7 @@ PvTalentChatLink::PvTalentChatLink(uint32 id) : SpellChatLink(), _talentId(0)
 }
 
 //"|c%s|Hpvptal:%d|h[%s]|h%s"
-// |cff71d5ff|Hpvptal:811|h[Удар с небес]|h|r
+// |cff71d5ff|Hpvptal:811|h[Strike from Above]|h|r
 bool PvTalentChatLink::Initialize(std::istringstream& iss)
 {
     if (_color != CHAT_LINK_COLOR_SPELL)
@@ -1115,7 +1115,7 @@ bool EnchantmentChatLink::Initialize(std::istringstream& iss)
 CurrencyChatLink::CurrencyChatLink(): SpellChatLink(), _currencyId(0) { }
 
 // |c%s|Hcurrency:%d|h[%s]|h%s"
-// |cff0070dd|Hcurrency:1166|h[Искаженный временем знак]|h|r
+// |cff0070dd|Hcurrency:1166|h[Timewarped Badge]|h|r
 bool CurrencyChatLink::Initialize(std::istringstream& iss)
 {
     if (!ReadUInt32(iss, _currencyId))

@@ -212,7 +212,7 @@ void BotMovementAI::ProcessHorror(uint32 diff)
 		HasAuraMechanic(me, Mechanics::MECHANIC_DISORIENTED) ||
 		HasAuraMechanic(me, Mechanics::MECHANIC_FEAR))
 	{
-		if (!me->IsAlive() || me->HasAura(27827)) // (27827 ¾ÈÊêÖ®»ê ÉñÄÁËÀÍöºó)
+		if (!me->IsAlive() || me->HasAura(27827)) // (27827 æ•‘èµŽä¹‹é­‚ ç¥žç‰§æ­»äº¡åŽ)
 		{
 			me->StopMoving();
 			return;

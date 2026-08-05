@@ -60,7 +60,7 @@ void WorldPoster::PushPoster(std::string content)
 		return;
 
 	std::string allonlineText;
-	consoleToUtf8(std::string("|cffff8800") + content + std::string("|r"), allonlineText);
+	allonlineText = "|cffff8800" + content + "|r";
 	m_AllPosterContent.push_back(allonlineText);
 }
 

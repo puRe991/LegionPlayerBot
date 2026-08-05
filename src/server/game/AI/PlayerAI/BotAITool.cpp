@@ -72,7 +72,7 @@ SpellEntry* BotUtility::BuildNewArenaSpellEntry()
 
 void BotUtility::ModifySpecialSpells(SpellInfoMap& spellMap)
 {
-	if (SpellInfo* pSpellEntry = spellMap[8690]) // 修改炉石CD
+	if (SpellInfo* pSpellEntry = spellMap[8690]) // 淇敼鐐夌煶CD
 	{
 		pSpellEntry->GetMisc()->_castTimes = sSpellCastTimesStore.LookupEntry(6);
 		pSpellEntry->Cooldowns.CategoryRecoveryTime = 30000;
@@ -1706,7 +1706,7 @@ bool BotAITrade::ProcessTrade()
 		{
 			me->TradeCancel(false);
 			std::string outString;
-			consoleToUtf8(std::string("正忙呢，待会再说。"), outString);
+			outString = "Busy right now, talk to you later.";
 			me->Whisper(outString, Language::LANG_COMMON, pTradePlayer->GetGUID());
 		}
 	}

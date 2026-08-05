@@ -58,60 +58,60 @@ private:
 	uint32 m_BotTalentType;
 	uint32 m_ReadyCurrentPrayer;
 
-	uint32 PriestIDLE_AllHardRes;// 48162			È«Ìå¼áÈÍ
-	uint32 PriestIDLE_HardRes;// 48161				µ¥Ìå¼áÈÍ
-	uint32 PriestIDLE_SoulFire;// 48168				ĞÄÁéÖ®»ğ
-	uint32 PriestIDLE_AllSpiritRes;// 48074			È«Ìå¾«Éñ
-	uint32 PriestIDLE_SpiritRes;// 48073			µ¥Ìå¾«Éñ
-	uint32 PriestIDLE_Bloodsucker;// 15286			ÎüÑª¹íÓµ±§
-	uint32 PriestIDLE_AllShadowRes;// 48170			È«Ìå°µÓ°¿¹ĞÔ
-	uint32 PriestIDLE_ShadowRes;// 48169			µ¥Ìå°µÓ°¿¹ĞÔ
-	uint32 PriestIDLE_ShadowStatus;// 15473			°µÓ°ĞÎÌ¬
+	uint32 PriestIDLE_AllHardRes;// 48162			å…¨ä½“åšéŸ§
+	uint32 PriestIDLE_HardRes;// 48161				å•ä½“åšéŸ§
+	uint32 PriestIDLE_SoulFire;// 48168				å¿ƒçµä¹‹ç«
+	uint32 PriestIDLE_AllSpiritRes;// 48074			å…¨ä½“ç²¾ç¥
+	uint32 PriestIDLE_SpiritRes;// 48073			å•ä½“ç²¾ç¥
+	uint32 PriestIDLE_Bloodsucker;// 15286			å¸è¡€é¬¼æ‹¥æŠ±
+	uint32 PriestIDLE_AllShadowRes;// 48170			å…¨ä½“æš—å½±æŠ—æ€§
+	uint32 PriestIDLE_ShadowRes;// 48169			å•ä½“æš—å½±æŠ—æ€§
+	uint32 PriestIDLE_ShadowStatus;// 15473			æš—å½±å½¢æ€
 
-	uint32 PriestGuard_ShadowFear;// 64044			µ¥Ìå¿Ö¾å(°µÓ°Ïµ)
-	uint32 PriestGuard_AOEFear;// 10890				½üÕ½·¶Î§Èº¿Ö¾å
-	uint32 PriestGuard_DefFear;// 6346				·´¿Ö¾å½á½ç
-	uint32 PriestGuard_RecoverMana;// 47585			°µÓ°»ØÀ¶ºÍÃâÉË(°µÓ°Ïµ)
-	uint32 PriestGuard_DmgAnnul;// 33206			Í´¿àÑ¹ÖÆ(½äÂÉÏµ)
-	uint32 PriestGuard_DefShield;// 48066			ÕæÑÔÊõ ¶Ü
-	uint32 PriestGuard_SelfHealth;// 48173			¾øÍûµ»ÑÔ ×Ô¼ºË²¼äÖÎÁÆ(ÉñÊ¥Ïµ)
-	uint32 PriestGuard_GuardSoul;// 47788			Áé»êÊØ»¤ targetËÀÍöÊ±ÊØ»¤(ÉñÊ¥Ïµ)
+	uint32 PriestGuard_ShadowFear;// 64044			å•ä½“ææƒ§(æš—å½±ç³»)
+	uint32 PriestGuard_AOEFear;// 10890				è¿‘æˆ˜èŒƒå›´ç¾¤ææƒ§
+	uint32 PriestGuard_DefFear;// 6346				åææƒ§ç»“ç•Œ
+	uint32 PriestGuard_RecoverMana;// 47585			æš—å½±å›è“å’Œå…ä¼¤(æš—å½±ç³»)
+	uint32 PriestGuard_DmgAnnul;// 33206			ç—›è‹¦å‹åˆ¶(æˆ’å¾‹ç³»)
+	uint32 PriestGuard_DefShield;// 48066			çœŸè¨€æœ¯ ç›¾
+	uint32 PriestGuard_SelfHealth;// 48173			ç»æœ›ç¥·è¨€ è‡ªå·±ç¬é—´æ²»ç–—(ç¥åœ£ç³»)
+	uint32 PriestGuard_GuardSoul;// 47788			çµé­‚å®ˆæŠ¤ targetæ­»äº¡æ—¶å®ˆæŠ¤(ç¥åœ£ç³»)
 
-	uint32 PriestAssist_SoulAbs;// 14751			ĞÄÁé×¨×¢next0ºÄÀ¶(½äÂÉÏµ)
-	uint32 PriestAssist_AddHolyPower;// 10060		ÄÜÁ¦×¢ÈëtargetÊ©·¨¼±ËÙºÍ±©»÷(½äÂÉÏµ)
-	uint32 PriestAssist_AllDispel;// 32375			È«ÌåÇıÉ¢Ä§·¨
-	uint32 PriestAssist_Dispel;// 988				µ¥ÌåÇıÉ¢Ä§·¨
-	uint32 PriestAssist_ShadowDemon;// 34433			°µÓ°¶ñÄ§
-	uint32 PriestAssist_Silence;// 15487			°µÓ°³ÁÄ¬(°µÓ°Ïµ)
-	uint32 PriestAssist_AllResMana;// 64901			Òıµ¼È«Ìå»ØÀ¶
-	uint32 PriestAssist_AllResLife;// 64843			Òıµ¼È«Ìå»ØÑª
+	uint32 PriestAssist_SoulAbs;// 14751			å¿ƒçµä¸“æ³¨next0è€—è“(æˆ’å¾‹ç³»)
+	uint32 PriestAssist_AddHolyPower;// 10060		èƒ½åŠ›æ³¨å…¥targetæ–½æ³•æ€¥é€Ÿå’Œæš´å‡»(æˆ’å¾‹ç³»)
+	uint32 PriestAssist_AllDispel;// 32375			å…¨ä½“é©±æ•£é­”æ³•
+	uint32 PriestAssist_Dispel;// 988				å•ä½“é©±æ•£é­”æ³•
+	uint32 PriestAssist_ShadowDemon;// 34433			æš—å½±æ¶é­”
+	uint32 PriestAssist_Silence;// 15487			æš—å½±æ²‰é»˜(æš—å½±ç³»)
+	uint32 PriestAssist_AllResMana;// 64901			å¼•å¯¼å…¨ä½“å›è“
+	uint32 PriestAssist_AllResLife;// 64843			å¼•å¯¼å…¨ä½“å›è¡€
 
-	uint32 PriestDebuf_Ache;// 48125				Í´
-	uint32 PriestDebuf_Drown;// 48158				Ãğ
-	uint32 PriestDebuf_Plague;// 48300				ÎÁÒß
+	uint32 PriestDebuf_Ache;// 48125				ç—›
+	uint32 PriestDebuf_Drown;// 48158				ç­
+	uint32 PriestDebuf_Plague;// 48300				ç˜Ÿç–«
 
-	uint32 PriestAOE_ShadowExplode;// 53023			°µÓ°±¬Õ¨AOE(°µÓ°Ïµ)
-	uint32 PriestAOE_HolyNova;// 48078				ÉñÊ¥ĞÂĞÇ
+	uint32 PriestAOE_ShadowExplode;// 53023			æš—å½±çˆ†ç‚¸AOE(æš—å½±ç³»)
+	uint32 PriestAOE_HolyNova;// 48078				ç¥åœ£æ–°æ˜Ÿ
 
-	uint32 PriestShadow_ShadowTouch;// 48160			ÎüÑªÖ®´¥(°µÓ°Ïµ)
-	uint32 PriestShadow_Knocking;// 48127			ĞÄÁéÕğ±¬
-	uint32 PriestShadow_Lech;// 48156				¾«Éñ±ŞÌ¢(°µÓ°Ïµ)
-	uint32 PriestHoly_Smite;// 48123				³Í»÷
-	uint32 PriestHoly_BigFire;// 48135				ÉñÊ¥Ö®»ğ
-	uint32 PriestPrecept_ManaBurn;// 8129			·¨Á¦È¼ÉÕ
+	uint32 PriestShadow_ShadowTouch;// 48160			å¸è¡€ä¹‹è§¦(æš—å½±ç³»)
+	uint32 PriestShadow_Knocking;// 48127			å¿ƒçµéœ‡çˆ†
+	uint32 PriestShadow_Lech;// 48156				ç²¾ç¥é­æŒ(æš—å½±ç³»)
+	uint32 PriestHoly_Smite;// 48123				æƒ©å‡»
+	uint32 PriestHoly_BigFire;// 48135				ç¥åœ£ä¹‹ç«
+	uint32 PriestPrecept_ManaBurn;// 8129			æ³•åŠ›ç‡ƒçƒ§
 
-	uint32 PriestHeal_LowHeal;// 6064				µÍ¼¶ÖÎÁÆ
-	uint32 PriestHeal_Resume;// 48068				»Ö¸´
-	uint32 PriestHeal_FastHeal;// 48071				¿ìËÙÖÎÁÆ
-	uint32 PriestHeal_BigHeal;// 48063				´óÖÎÁÆ
-	uint32 PriestHeal_LinkHeal;// 48120				Á´½Ó×Ô¼ººÍÄ¿±êÖÎÁÆ
-	uint32 PriestHeal_UnionHeal;// 48113			ÓúºÏµ»ÑÔ target next heal
-	uint32 PriestHeal_RingHeal;// 48089				ÖÎÁÆÖ®»·(ÉñÊ¥Ïµ)
-	uint32 PriestHeal_AOEHeal;// 48072				ÖÎÁÆµ»ÑÔ aoe heal
-	uint32 PriestHeal_Awareness;// 53007			¾õÎò Òıµ¼3¸öÖÎÁÆ×Óµ¯ÖÎÁÆÄ¿±ê(½äÂÉÏµ)
+	uint32 PriestHeal_LowHeal;// 6064				ä½çº§æ²»ç–—
+	uint32 PriestHeal_Resume;// 48068				æ¢å¤
+	uint32 PriestHeal_FastHeal;// 48071				å¿«é€Ÿæ²»ç–—
+	uint32 PriestHeal_BigHeal;// 48063				å¤§æ²»ç–—
+	uint32 PriestHeal_LinkHeal;// 48120				é“¾æ¥è‡ªå·±å’Œç›®æ ‡æ²»ç–—
+	uint32 PriestHeal_UnionHeal;// 48113			æ„ˆåˆç¥·è¨€ target next heal
+	uint32 PriestHeal_RingHeal;// 48089				æ²»ç–—ä¹‹ç¯(ç¥åœ£ç³»)
+	uint32 PriestHeal_AOEHeal;// 48072				æ²»ç–—ç¥·è¨€ aoe heal
+	uint32 PriestHeal_Awareness;// 53007			è§‰æ‚Ÿ å¼•å¯¼3ä¸ªæ²»ç–—å­å¼¹æ²»ç–—ç›®æ ‡(æˆ’å¾‹ç³»)
 
-	uint32 PriestFlag_DeadSoul;// 27827				¾ÈÊêÖ®»ê ÉñÄÁËÀÍöºó
-	uint32 PriestFlag_NonShield;// 6788				ÕæÑÔ¶ÜDEBUFF
+	uint32 PriestFlag_DeadSoul;// 27827				æ•‘èµä¹‹é­‚ ç¥ç‰§æ­»äº¡å
+	uint32 PriestFlag_NonShield;// 6788				çœŸè¨€ç›¾DEBUFF
 };
 
 #endif // !_BOT_PRIEST_AI_H

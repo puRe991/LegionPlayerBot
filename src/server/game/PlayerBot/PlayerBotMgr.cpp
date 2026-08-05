@@ -942,7 +942,7 @@ void PlayerBotMgr::OnPlayerBotLogin(WorldSession* pSession, Player* pPlayer)
     if (pSession)
     {
         std::string outString;
-        consoleToUtf8(std::string(" �� ��"), outString);
+        outString = "has come online.";
         sWorld->SendGlobalText((GetPlayerLinkText(pPlayer) + outString).c_str(), NULL);
     }
     if (PlayerBotSession* pBotSession = dynamic_cast<PlayerBotSession*>(pSession))
@@ -968,7 +968,7 @@ void PlayerBotMgr::OnPlayerBotLogout(WorldSession* pSession)
     if (m_BotOnlineCount < 0) m_BotOnlineCount = 0;
 
     std::string outString;
-    consoleToUtf8(std::string("����������"), outString);
+    outString = "A bot has gone offline.";
     sWorld->SendGlobalText(outString.c_str(), NULL);
     PlayerBotSession* pBotSession = dynamic_cast<PlayerBotSession*>(pSession);
     if (pBotSession && !pBotSession->HasScheduleByType(BotGlobleScheduleType::BGSType_Online) &&
@@ -1025,7 +1025,7 @@ void PlayerBotMgr::LoginFriendBotByPlayer(Player* pPlayer)
     //	}
     //#else
     //	std::string allonlineText;
-    //	consoleToUtf8(std::string("|cffff8800������޷��ٻ����ѻ��������ߡ�|r"), allonlineText);
+    //	consoleToUtf8(std::string("|cffff8800Bots cannot be summoned; all accounts are already online.|r"), allonlineText);
     //	sWorld->SendGlobalText(allonlineText.c_str(), NULL);
     //#endif
 }
@@ -1672,7 +1672,7 @@ void PlayerBotMgr::AddNewPlayerBot(bool faction, Classes prof, uint32 count)
     if (count > 0)
     {
         std::string allonlineText;
-        consoleToUtf8(std::string("|cffff8800���л������˺��Ѿ�ȫ�����ߣ��޷������»����ˡ�|r"), allonlineText);
+        allonlineText = "|cffff8800All bot accounts are already online; no further bots can be brought online.|r";
         sWorld->SendGlobalText(allonlineText.c_str(), NULL);
     }
 }
@@ -1720,7 +1720,7 @@ void PlayerBotMgr::AddNewAccountBot(bool faction, Classes prof)
     }
     std::string allonlineText;
 #ifdef INCOMPLETE_BOT
-    consoleToUtf8(std::string("|cffff8800������޷��ٻ������Խ��˺Ž�ɫ|r"), allonlineText);
+    allonlineText = "|cffff8800Bots cannot be summoned in this build.|r";
     sWorld->SendGlobalText(allonlineText.c_str(), NULL);
     return;
 #endif
@@ -1782,7 +1782,7 @@ void PlayerBotMgr::AddNewAccountBot(bool faction, Classes prof)
         }
     }
 
-    consoleToUtf8(std::string("|cffff8800û���ҵ�������ͬ��Ӫ��ָ��ְҵ���Խ��˺Ž�ɫ|r"), allonlineText);
+    allonlineText = "|cffff8800No bot character of that class was found for your faction.|r";
     sWorld->SendGlobalText(allonlineText.c_str(), NULL);
 }
 
@@ -1882,7 +1882,7 @@ void PlayerBotMgr::AddNewPlayerBotByClass(uint32 count, Classes prof)
     if (allianceCount > 0 || hordeCount > 0)
     {
         std::string allonlineText;
-        consoleToUtf8(std::string("|cffff8800���л������˺��Ѿ�ȫ�����ߣ��޷������»����ˡ�|r"), allonlineText);
+        allonlineText = "|cffff8800All bot accounts are already online; no further bots can be brought online.|r";
         sWorld->SendGlobalText(allonlineText.c_str(), NULL);
     }
 }
@@ -2008,7 +2008,7 @@ void PlayerBotMgr::AddNewPlayerBotToBG(TeamId team, uint32 minLV, uint32 maxLV, 
     }
 
     std::string allonlineText;
-    consoleToUtf8(std::string("|cffff8800���л������˺��Ѿ�ȫ�����ߣ��޷������»����˵�ս���С�|r"), allonlineText);
+    allonlineText = "|cffff8800All bot accounts are already online; no further bots can be sent into the battleground.|r";
     sWorld->SendGlobalText(allonlineText.c_str(), NULL);
 }
 
@@ -2153,7 +2153,7 @@ void PlayerBotMgr::AddNewPlayerBotToBG(TeamId team, uint32 minLV, uint32 maxLV, 
 //	}
 //
 //	std::string allonlineText;
-//	consoleToUtf8(std::string("|cffff8800���л������˺��Ѿ�ȫ�����ߣ��޷������»����˵����³Ƕ����С�|r"), allonlineText);
+//	consoleToUtf8(std::string("|cffff8800All bot accounts are already online; no further bots can be sent into the rated battleground.|r"), allonlineText);
 //	sWorld->SendGlobalText(allonlineText.c_str(), NULL);
 //}
 
@@ -2266,7 +2266,7 @@ void PlayerBotMgr::AddNewPlayerBotToAA(TeamId team, BattlegroundTypeId bgTypeID,
     }
 
     std::string allonlineText;
-    consoleToUtf8(std::string("|cffff8800���л������˺��Ѿ�ȫ�����ߣ��޷������»����˵��������С�|r"), allonlineText);
+    allonlineText = "|cffff8800All bot accounts are already online; no further bots can be sent into the arena.|r";
     sWorld->SendGlobalText(allonlineText.c_str(), NULL);
 }
 

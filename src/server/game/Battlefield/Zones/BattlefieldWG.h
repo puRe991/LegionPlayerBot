@@ -105,8 +105,8 @@ enum WGQuestCredit
 
 enum Wintergrasp_Sounds
 {
-    OutdoorPvP_WG_SOUND_WORKSHOP_Horde          = 6205, // время убивать орда
-    OutdoorPvP_WG_SOUND_WORKSHOP_ALLIANCE       = 6298, // к оружию альянс
+    OutdoorPvP_WG_SOUND_WORKSHOP_Horde          = 6205, // time to kill, horde
+    OutdoorPvP_WG_SOUND_WORKSHOP_ALLIANCE       = 6298, // to arms, alliance
 };
 
 enum WintergraspData

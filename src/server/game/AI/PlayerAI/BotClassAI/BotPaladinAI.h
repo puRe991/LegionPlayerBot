@@ -63,57 +63,57 @@ protected:
 private:
 	uint32 m_BotTalentType;
 
-	uint32 PaladinIDLE_MountAura;// 32223			×øÆïËÙ¶È¹â»·
-	uint32 PaladinIDLE_CastAura;// 19746			Ê©·¨¹â»·
-	uint32 PaladinIDLE_JudgeAura;// 54043			³Í½ä¹â»·
-	uint32 PaladinIDLE_ArmorAura;// 48942			·ÀÓù¹â»·
-	uint32 PaladinIDLE_AOEGuardWish;// 25899			ÈºÌå±Ó»¤×£¸£(·ÀÓùÏµ)
-	uint32 PaladinIDLE_AOEKingWish;// 25898			ÈºÌåÍõÕß×£¸£
-	uint32 PaladinIDLE_AOEWitWish;// 48938			ÈºÌåÖÇ»Û×£¸£
-	uint32 PaladinIDLE_AOEStrWish;// 48934			ÈºÌåÁ¦Á¿×£¸£
-	uint32 PaladinIDLE_JusticeRage;// 25780			ÕıÒåÖ®Å­ ·ÀÆïÊ¹ÓÃ
+	uint32 PaladinIDLE_MountAura;// 32223			åéª‘é€Ÿåº¦å…‰ç¯
+	uint32 PaladinIDLE_CastAura;// 19746			æ–½æ³•å…‰ç¯
+	uint32 PaladinIDLE_JudgeAura;// 54043			æƒ©æˆ’å…‰ç¯
+	uint32 PaladinIDLE_ArmorAura;// 48942			é˜²å¾¡å…‰ç¯
+	uint32 PaladinIDLE_AOEGuardWish;// 25899			ç¾¤ä½“åº‡æŠ¤ç¥ç¦(é˜²å¾¡ç³»)
+	uint32 PaladinIDLE_AOEKingWish;// 25898			ç¾¤ä½“ç‹è€…ç¥ç¦
+	uint32 PaladinIDLE_AOEWitWish;// 48938			ç¾¤ä½“æ™ºæ…§ç¥ç¦
+	uint32 PaladinIDLE_AOEStrWish;// 48934			ç¾¤ä½“åŠ›é‡ç¥ç¦
+	uint32 PaladinIDLE_JusticeRage;// 25780			æ­£ä¹‰ä¹‹æ€’ é˜²éª‘ä½¿ç”¨
 
-	uint32 PaladinGuard_UnShield;// 53601			³çÊ¥»¤¶Ü
-	uint32 PaladinGuard_FreeAura;// 1044			×ÔÓÉ×£¸£
-	uint32 PaladinGuard_Invincible;// 642			Ê¥¶ÜÊõ ÎŞµĞ
-	uint32 PaladinGuard_Sacrifice;// 6940			ÎşÉüÖ®ÊÖ Ä¿±êÊÜÉË×ªÒÆ
-	uint32 PaladinGuard_AOESacrifice;// 64205		ÉñÊ¥ÎşÉü ÍÅ¶ÓÊÜÉË×ªÒÆ(·ÀÓùÏµ)
-	uint32 PaladinGuard_BlockShield;// 48952			ÉñÊ¥¸ñµ²(·ÀÓùÏµ)
-	uint32 PaladinGuard_PhyImmune;// 10278			Ä¿±êÎïÀíÃâÒß
+	uint32 PaladinGuard_UnShield;// 53601			å´‡åœ£æŠ¤ç›¾
+	uint32 PaladinGuard_FreeAura;// 1044			è‡ªç”±ç¥ç¦
+	uint32 PaladinGuard_Invincible;// 642			åœ£ç›¾æœ¯ æ— æ•Œ
+	uint32 PaladinGuard_Sacrifice;// 6940			ç‰ºç‰²ä¹‹æ‰‹ ç›®æ ‡å—ä¼¤è½¬ç§»
+	uint32 PaladinGuard_AOESacrifice;// 64205		ç¥åœ£ç‰ºç‰² å›¢é˜Ÿå—ä¼¤è½¬ç§»(é˜²å¾¡ç³»)
+	uint32 PaladinGuard_BlockShield;// 48952			ç¥åœ£æ ¼æŒ¡(é˜²å¾¡ç³»)
+	uint32 PaladinGuard_PhyImmune;// 10278			ç›®æ ‡ç‰©ç†å…ç–«
 
-	uint32 PaladinAssist_UpPower;// 31884			¿ª³á°ò UPÉËº¦
-	uint32 PaladinAssist_RevengeStamp;// 31801		¸´³ğÊ¥Ó¡ µş¼Ó5²ãÉËº¦Ìá¸ß
-	uint32 PaladinAssist_LifeStamp;// 20165			¹âÃ÷Ê¥Ó¡ ¹¥»÷»ØÑª
-	uint32 PaladinAssist_ManaStamp;// 20166			ÖÇ»ÛÊ¥Ó¡ ¹¥»÷»ØÀ¶
-	uint32 PaladinAssist_JusticeStamp;// 21084		ÕıÒåÊ¥Ó¡ ¹¥»÷Ìá¸ß
-	uint32 PaladinAssist_StunStamp;// 20164			¹«ÕıÊ¥Ó¡ ¹¥»÷¼¸ÂÊ»èÃÔ
-	uint32 PaladinAssist_ComStamp;// 20375			ÃüÁîÊ¥Ó¡ ¹¥»÷¼ÓÇ¿(³Í½äÏµ)
-	uint32 PaladinAssist_Confession;// 20066			âã»Ú ¿ØÖÆ(³Í½äÏµ)
-	uint32 PaladinAssist_StunMace;// 10308			ÖÆ²ÃÖ®´¸ »èÃÔ
-	uint32 PaladinAssist_ReviveMana;// 54428			»ØÀ¶BUF
-	uint32 PaladinAssist_HealCrit;// 20216			nextÖÎÁÆ±©»÷(ÉñÊ¥Ïµ)
-	uint32 PaladinAssist_LowMana;// 31842			·¨ÊõºÄÀ¶½µµÍ(ÉñÊ¥Ïµ)
-	uint32 PaladinAssist_AuraUP;// 31821			¹â»·Ğ§¹û¼ÓÇ¿BUF(ÉñÊ¥Ïµ)
-	uint32 PaladinAssist_Dispel;// 4987				ÇıÉ¢Ä§·¨ÖĞ¶¾
+	uint32 PaladinAssist_UpPower;// 31884			å¼€ç¿…è†€ UPä¼¤å®³
+	uint32 PaladinAssist_RevengeStamp;// 31801		å¤ä»‡åœ£å° å åŠ 5å±‚ä¼¤å®³æé«˜
+	uint32 PaladinAssist_LifeStamp;// 20165			å…‰æ˜åœ£å° æ”»å‡»å›è¡€
+	uint32 PaladinAssist_ManaStamp;// 20166			æ™ºæ…§åœ£å° æ”»å‡»å›è“
+	uint32 PaladinAssist_JusticeStamp;// 21084		æ­£ä¹‰åœ£å° æ”»å‡»æé«˜
+	uint32 PaladinAssist_StunStamp;// 20164			å…¬æ­£åœ£å° æ”»å‡»å‡ ç‡æ˜è¿·
+	uint32 PaladinAssist_ComStamp;// 20375			å‘½ä»¤åœ£å° æ”»å‡»åŠ å¼º(æƒ©æˆ’ç³»)
+	uint32 PaladinAssist_Confession;// 20066			å¿æ‚” æ§åˆ¶(æƒ©æˆ’ç³»)
+	uint32 PaladinAssist_StunMace;// 10308			åˆ¶è£ä¹‹é”¤ æ˜è¿·
+	uint32 PaladinAssist_ReviveMana;// 54428			å›è“BUF
+	uint32 PaladinAssist_HealCrit;// 20216			nextæ²»ç–—æš´å‡»(ç¥åœ£ç³»)
+	uint32 PaladinAssist_LowMana;// 31842			æ³•æœ¯è€—è“é™ä½(ç¥åœ£ç³»)
+	uint32 PaladinAssist_AuraUP;// 31821			å…‰ç¯æ•ˆæœåŠ å¼ºBUF(ç¥åœ£ç³»)
+	uint32 PaladinAssist_Dispel;// 4987				é©±æ•£é­”æ³•ä¸­æ¯’
 
-	uint32 PaladinHeal_FastHoly;// 48785			Ê¥¹âÉÁÏÖ
-	uint32 PaladinHeal_BigHoly;// 48782				Ê¥¹âÊõ
-	uint32 PaladinHeal_FullHoly;// 48788			Ê¥ÁÆ
+	uint32 PaladinHeal_FastHoly;// 48785			åœ£å…‰é—ªç°
+	uint32 PaladinHeal_BigHoly;// 48782				åœ£å…‰æœ¯
+	uint32 PaladinHeal_FullHoly;// 48788			åœ£ç–—
 
-	uint32 PaladinMelee_AOEOffertory;// 48819		·îÏ×
-	uint32 PaladinMelee_KillMace;// 48806			Õ¶É±Ö®´¸ Ä¿±êµÍÓÚ20%Ñª
-	uint32 PaladinMelee_FlyShield;// 48827			µ¯Éä·É¶Ü(·ÀÓùÏµ)
-	uint32 PaladinMelee_ShieldAtt;// 61411			¶ÜÅÆ´ò»÷(·ÀÓùÏµ)
-	uint32 PaladinMelee_MaceAtt;// 53595			ÕıÒåÖ®´¸(·ÀÓùÏµ)
-	uint32 PaladinMelee_HolyAtt;// 48825			ÉñÊ¥Õğ»÷(ÉñÊ¥Ïµ)
-	uint32 PaladinMelee_LifeJudge;// 20271			¹âÃ÷ÉóÅĞ
-	uint32 PaladinMelee_ManaJudge;// 53408			ÖÇ»ÛÉóÅĞ
-	uint32 PaladinMelee_FleeJudge;// 53407			¹«ÕıÉóÅĞ
-	uint32 PaladinMelee_WeaponAtt;// 35395			Ê®×Ö¾ü´ò»÷(³Í½äÏµ)
-	uint32 PaladinMelee_HolyStrom;// 53385			ÉñÊ¥·ç±©(³Í½äÏµ)
+	uint32 PaladinMelee_AOEOffertory;// 48819		å¥‰çŒ®
+	uint32 PaladinMelee_KillMace;// 48806			æ–©æ€ä¹‹é”¤ ç›®æ ‡ä½äº20%è¡€
+	uint32 PaladinMelee_FlyShield;// 48827			å¼¹å°„é£ç›¾(é˜²å¾¡ç³»)
+	uint32 PaladinMelee_ShieldAtt;// 61411			ç›¾ç‰Œæ‰“å‡»(é˜²å¾¡ç³»)
+	uint32 PaladinMelee_MaceAtt;// 53595			æ­£ä¹‰ä¹‹é”¤(é˜²å¾¡ç³»)
+	uint32 PaladinMelee_HolyAtt;// 48825			ç¥åœ£éœ‡å‡»(ç¥åœ£ç³»)
+	uint32 PaladinMelee_LifeJudge;// 20271			å…‰æ˜å®¡åˆ¤
+	uint32 PaladinMelee_ManaJudge;// 53408			æ™ºæ…§å®¡åˆ¤
+	uint32 PaladinMelee_FleeJudge;// 53407			å…¬æ­£å®¡åˆ¤
+	uint32 PaladinMelee_WeaponAtt;// 35395			åå­—å†›æ‰“å‡»(æƒ©æˆ’ç³»)
+	uint32 PaladinMelee_HolyStrom;// 53385			ç¥åœ£é£æš´(æƒ©æˆ’ç³»)
 
-	uint32 PaladinFlag_MomentHoly;// 59578			Õ½ÕùÒÕÊõ Ë²·¢Ê¥ÉÁ
-	uint32 PaladinFlag_Discipline;// 25771			×ÔÂÉ DEBUFF
+	uint32 PaladinFlag_MomentHoly;// 59578			æˆ˜äº‰è‰ºæœ¯ ç¬å‘åœ£é—ª
+	uint32 PaladinFlag_Discipline;// 25771			è‡ªå¾‹ DEBUFF
 };
 
 #endif // !_BOT_PALADIN_AI_H

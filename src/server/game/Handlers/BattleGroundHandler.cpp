@@ -169,7 +169,7 @@ void WorldSession::HandleBattlemasterJoin(WorldPackets::Battleground::Join& pack
         if (grp->GroupExistPlayerBot())
         {
             std::string outString;
-            consoleToUtf8(std::string("当前状态无法小队加入！"), outString);
+            outString = "Cannot queue as a group in the current state.";
             _player->Whisper(outString, Language::LANG_COMMON, _player->GetGUID());
             return;
         }

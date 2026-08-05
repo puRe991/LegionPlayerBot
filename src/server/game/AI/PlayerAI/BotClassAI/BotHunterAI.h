@@ -54,54 +54,54 @@ private:
 	bool m_IsSupplemented;
 	bool m_IsReviveManaModel;
 
-	uint32 HunterIDLE_SummonPet;// 883			ÕÙ»½³èÎï
-	uint32 HunterIDLE_RevivePet;// 982			¸´»î³èÎï
-	uint32 HunterIDLE_ManaAura;// 34074			¹¥»÷»ØÀ¶ÊØ»¤
-	uint32 HunterIDLE_DodgeAura;// 13163		ÉÁ¶ãÊØ»¤
-	uint32 HunterIDLE_EagleAura;// 27044		Éä»÷ÊØ»¤
-	uint32 HunterIDLE_DragonAura;// 61847		ÁúÓ¥ÊØ»¤ Éä»÷ºÍÉÁ¶ãÊØ»¤
-	uint32 HunterIDLE_ShotAura;// 19506			Ç¿»÷¹â»·(Éä»÷Ïµ)
+	uint32 HunterIDLE_SummonPet;// 883			å¬å”¤å® ç‰©
+	uint32 HunterIDLE_RevivePet;// 982			å¤æ´»å® ç‰©
+	uint32 HunterIDLE_ManaAura;// 34074			æ”»å‡»å›è“å®ˆæŠ¤
+	uint32 HunterIDLE_DodgeAura;// 13163		é—ªèº²å®ˆæŠ¤
+	uint32 HunterIDLE_EagleAura;// 27044		å°„å‡»å®ˆæŠ¤
+	uint32 HunterIDLE_DragonAura;// 61847		é¾™é¹°å®ˆæŠ¤ å°„å‡»å’Œé—ªèº²å®ˆæŠ¤
+	uint32 HunterIDLE_ShotAura;// 19506			å¼ºå‡»å…‰ç¯(å°„å‡»ç³»)
 
-	uint32 HunterTrap_FarFrozen;// 60192		Ô¶³Ì±ù¶³ÏİÚå
-	uint32 HunterTrap_Frozen;// 14311			±ù¶³ÏİÚå
-	uint32 HunterTrap_Ice;// 13809				±ùËªÏİÚå
-	uint32 HunterTrap_Viper;// 34600			¶¾ÉßÏİÚå
-	uint32 HunterTrap_Explode;// 49067			±¬Õ¨ÏİÚå
-	uint32 HunterTrap_Fire;// 49056				»ğÑæÏİÚå
-	uint32 HunterTrap_Shot;// 63672				ºÚ×Ç¼ı(Éú´æÏµ)
+	uint32 HunterTrap_FarFrozen;// 60192		è¿œç¨‹å†°å†»é™·é˜±
+	uint32 HunterTrap_Frozen;// 14311			å†°å†»é™·é˜±
+	uint32 HunterTrap_Ice;// 13809				å†°éœœé™·é˜±
+	uint32 HunterTrap_Viper;// 34600			æ¯’è›‡é™·é˜±
+	uint32 HunterTrap_Explode;// 49067			çˆ†ç‚¸é™·é˜±
+	uint32 HunterTrap_Fire;// 49056				ç«ç„°é™·é˜±
+	uint32 HunterTrap_Shot;// 63672				é»‘æµŠç®­(ç”Ÿå­˜ç³»)
 
-	uint32 HunterAssist_ClearRoot;// 53271		ÒÆ³ı¶¨Éí
-	uint32 HunterAssist_PetCommand;// 34026		³èÎïÉ±½Ø
-	uint32 HunterAssist_HealPet;// 48990		³èÎïÖÎÁÆ
-	uint32 HunterAssist_PetStun;// 19577		³èÎï»÷ÔÎÄ¿±ê(Ò°ÊŞÏµ)
-	uint32 HunterAssist_PetRage;// 19574		³èÎïºÍ×Ô¼º¿ñ±©(Ò°ÊŞÏµ)
-	uint32 HunterAssist_Stamp;// 53338			ÁÔÈËÓ¡¼Ç
-	uint32 HunterAssist_FalseDead;// 5384		¼ÙËÀ
-	uint32 HunterAssist_BackJump;// 781			ºóÌø
-	uint32 HunterAssist_FastSpeed;// 3045		¼±ËÙÉä»÷BUF
-	uint32 HunterAssist_ReadyCD;// 23989		×¼±¸¾ÍĞ÷CD(Éä»÷Ïµ)
+	uint32 HunterAssist_ClearRoot;// 53271		ç§»é™¤å®šèº«
+	uint32 HunterAssist_PetCommand;// 34026		å® ç‰©æ€æˆª
+	uint32 HunterAssist_HealPet;// 48990		å® ç‰©æ²»ç–—
+	uint32 HunterAssist_PetStun;// 19577		å® ç‰©å‡»æ™•ç›®æ ‡(é‡å…½ç³»)
+	uint32 HunterAssist_PetRage;// 19574		å® ç‰©å’Œè‡ªå·±ç‹‚æš´(é‡å…½ç³»)
+	uint32 HunterAssist_Stamp;// 53338			çŒäººå°è®°
+	uint32 HunterAssist_FalseDead;// 5384		å‡æ­»
+	uint32 HunterAssist_BackJump;// 781			åè·³
+	uint32 HunterAssist_FastSpeed;// 3045		æ€¥é€Ÿå°„å‡»BUF
+	uint32 HunterAssist_ReadyCD;// 23989		å‡†å¤‡å°±ç»ªCD(å°„å‡»ç³»)
 
-	uint32 HunterMelee_BackRoot;// 48999		ÕĞ¼Üºó·´»÷¶¨Éí(Éú´æÏµ)
-	uint32 HunterMelee_NoDamage;// 19263		ÍşÉå ÎŞ·¨¹¥»÷
-	uint32 HunterMelee_DecSpeed;// 2974			Ë¤°è ½üÕ½¼õÒÆ¶¯ËÙ
-	uint32 HunterMelee_NextAtt;// 48996			next½üÕ½¹¥»÷¼ÓÇ¿
-	uint32 HunterMelee_MeleeAtt;// 53339		½üÕ½¹¥»÷
+	uint32 HunterMelee_BackRoot;// 48999		æ‹›æ¶ååå‡»å®šèº«(ç”Ÿå­˜ç³»)
+	uint32 HunterMelee_NoDamage;// 19263		å¨æ…‘ æ— æ³•æ”»å‡»
+	uint32 HunterMelee_DecSpeed;// 2974			æ‘”æ‹Œ è¿‘æˆ˜å‡ç§»åŠ¨é€Ÿ
+	uint32 HunterMelee_NextAtt;// 48996			nextè¿‘æˆ˜æ”»å‡»åŠ å¼º
+	uint32 HunterMelee_MeleeAtt;// 53339		è¿‘æˆ˜æ”»å‡»
 
-	uint32 HunterDebug_Damage;// 49001			ÉËº¦¶¤´Ì
-	uint32 HunterDebug_Mana;// 3034				ÎüÀ¶¶¤´Ì
-	uint32 HunterDebug_Sleep;// 49012			³ÁË¯¶¤´Ì(Éú´æÏµ)
+	uint32 HunterDebug_Damage;// 49001			ä¼¤å®³é’‰åˆº
+	uint32 HunterDebug_Mana;// 3034				å¸è“é’‰åˆº
+	uint32 HunterDebug_Sleep;// 49012			æ²‰ç¡é’‰åˆº(ç”Ÿå­˜ç³»)
 
-	uint32 HunterShot_AOEShot;// 58434			AOEÉä»÷
-	uint32 HunterShot_CharmShot;// 19503		´ò¶ÏÉä»÷(Éú´æÏµ)
-	uint32 HunterShot_Explode;// 60053			±¬Õ¨Éä»÷(Éú´æÏµ)
-	uint32 HunterShot_Aim;// 49050				Ãé×¼Éä»÷(Éä»÷Ïµ)
-	uint32 HunterShot_Silence;// 34490			³ÁÄ¬Éä»÷(Éä»÷Ïµ)
-	uint32 HunterShot_Shock;// 5116				Õğµ´Éä»÷
-	uint32 HunterShot_Cast;// 49052				ÎÈ¹ÌÉä»÷ Ê©·¨Ê±¼äµÄÉä»÷
-	uint32 HunterShot_MgcShot;// 49045			°ÂÊõÉä»÷
-	uint32 HunterShot_KillShot;// 61006			»÷É±Éä»÷ Ä¿±ê20%ÒÔÏÂÑªÕ¶É±Ê½Éä»÷
-	uint32 HunterShot_MulShot;// 49048			¶àÖØÉä»÷
-	uint32 HunterShot_QMLShot;// 53209			ÆæÃÀÀ­Éä»÷(Éä»÷Ïµ)
+	uint32 HunterShot_AOEShot;// 58434			AOEå°„å‡»
+	uint32 HunterShot_CharmShot;// 19503		æ‰“æ–­å°„å‡»(ç”Ÿå­˜ç³»)
+	uint32 HunterShot_Explode;// 60053			çˆ†ç‚¸å°„å‡»(ç”Ÿå­˜ç³»)
+	uint32 HunterShot_Aim;// 49050				ç„å‡†å°„å‡»(å°„å‡»ç³»)
+	uint32 HunterShot_Silence;// 34490			æ²‰é»˜å°„å‡»(å°„å‡»ç³»)
+	uint32 HunterShot_Shock;// 5116				éœ‡è¡å°„å‡»
+	uint32 HunterShot_Cast;// 49052				ç¨³å›ºå°„å‡» æ–½æ³•æ—¶é—´çš„å°„å‡»
+	uint32 HunterShot_MgcShot;// 49045			å¥¥æœ¯å°„å‡»
+	uint32 HunterShot_KillShot;// 61006			å‡»æ€å°„å‡» ç›®æ ‡20%ä»¥ä¸‹è¡€æ–©æ€å¼å°„å‡»
+	uint32 HunterShot_MulShot;// 49048			å¤šé‡å°„å‡»
+	uint32 HunterShot_QMLShot;// 53209			å¥‡ç¾æ‹‰å°„å‡»(å°„å‡»ç³»)
 };
 
 #endif // !_BOT_HUNTER_AI_H

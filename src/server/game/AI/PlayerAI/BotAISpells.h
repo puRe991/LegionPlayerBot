@@ -13,59 +13,59 @@ public:
 	void InitializeSpells(Player* player);
 
 protected:
-	uint32 WarriorIDLE_AOEAddLife = 45517;			// ÃüÁîÅ­ºğ
-	uint32 WarriorIDLE_AOEAddPower = 27578;			// ¹¥Ç¿Å­ºğ
+	uint32 WarriorIDLE_AOEAddLife = 45517;			// å‘½ä»¤æ€’å¼
+	uint32 WarriorIDLE_AOEAddPower = 27578;			// æ”»å¼ºæ€’å¼
 
 	uint32 WarriorWeapon_Status = 122990;
 	uint32 WarriorDefance_Status = 71;
 	uint32 WarriorRage_Status = 122989;
 
-	uint32 WarriorCommon_PowerAtt = 25712;			// Ó¢ÓÂ´ò»÷
-	uint32 WarriorCommon_PowerThrow = 57755;			// Ó¢ÓÂÍ¶ÖÀ
-	uint32 WarriorCommon_PowerRelife = 184364;		// ¿ñÅ­»Ö¸´£¨ÓĞ¿ñ±©Ê±Ê¹ÓÃ»ØÑª£©
-	uint32 WarriorCommon_ClearCtrl = 18499;			// ¿ñ±©Ö®Å­£¨ÒÆ³ı¿ØÖÆ£©
-	uint32 WarriorCommon_AOEFear = 65930;			// ½üÕ½·¶Î§Èº¿Ö¾å
-	uint32 WarriorCommon_SweepAtt = 231833;			// Ë³ÅüÕ¶
-	uint32 WarriorCommon_AddPower = 173401;			// ¼ÓÅ­Æø
-	uint32 WarriorCommon_AOEDecPower = 27579;		// ÈºÌå¼õ¹¥Ç¿ºğ
+	uint32 WarriorCommon_PowerAtt = 25712;			// è‹±å‹‡æ‰“å‡»
+	uint32 WarriorCommon_PowerThrow = 57755;			// è‹±å‹‡æŠ•æ·
+	uint32 WarriorCommon_PowerRelife = 184364;		// ç‹‚æ€’æ¢å¤ï¼ˆæœ‰ç‹‚æš´æ—¶ä½¿ç”¨å›è¡€ï¼‰
+	uint32 WarriorCommon_ClearCtrl = 18499;			// ç‹‚æš´ä¹‹æ€’ï¼ˆç§»é™¤æ§åˆ¶ï¼‰
+	uint32 WarriorCommon_AOEFear = 65930;			// è¿‘æˆ˜èŒƒå›´ç¾¤ææƒ§
+	uint32 WarriorCommon_SweepAtt = 231833;			// é¡ºåŠˆæ–©
+	uint32 WarriorCommon_AddPower = 173401;			// åŠ æ€’æ°”
+	uint32 WarriorCommon_AOEDecPower = 27579;		// ç¾¤ä½“å‡æ”»å¼ºå¼
 
-	uint32 WarriorDefance_HPojia = 186688;			// »ÙÃğ´ò»÷
-	uint32 WarriorDefance_Fuchou = 40392;			// ¸´³ğ
-	uint32 WarriorDefance_ShieldBlock = 38031;		// ¶ÜÅÆ¸ñµ²
-	uint32 WarriorDefance_ShieldAtt= 23922;			// ¶ÜÅÆÃÍ»÷
-	uint32 WarriorDefance_Pojia = 25051;				// ÆÆ¼×
-	uint32 WarriorDefance_MaxLife = 12975;			// ÆÆ¸ª³ÁÖÛ
-	uint32 WarriorDefance_ShiledWall = 871;			// ¶ÜÇ½
-	uint32 WarriorDefance_Disarm = 11879;				// ½ÉĞµ
-	uint32 WarriorDefance_Support = 41198;			// Ô®Öú
-	uint32 WarriorDefance_Conk = 22427;				// µ¥Ìå»÷ÔÎ
-	uint32 WarriorDefance_AOEConk = 46968;			// Ç°·½·¶Î§»÷ÔÎ
-	uint32 WarriorDefance_Pull = 355;				// ³°·í
+	uint32 WarriorDefance_HPojia = 186688;			// æ¯ç­æ‰“å‡»
+	uint32 WarriorDefance_Fuchou = 40392;			// å¤ä»‡
+	uint32 WarriorDefance_ShieldBlock = 38031;		// ç›¾ç‰Œæ ¼æŒ¡
+	uint32 WarriorDefance_ShieldAtt= 23922;			// ç›¾ç‰ŒçŒ›å‡»
+	uint32 WarriorDefance_Pojia = 25051;				// ç ´ç”²
+	uint32 WarriorDefance_MaxLife = 12975;			// ç ´é‡œæ²‰èˆŸ
+	uint32 WarriorDefance_ShiledWall = 871;			// ç›¾å¢™
+	uint32 WarriorDefance_Disarm = 11879;				// ç¼´æ¢°
+	uint32 WarriorDefance_Support = 41198;			// æ´åŠ©
+	uint32 WarriorDefance_Conk = 22427;				// å•ä½“å‡»æ™•
+	uint32 WarriorDefance_AOEConk = 46968;			// å‰æ–¹èŒƒå›´å‡»æ™•
+	uint32 WarriorDefance_Pull = 355;				// å˜²è®½
 
-	uint32 WarriorWeapon_SwordStorm = 9632;			// ½£ÈĞ·ç±©
-	uint32 WarriorWeaponDefance_AOEAtt = 165749;		// À×öªÒ»»÷
-	uint32 WarriorWeaponDefance_Bleed = 43931;		// ËºÁÑ
-	uint32 WarriorWeaponDefance_SpellReflect = 57643;	// ·¨Êõ·´Éä
-	uint32 WarriorWeaponDefance_ShieldHit = 149383;		// ¶Ü»÷£¨Ê©·¨´ò¶Ï£©
+	uint32 WarriorWeapon_SwordStorm = 9632;			// å‰‘åˆƒé£æš´
+	uint32 WarriorWeaponDefance_AOEAtt = 165749;		// é›·éœ†ä¸€å‡»
+	uint32 WarriorWeaponDefance_Bleed = 43931;		// æ’•è£‚
+	uint32 WarriorWeaponDefance_SpellReflect = 57643;	// æ³•æœ¯åå°„
+	uint32 WarriorWeaponDefance_ShieldHit = 149383;		// ç›¾å‡»ï¼ˆæ–½æ³•æ‰“æ–­ï¼‰
 
-	uint32 WarriorWeapon_HighThrow = 65940;			// ÆÆÎŞµĞÍ¶ÖÀ
-	uint32 WarriorWeapon_Charge = 100;			// ³å·æ
-	uint32 WarriorWeapon_Suppress = 7384;			// Ñ¹ÖÆ
-	uint32 WarriorWeapon_Backstorm = 22857;			// ·´»÷·ç±©
-	uint32 WarriorWeapon_DeadAtt = 27580;			// ÖÂËÀ´ò»÷
+	uint32 WarriorWeapon_HighThrow = 65940;			// ç ´æ— æ•ŒæŠ•æ·
+	uint32 WarriorWeapon_Charge = 100;			// å†²é”‹
+	uint32 WarriorWeapon_Suppress = 7384;			// å‹åˆ¶
+	uint32 WarriorWeapon_Backstorm = 22857;			// åå‡»é£æš´
+	uint32 WarriorWeapon_DeadAtt = 27580;			// è‡´æ­»æ‰“å‡»
 
-	uint32 WarriorWeaponRage_FullKill = 5308;		// Õ¶É±
-	uint32 WarriorWeaponRage_WinAttack = 34428;		// ³ËÊ¤×·»÷
-	uint32 WarriorWeaponRage_Backfillet = 1715;		// ¶Ï½î
+	uint32 WarriorWeaponRage_FullKill = 5308;		// æ–©æ€
+	uint32 WarriorWeaponRage_WinAttack = 34428;		// ä¹˜èƒœè¿½å‡»
+	uint32 WarriorWeaponRage_Backfillet = 1715;		// æ–­ç­‹
 
-	uint32 WarriorRage_Harsh = 12323;				// ´Ì¶úÅ­ºğ
-	uint32 WarriorRage_HeadAtt = 6552;				// È­»÷£¨Ê©·¨´ò¶Ï£©
-	uint32 WarriorRage_Intercept = 20615;			// À¹½Ø
-	uint32 WarriorRage_Whirlwind = 12950;			// Ğı·çÕ¶
-	uint32 WarriorRage_Impertinency = 13847;			// Â³Ã§
-	uint32 WarriorRage_Needdead = 199261;			// ËÀÍöÖ®Ô¸
-	uint32 WarriorRage_Bloodthirsty = 39071;			// ÊÈÑª
-	uint32 WarriorRage_ReIntercept = 184364;			// ½â³ıÒÆ¶¯ÏŞÖÆºÍ½â³ıÀ¹½ØCD
+	uint32 WarriorRage_Harsh = 12323;				// åˆºè€³æ€’å¼
+	uint32 WarriorRage_HeadAtt = 6552;				// æ‹³å‡»ï¼ˆæ–½æ³•æ‰“æ–­ï¼‰
+	uint32 WarriorRage_Intercept = 20615;			// æ‹¦æˆª
+	uint32 WarriorRage_Whirlwind = 12950;			// æ—‹é£æ–©
+	uint32 WarriorRage_Impertinency = 13847;			// é²è½
+	uint32 WarriorRage_Needdead = 199261;			// æ­»äº¡ä¹‹æ„¿
+	uint32 WarriorRage_Bloodthirsty = 39071;			// å—œè¡€
+	uint32 WarriorRage_ReIntercept = 184364;			// è§£é™¤ç§»åŠ¨é™åˆ¶å’Œè§£é™¤æ‹¦æˆªCD
 };
 
 class BotPaladinSpells
@@ -74,63 +74,63 @@ public:
 	void InitializeSpells(Player* player);
 
 protected:
-	uint32 PaladinIDLE_MountAura = 225454;			//×øÆïËÙ¶È¹â»·
-	uint32 PaladinIDLE_CastAura = 81455;// 19746			Ê©·¨¹â»·
-	uint32 PaladinIDLE_JudgeAura = 8990;// 54043			³Í½ä¹â»·
-	uint32 PaladinIDLE_ArmorAura = 41105;// 48942			·ÀÓù¹â»·
-	uint32 PaladinIDLE_AOEGuardWish = 210256;// 25899			ÈºÌå±Ó»¤×£¸£(·ÀÓùÏµ)
-	uint32 PaladinIDLE_GuardWish = 210256;// 20911			±Ó»¤×£¸£(·ÀÓùÏµ)
-	uint32 PaladinIDLE_AOEKingWish = 43223;// 25898			ÈºÌåÍõÕß×£¸£
-	uint32 PaladinIDLE_KingWish = 56525;// 20217			ÍõÕß×£¸£
-	uint32 PaladinIDLE_AOEWitWish = 203539;// 48938			ÈºÌåÖÇ»Û×£¸£
-	uint32 PaladinIDLE_WitWish = 175365;// 48936				ÖÇ»Û×£¸£
-	uint32 PaladinIDLE_AOEStrWish = 29381;// 48934			ÈºÌåÁ¦Á¿×£¸£
-	uint32 PaladinIDLE_StrWish = 56520;// 48932				Á¦Á¿×£¸£
-	uint32 PaladinIDLE_JusticeRage = 25780;// 25780			ÕıÒåÖ®Å­ ·ÀÆïÊ¹ÓÃ
-	uint32 PaladinIDLE_Revive = 7328;// 48950				¸´»îÍæ¼Ò
+	uint32 PaladinIDLE_MountAura = 225454;			//åéª‘é€Ÿåº¦å…‰ç¯
+	uint32 PaladinIDLE_CastAura = 81455;// 19746			æ–½æ³•å…‰ç¯
+	uint32 PaladinIDLE_JudgeAura = 8990;// 54043			æƒ©æˆ’å…‰ç¯
+	uint32 PaladinIDLE_ArmorAura = 41105;// 48942			é˜²å¾¡å…‰ç¯
+	uint32 PaladinIDLE_AOEGuardWish = 210256;// 25899			ç¾¤ä½“åº‡æŠ¤ç¥ç¦(é˜²å¾¡ç³»)
+	uint32 PaladinIDLE_GuardWish = 210256;// 20911			åº‡æŠ¤ç¥ç¦(é˜²å¾¡ç³»)
+	uint32 PaladinIDLE_AOEKingWish = 43223;// 25898			ç¾¤ä½“ç‹è€…ç¥ç¦
+	uint32 PaladinIDLE_KingWish = 56525;// 20217			ç‹è€…ç¥ç¦
+	uint32 PaladinIDLE_AOEWitWish = 203539;// 48938			ç¾¤ä½“æ™ºæ…§ç¥ç¦
+	uint32 PaladinIDLE_WitWish = 175365;// 48936				æ™ºæ…§ç¥ç¦
+	uint32 PaladinIDLE_AOEStrWish = 29381;// 48934			ç¾¤ä½“åŠ›é‡ç¥ç¦
+	uint32 PaladinIDLE_StrWish = 56520;// 48932				åŠ›é‡ç¥ç¦
+	uint32 PaladinIDLE_JusticeRage = 25780;// 25780			æ­£ä¹‰ä¹‹æ€’ é˜²éª‘ä½¿ç”¨
+	uint32 PaladinIDLE_Revive = 7328;// 48950				å¤æ´»ç©å®¶
 
-	uint32 PaladinGuard_UnShield =29386;// 53601			³çÊ¥»¤¶Ü
-	uint32 PaladinGuard_FreeAura = 1044;// 1044			×ÔÓÉ×£¸£
-	uint32 PaladinGuard_Invincible = 642;// 642			Ê¥¶ÜÊõ ÎŞµĞ
-	uint32 PaladinGuard_Sacrifice = 187190;// 6940			ÎşÉüÖ®ÊÖ Ä¿±êÊÜÉË×ªÒÆ
-	uint32 PaladinGuard_AOESacrifice = 13903;// 64205		ÉñÊ¥ÎşÉü ÍÅ¶ÓÊÜÉË×ªÒÆ(·ÀÓùÏµ)
-	uint32 PaladinGuard_BlockShield = 31904;// 48952			ÉñÊ¥¸ñµ²(·ÀÓùÏµ)
-	uint32 PaladinGuard_PhyImmune = 66009;// 10278			Ä¿±êÎïÀíÃâÒß
-	uint32 PaladinGuard_Pull = 210487;// 62124				³°·í
+	uint32 PaladinGuard_UnShield =29386;// 53601			å´‡åœ£æŠ¤ç›¾
+	uint32 PaladinGuard_FreeAura = 1044;// 1044			è‡ªç”±ç¥ç¦
+	uint32 PaladinGuard_Invincible = 642;// 642			åœ£ç›¾æœ¯ æ— æ•Œ
+	uint32 PaladinGuard_Sacrifice = 187190;// 6940			ç‰ºç‰²ä¹‹æ‰‹ ç›®æ ‡å—ä¼¤è½¬ç§»
+	uint32 PaladinGuard_AOESacrifice = 13903;// 64205		ç¥åœ£ç‰ºç‰² å›¢é˜Ÿå—ä¼¤è½¬ç§»(é˜²å¾¡ç³»)
+	uint32 PaladinGuard_BlockShield = 31904;// 48952			ç¥åœ£æ ¼æŒ¡(é˜²å¾¡ç³»)
+	uint32 PaladinGuard_PhyImmune = 66009;// 10278			ç›®æ ‡ç‰©ç†å…ç–«
+	uint32 PaladinGuard_Pull = 210487;// 62124				å˜²è®½
 
-	uint32 PaladinAssist_UpPower = 31842;// 31884			¿ª³á°ò UPÉËº¦
-	uint32 PaladinAssist_RevengeStamp = 45095;// 31801		¸´³ğÊ¥Ó¡ µş¼Ó5²ãÉËº¦Ìá¸ß
-	uint32 PaladinAssist_LifeStamp = 165745;// 20165			¹âÃ÷Ê¥Ó¡ ¹¥»÷»ØÑª
-	uint32 PaladinAssist_ManaStamp = 130433;// 20166			ÖÇ»ÛÊ¥Ó¡ ¹¥»÷»ØÀ¶
-	uint32 PaladinAssist_JusticeStamp = 38008;// 21084		ÕıÒåÊ¥Ó¡ ¹¥»÷Ìá¸ß
-	uint32 PaladinAssist_StunStamp =50907;// 20164			¹«ÕıÊ¥Ó¡ ¹¥»÷¼¸ÂÊ»èÃÔ
-	uint32 PaladinAssist_ComStamp =13903;// 20375			ÃüÁîÊ¥Ó¡ ¹¥»÷¼ÓÇ¿(³Í½äÏµ)
-	uint32 PaladinAssist_Confession =173315;// 20066			âã»Ú ¿ØÖÆ(³Í½äÏµ)
-	uint32 PaladinAssist_StunMace = 66863;// 10308			ÖÆ²ÃÖ®´¸ »èÃÔ
-	uint32 PaladinAssist_ReviveMana =173521;// 54428			»ØÀ¶BUF
-	uint32 PaladinAssist_HealCrit =210294;// 20216			nextÖÎÁÆ±©»÷(ÉñÊ¥Ïµ)
-	uint32 PaladinAssist_LowMana =20271;// 31842			·¨ÊõºÄÀ¶½µµÍ(ÉñÊ¥Ïµ)
-	uint32 PaladinAssist_AuraUP =31821;// 31821			¹â»·Ğ§¹û¼ÓÇ¿BUF(ÉñÊ¥Ïµ)
-	uint32 PaladinAssist_Dispel =4987;// 4987				ÇıÉ¢Ä§·¨ÖĞ¶¾
+	uint32 PaladinAssist_UpPower = 31842;// 31884			å¼€ç¿…è†€ UPä¼¤å®³
+	uint32 PaladinAssist_RevengeStamp = 45095;// 31801		å¤ä»‡åœ£å° å åŠ 5å±‚ä¼¤å®³æé«˜
+	uint32 PaladinAssist_LifeStamp = 165745;// 20165			å…‰æ˜åœ£å° æ”»å‡»å›è¡€
+	uint32 PaladinAssist_ManaStamp = 130433;// 20166			æ™ºæ…§åœ£å° æ”»å‡»å›è“
+	uint32 PaladinAssist_JusticeStamp = 38008;// 21084		æ­£ä¹‰åœ£å° æ”»å‡»æé«˜
+	uint32 PaladinAssist_StunStamp =50907;// 20164			å…¬æ­£åœ£å° æ”»å‡»å‡ ç‡æ˜è¿·
+	uint32 PaladinAssist_ComStamp =13903;// 20375			å‘½ä»¤åœ£å° æ”»å‡»åŠ å¼º(æƒ©æˆ’ç³»)
+	uint32 PaladinAssist_Confession =173315;// 20066			å¿æ‚” æ§åˆ¶(æƒ©æˆ’ç³»)
+	uint32 PaladinAssist_StunMace = 66863;// 10308			åˆ¶è£ä¹‹é”¤ æ˜è¿·
+	uint32 PaladinAssist_ReviveMana =173521;// 54428			å›è“BUF
+	uint32 PaladinAssist_HealCrit =210294;// 20216			nextæ²»ç–—æš´å‡»(ç¥åœ£ç³»)
+	uint32 PaladinAssist_LowMana =20271;// 31842			æ³•æœ¯è€—è“é™ä½(ç¥åœ£ç³»)
+	uint32 PaladinAssist_AuraUP =31821;// 31821			å…‰ç¯æ•ˆæœåŠ å¼ºBUF(ç¥åœ£ç³»)
+	uint32 PaladinAssist_Dispel =4987;// 4987				é©±æ•£é­”æ³•ä¸­æ¯’
 
-	uint32 PaladinHeal_FastHoly =19750;// 48785			Ê¥¹âÉÁÏÖ
-	uint32 PaladinHeal_BigHoly =13952;// 48782				Ê¥¹âÊõ
-	uint32 PaladinHeal_FullHoly =9257;// 48788			Ê¥ÁÆ
+	uint32 PaladinHeal_FastHoly =19750;// 48785			åœ£å…‰é—ªç°
+	uint32 PaladinHeal_BigHoly =13952;// 48782				åœ£å…‰æœ¯
+	uint32 PaladinHeal_FullHoly =9257;// 48788			åœ£ç–—
 
-	uint32 PaladinMelee_AOEOffertory = 251152;// 48819		·îÏ×
-	uint32 PaladinMelee_KillMace =37259;// 48806			Õ¶É±Ö®´¸ Ä¿±êµÍÓÚ20%Ñª
-	uint32 PaladinMelee_FlyShield =31935;// 48827			µ¯Éä·É¶Ü(·ÀÓùÏµ)
-	uint32 PaladinMelee_ShieldAtt =53600;// 61411			¶ÜÅÆ´ò»÷(·ÀÓùÏµ)
-	uint32 PaladinMelee_MaceAtt =53595;// 53595			ÕıÒåÖ®´¸(·ÀÓùÏµ)
-	uint32 PaladinMelee_HolyAtt =25914;// 48825			ÉñÊ¥Õğ»÷(ÉñÊ¥Ïµ)
-	uint32 PaladinMelee_LifeJudge =31804;// 20271			¹âÃ÷ÉóÅĞ
-	uint32 PaladinMelee_ManaJudge =41368;// 53408			ÖÇ»ÛÉóÅĞ
-	uint32 PaladinMelee_FleeJudge =201371;// 53407			¹«ÕıÉóÅĞ
-	uint32 PaladinMelee_WeaponAtt =213844;// 35395			Ê®×Ö¾ü´ò»÷(³Í½äÏµ)
-	uint32 PaladinMelee_HolyStrom =163888;// 53385			ÉñÊ¥·ç±©(³Í½äÏµ)
+	uint32 PaladinMelee_AOEOffertory = 251152;// 48819		å¥‰çŒ®
+	uint32 PaladinMelee_KillMace =37259;// 48806			æ–©æ€ä¹‹é”¤ ç›®æ ‡ä½äº20%è¡€
+	uint32 PaladinMelee_FlyShield =31935;// 48827			å¼¹å°„é£ç›¾(é˜²å¾¡ç³»)
+	uint32 PaladinMelee_ShieldAtt =53600;// 61411			ç›¾ç‰Œæ‰“å‡»(é˜²å¾¡ç³»)
+	uint32 PaladinMelee_MaceAtt =53595;// 53595			æ­£ä¹‰ä¹‹é”¤(é˜²å¾¡ç³»)
+	uint32 PaladinMelee_HolyAtt =25914;// 48825			ç¥åœ£éœ‡å‡»(ç¥åœ£ç³»)
+	uint32 PaladinMelee_LifeJudge =31804;// 20271			å…‰æ˜å®¡åˆ¤
+	uint32 PaladinMelee_ManaJudge =41368;// 53408			æ™ºæ…§å®¡åˆ¤
+	uint32 PaladinMelee_FleeJudge =201371;// 53407			å…¬æ­£å®¡åˆ¤
+	uint32 PaladinMelee_WeaponAtt =213844;// 35395			åå­—å†›æ‰“å‡»(æƒ©æˆ’ç³»)
+	uint32 PaladinMelee_HolyStrom =163888;// 53385			ç¥åœ£é£æš´(æƒ©æˆ’ç³»)
 
-	uint32 PaladinFlag_MomentHoly = 251152;// 59578			Õ½ÕùÒÕÊõ Ë²·¢Ê¥ÉÁ
-	uint32 PaladinFlag_Discipline =25771;// 25771			×ÔÂÉ DEBUFF
+	uint32 PaladinFlag_MomentHoly = 251152;// 59578			æˆ˜äº‰è‰ºæœ¯ ç¬å‘åœ£é—ª
+	uint32 PaladinFlag_Discipline =25771;// 25771			è‡ªå¾‹ DEBUFF
 };
 
 class BotDeathknightSpells
@@ -139,56 +139,56 @@ public:
 	void InitializeSpells(Player* player);
 
 protected:
-	uint32 DKStatus_Frost =50689;// 48263			±ùËªÁéÆø
-	uint32 DKStatus_Evil =50689;// 48265			Ğ°¶ñÁéÆø
-	uint32 DKStatus_Blood =50689;// 48266			ÏÊÑªÁéÆø
+	uint32 DKStatus_Frost =50689;// 48263			å†°éœœçµæ°”
+	uint32 DKStatus_Evil =50689;// 48265			é‚ªæ¶çµæ°”
+	uint32 DKStatus_Blood =50689;// 48266			é²œè¡€çµæ°”
 
-	uint32 DKIDLE_Buffer =165762;// 57623			È«¶ÓÁ¦Á¿ºÍÃô½İBUFF
-	uint32 DKIDLE_SummonPet =52451;//	46584		ÕÙ»½Ê³Ê¬¹í
-	uint32 DKIDLE_SummonAllPets =52478;//	42650	ÕÙ»½Ê³Ê¬¹í¾üÍÅ
+	uint32 DKIDLE_Buffer =165762;// 57623			å…¨é˜ŸåŠ›é‡å’Œæ•æ·BUFF
+	uint32 DKIDLE_SummonPet =52451;//	46584		å¬å”¤é£Ÿå°¸é¬¼
+	uint32 DKIDLE_SummonAllPets =52478;//	42650	å¬å”¤é£Ÿå°¸é¬¼å†›å›¢
 
-	uint32 DKBlock_Silence =66018;// 47476			³ÁÄ¬Ä¿±ê
-	uint32 DKBlock_Cast =173047;// 47528			´ò¶ÏÊ©·¨
+	uint32 DKBlock_Silence =66018;// 47476			æ²‰é»˜ç›®æ ‡
+	uint32 DKBlock_Cast =173047;// 47528			æ‰“æ–­æ–½æ³•
 
-	uint32 DKPulls_Pull =222409;// 56222			µ¥Ìå³°·í
-	uint32 DKPulls_DKPull =53276;// 49576			ËÀÍöÖ®ÎÕ
+	uint32 DKPulls_Pull =222409;// 56222			å•ä½“å˜²è®½
+	uint32 DKPulls_DKPull =53276;// 49576			æ­»äº¡ä¹‹æ¡
 
-	uint32 DKDefense_MgcShield =19645;// 48707		·´Ä§·¨¶Ü
-	uint32 DKDefense_NoMgcArea =52893;// 51052		·´Ä§·¨ÁìÓò£¬¶Ô×Ô¼ºÊ©·Å£¬ÇøÓòÄÚ·´Ä§·¨(Ğ°¶ñÏµ)
-	uint32 DKDefense_Contract =48743;// 48743		É±ËÀBB»ØÑª40%
-	uint32 DKDefense_IceBody =66023;// 48792		DK¶ÜÇ½
-	uint32 DKDefense_IceArmor =132103;// 51271		Í­Ç½Ìú±Ú(Ìá¹©»¤¼×ºÍÁ¦Á¿20Ãë)(º®±ùÏµ)
-	uint32 DKDefense_BoneShield =232049;// 49222	°×¹ÇÖ®¶Ü(Ğ°¶ñÏµ)
+	uint32 DKDefense_MgcShield =19645;// 48707		åé­”æ³•ç›¾
+	uint32 DKDefense_NoMgcArea =52893;// 51052		åé­”æ³•é¢†åŸŸï¼Œå¯¹è‡ªå·±æ–½æ”¾ï¼ŒåŒºåŸŸå†…åé­”æ³•(é‚ªæ¶ç³»)
+	uint32 DKDefense_Contract =48743;// 48743		æ€æ­»BBå›è¡€40%
+	uint32 DKDefense_IceBody =66023;// 48792		DKç›¾å¢™
+	uint32 DKDefense_IceArmor =132103;// 51271		é“œå¢™é“å£(æä¾›æŠ¤ç”²å’ŒåŠ›é‡20ç§’)(å¯’å†°ç³»)
+	uint32 DKDefense_BoneShield =232049;// 49222	ç™½éª¨ä¹‹ç›¾(é‚ªæ¶ç³»)
 
-	uint32 DKAssist_RuneLife =59754;// 48982		·ûÎÄÉúÃü£¬×ª»»ÄÜÁ¿ÎªÉúÃü(ÏÊÑªÏµ)
-	uint32 DKAssist_BloodBrand =206940;// 49005		ÏÊÑªÓ¡¼Ç£¬Ä¿±ê¹¥»÷µÄÄ¿±ê»ØÑª(ÏÊÑªÏµ)
-	uint32 DKAssist_Frenzied = 188541;// 49016		¿ñÂÒ£¬ÓÑÄ¿±êÎïÀíÉËº¦UP(ÏÊÑªÏµ)
-	uint32 DKAssist_BloodBuf =55233;// 55233		ËÀÆïÆÆ¸ª³ÁÖÛ(ÏÊÑªÏµ)
-	uint32 DKAssist_SummonRuneWeapon =49028;// 49028	ÕÙ»½·ûÎÄÎäÆ÷£¬¶ÀÁ¢Õ½¶·(ÏÊÑªÏµ)
-	uint32 DKAssist_RuneWeapon =47568;// 47568		¼¤»îÈ«·ûÎÄ£¬25·ûÎÄÄÜÁ¿
-	uint32 DKAssist_Infect =91939;// 50842			Ä¿±êµÄ±ùÑª¼²²¡À©É¢´«È¾
-	uint32 DKAssist_RuneShunt =7122;// 45529		»îÁ¦·ÖÁ÷ Ñª·ûÎÄ×ª¹«¹²·ûÎÄ
-	uint32 DKAssist_IceLock=53534;// 45524		±ùËøÁ´£¬Ä¿±ê10ÃëÄÚÒÆ¶¯ËÙ¶ÈµÍ
-	uint32 DKAssist_DeadRevive =121147;// 49895		ËÀÍö²øÈÆ£¬¹¥»÷Ä¿±ê»òÕßÍöÁé»Ö¸´
-	uint32 DKAssist_NonFear =49039;// 49039		±äÉí£¬ÃâÒß¿Ö¾å÷È»ó(º®±ùÏµ)
-	uint32 DKAssist_NextCrit =79092;// 49796		¼¤»îºó±ùËª¼²²¡¡¢ÍÌÊÉ¼²²¡¡¢±ùËª´ò»÷±©»÷(º®±ùÏµ)
-	uint32 DKAssist_EatIce =79092; //=79092// 49203			¼¢¶öÖ®º®£¬±ù¶³10Âë·¶Î§Ä¿±ê£¬·Ç¼²²¡ÉËº¦´ò¶Ï(º®±ùÏµ)
-	uint32 DKAssist_PetPower =49206;// 63560		Ê³Ê¬¹í¿ñÂÒ(Ğ°¶ñÏµ)
-	uint32 DKAssist_SummonFlyAtt = 49206;// 49206	ÕÙ»½ºäÕ¨»ú(Ğ°¶ñÏµ)
+	uint32 DKAssist_RuneLife =59754;// 48982		ç¬¦æ–‡ç”Ÿå‘½ï¼Œè½¬æ¢èƒ½é‡ä¸ºç”Ÿå‘½(é²œè¡€ç³»)
+	uint32 DKAssist_BloodBrand =206940;// 49005		é²œè¡€å°è®°ï¼Œç›®æ ‡æ”»å‡»çš„ç›®æ ‡å›è¡€(é²œè¡€ç³»)
+	uint32 DKAssist_Frenzied = 188541;// 49016		ç‹‚ä¹±ï¼Œå‹ç›®æ ‡ç‰©ç†ä¼¤å®³UP(é²œè¡€ç³»)
+	uint32 DKAssist_BloodBuf =55233;// 55233		æ­»éª‘ç ´é‡œæ²‰èˆŸ(é²œè¡€ç³»)
+	uint32 DKAssist_SummonRuneWeapon =49028;// 49028	å¬å”¤ç¬¦æ–‡æ­¦å™¨ï¼Œç‹¬ç«‹æˆ˜æ–—(é²œè¡€ç³»)
+	uint32 DKAssist_RuneWeapon =47568;// 47568		æ¿€æ´»å…¨ç¬¦æ–‡ï¼Œ25ç¬¦æ–‡èƒ½é‡
+	uint32 DKAssist_Infect =91939;// 50842			ç›®æ ‡çš„å†°è¡€ç–¾ç—…æ‰©æ•£ä¼ æŸ“
+	uint32 DKAssist_RuneShunt =7122;// 45529		æ´»åŠ›åˆ†æµ è¡€ç¬¦æ–‡è½¬å…¬å…±ç¬¦æ–‡
+	uint32 DKAssist_IceLock=53534;// 45524		å†°é”é“¾ï¼Œç›®æ ‡10ç§’å†…ç§»åŠ¨é€Ÿåº¦ä½
+	uint32 DKAssist_DeadRevive =121147;// 49895		æ­»äº¡ç¼ ç»•ï¼Œæ”»å‡»ç›®æ ‡æˆ–è€…äº¡çµæ¢å¤
+	uint32 DKAssist_NonFear =49039;// 49039		å˜èº«ï¼Œå…ç–«ææƒ§é­…æƒ‘(å¯’å†°ç³»)
+	uint32 DKAssist_NextCrit =79092;// 49796		æ¿€æ´»åå†°éœœç–¾ç—…ã€åå™¬ç–¾ç—…ã€å†°éœœæ‰“å‡»æš´å‡»(å¯’å†°ç³»)
+	uint32 DKAssist_EatIce =79092; //=79092// 49203			é¥¥é¥¿ä¹‹å¯’ï¼Œå†°å†»10ç èŒƒå›´ç›®æ ‡ï¼Œéç–¾ç—…ä¼¤å®³æ‰“æ–­(å¯’å†°ç³»)
+	uint32 DKAssist_PetPower =49206;// 63560		é£Ÿå°¸é¬¼ç‹‚ä¹±(é‚ªæ¶ç³»)
+	uint32 DKAssist_SummonFlyAtt = 49206;// 49206	å¬å”¤è½°ç‚¸æœº(é‚ªæ¶ç³»)
 
-	uint32 DKAttack_IceSickness = 52372;// 49909	±ùËª¼²²¡£¬±ùÁéÆøÊ±¸ß³ğºŞ
-	uint32 DKAttack_NearAOE =92025;// 49941		½üÕ½·¶Î§AOE£¬ÓĞÑªºÍ±ù¼²²¡ÉËº¦UP
-	uint32 DKAttack_AreaAOE =43265;// 49938		¿İÎ®µòÁã£¬Ö¸¶¨·¶Î§AOE
-	uint32 DKAttack_BloodAtt =60945;// 49930		ÏÊÑª¹¥»÷£¬ÓĞ¼²²¡Ê±ÉËº¦UP
-	uint32 DKAttack_ShadowAtt =50688;// 49921		°µÓ°´ò»÷£¬Ñª¼²²¡
-	uint32 DKAttack_FrostAtt =60951;// 55268		±ùËª´ò»÷(º®±ùÏµ)
-	uint32 DKAttack_DoDestroy =246593;// 51425		ÍÌÊÉ¼²²¡£¬¸ßÉËº¦
-	uint32 DKAttack_RuneAttack =62322;// 56815		·ûÎÄ´ò»÷£¬ÀàËÆÑ¹ÖÆ
-	uint32 DKAttack_LifeAttack =53639;// 49924		¹¥»÷»Ö¸´ÉúÃü£¬Ò»¸ö¼²²¡5%Ñª
-	uint32 DKAttack_IceWindAtt =61061;// 51411		±ù·ç³å»÷(º®±ùÏµ)
-	uint32 DKAttack_CorpseExplosion =17616;// 51328	Ê¬±¬(Ğ°¶ñÏµ)
-	uint32 DKAttack_NaturalAtt =164330;// 55271		ÌìÔÖ´ò»÷(Ğ°¶ñÏµ)
-	uint32 DKAttack_CoreAtt =206930;// 55262		ĞÄÔà´ò»÷(ÏÊÑªÏµ)
+	uint32 DKAttack_IceSickness = 52372;// 49909	å†°éœœç–¾ç—…ï¼Œå†°çµæ°”æ—¶é«˜ä»‡æ¨
+	uint32 DKAttack_NearAOE =92025;// 49941		è¿‘æˆ˜èŒƒå›´AOEï¼Œæœ‰è¡€å’Œå†°ç–¾ç—…ä¼¤å®³UP
+	uint32 DKAttack_AreaAOE =43265;// 49938		æ¯èå‡‹é›¶ï¼ŒæŒ‡å®šèŒƒå›´AOE
+	uint32 DKAttack_BloodAtt =60945;// 49930		é²œè¡€æ”»å‡»ï¼Œæœ‰ç–¾ç—…æ—¶ä¼¤å®³UP
+	uint32 DKAttack_ShadowAtt =50688;// 49921		æš—å½±æ‰“å‡»ï¼Œè¡€ç–¾ç—…
+	uint32 DKAttack_FrostAtt =60951;// 55268		å†°éœœæ‰“å‡»(å¯’å†°ç³»)
+	uint32 DKAttack_DoDestroy =246593;// 51425		åå™¬ç–¾ç—…ï¼Œé«˜ä¼¤å®³
+	uint32 DKAttack_RuneAttack =62322;// 56815		ç¬¦æ–‡æ‰“å‡»ï¼Œç±»ä¼¼å‹åˆ¶
+	uint32 DKAttack_LifeAttack =53639;// 49924		æ”»å‡»æ¢å¤ç”Ÿå‘½ï¼Œä¸€ä¸ªç–¾ç—…5%è¡€
+	uint32 DKAttack_IceWindAtt =61061;// 51411		å†°é£å†²å‡»(å¯’å†°ç³»)
+	uint32 DKAttack_CorpseExplosion =17616;// 51328	å°¸çˆ†(é‚ªæ¶ç³»)
+	uint32 DKAttack_NaturalAtt =164330;// 55271		å¤©ç¾æ‰“å‡»(é‚ªæ¶ç³»)
+	uint32 DKAttack_CoreAtt =206930;// 55262		å¿ƒè„æ‰“å‡»(é²œè¡€ç³»)
 };
 
 class BotRogueSpells
@@ -197,47 +197,47 @@ public:
 	void InitializeSpells(Player* player);
 
 protected:
-	uint32 RogueGuard_Sneak =1784;// 1784				Ç±ĞĞ
-	uint32 RogueGuard_ShadowCloak =31224;// 31224		°µÓ°¶·Åñ
-	uint32 RogueGuard_Disappear =1856;// 26889		ÏûÊ§
-	uint32 RogueGuard_Dodge =248777;// 26669			ÉÁ¶ã
-	uint32 RogueGuard_Sprint =65864;// 11305			¼²ÅÜ
+	uint32 RogueGuard_Sneak =1784;// 1784				æ½œè¡Œ
+	uint32 RogueGuard_ShadowCloak =31224;// 31224		æš—å½±æ–—ç¯·
+	uint32 RogueGuard_Disappear =1856;// 26889		æ¶ˆå¤±
+	uint32 RogueGuard_Dodge =248777;// 26669			é—ªèº²
+	uint32 RogueGuard_Sprint =65864;// 11305			ç–¾è·‘
 
-	uint32 RogueSneak_Stick =30980;// 51724			ÃÆ¹÷
-	uint32 RogueSneak_Premeditate =235777;// 14183		Ô¤Ä±(ÃôÈñÏµ)
-	uint32 RogueSneak_Ambush =8676;// 48691			·ü»÷
-	uint32 RogueSneak_Surprise =1833;// 1833			ÍµÏ®
+	uint32 RogueSneak_Stick =30980;// 51724			é—·æ£
+	uint32 RogueSneak_Premeditate =235777;// 14183		é¢„è°‹(æ•é”ç³»)
+	uint32 RogueSneak_Ambush =8676;// 48691			ä¼å‡»
+	uint32 RogueSneak_Surprise =1833;// 1833			å·è¢­
 
-	uint32 RogueAssist_ShadowDance =185313;// 51713		°µÓ°Ö®Îè(ÃôÈñÏµ)
-	uint32 RogueAssist_ShadowFlash =145426;// 36554		°µÓ°²½(ÃôÈñÏµ)
-	uint32 RogueAssist_ReadyCD =145426;// 14185			Ô¤±¸(ÃôÈñÏµ)
-	uint32 RogueAssist_Blind =2094;// 2094			ÖÂÃ¤
-	uint32 RogueAssist_Disarm = 236077;// 51722			½ÉĞµ
-	uint32 RogueAssist_NextCrit =213981;// 14177		ÀäÑª next±©»÷(´ÌÉ±Ïµ)
-	uint32 RogueAssist_blood =60177;// 51662			ÏÊÑª Ä¿±êÁ÷ÑªÊ±Ê©·Å(´ÌÉ±Ïµ)
-	uint32 RogueAssist_FastEnergy =13750;// 13750		ÄÜÁ¿¿ìËÙ»Ø¸´(Õ½¶·Ïµ)
-	uint32 RogueAssist_BlockCast =1766;// 1766		½ÅÌß ´ò¶ÏÊ©·¨
-	uint32 RogueAssist_Paralyze =1776;// 1776			Ôä»÷ Ì±»¾Ä¿±ê
-	uint32 RogueAssist_FastSpeed=33735;// 13877		¼Ó¹¥»÷ËÙ¶È20(Õ½¶·Ïµ)
+	uint32 RogueAssist_ShadowDance =185313;// 51713		æš—å½±ä¹‹èˆ(æ•é”ç³»)
+	uint32 RogueAssist_ShadowFlash =145426;// 36554		æš—å½±æ­¥(æ•é”ç³»)
+	uint32 RogueAssist_ReadyCD =145426;// 14185			é¢„å¤‡(æ•é”ç³»)
+	uint32 RogueAssist_Blind =2094;// 2094			è‡´ç›²
+	uint32 RogueAssist_Disarm = 236077;// 51722			ç¼´æ¢°
+	uint32 RogueAssist_NextCrit =213981;// 14177		å†·è¡€ nextæš´å‡»(åˆºæ€ç³»)
+	uint32 RogueAssist_blood =60177;// 51662			é²œè¡€ ç›®æ ‡æµè¡€æ—¶æ–½æ”¾(åˆºæ€ç³»)
+	uint32 RogueAssist_FastEnergy =13750;// 13750		èƒ½é‡å¿«é€Ÿå›å¤(æˆ˜æ–—ç³»)
+	uint32 RogueAssist_BlockCast =1766;// 1766		è„šè¸¢ æ‰“æ–­æ–½æ³•
+	uint32 RogueAssist_Paralyze =1776;// 1776			å‡¿å‡» ç˜«ç—ªç›®æ ‡
+	uint32 RogueAssist_FastSpeed=33735;// 13877		åŠ æ”»å‡»é€Ÿåº¦20(æˆ˜æ–—ç³»)
 
-	uint32 RogueAOE_Knife =51723;// 51723				µ¶ÈĞ·ÉÎè
-	uint32 RogueAOE_AllDance =51723;// 51690			¿ñÎèÉ±½Ø(Õ½¶·Ïµ)
+	uint32 RogueAOE_Knife =51723;// 51723				åˆ€åˆƒé£èˆ
+	uint32 RogueAOE_AllDance =51723;// 51690			ç‹‚èˆæ€æˆª(æˆ˜æ–—ç³»)
 
-	uint32 RogueAttack_Blood =65954;// 48660			³öÑª(ÃôÈñÏµ)
-	uint32 RogueAttack_Ghost =123437;// 14278			¹í÷È¹¥»÷(ÃôÈñÏµ) ¹¥»÷ºó+ÉÁ¶ã
-	uint32 RogueAttack_Injure =31022;// 48666			»ÙÉË(´ÌÉ±Ïµ)
-	uint32 RogueAttack_PoisonAtt =76511;// 5938		¶¾ÈĞ
-	uint32 RogueAttack_BackAtt =53;// 48657			±³´Ì
-	uint32 RogueAttack_EvilAtt =1752;// 48638			Ğ°¶ñ¹¥»÷
+	uint32 RogueAttack_Blood =65954;// 48660			å‡ºè¡€(æ•é”ç³»)
+	uint32 RogueAttack_Ghost =123437;// 14278			é¬¼é­…æ”»å‡»(æ•é”ç³») æ”»å‡»å+é—ªèº²
+	uint32 RogueAttack_Injure =31022;// 48666			æ¯ä¼¤(åˆºæ€ç³»)
+	uint32 RogueAttack_PoisonAtt =76511;// 5938		æ¯’åˆƒ
+	uint32 RogueAttack_BackAtt =53;// 48657			èƒŒåˆº
+	uint32 RogueAttack_EvilAtt =1752;// 48638			é‚ªæ¶æ”»å‡»
 
-	uint32 RogueAttack_Damage =196819;// 48668			ÌŞ¹Ç
-	uint32 RogueAttack_Separate =1079;// 48672		¸îÁÑ
-	uint32 RogueAttack_Stun =408;// 8643				Éö»÷
-	uint32 RogueAttack_PoisonDmg =145416;// 57993		¶¾ÉË
-	uint32 RogueAttack_Incision =5171;// 6774			ÇĞ¸î(¹¥»÷ËÙ¶ÈÖÕ½á¼¼)
-	uint32 RogueRange_Throw =158692;// 48674			ÖÂÃüÍ¶ÖÀ
+	uint32 RogueAttack_Damage =196819;// 48668			å‰”éª¨
+	uint32 RogueAttack_Separate =1079;// 48672		å‰²è£‚
+	uint32 RogueAttack_Stun =408;// 8643				è‚¾å‡»
+	uint32 RogueAttack_PoisonDmg =145416;// 57993		æ¯’ä¼¤
+	uint32 RogueAttack_Incision =5171;// 6774			åˆ‡å‰²(æ”»å‡»é€Ÿåº¦ç»ˆç»“æŠ€)
+	uint32 RogueRange_Throw =158692;// 48674			è‡´å‘½æŠ•æ·
 
-	uint32 RogueFlag_Dance =185313;// 51713				°µÓ°Ö®Îè±ê¼Ç
+	uint32 RogueFlag_Dance =185313;// 51713				æš—å½±ä¹‹èˆæ ‡è®°
 };
 
 class BotDruidSpells
@@ -246,77 +246,77 @@ public:
 	void InitializeSpells(Player* player);
 
 protected:
-	uint32 DruidIDLE_FerityWish =24752;// 48469		Ò°ĞÔ×£¸£
-	uint32 DruidIDLE_AOEFerityWish =165754;// 48470		ÈºÌåÒ°ĞÔ×£¸£
-	uint32 DruidIDLE_Revive =50769;// 50769			¸´»îÍæ¼Ò
-	uint32 DruidIDLE_CombatReive =20484;// 20484		Õ½¶·¸´»îÍæ¼Ò
+	uint32 DruidIDLE_FerityWish =24752;// 48469		é‡æ€§ç¥ç¦
+	uint32 DruidIDLE_AOEFerityWish =165754;// 48470		ç¾¤ä½“é‡æ€§ç¥ç¦
+	uint32 DruidIDLE_Revive =50769;// 50769			å¤æ´»ç©å®¶
+	uint32 DruidIDLE_CombatReive =20484;// 20484		æˆ˜æ–—å¤æ´»ç©å®¶
 
-	uint32 DruidStatus_Travel =783;// 783			ÂÃĞĞĞÎÌ¬
-	uint32 DruidStatus_Bear =5487;// 9634				¾ŞĞÜĞÎÌ¬
-	uint32 DruidStatus_Cat =768;// 768				ÁÔ±ªĞÎÌ¬
-	uint32 DruidStatus_Bird =24858;// 24858			èÉÊŞĞÎÌ¬(Æ½ºâÏµ)
-	uint32 DruidStatus_Tree =33891;// 33891			ÄÌÊ÷ĞÎÌ¬(»Ö¸´Ïµ)
+	uint32 DruidStatus_Travel =783;// 783			æ—…è¡Œå½¢æ€
+	uint32 DruidStatus_Bear =5487;// 9634				å·¨ç†Šå½¢æ€
+	uint32 DruidStatus_Cat =768;// 768				çŒè±¹å½¢æ€
+	uint32 DruidStatus_Bird =24858;// 24858			æ­å…½å½¢æ€(å¹³è¡¡ç³»)
+	uint32 DruidStatus_Tree =33891;// 33891			å¥¶æ ‘å½¢æ€(æ¢å¤ç³»)
 
-	uint32 DruidGuard_Sneak =5215;// 5215				ÁÔ±ªÇ±ĞĞ
-	uint32 DruidGuard_Harden =182872;// 22812			Ê÷Æ¤Êõ ÃâÉË20%
-	uint32 DruidGuard_Thorns =209334;// 53307			¾£¼¬Êõ ¹¥»÷·´ÉË
-	uint32 DruidGuard_AutoTwine =66071;// 53312		ÊÜ»÷²øÈÆÄ¿±ê
-	uint32 DruidGuard_Twine =339;// 53308			²øÈÆÄ¿±ê
-	uint32 DruidGuard_Control =33786;// 33786			´µ·ç ¿ØÖÆÄ¿±êÄ¿±ê·ÅÖğ
-	uint32 DruidGuard_Pofu =61336;// 61336				Ò°ĞÔĞÎÌ¬ÆÆ¸ª³ÁÖÛ(Ò°ĞÔÏµ)
-	uint32 DruidGuard_TreeMan =6913;// 33831			×ÔÈ»Ö®Á¦ÕÙ»½Ê÷ÈË(Æ½ºâÏµ)
+	uint32 DruidGuard_Sneak =5215;// 5215				çŒè±¹æ½œè¡Œ
+	uint32 DruidGuard_Harden =182872;// 22812			æ ‘çš®æœ¯ å…ä¼¤20%
+	uint32 DruidGuard_Thorns =209334;// 53307			è†æ£˜æœ¯ æ”»å‡»åä¼¤
+	uint32 DruidGuard_AutoTwine =66071;// 53312		å—å‡»ç¼ ç»•ç›®æ ‡
+	uint32 DruidGuard_Twine =339;// 53308			ç¼ ç»•ç›®æ ‡
+	uint32 DruidGuard_Control =33786;// 33786			å¹é£ æ§åˆ¶ç›®æ ‡ç›®æ ‡æ”¾é€
+	uint32 DruidGuard_Pofu =61336;// 61336				é‡æ€§å½¢æ€ç ´é‡œæ²‰èˆŸ(é‡æ€§ç³»)
+	uint32 DruidGuard_TreeMan =6913;// 33831			è‡ªç„¶ä¹‹åŠ›å¬å”¤æ ‘äºº(å¹³è¡¡ç³»)
 
-	uint32 DruidAssist_PersonSpirit =13752;// 770		ÈËĞÎÌ¬¾«ÁéÖ®»ğ
-	uint32 DruidAssist_BeastSpirit =13752;// 16857		Ò°ĞÔĞÎÌ¬¾«ÁéÖ®»ğ
-	uint32 DruidAssist_Active =6950;// 29166			¼¤»î Ä¿±ê»ØÀ¶
-	uint32 DruidAssist_DecCruse =30281;// 2782			µÂÂ³ÒÁ½â³ı×çÖä
-	uint32 DruidAssist_DecCruel =14253;// 2893			µÂÂ³ÒÁ½â¶¾£¬BUF
+	uint32 DruidAssist_PersonSpirit =13752;// 770		äººå½¢æ€ç²¾çµä¹‹ç«
+	uint32 DruidAssist_BeastSpirit =13752;// 16857		é‡æ€§å½¢æ€ç²¾çµä¹‹ç«
+	uint32 DruidAssist_Active =6950;// 29166			æ¿€æ´» ç›®æ ‡å›è“
+	uint32 DruidAssist_DecCruse =30281;// 2782			å¾·é²ä¼Šè§£é™¤è¯…å’’
+	uint32 DruidAssist_DecCruel =14253;// 2893			å¾·é²ä¼Šè§£æ¯’ï¼ŒBUF
 
-	uint32 DruidCast_Moonfire =65856;// 48463			ÔÂ»ğ ³ÖĞøÉËº¦¼¼ÄÜ
-	uint32 DruidCast_Insect =65855;// 48468			³æÈº ³ÖĞøÉËº¦¼¼ÄÜ(Æ½ºâÏµ)
-	uint32 DruidCast_Anger =65862;// 48461				·ßÅ­
-	uint32 DruidCast_Spark =98993;// 48465				ĞÇ»ğ cast³¤
+	uint32 DruidCast_Moonfire =65856;// 48463			æœˆç« æŒç»­ä¼¤å®³æŠ€èƒ½
+	uint32 DruidCast_Insect =65855;// 48468			è™«ç¾¤ æŒç»­ä¼¤å®³æŠ€èƒ½(å¹³è¡¡ç³»)
+	uint32 DruidCast_Anger =65862;// 48461				æ„¤æ€’
+	uint32 DruidCast_Spark =98993;// 48465				æ˜Ÿç« casté•¿
 
-	uint32 DruidAOE_Hurricane=55881;// 48467			ì«·ç AOE
-	uint32 DruidAOE_Typhoon =51817;// 61384			Ì¨·ç AOE(Æ½ºâÏµ)
-	uint32 DruidAOE_FallStar =100806;// 48505			ÈºĞÇ×¹Âä AOE(Æ½ºâÏµ)
+	uint32 DruidAOE_Hurricane=55881;// 48467			é£“é£ AOE
+	uint32 DruidAOE_Typhoon =51817;// 61384			å°é£ AOE(å¹³è¡¡ç³»)
+	uint32 DruidAOE_FallStar =100806;// 48505			ç¾¤æ˜Ÿå è½ AOE(å¹³è¡¡ç³»)
 
-	uint32 DruidHeal_Nourishing =63556;// 50464		×Ì²¹Êõ Ğ¡¶ÁÃë¼ÓÑª ÓĞ³ÖĞøÖÎÁÆĞ§¹ûÊ±¼ÓÇ¿
-	uint32 DruidHeal_Relife =774;// 48441			»Ø´ºÊõ Ğ¡³ÖĞø¼ÓÑª
-	uint32 DruidHeal_Coalescence =66067;// 48443		ÓúºÏÊõ Ğ¡¼ÓÑª
-	uint32 DruidHeal_Touch =5185;// 48378				ÖÎÁÆÖ®´¥ ´ó¼ÓÑª
-	uint32 DruidHeal_LifeBurst =57763;// 48451			ÉúÃüÕÀ·Å ³ÖĞøĞ§¹û½áÊøÊ±ÔÙ¼ÓÑª
-	uint32 DruidHeal_MergerLife =18562;// 18562		Ñ¸½İÖÎÁÆ ÍÌ²¢»Ø´º»òÓúºÏ ¼ÓÑª(»Ö¸´Ïµ)
-	uint32 DruidHeal_MomentHeal =127316;// 17116		×ÔÈ»Ö®ÎÕ nextHealÊ©·¨Ë²·¢(»Ö¸´Ïµ)
+	uint32 DruidHeal_Nourishing =63556;// 50464		æ»‹è¡¥æœ¯ å°è¯»ç§’åŠ è¡€ æœ‰æŒç»­æ²»ç–—æ•ˆæœæ—¶åŠ å¼º
+	uint32 DruidHeal_Relife =774;// 48441			å›æ˜¥æœ¯ å°æŒç»­åŠ è¡€
+	uint32 DruidHeal_Coalescence =66067;// 48443		æ„ˆåˆæœ¯ å°åŠ è¡€
+	uint32 DruidHeal_Touch =5185;// 48378				æ²»ç–—ä¹‹è§¦ å¤§åŠ è¡€
+	uint32 DruidHeal_LifeBurst =57763;// 48451			ç”Ÿå‘½ç»½æ”¾ æŒç»­æ•ˆæœç»“æŸæ—¶å†åŠ è¡€
+	uint32 DruidHeal_MergerLife =18562;// 18562		è¿…æ·æ²»ç–— åå¹¶å›æ˜¥æˆ–æ„ˆåˆ åŠ è¡€(æ¢å¤ç³»)
+	uint32 DruidHeal_MomentHeal =127316;// 17116		è‡ªç„¶ä¹‹æ¡ nextHealæ–½æ³•ç¬å‘(æ¢å¤ç³»)
 
-	uint32 DruidHeal_AOETranquility =740;// 48447		Äş¾²
-	uint32 DruidHeal_AOEFerity =173170;// 53251			Ò°ĞÔÈºÌåÖÎÁÆ(»Ö¸´Ïµ)
+	uint32 DruidHeal_AOETranquility =740;// 48447		å®é™
+	uint32 DruidHeal_AOEFerity =173170;// 53251			é‡æ€§ç¾¤ä½“æ²»ç–—(æ¢å¤ç³»)
 
-	uint32 DruidCat_Stun =203123;// 49802				Ã¨ »÷ÔÎ ÖÕ½á¼¼
-	uint32 DruidCat_Bite =22568;// 48577				Ã¨ Ğ×ÃÍÒ§ Á¢¼´ÉËº¦ÖÕ½á¼¼
-	uint32 DruidCat_Roar =52610;// 52610				Ã¨ ÅØÏø ¸ø×Ô¼º¼ÓÉËº¦Á¦ÖÕ½á¼¼
-	uint32 DruidCat_Separate =1943;// 49800			Ã¨ ¸îÁÑ ³ÖĞøÉËº¦ÖÕ½á¼¼
+	uint32 DruidCat_Stun =203123;// 49802				çŒ« å‡»æ™• ç»ˆç»“æŠ€
+	uint32 DruidCat_Bite =22568;// 48577				çŒ« å‡¶çŒ›å’¬ ç«‹å³ä¼¤å®³ç»ˆç»“æŠ€
+	uint32 DruidCat_Roar =52610;// 52610				çŒ« å’†å“® ç»™è‡ªå·±åŠ ä¼¤å®³åŠ›ç»ˆç»“æŠ€
+	uint32 DruidCat_Separate =1943;// 49800			çŒ« å‰²è£‚ æŒç»­ä¼¤å®³ç»ˆç»“æŠ€
 
-	uint32 DruidCat_Tiger=5217;// 50213				Ã¨ ÃÍ»¢Ö®Å­ ÉËº¦BUF
-	uint32 DruidCat_FastMove =1850;// 33357			Ã¨ ¼²ÅÜ
-	uint32 DruidCat_Charge =16979;// 49376				Ã¨ ³å·æ(Ò°ĞÔÏµ)
-	uint32 DruidCat_Surprise =75008;// 49803			Ã¨ Ç±ĞĞÊ±µÚ1»÷»èÃÔ
-	uint32 DruidCat_Sack =201427;// 48579				Ã¨ Ç±ĞĞÊ±µÚ1»÷ÉËº¦
-	uint32 DruidCat_Claw =91776;// 48570				Ã¨ ×¦»÷
-	uint32 DruidCat_BackStab =5221;// 48572			Ã¨ ±³´Ì
-	uint32 DruidCat_Attack =26103;// 62078				Ã¨ »Ó»÷Èº¹¥
-	uint32 DruidCat_Sweep =1822;// 48574				Ã¨ Á÷Ñª¹¥»÷
-	uint32 DruidCat_Laceration =19820;// 48566			Ã¨ ÁÑÉË(Ò°ĞÔÏµ)
+	uint32 DruidCat_Tiger=5217;// 50213				çŒ« çŒ›è™ä¹‹æ€’ ä¼¤å®³BUF
+	uint32 DruidCat_FastMove =1850;// 33357			çŒ« ç–¾è·‘
+	uint32 DruidCat_Charge =16979;// 49376				çŒ« å†²é”‹(é‡æ€§ç³»)
+	uint32 DruidCat_Surprise =75008;// 49803			çŒ« æ½œè¡Œæ—¶ç¬¬1å‡»æ˜è¿·
+	uint32 DruidCat_Sack =201427;// 48579				çŒ« æ½œè¡Œæ—¶ç¬¬1å‡»ä¼¤å®³
+	uint32 DruidCat_Claw =91776;// 48570				çŒ« çˆªå‡»
+	uint32 DruidCat_BackStab =5221;// 48572			çŒ« èƒŒåˆº
+	uint32 DruidCat_Attack =26103;// 62078				çŒ« æŒ¥å‡»ç¾¤æ”»
+	uint32 DruidCat_Sweep =1822;// 48574				çŒ« æµè¡€æ”»å‡»
+	uint32 DruidCat_Laceration =19820;// 48566			çŒ« è£‚ä¼¤(é‡æ€§ç³»)
 
-	uint32 DruidBear_DecAtt = 10968;// 48560			ĞÜ ¼õ¹¥Ç¿ºğ
-	uint32 DruidBear_AddPower =8599;// 5229			ĞÜ ¼ÓÅ­Æø
-	uint32 DruidBear_PowerLife =22842;// 22842			ĞÜ Å­Æø»ØÑª
-	uint32 DruidBear_Laceration =22689;// 48564		ĞÜ ÁÑÉË(Ò°ĞÔÏµ)
-	uint32 DruidBear_Sweep =61896;// 48568				ĞÜ Á÷Ñª¹¥»÷
-	uint32 DruidBear_Attack =61598;// 48562			ĞÜ »Ó»÷Èº¹¥
-	uint32 DruidBear_NextAtt =6807;// 48480			ĞÜ Next¹¥»÷¼ÓÇ¿
-	uint32 DruidBear_Stun =1464;// 8983				ĞÜ »÷ÔÎ
-	uint32 DruidBear_Charge =39435;// 16979			ĞÜ ³å·æ(Ò°ĞÔÏµ)
+	uint32 DruidBear_DecAtt = 10968;// 48560			ç†Š å‡æ”»å¼ºå¼
+	uint32 DruidBear_AddPower =8599;// 5229			ç†Š åŠ æ€’æ°”
+	uint32 DruidBear_PowerLife =22842;// 22842			ç†Š æ€’æ°”å›è¡€
+	uint32 DruidBear_Laceration =22689;// 48564		ç†Š è£‚ä¼¤(é‡æ€§ç³»)
+	uint32 DruidBear_Sweep =61896;// 48568				ç†Š æµè¡€æ”»å‡»
+	uint32 DruidBear_Attack =61598;// 48562			ç†Š æŒ¥å‡»ç¾¤æ”»
+	uint32 DruidBear_NextAtt =6807;// 48480			ç†Š Nextæ”»å‡»åŠ å¼º
+	uint32 DruidBear_Stun =1464;// 8983				ç†Š å‡»æ™•
+	uint32 DruidBear_Charge =39435;// 16979			ç†Š å†²é”‹(é‡æ€§ç³»)
 };
 
 class BotHunterSpells
@@ -325,55 +325,55 @@ public:
 	void InitializeSpells(Player* player);
 
 protected:
-	uint32 HunterIDLE_SummonPet =23498;// 883			ÕÙ»½³èÎï
-	uint32 HunterIDLE_RevivePet =982;// 982			¸´»î³èÎï
-	uint32 HunterIDLE_ManaAura =210754;// 34074			¹¥»÷»ØÀ¶ÊØ»¤
-	uint32 HunterIDLE_DodgeAura =210753;// 13163		ÉÁ¶ãÊØ»¤
-	uint32 HunterIDLE_EagleAura =231555;// 27044		Éä»÷ÊØ»¤
-	uint32 HunterIDLE_DragonAura =210752;// 61847		ÁúÓ¥ÊØ»¤ Éä»÷ºÍÉÁ¶ãÊØ»¤
-	uint32 HunterIDLE_ShotAura =31519;// 19506			Ç¿»÷¹â»·(Éä»÷Ïµ)
+	uint32 HunterIDLE_SummonPet =23498;// 883			å¬å”¤å® ç‰©
+	uint32 HunterIDLE_RevivePet =982;// 982			å¤æ´»å® ç‰©
+	uint32 HunterIDLE_ManaAura =210754;// 34074			æ”»å‡»å›è“å®ˆæŠ¤
+	uint32 HunterIDLE_DodgeAura =210753;// 13163		é—ªèº²å®ˆæŠ¤
+	uint32 HunterIDLE_EagleAura =231555;// 27044		å°„å‡»å®ˆæŠ¤
+	uint32 HunterIDLE_DragonAura =210752;// 61847		é¾™é¹°å®ˆæŠ¤ å°„å‡»å’Œé—ªèº²å®ˆæŠ¤
+	uint32 HunterIDLE_ShotAura =31519;// 19506			å¼ºå‡»å…‰ç¯(å°„å‡»ç³»)
 
-	uint32 HunterTrap_FarFrozen =209789;// 60192		Ô¶³Ì±ù¶³ÏİÚå
-	uint32 HunterTrap_Frozen =43447;// 14311			±ù¶³ÏİÚå
-	uint32 HunterTrap_Ice =165769;// 13809				±ùËªÏİÚå
-	uint32 HunterTrap_Viper =43449;// 34600			¶¾ÉßÏİÚå
-	uint32 HunterTrap_Explode =43444;// 49067			±¬Õ¨ÏİÚå
-	uint32 HunterTrap_Fire =155623;// 49056				»ğÑæÏİÚå
-	uint32 HunterTrap_Shot=80003;// 63672				ºÚ×Ç¼ı(Éú´æÏµ)
+	uint32 HunterTrap_FarFrozen =209789;// 60192		è¿œç¨‹å†°å†»é™·é˜±
+	uint32 HunterTrap_Frozen =43447;// 14311			å†°å†»é™·é˜±
+	uint32 HunterTrap_Ice =165769;// 13809				å†°éœœé™·é˜±
+	uint32 HunterTrap_Viper =43449;// 34600			æ¯’è›‡é™·é˜±
+	uint32 HunterTrap_Explode =43444;// 49067			çˆ†ç‚¸é™·é˜±
+	uint32 HunterTrap_Fire =155623;// 49056				ç«ç„°é™·é˜±
+	uint32 HunterTrap_Shot=80003;// 63672				é»‘æµŠç®­(ç”Ÿå­˜ç³»)
 
-	uint32 HunterAssist_ClearRoot =53271;// 53271		ÒÆ³ı¶¨Éí
-	uint32 HunterAssist_PetCommand =205440;// 34026		³èÎïÉ±½Ø
-	uint32 HunterAssist_HealPet =37381;// 48990		³èÎïÖÎÁÆ
-	uint32 HunterAssist_PetStun =7093;// 19577		³èÎï»÷ÔÎÄ¿±ê(Ò°ÊŞÏµ)
-	uint32 HunterAssist_PetRage =19574;// 19574		³èÎïºÍ×Ô¼º¿ñ±©(Ò°ÊŞÏµ)
-	uint32 HunterAssist_Stamp =1130;// 53338			ÁÔÈËÓ¡¼Ç
-	uint32 HunterAssist_FalseDead =5384;// 5384		¼ÙËÀ
-	uint32 HunterAssist_BackJump =781;// 781			ºóÌø
-	uint32 HunterAssist_FastSpeed =3045;// 3045		¼±ËÙÉä»÷BUF
-	uint32 HunterAssist_ReadyCD =203551;// 23989		×¼±¸¾ÍĞ÷CD(Éä»÷Ïµ)
-	uint32 HunterAssist_Mislead =34477;// 34477		Îóµ¼
+	uint32 HunterAssist_ClearRoot =53271;// 53271		ç§»é™¤å®šèº«
+	uint32 HunterAssist_PetCommand =205440;// 34026		å® ç‰©æ€æˆª
+	uint32 HunterAssist_HealPet =37381;// 48990		å® ç‰©æ²»ç–—
+	uint32 HunterAssist_PetStun =7093;// 19577		å® ç‰©å‡»æ™•ç›®æ ‡(é‡å…½ç³»)
+	uint32 HunterAssist_PetRage =19574;// 19574		å® ç‰©å’Œè‡ªå·±ç‹‚æš´(é‡å…½ç³»)
+	uint32 HunterAssist_Stamp =1130;// 53338			çŒäººå°è®°
+	uint32 HunterAssist_FalseDead =5384;// 5384		å‡æ­»
+	uint32 HunterAssist_BackJump =781;// 781			åè·³
+	uint32 HunterAssist_FastSpeed =3045;// 3045		æ€¥é€Ÿå°„å‡»BUF
+	uint32 HunterAssist_ReadyCD =203551;// 23989		å‡†å¤‡å°±ç»ªCD(å°„å‡»ç³»)
+	uint32 HunterAssist_Mislead =34477;// 34477		è¯¯å¯¼
 
-	uint32 HunterMelee_BackRoot = 116599;// 48999		ÕĞ¼Üºó·´»÷¶¨Éí(Éú´æÏµ)
-	uint32 HunterMelee_NoDamage =31567;// 19263		ÍşÉå ÎŞ·¨¹¥»÷
-	uint32 HunterMelee_DecSpeed = 195645;// 2974			Ë¤°è ½üÕ½¼õÒÆ¶¯ËÙ
-	uint32 HunterMelee_NextAtt =31566;// 48996			next½üÕ½¹¥»÷¼ÓÇ¿
-	uint32 HunterMelee_MeleeAtt =190928;// 53339		½üÕ½¹¥»÷
+	uint32 HunterMelee_BackRoot = 116599;// 48999		æ‹›æ¶ååå‡»å®šèº«(ç”Ÿå­˜ç³»)
+	uint32 HunterMelee_NoDamage =31567;// 19263		å¨æ…‘ æ— æ³•æ”»å‡»
+	uint32 HunterMelee_DecSpeed = 195645;// 2974			æ‘”æ‹Œ è¿‘æˆ˜å‡ç§»åŠ¨é€Ÿ
+	uint32 HunterMelee_NextAtt =31566;// 48996			nextè¿‘æˆ˜æ”»å‡»åŠ å¼º
+	uint32 HunterMelee_MeleeAtt =190928;// 53339		è¿‘æˆ˜æ”»å‡»
 
-	uint32 HunterDebug_Damage =160503;// 49001			ÉËº¦¶¤´Ì
-	uint32 HunterDebug_Mana =31407;// 3034				ÎüÀ¶¶¤´Ì
-	uint32 HunterDebug_Sleep =19386;// 49012			³ÁË¯¶¤´Ì(Éú´æÏµ)
+	uint32 HunterDebug_Damage =160503;// 49001			ä¼¤å®³é’‰åˆº
+	uint32 HunterDebug_Mana =31407;// 3034				å¸è“é’‰åˆº
+	uint32 HunterDebug_Sleep =19386;// 49012			æ²‰ç¡é’‰åˆº(ç”Ÿå­˜ç³»)
 
-	uint32 HunterShot_AOEShot =22908;// 58434			AOEÉä»÷
-	uint32 HunterShot_CharmShot =23601;// 19503		´ò¶ÏÉä»÷(Éú´æÏµ)
-	uint32 HunterShot_Explode =15495;// 60053			±¬Õ¨Éä»÷(Éú´æÏµ)
-	uint32 HunterShot_Aim =48871;// 49050				Ãé×¼Éä»÷(Éä»÷Ïµ)
-	uint32 HunterShot_Silence =248919;// 34490			³ÁÄ¬Éä»÷(Éä»÷Ïµ)
-	uint32 HunterShot_Shock = 5116;// 5116				Õğµ´Éä»÷
-	uint32 HunterShot_Cast =65867;// 49052				ÎÈ¹ÌÉä»÷ Ê©·¨Ê±¼äµÄÉä»÷
-	uint32 HunterShot_MgcShot =69989;// 49045			°ÂÊõÉä»÷
-	uint32 HunterShot_KillShot = 69989;// 61006			»÷É±Éä»÷ Ä¿±ê20%ÒÔÏÂÑªÕ¶É±Ê½Éä»÷
-	uint32 HunterShot_MulShot =2643;// 49048			¶àÖØÉä»÷
-	uint32 HunterShot_QMLShot =53209;// 53209			ÆæÃÀÀ­Éä»÷(Éä»÷Ïµ)
+	uint32 HunterShot_AOEShot =22908;// 58434			AOEå°„å‡»
+	uint32 HunterShot_CharmShot =23601;// 19503		æ‰“æ–­å°„å‡»(ç”Ÿå­˜ç³»)
+	uint32 HunterShot_Explode =15495;// 60053			çˆ†ç‚¸å°„å‡»(ç”Ÿå­˜ç³»)
+	uint32 HunterShot_Aim =48871;// 49050				ç„å‡†å°„å‡»(å°„å‡»ç³»)
+	uint32 HunterShot_Silence =248919;// 34490			æ²‰é»˜å°„å‡»(å°„å‡»ç³»)
+	uint32 HunterShot_Shock = 5116;// 5116				éœ‡è¡å°„å‡»
+	uint32 HunterShot_Cast =65867;// 49052				ç¨³å›ºå°„å‡» æ–½æ³•æ—¶é—´çš„å°„å‡»
+	uint32 HunterShot_MgcShot =69989;// 49045			å¥¥æœ¯å°„å‡»
+	uint32 HunterShot_KillShot = 69989;// 61006			å‡»æ€å°„å‡» ç›®æ ‡20%ä»¥ä¸‹è¡€æ–©æ€å¼å°„å‡»
+	uint32 HunterShot_MulShot =2643;// 49048			å¤šé‡å°„å‡»
+	uint32 HunterShot_QMLShot =53209;// 53209			å¥‡ç¾æ‹‰å°„å‡»(å°„å‡»ç³»)
 };
 
 class BotShamanSpells
@@ -382,66 +382,66 @@ public:
 	void InitializeSpells(Player* player);
 
 protected:
-	uint32 ShamanIDLE_LifeWeapon =32911;// 51994		ÉúÃüÎäÆ÷
-	uint32 ShamanIDLE_IceWeapon =78273;// 58796		±ùËªÎäÆ÷
-	uint32 ShamanIDLE_FireWeapon =160098;// 58790		»ğÑæÎäÆ÷
-	uint32 ShamanIDLE_PhyWeapon =159974;// 10399		Ê¯»¯ÎäÆ÷
-	uint32 ShamanIDLE_FastWeapon =32911;// 58804		·çÅ­ÎäÆ÷
-	uint32 ShamanIDLE_Revive =2008;// 49277			¸´»îÍæ¼Ò
+	uint32 ShamanIDLE_LifeWeapon =32911;// 51994		ç”Ÿå‘½æ­¦å™¨
+	uint32 ShamanIDLE_IceWeapon =78273;// 58796		å†°éœœæ­¦å™¨
+	uint32 ShamanIDLE_FireWeapon =160098;// 58790		ç«ç„°æ­¦å™¨
+	uint32 ShamanIDLE_PhyWeapon =159974;// 10399		çŸ³åŒ–æ­¦å™¨
+	uint32 ShamanIDLE_FastWeapon =32911;// 58804		é£æ€’æ­¦å™¨
+	uint32 ShamanIDLE_Revive =2008;// 49277			å¤æ´»ç©å®¶
 
-	uint32 ShamanShield_Earth =226078;// 49284			´óµØÖ®¶Ü(»Ö¸´Ïµ)
-	uint32 ShamanShield_Water =79949;// 57960			Ë®Ö®¶Ü
-	uint32 ShamanShield_Lightning =20545;// 49281		ÉÁµçÖ®¶Ü
+	uint32 ShamanShield_Earth =226078;// 49284			å¤§åœ°ä¹‹ç›¾(æ¢å¤ç³»)
+	uint32 ShamanShield_Water =79949;// 57960			æ°´ä¹‹ç›¾
+	uint32 ShamanShield_Lightning =20545;// 49281		é—ªç”µä¹‹ç›¾
 
-	uint32 ShamanAssist_Frog =11641;// 51514			±äĞÎÇàÍÜ
-	uint32 ShamanAssist_HealCrit =137531;// 55198		next3¼¸ÂÊÖÎÁÆ±©»÷(»Ö¸´Ïµ)
-	uint32 ShamanAssist_MomentHeal =127316;// 16188		nextHealÊ©·¨Ë²·¢(»Ö¸´Ïµ)
-	uint32 ShamanAssist_MomentCast =16166;// 16166		nextCastÊ©·¨Ë²·¢(ÔªËØÏµ)
-	uint32 ShamanAssist_BlockCast =52870;// 57994		´ò¶ÏÊ©·¨
-	uint32 ShamanAssist_Cleansing =370;// 8012		¾»»¯Ä¿±ê2¸öBUFF
-	uint32 ShamanAssist_FireNova =11969;// 61657		ÈÃ»ğÑæÍ¼ÌÚAOEÒ»´Î
-	uint32 ShamanAssist_Heroic =32182;// 32182			ÈøÂúÓ¢ÓÂ
-	uint32 ShamanAssist_DecCruel =14253;// 526			ÈøÂú½â¶¾ ½â¼²²¡
+	uint32 ShamanAssist_Frog =11641;// 51514			å˜å½¢é’è›™
+	uint32 ShamanAssist_HealCrit =137531;// 55198		next3å‡ ç‡æ²»ç–—æš´å‡»(æ¢å¤ç³»)
+	uint32 ShamanAssist_MomentHeal =127316;// 16188		nextHealæ–½æ³•ç¬å‘(æ¢å¤ç³»)
+	uint32 ShamanAssist_MomentCast =16166;// 16166		nextCastæ–½æ³•ç¬å‘(å…ƒç´ ç³»)
+	uint32 ShamanAssist_BlockCast =52870;// 57994		æ‰“æ–­æ–½æ³•
+	uint32 ShamanAssist_Cleansing =370;// 8012		å‡€åŒ–ç›®æ ‡2ä¸ªBUFF
+	uint32 ShamanAssist_FireNova =11969;// 61657		è®©ç«ç„°å›¾è…¾AOEä¸€æ¬¡
+	uint32 ShamanAssist_Heroic =32182;// 32182			è¨æ»¡è‹±å‹‡
+	uint32 ShamanAssist_DecCruel =14253;// 526			è¨æ»¡è§£æ¯’ è§£ç–¾ç—…
 
-	uint32 ShamanAtt_StormStrike =17364;// 17364		·ç±©´ò»÷(ÔöÇ¿Ïµ)
-	uint32 ShamanAtt_FireStrike =60103;// 60103		ÈÛÑÒ´ò»÷(ÔöÇ¿Ïµ)
+	uint32 ShamanAtt_StormStrike =17364;// 17364		é£æš´æ‰“å‡»(å¢å¼ºç³»)
+	uint32 ShamanAtt_FireStrike =60103;// 60103		ç†”å²©æ‰“å‡»(å¢å¼ºç³»)
 
-	uint32 ShamanCast_LightningArrow =218013;// 49238	ÉÁµç¼ı
-	uint32 ShamanCast_LightningChain =190332;// 49271	ÉÁµçÁ´
-	uint32 ShamanCast_LightningStorm =71935;// 59159	ÉÁµç·ç±©(ÔªËØÏµ)
-	uint32 ShamanCast_FireThud =23038;// 49233			»ğÑæÕğ»÷
-	uint32 ShamanCast_IceThud =22582;// 49236			±ùËªÕğ»÷
-	uint32 ShamanCast_EarthThud =43305;// 49231		´óµØÕğ»÷
-	uint32 ShamanCast_FireStrike =58972;// 60043		ÈÛÑÒ´ò»÷ Ô¶³Ì·¨Êõ
+	uint32 ShamanCast_LightningArrow =218013;// 49238	é—ªç”µç®­
+	uint32 ShamanCast_LightningChain =190332;// 49271	é—ªç”µé“¾
+	uint32 ShamanCast_LightningStorm =71935;// 59159	é—ªç”µé£æš´(å…ƒç´ ç³»)
+	uint32 ShamanCast_FireThud =23038;// 49233			ç«ç„°éœ‡å‡»
+	uint32 ShamanCast_IceThud =22582;// 49236			å†°éœœéœ‡å‡»
+	uint32 ShamanCast_EarthThud =43305;// 49231		å¤§åœ°éœ‡å‡»
+	uint32 ShamanCast_FireStrike =58972;// 60043		ç†”å²©æ‰“å‡» è¿œç¨‹æ³•æœ¯
 
-	uint32 ShamanHealth_Fast =71985;// 49276			¿ìËÙÖÎÁÆ
-	uint32 ShamanHealth_Bast =253330;// 49273			´óÁ¦ÖÎÁÆ
-	uint32 ShamanHealth_Chain =237925;// 55459			ÖÎÁÆÁ´
-	uint32 ShamanHealth_Torrent =237920;// 61301		¼¤Á÷ Ë²·¢Ğ¡ÖÎÁÆ+³ÖĞøÖÎÁÆ(»Ö¸´Ïµ)
-	uint32 ShamanDispel_Refine =234893;// 51886			ÇıÉ¢
+	uint32 ShamanHealth_Fast =71985;// 49276			å¿«é€Ÿæ²»ç–—
+	uint32 ShamanHealth_Bast =253330;// 49273			å¤§åŠ›æ²»ç–—
+	uint32 ShamanHealth_Chain =237925;// 55459			æ²»ç–—é“¾
+	uint32 ShamanHealth_Torrent =237920;// 61301		æ¿€æµ ç¬å‘å°æ²»ç–—+æŒç»­æ²»ç–—(æ¢å¤ç³»)
+	uint32 ShamanDispel_Refine =234893;// 51886			é©±æ•£
 
-	uint32 ShamanTotem_Recycle=5394;// 36936			»ØÊÕÍ¼ÌÚ
+	uint32 ShamanTotem_Recycle=5394;// 36936			å›æ”¶å›¾è…¾
 
-	uint32 ShamanTotem_Life=35199;// 58757			ÉúÃüÍ¼ÌÚ
-	uint32 ShamanTotem_Mana =24854;// 58774			·¨Á¦Í¼ÌÚ
-	uint32 ShamanTotem_BMana=24854;// 16190			´ó·¨Á¦Í¼ÌÚ
+	uint32 ShamanTotem_Life=35199;// 58757			ç”Ÿå‘½å›¾è…¾
+	uint32 ShamanTotem_Mana =24854;// 58774			æ³•åŠ›å›¾è…¾
+	uint32 ShamanTotem_BMana=24854;// 16190			å¤§æ³•åŠ›å›¾è…¾
 
-	uint32 ShamanTotem_SummonFire = 27623;// 2894		ÕÙ»½»ğÔªËØÍ¼ÌÚ
-	uint32 ShamanTotem_MgcPower = 31985;// 57722		·¨ÊõÄÜÁ¿Í¼ÌÚ(ÔªËØÏµ)
-	uint32 ShamanTotem_Attack = 38116;// 58704			×ÔÖ÷»ğÑæ¹¥»÷Í¼ÌÚ
-	uint32 ShamanTotem_AOEAttack = 39591;// 58734		×ÔÖ÷»ğÑæÈº¹¥Í¼ÌÚ
-	uint32 ShamanTotem_MgcHeal =31633;// 58656			·¨ÊõÄÜÁ¿ºÍÖÎÁÆĞ§¹ûÍ¼ÌÚ
+	uint32 ShamanTotem_SummonFire = 27623;// 2894		å¬å”¤ç«å…ƒç´ å›¾è…¾
+	uint32 ShamanTotem_MgcPower = 31985;// 57722		æ³•æœ¯èƒ½é‡å›¾è…¾(å…ƒç´ ç³»)
+	uint32 ShamanTotem_Attack = 38116;// 58704			è‡ªä¸»ç«ç„°æ”»å‡»å›¾è…¾
+	uint32 ShamanTotem_AOEAttack = 39591;// 58734		è‡ªä¸»ç«ç„°ç¾¤æ”»å›¾è…¾
+	uint32 ShamanTotem_MgcHeal =31633;// 58656			æ³•æœ¯èƒ½é‡å’Œæ²»ç–—æ•ˆæœå›¾è…¾
 
-	uint32 ShamanTotem_DecMove =51485;// 2484			¼õÒÆ¶¯ËÙ¶ÈÍ¼ÌÚ
-	uint32 ShamanTotem_SummonSoil =73903;// 2062		ÕÙ»½ÍÁÔªËØÍ¼ÌÚ
-	uint32 ShamanTotem_PhyPower = 65992;// 58643		Á¦Á¿Ãô½İÍ¼ÌÚ
-	uint32 ShamanTotem_Armor = 73393;// 58753			»¤¼×Í¼ÌÚ
+	uint32 ShamanTotem_DecMove =51485;// 2484			å‡ç§»åŠ¨é€Ÿåº¦å›¾è…¾
+	uint32 ShamanTotem_SummonSoil =73903;// 2062		å¬å”¤åœŸå…ƒç´ å›¾è…¾
+	uint32 ShamanTotem_PhyPower = 65992;// 58643		åŠ›é‡æ•æ·å›¾è…¾
+	uint32 ShamanTotem_Armor = 73393;// 58753			æŠ¤ç”²å›¾è…¾
 
-	uint32 ShamanTotem_AbsorbBuff = 148819;// 8177		ÎüÊÕÓĞº¦BUFFÍ¼ÌÚ
-	uint32 ShamanTotem_AttSpeed =27621;// 8512			½üÕ½¹¥»÷ËÙ¶ÈÍ¼ÌÚ
-	uint32 ShamanTotem_MgcSpeed =27621;// 3738			·¨ÊõÊ©·¨ËÙ¶ÈÍ¼ÌÚ
+	uint32 ShamanTotem_AbsorbBuff = 148819;// 8177		å¸æ”¶æœ‰å®³BUFFå›¾è…¾
+	uint32 ShamanTotem_AttSpeed =27621;// 8512			è¿‘æˆ˜æ”»å‡»é€Ÿåº¦å›¾è…¾
+	uint32 ShamanTotem_MgcSpeed =27621;// 3738			æ³•æœ¯æ–½æ³•é€Ÿåº¦å›¾è…¾
 
-	uint32 ShamanFlag_NoHeroic = 27621;// 57723			ÎŞ·¨giveÓ¢ÓÂ×´Ì¬±êÊ¶
+	uint32 ShamanFlag_NoHeroic = 27621;// 57723			æ— æ³•giveè‹±å‹‡çŠ¶æ€æ ‡è¯†
 };
 
 class BotMageSpells
@@ -450,69 +450,69 @@ public:
 	void InitializeSpells(Player* player);
 
 protected:
-	uint32 MageIDLE_ManaGem =36883;// 42985		·¨Á¦±¦Ê¯
-	uint32 MageIDLE_ArcaneMagic =13326;// 42995	°ÂÊõÖÇ»Û
-	uint32 MageIDLE_AOEArcaneMagic = 129171;// 43002	È«Ìå°ÂÊõÖÇ»Û
-	uint32 MageIDLE_MgcArmor =164309;// 43024		Ä§¼×Êõ
-	uint32 MageIDLE_FrostArmor =79563;// 43008		±ù¼×Êõ
-	uint32 MageIDLE_IceArmor =165743;// 7301		Ëª¼×Êõ
-	uint32 MageIDLE_FireArmor =35915;// 43046		»ğÑæ×°¼×
-	uint32 MageIDLE_MagicAdd =70408;// 43017		Ä§·¨ÔöĞ§
-	uint32 MageIDLE_MagicDec =44475;// 43015		Ä§·¨Ñ¹ÖÆ
-	uint32 MageIDLE_SummonRite =43987;// 58659		ÕÙ»½²Í×À
+	uint32 MageIDLE_ManaGem =36883;// 42985		æ³•åŠ›å®çŸ³
+	uint32 MageIDLE_ArcaneMagic =13326;// 42995	å¥¥æœ¯æ™ºæ…§
+	uint32 MageIDLE_AOEArcaneMagic = 129171;// 43002	å…¨ä½“å¥¥æœ¯æ™ºæ…§
+	uint32 MageIDLE_MgcArmor =164309;// 43024		é­”ç”²æœ¯
+	uint32 MageIDLE_FrostArmor =79563;// 43008		å†°ç”²æœ¯
+	uint32 MageIDLE_IceArmor =165743;// 7301		éœœç”²æœ¯
+	uint32 MageIDLE_FireArmor =35915;// 43046		ç«ç„°è£…ç”²
+	uint32 MageIDLE_MagicAdd =70408;// 43017		é­”æ³•å¢æ•ˆ
+	uint32 MageIDLE_MagicDec =44475;// 43015		é­”æ³•å‹åˆ¶
+	uint32 MageIDLE_SummonRite =43987;// 58659		å¬å”¤é¤æ¡Œ
 
-	uint32 MageGuard_MagicShield =56778;// 43020	·¨Á¦»¤¶Ü
-	uint32 MageGuard_FrostShield =201565;// 43039	º®±ù»¤¶Ü
-	uint32 MageGuard_FrostScherm =41590;// 45438	º®±ùÆÁÕÏ
-	uint32 MageGuard_FrostNova =64919;// 42917		º®±ùĞÂĞÇ
-	uint32 MageGuard_FireBreath =31661;// 42950	ÁúÖ®ÍÂÏ¢
-	uint32 MageGuard_FireNova =11969;// 42945		»ğÑæĞÂĞÇ
+	uint32 MageGuard_MagicShield =56778;// 43020	æ³•åŠ›æŠ¤ç›¾
+	uint32 MageGuard_FrostShield =201565;// 43039	å¯’å†°æŠ¤ç›¾
+	uint32 MageGuard_FrostScherm =41590;// 45438	å¯’å†°å±éšœ
+	uint32 MageGuard_FrostNova =64919;// 42917		å¯’å†°æ–°æ˜Ÿ
+	uint32 MageGuard_FireBreath =31661;// 42950	é¾™ä¹‹åæ¯
+	uint32 MageGuard_FireNova =11969;// 42945		ç«ç„°æ–°æ˜Ÿ
 
-	uint32 MageAssist_Mirror =166894;// 55342		·¨Ê¦¾µÏñ
-	uint32 MageAssist_Rouse =12051;// 12051		»½ĞÑ
-	uint32 MageAssist_Stealth =66;// 66			ÒşĞÎÊõ
-	uint32 MageAssist_Teleport =14514;// 1953		ÉÁÏÖÊõ
-	uint32 MageAssist_DecCurse =15729;// 475		½â³ı×çÖä
-	uint32 MageAssist_Grace =29976;// 12043		Æø¶¨ÉñÏĞ
-	uint32 MageAssist_ArcanePower =12042;// 12042	°ÂÊõÇ¿»¯
-	uint32 MageAssist_CastSpeed =12472;// 12472	±ùÀäÑªÂö
-	uint32 MageAssist_FastColddown =235219;// 11958	ÖØÖÃ±ùÏµ¼¼ÄÜCD
-	uint32 MageAssist_FrostPet =31687;// 31687		ÕÙ»½Ë®ÔªËØ
-	uint32 MageAssist_FireCritAura =19428;// 11129	Ö÷¶¯3´ÎÔö¼Ó»ğÑæ±©»÷AURA
+	uint32 MageAssist_Mirror =166894;// 55342		æ³•å¸ˆé•œåƒ
+	uint32 MageAssist_Rouse =12051;// 12051		å”¤é†’
+	uint32 MageAssist_Stealth =66;// 66			éšå½¢æœ¯
+	uint32 MageAssist_Teleport =14514;// 1953		é—ªç°æœ¯
+	uint32 MageAssist_DecCurse =15729;// 475		è§£é™¤è¯…å’’
+	uint32 MageAssist_Grace =29976;// 12043		æ°”å®šç¥é—²
+	uint32 MageAssist_ArcanePower =12042;// 12042	å¥¥æœ¯å¼ºåŒ–
+	uint32 MageAssist_CastSpeed =12472;// 12472	å†°å†·è¡€è„‰
+	uint32 MageAssist_FastColddown =235219;// 11958	é‡ç½®å†°ç³»æŠ€èƒ½CD
+	uint32 MageAssist_FrostPet =31687;// 31687		å¬å”¤æ°´å…ƒç´ 
+	uint32 MageAssist_FireCritAura =19428;// 11129	ä¸»åŠ¨3æ¬¡å¢åŠ ç«ç„°æš´å‡»AURA
 
-	uint32 MageConfine_BreakCast =29443;// 2139	·¨Êõ·´ÖÆ
-	uint32 MageConfine_AuraSteal =30449;// 30449	BUFFÍµÈ¡
-	uint32 MageConfine_ArcaneSlow =246;// 31589	°ÂÊõ»ºËÙ
-	uint32 MageConfine_ToSheep =118;// 12826		±äÑò
-	uint32 MageConfine_Freeze =79130;// 44572		¶³½á±»±ù¶³µÄÄ¿±ê
+	uint32 MageConfine_BreakCast =29443;// 2139	æ³•æœ¯ååˆ¶
+	uint32 MageConfine_AuraSteal =30449;// 30449	BUFFå·å–
+	uint32 MageConfine_ArcaneSlow =246;// 31589	å¥¥æœ¯ç¼“é€Ÿ
+	uint32 MageConfine_ToSheep =118;// 12826		å˜ç¾Š
+	uint32 MageConfine_Freeze =79130;// 44572		å†»ç»“è¢«å†°å†»çš„ç›®æ ‡
 
-	uint32 MageAOE_ArcaneExplode =9433;// 42921	°ÂÊõ±¬Õ¨
-	uint32 MageAOE_Snowstorm =15783;// 42940		±©·çÑ©
-	uint32 MageAOE_IcePiton =12557;// 42931		±ù×¶Êõ
-	uint32 MageAOE_FireStorm =13899;// 42926		»ğÑæ·ç±©
+	uint32 MageAOE_ArcaneExplode =9433;// 42921	å¥¥æœ¯çˆ†ç‚¸
+	uint32 MageAOE_Snowstorm =15783;// 42940		æš´é£é›ª
+	uint32 MageAOE_IcePiton =12557;// 42931		å†°é”¥æœ¯
+	uint32 MageAOE_FireStorm =13899;// 42926		ç«ç„°é£æš´
 
-	uint32 MageArcane_Barrage =44425;// 44781		°ÂÊõµ¯Ä»
-	uint32 MageArcane_Bullet =5143;// 42846		°ÂÊõ·Éµ¯
-	uint32 MageArcane_ArcaneShock =16067;// 42897	°ÂÊõ³å»÷
+	uint32 MageArcane_Barrage =44425;// 44781		å¥¥æœ¯å¼¹å¹•
+	uint32 MageArcane_Bullet =5143;// 42846		å¥¥æœ¯é£å¼¹
+	uint32 MageArcane_ArcaneShock =16067;// 42897	å¥¥æœ¯å†²å‡»
 
-	uint32 MageFrost_IceArrow =9672;// 42842		º®±ù¼ı
-	uint32 MageFrost_IceLance =43571;// 42914		±ùÇ¹
-	uint32 MageFrost_FFArrow =70616;// 47610		Ëª»ğ¼ı
+	uint32 MageFrost_IceArrow =9672;// 42842		å¯’å†°ç®­
+	uint32 MageFrost_IceLance =43571;// 42914		å†°æª
+	uint32 MageFrost_FFArrow =70616;// 47610		éœœç«ç®­
 
-	uint32 MageFire_FireArrow =133;// 42833		»ğÇòÊõ
-	uint32 MageFire_FireShock =15574;// 42873		»ğÑæ³å»÷
-	uint32 MageFire_Firing =2948;// 42859			×ÆÉÕ
-	uint32 MageFire_BigFireBall =33051;// 42891	´ó»ğÇò
-	uint32 MageFire_FireBomb =178551;// 55360		»îÌåÕ¨µ¯
+	uint32 MageFire_FireArrow =133;// 42833		ç«çƒæœ¯
+	uint32 MageFire_FireShock =15574;// 42873		ç«ç„°å†²å‡»
+	uint32 MageFire_Firing =2948;// 42859			ç¼çƒ§
+	uint32 MageFire_BigFireBall =33051;// 42891	å¤§ç«çƒ
+	uint32 MageFire_FireBomb =178551;// 55360		æ´»ä½“ç‚¸å¼¹
 
-	uint32 MagePet_FrostNova =40875;// 33395		Ë®±¦±¦º®±ùĞÂĞÇ
+	uint32 MagePet_FrostNova =40875;// 33395		æ°´å®å®å¯’å†°æ–°æ˜Ÿ
 
-	uint32 MageFlag_FireStun =201565;// 64343		Aura:¿ÉÒÔ»ğ³å»èÃÔ
-	uint32 MageFlag_FastFStorm =201565;// 54741		Aura:»ğÑæ·ç±©Ë²·¢
-	uint32 MageFlag_FastBFBall =201565;// 48108		Aura:Ë²·¢´ó»ğÇò
-	uint32 MageFlag_FastFFArrow =201565;// 57761	Aura:Ë²·¢Ëª»ğ¼ı
-	uint32 MageFlag_CanFrozen =201565;// 74396		Aura:Ä¿±êµ±³É±»±ù¶³×´Ì¬
-	uint32 MageFlag_Scherm =201565;// 45438			Aura:±ùÏä×´Ì¬ÖĞ
+	uint32 MageFlag_FireStun =201565;// 64343		Aura:å¯ä»¥ç«å†²æ˜è¿·
+	uint32 MageFlag_FastFStorm =201565;// 54741		Aura:ç«ç„°é£æš´ç¬å‘
+	uint32 MageFlag_FastBFBall =201565;// 48108		Aura:ç¬å‘å¤§ç«çƒ
+	uint32 MageFlag_FastFFArrow =201565;// 57761	Aura:ç¬å‘éœœç«ç®­
+	uint32 MageFlag_CanFrozen =201565;// 74396		Aura:ç›®æ ‡å½“æˆè¢«å†°å†»çŠ¶æ€
+	uint32 MageFlag_Scherm =201565;// 45438			Aura:å†°ç®±çŠ¶æ€ä¸­
 };
 
 class BotWarlockSpells
@@ -521,76 +521,76 @@ public:
 	void InitializeSpells(Player* player);
 
 protected:
-	uint32 WarlockIDLE_LowArmor =20798;// 696			µÍ¼¶»¤¼×
-	uint32 WarlockIDLE_Armor = 13787;// 47889			ÖĞ¼¶»¤¼×
-	uint32 WarlockIDLE_HighArmor = 44520;// 47893		¸ß¼¶»¤¼×
-	uint32 WarlockIDLE_SoulLink =79957;// 19028		³èÎïÁé»êÁ´½Ó(¶ñÄ§Ïµ)
-	uint32 WarlockIDLE_ShadowShield =53915;// 47891		°µÓ°¶Ü
-	uint32 WarlockIDLE_SummonFireDemon =688;// 688	ÕÙ»½Ğ¡¹í
-	uint32 WarlockIDLE_SummonHollowDemon =697;// 697	ÕÙ»½Ğé¿Õ
-	uint32 WarlockIDLE_SummonSuccubus =712;// 712		ÕÙ»½÷ÈÄ§
-	uint32 WarlockIDLE_SummonDogDemon =691;// 691		ÕÙ»½ÁÔÈ®
-	uint32 WarlockIDLE_SummonGuardDemon =30146;// 30146	ÕÙ»½µØÓüÊØÎÀ
-	uint32 WarlockIDLE_FastSummon =53915;// 18708		¿ìËÙÕÙ»½(¶ñÄ§Ïµ)
-	uint32 WarlockIDLE_OpenGate =48018;// 48018		¿ªÆô´«ËÍ·¨Õó
-	uint32 WarlockIDLE_TeleGate =48020;// 48020		Ë²ÒÆµ½´«ËÍ·¨Õó
-	uint32 WarlockIDLE_SummonRite =60429;// 29893		Áé»êÒÇÊ½
+	uint32 WarlockIDLE_LowArmor =20798;// 696			ä½çº§æŠ¤ç”²
+	uint32 WarlockIDLE_Armor = 13787;// 47889			ä¸­çº§æŠ¤ç”²
+	uint32 WarlockIDLE_HighArmor = 44520;// 47893		é«˜çº§æŠ¤ç”²
+	uint32 WarlockIDLE_SoulLink =79957;// 19028		å® ç‰©çµé­‚é“¾æ¥(æ¶é­”ç³»)
+	uint32 WarlockIDLE_ShadowShield =53915;// 47891		æš—å½±ç›¾
+	uint32 WarlockIDLE_SummonFireDemon =688;// 688	å¬å”¤å°é¬¼
+	uint32 WarlockIDLE_SummonHollowDemon =697;// 697	å¬å”¤è™šç©º
+	uint32 WarlockIDLE_SummonSuccubus =712;// 712		å¬å”¤é­…é­”
+	uint32 WarlockIDLE_SummonDogDemon =691;// 691		å¬å”¤çŒçŠ¬
+	uint32 WarlockIDLE_SummonGuardDemon =30146;// 30146	å¬å”¤åœ°ç‹±å®ˆå«
+	uint32 WarlockIDLE_FastSummon =53915;// 18708		å¿«é€Ÿå¬å”¤(æ¶é­”ç³»)
+	uint32 WarlockIDLE_OpenGate =48018;// 48018		å¼€å¯ä¼ é€æ³•é˜µ
+	uint32 WarlockIDLE_TeleGate =48020;// 48020		ç¬ç§»åˆ°ä¼ é€æ³•é˜µ
+	uint32 WarlockIDLE_SummonRite =60429;// 29893		çµé­‚ä»ªå¼
 
-	uint32 WarlockDemon_ToDemon =54840;// 47241		±äÉí´ó¶ñÄ§
-	uint32 WarlockDemon_Charge =104205;// 54785			¶ñÄ§³å·æ
-	uint32 WarlockDemon_MeleeAOE =215559;// 50581		¶ñÄ§Ë³ÅüÕ¶
-	uint32 WarlockDemon_Sacrifice =192502;// 50589		¶ñÄ§Ï×¼À
+	uint32 WarlockDemon_ToDemon =54840;// 47241		å˜èº«å¤§æ¶é­”
+	uint32 WarlockDemon_Charge =104205;// 54785			æ¶é­”å†²é”‹
+	uint32 WarlockDemon_MeleeAOE =215559;// 50581		æ¶é­”é¡ºåŠˆæ–©
+	uint32 WarlockDemon_Sacrifice =192502;// 50589		æ¶é­”çŒ®ç¥­
 
-	uint32 WarlockAssist_DemonPower =193396;// 47193		Ç¿»¯ÕÙ»½µÄ¶ñÄ§(¶ñÄ§Ïµ)
-	uint32 WarlockAssist_ExtractMana =108416;// 59092	³èÎïÉíÉÏ³éÀ¶(Í´¿àÏµ)
-	uint32 WarlockAssist_ConvertMana =1454;// 57946	ÉúÃü·ÖÁ÷ Ñª×ªÀ¶
-	uint32 WarlockAssist_StealLife =12693;// 47857		ÎüÈ¡ÉúÃü
-	uint32 WarlockAssist_StealMana =17008;// 5138		ÎüÈ¡·¨Á¦
-	uint32 WarlockAssist_BaseFear =12096;// 6215		¿Ö¾åÊõ
-	uint32 WarlockAssist_FastFear =6789;// 47860		ËÀÍö²øÈÆ
-	uint32 WarlockAssist_AOEFear =5484;// 17928		ÈºÌå¿Ö¾åÊõ
+	uint32 WarlockAssist_DemonPower =193396;// 47193		å¼ºåŒ–å¬å”¤çš„æ¶é­”(æ¶é­”ç³»)
+	uint32 WarlockAssist_ExtractMana =108416;// 59092	å® ç‰©èº«ä¸ŠæŠ½è“(ç—›è‹¦ç³»)
+	uint32 WarlockAssist_ConvertMana =1454;// 57946	ç”Ÿå‘½åˆ†æµ è¡€è½¬è“
+	uint32 WarlockAssist_StealLife =12693;// 47857		å¸å–ç”Ÿå‘½
+	uint32 WarlockAssist_StealMana =17008;// 5138		å¸å–æ³•åŠ›
+	uint32 WarlockAssist_BaseFear =12096;// 6215		ææƒ§æœ¯
+	uint32 WarlockAssist_FastFear =6789;// 47860		æ­»äº¡ç¼ ç»•
+	uint32 WarlockAssist_AOEFear =5484;// 17928		ç¾¤ä½“ææƒ§æœ¯
 
-	uint32 WarlockAOE_MeleeFire=22539;// 61290		½üÕ½Ç°·½AOE
-	uint32 WarlockAOE_RainFire =16005;// 47820			»ğÑæÓêAOE
-	uint32 WarlockAOE_ShadowRage =39082;// 47847		°µÓ°Ö®Å­AOEÈºÌå»èÃÔ(»ÙÃğÏµ)
+	uint32 WarlockAOE_MeleeFire=22539;// 61290		è¿‘æˆ˜å‰æ–¹AOE
+	uint32 WarlockAOE_RainFire =16005;// 47820			ç«ç„°é›¨AOE
+	uint32 WarlockAOE_ShadowRage =39082;// 47847		æš—å½±ä¹‹æ€’AOEç¾¤ä½“æ˜è¿·(æ¯ç­ç³»)
 
-	uint32 WarlockCurse_UpDmg =79956;// 47865			ÔªËØÉËº¦Ìá¸ß×çÖä
-	uint32 WarlockCurse_MoveLow=29539;// 18223		Æ£ÀÍ×çÖä ÒÆ¶¯ËÙ¶È½µµÍ(Í´¿àÏµ)
-	uint32 WarlockCurse_MgcDmg =14868;// 47864			Í´¿à×çÖä DOTÉËº¦
-	uint32 WarlockCurse_MeleeLow =8552;// 50511		ĞéÈõ×çÖä ¹¥Ç¿½µµÍ
-	uint32 WarlockCurse_CastLow =12889;// 11719		ÓïÑÔ×çÖä Ê©·¨Ê±¼äÑÓ³Ù
+	uint32 WarlockCurse_UpDmg =79956;// 47865			å…ƒç´ ä¼¤å®³æé«˜è¯…å’’
+	uint32 WarlockCurse_MoveLow=29539;// 18223		ç–²åŠ³è¯…å’’ ç§»åŠ¨é€Ÿåº¦é™ä½(ç—›è‹¦ç³»)
+	uint32 WarlockCurse_MgcDmg =14868;// 47864			ç—›è‹¦è¯…å’’ DOTä¼¤å®³
+	uint32 WarlockCurse_MeleeLow =8552;// 50511		è™šå¼±è¯…å’’ æ”»å¼ºé™ä½
+	uint32 WarlockCurse_CastLow =12889;// 11719		è¯­è¨€è¯…å’’ æ–½æ³•æ—¶é—´å»¶è¿Ÿ
 
-	uint32 WarlockDot_LeechSoul =48181;// 59164		×Ç»êÊõ(Í´¿àÏµ)
-	uint32 WarlockDot_HighDmg =30108;// 47843			Í´¿à¶¯µ´(Í´¿àÏµ)
-	uint32 WarlockDot_LowDmg =172;// 47813			¸¯ÖñÊõ
-	uint32 WarlockDot_AOEDmg =32863;// 47836			¸¯ÖñÖÖ×Ó dotºó·¶Î§ÉËº¦
-	uint32 WarlockDot_Sacrifice =15505;// 47811		»ÙÃğÏ×¼À
+	uint32 WarlockDot_LeechSoul =48181;// 59164		æµŠé­‚æœ¯(ç—›è‹¦ç³»)
+	uint32 WarlockDot_HighDmg =30108;// 47843			ç—›è‹¦åŠ¨è¡(ç—›è‹¦ç³»)
+	uint32 WarlockDot_LowDmg =172;// 47813			è…ç«¹æœ¯
+	uint32 WarlockDot_AOEDmg =32863;// 47836			è…ç«¹ç§å­ dotåèŒƒå›´ä¼¤å®³
+	uint32 WarlockDot_Sacrifice =15505;// 47811		æ¯ç­çŒ®ç¥­
 
-	uint32 WarlockCast_ShadowArrow =9613;// 47809		°µÓ°Ö®¼ı
-	uint32 WarlockCast_ShadowShock =131792;// 47827		°µÓ°³å»÷24Âë(»ÙÃğÏµ)
-	uint32 WarlockCast_ChaosArrow =79939;// 59172		»ìÂÒÖ®¼ı(»ÙÃğÏµ)
-	uint32 WarlockCast_FullBurn =41960;// 47838		È¼¾¡ ÓĞÏ×¼ÀÊ±¼ÓÇ¿Ğ§¹û(»ÙÃğÏµ)
-	uint32 WarlockCast_FireBurn =19428;// 17962		·ÙÉÕ ÏûºÄÏ×¼À(»ÙÃğÏµ)
-	uint32 WarlockCast_BigFireBall =131381;// 47825		Áé»ê´ó»ğÇò
+	uint32 WarlockCast_ShadowArrow =9613;// 47809		æš—å½±ä¹‹ç®­
+	uint32 WarlockCast_ShadowShock =131792;// 47827		æš—å½±å†²å‡»24ç (æ¯ç­ç³»)
+	uint32 WarlockCast_ChaosArrow =79939;// 59172		æ··ä¹±ä¹‹ç®­(æ¯ç­ç³»)
+	uint32 WarlockCast_FullBurn =41960;// 47838		ç‡ƒå°½ æœ‰çŒ®ç¥­æ—¶åŠ å¼ºæ•ˆæœ(æ¯ç­ç³»)
+	uint32 WarlockCast_FireBurn =19428;// 17962		ç„šçƒ§ æ¶ˆè€—çŒ®ç¥­(æ¯ç­ç³»)
+	uint32 WarlockCast_BigFireBall =131381;// 47825		çµé­‚å¤§ç«çƒ
 
-	uint32 WarlockPetDemon_Charge =225417;// 47996		¶ñÄ§pet³å·æ
-	uint32 WarlockPetDemon_Melee =161703;// 47994		¶ñÄ§petË³ÅüÕ¶
-	uint32 WarlockPetDog_MagicBuf =69994;// 57567		ÁÔÈ®petÍÅ¶ÓBUF
-	uint32 WarlockPetDog_EatMgc =19505;// 48011		ÁÔÈ®petÍÌÊ³Ä§·¨
-	uint32 WarlockPetDog_Bite =138750;// 54053			ÁÔÈ®petÒ§ÈË
-	uint32 WarlockPetDog_Silence =67519;// 19647		ÁÔÈ®pet³ÁÄ¬
-	uint32 WarlockPetSuccubus_Lash =15968;// 47992		÷ÈÄ§pet±Ş´ò
-	uint32 WarlockPetSuccubus_Sneak =12845;// 7870		÷ÈÄ§petÇ±ĞĞ
-	uint32 WarlockPetSuccubus_Charm =36241;// 6358		÷ÈÄ§pet÷È»ó
-	uint32 WarlockPetGhost_Shield =18968;// 47983		Ğ¡¹ípet»ğ¶Ü
-	uint32 WarlockPetGhost_Sneak =169009;// 4511		Ğ¡¹ípetÇ±ĞĞ
-	uint32 WarlockPetGhost_Stamp =244189;// 47982		Ğ¡¹ípetÑªÓ¡¼Ç
-	uint32 WarlockPetGhost_FireArrow =9057;// 47964	Ğ¡¹ípet»ğÑæ¼ı
+	uint32 WarlockPetDemon_Charge =225417;// 47996		æ¶é­”petå†²é”‹
+	uint32 WarlockPetDemon_Melee =161703;// 47994		æ¶é­”peté¡ºåŠˆæ–©
+	uint32 WarlockPetDog_MagicBuf =69994;// 57567		çŒçŠ¬petå›¢é˜ŸBUF
+	uint32 WarlockPetDog_EatMgc =19505;// 48011		çŒçŠ¬petåé£Ÿé­”æ³•
+	uint32 WarlockPetDog_Bite =138750;// 54053			çŒçŠ¬petå’¬äºº
+	uint32 WarlockPetDog_Silence =67519;// 19647		çŒçŠ¬petæ²‰é»˜
+	uint32 WarlockPetSuccubus_Lash =15968;// 47992		é­…é­”peté­æ‰“
+	uint32 WarlockPetSuccubus_Sneak =12845;// 7870		é­…é­”petæ½œè¡Œ
+	uint32 WarlockPetSuccubus_Charm =36241;// 6358		é­…é­”peté­…æƒ‘
+	uint32 WarlockPetGhost_Shield =18968;// 47983		å°é¬¼petç«ç›¾
+	uint32 WarlockPetGhost_Sneak =169009;// 4511		å°é¬¼petæ½œè¡Œ
+	uint32 WarlockPetGhost_Stamp =244189;// 47982		å°é¬¼petè¡€å°è®°
+	uint32 WarlockPetGhost_FireArrow =9057;// 47964	å°é¬¼petç«ç„°ç®­
 
-	uint32 WarlockFlag_SoulItem =6265;// 6265			Áé»êËéÆ¬µÀ¾ß
-	uint32 WarlockFlag_SoulLink =79957;// 25228		³èÎïÁé»êÁ´½ÓBUF
-	uint32 WarlockFlag_OpenGate =48018;// 48018		´«ËÍ·¨ÕóBUF
-	uint32 WarlockFlag_Sacrifice =223061;// 50589		¶ñÄ§Ï×¼ÀBUF
+	uint32 WarlockFlag_SoulItem =6265;// 6265			çµé­‚ç¢ç‰‡é“å…·
+	uint32 WarlockFlag_SoulLink =79957;// 25228		å® ç‰©çµé­‚é“¾æ¥BUF
+	uint32 WarlockFlag_OpenGate =48018;// 48018		ä¼ é€æ³•é˜µBUF
+	uint32 WarlockFlag_Sacrifice =223061;// 50589		æ¶é­”çŒ®ç¥­BUF
 };
 
 class BotPriestSpells
@@ -599,63 +599,63 @@ public:
 	void InitializeSpells(Player* player);
 
 protected:
-	uint32 PriestIDLE_AllHardRes =43939;// 48162			È«Ìå¼áÈÍ
-	uint32 PriestIDLE_HardRes =23948;// 48161				µ¥Ìå¼áÈÍ
-	uint32 PriestIDLE_SoulFire =48168;// 48168				ĞÄÁéÖ®»ğ
-	uint32 PriestIDLE_AllSpiritRes =43939;// 48074			È«Ìå¾«Éñ
-	uint32 PriestIDLE_SpiritRes =23948;// 48073			µ¥Ìå¾«Éñ
-	uint32 PriestIDLE_Bloodsucker =15286;// 15286			ÎüÑª¹íÓµ±§
-	uint32 PriestIDLE_AllShadowRes =53915;// 48170			È«Ìå°µÓ°¿¹ĞÔ
-	uint32 PriestIDLE_ShadowRes =53915;// 48169			µ¥Ìå°µÓ°¿¹ĞÔ
-	uint32 PriestIDLE_ShadowStatus =16592;// 15473			°µÓ°ĞÎÌ¬
-	uint32 PriestIDLE_Revive =2006;// 48171				¸´»îÍæ¼Ò
+	uint32 PriestIDLE_AllHardRes =43939;// 48162			å…¨ä½“åšéŸ§
+	uint32 PriestIDLE_HardRes =23948;// 48161				å•ä½“åšéŸ§
+	uint32 PriestIDLE_SoulFire =48168;// 48168				å¿ƒçµä¹‹ç«
+	uint32 PriestIDLE_AllSpiritRes =43939;// 48074			å…¨ä½“ç²¾ç¥
+	uint32 PriestIDLE_SpiritRes =23948;// 48073			å•ä½“ç²¾ç¥
+	uint32 PriestIDLE_Bloodsucker =15286;// 15286			å¸è¡€é¬¼æ‹¥æŠ±
+	uint32 PriestIDLE_AllShadowRes =53915;// 48170			å…¨ä½“æš—å½±æŠ—æ€§
+	uint32 PriestIDLE_ShadowRes =53915;// 48169			å•ä½“æš—å½±æŠ—æ€§
+	uint32 PriestIDLE_ShadowStatus =16592;// 15473			æš—å½±å½¢æ€
+	uint32 PriestIDLE_Revive =2006;// 48171				å¤æ´»ç©å®¶
 
-	uint32 PriestGuard_ShadowFear =34984;// 64044			µ¥Ìå¿Ö¾å(°µÓ°Ïµ)
-	uint32 PriestGuard_AOEFear =8122;// 10890				½üÕ½·¶Î§Èº¿Ö¾å
-	uint32 PriestGuard_DefFear =65544;// 6346				·´¿Ö¾å½á½ç
-	uint32 PriestGuard_RecoverMana =65544;// 47585			°µÓ°»ØÀ¶ºÍÃâÉË(°µÓ°Ïµ)
-	uint32 PriestGuard_DmgAnnul =33206;// 33206			Í´¿àÑ¹ÖÆ(½äÂÉÏµ)
-	uint32 PriestGuard_DefShield =17;// 48066			ÕæÑÔÊõ ¶Ü
-	uint32 PriestGuard_SelfHealth =19236;// 48173			¾øÍûµ»ÑÔ ×Ô¼ºË²¼äÖÎÁÆ(ÉñÊ¥Ïµ)
-	uint32 PriestGuard_GuardSoul =47788;// 47788			Áé»êÊØ»¤ targetËÀÍöÊ±ÊØ»¤(ÉñÊ¥Ïµ)
+	uint32 PriestGuard_ShadowFear =34984;// 64044			å•ä½“ææƒ§(æš—å½±ç³»)
+	uint32 PriestGuard_AOEFear =8122;// 10890				è¿‘æˆ˜èŒƒå›´ç¾¤ææƒ§
+	uint32 PriestGuard_DefFear =65544;// 6346				åææƒ§ç»“ç•Œ
+	uint32 PriestGuard_RecoverMana =65544;// 47585			æš—å½±å›è“å’Œå…ä¼¤(æš—å½±ç³»)
+	uint32 PriestGuard_DmgAnnul =33206;// 33206			ç—›è‹¦å‹åˆ¶(æˆ’å¾‹ç³»)
+	uint32 PriestGuard_DefShield =17;// 48066			çœŸè¨€æœ¯ ç›¾
+	uint32 PriestGuard_SelfHealth =19236;// 48173			ç»æœ›ç¥·è¨€ è‡ªå·±ç¬é—´æ²»ç–—(ç¥åœ£ç³»)
+	uint32 PriestGuard_GuardSoul =47788;// 47788			çµé­‚å®ˆæŠ¤ targetæ­»äº¡æ—¶å®ˆæŠ¤(ç¥åœ£ç³»)
 
-	uint32 PriestAssist_SoulAbs =196762;// 14751			ĞÄÁé×¨×¢next0ºÄÀ¶(½äÂÉÏµ)
-	uint32 PriestAssist_AddHolyPower =10060;// 10060		ÄÜÁ¦×¢ÈëtargetÊ©·¨¼±ËÙºÍ±©»÷(½äÂÉÏµ)
-	uint32 PriestAssist_AllDispel =4526;// 32375			È«ÌåÇıÉ¢Ä§·¨
-	uint32 PriestAssist_Dispel =528;// 988				µ¥ÌåÇıÉ¢Ä§·¨
-	uint32 PriestAssist_ShadowDemon =10060;// 34433			°µÓ°¶ñÄ§
-	uint32 PriestAssist_Silence =8988;// 15487			°µÓ°³ÁÄ¬(°µÓ°Ïµ)
-	uint32 PriestAssist_AllResMana =64843;// 64901			Òıµ¼È«Ìå»ØÀ¶
-	uint32 PriestAssist_AllResLife =64843;// 64843			Òıµ¼È«Ìå»ØÑª
-	uint32 PriestAssist_DecIllness =3592;// 552			µ¥ÌåÇıÉ¢¼²²¡£¬BUF
+	uint32 PriestAssist_SoulAbs =196762;// 14751			å¿ƒçµä¸“æ³¨next0è€—è“(æˆ’å¾‹ç³»)
+	uint32 PriestAssist_AddHolyPower =10060;// 10060		èƒ½åŠ›æ³¨å…¥targetæ–½æ³•æ€¥é€Ÿå’Œæš´å‡»(æˆ’å¾‹ç³»)
+	uint32 PriestAssist_AllDispel =4526;// 32375			å…¨ä½“é©±æ•£é­”æ³•
+	uint32 PriestAssist_Dispel =528;// 988				å•ä½“é©±æ•£é­”æ³•
+	uint32 PriestAssist_ShadowDemon =10060;// 34433			æš—å½±æ¶é­”
+	uint32 PriestAssist_Silence =8988;// 15487			æš—å½±æ²‰é»˜(æš—å½±ç³»)
+	uint32 PriestAssist_AllResMana =64843;// 64901			å¼•å¯¼å…¨ä½“å›è“
+	uint32 PriestAssist_AllResLife =64843;// 64843			å¼•å¯¼å…¨ä½“å›è¡€
+	uint32 PriestAssist_DecIllness =3592;// 552			å•ä½“é©±æ•£ç–¾ç—…ï¼ŒBUF
 
-	uint32 PriestDebuf_Ache =11639;// 48125				Í´
-	uint32 PriestDebuf_Drown =41375;// 48158				Ãğ
-	uint32 PriestDebuf_Plague =138490;// 48300				ÎÁÒß
+	uint32 PriestDebuf_Ache =11639;// 48125				ç—›
+	uint32 PriestDebuf_Drown =41375;// 48158				ç­
+	uint32 PriestDebuf_Plague =138490;// 48300				ç˜Ÿç–«
 
-	uint32 PriestAOE_ShadowExplode =32000;// 53023			°µÓ°±¬Õ¨AOE(°µÓ°Ïµ)
-	uint32 PriestAOE_HolyNova =20694;// 48078				ÉñÊ¥ĞÂĞÇ
+	uint32 PriestAOE_ShadowExplode =32000;// 53023			æš—å½±çˆ†ç‚¸AOE(æš—å½±ç³»)
+	uint32 PriestAOE_HolyNova =20694;// 48078				ç¥åœ£æ–°æ˜Ÿ
 
-	uint32 PriestShadow_ShadowTouch =18152;// 48160			ÎüÑªÖ®´¥(°µÓ°Ïµ)
-	uint32 PriestShadow_Knocking =17194;// 48127			ĞÄÁéÕğ±¬
-	uint32 PriestShadow_Lech =15407;// 48156				¾«Éñ±ŞÌ¢(°µÓ°Ïµ)
-	uint32 PriestHoly_Smite =585;// 48123				³Í»÷
-	uint32 PriestHoly_BigFire =17141;// 48135				ÉñÊ¥Ö®»ğ
-	uint32 PriestPrecept_ManaBurn =2691;// 8129			·¨Á¦È¼ÉÕ
+	uint32 PriestShadow_ShadowTouch =18152;// 48160			å¸è¡€ä¹‹è§¦(æš—å½±ç³»)
+	uint32 PriestShadow_Knocking =17194;// 48127			å¿ƒçµéœ‡çˆ†
+	uint32 PriestShadow_Lech =15407;// 48156				ç²¾ç¥é­æŒ(æš—å½±ç³»)
+	uint32 PriestHoly_Smite =585;// 48123				æƒ©å‡»
+	uint32 PriestHoly_BigFire =17141;// 48135				ç¥åœ£ä¹‹ç«
+	uint32 PriestPrecept_ManaBurn =2691;// 8129			æ³•åŠ›ç‡ƒçƒ§
 
-	uint32 PriestHeal_ZeroHeal =29170;// 2050				´Î¼¶ÖÎÁÆ
-	uint32 PriestHeal_LowHeal =8812;// 6064				µÍ¼¶ÖÎÁÆ
-	uint32 PriestHeal_Resume =27606;// 48068				»Ö¸´
-	uint32 PriestHeal_FastHeal =27608;// 48071				¿ìËÙÖÎÁÆ
-	uint32 PriestHeal_BigHeal =34119;// 48063				´óÖÎÁÆ
-	uint32 PriestHeal_LinkHeal =32546;// 48120				Á´½Ó×Ô¼ººÍÄ¿±êÖÎÁÆ
-	uint32 PriestHeal_UnionHeal =225275;// 48113			ÓúºÏµ»ÑÔ target next heal
-	uint32 PriestHeal_RingHeal =49306;// 48089				ÖÎÁÆÖ®»·(ÉñÊ¥Ïµ)
-	uint32 PriestHeal_AOEHeal =596;// 48072				ÖÎÁÆµ»ÑÔ aoe heal
-	uint32 PriestHeal_Awareness =47540;// 53007			¾õÎò Òıµ¼3¸öÖÎÁÆ×Óµ¯ÖÎÁÆÄ¿±ê(½äÂÉÏµ)
+	uint32 PriestHeal_ZeroHeal =29170;// 2050				æ¬¡çº§æ²»ç–—
+	uint32 PriestHeal_LowHeal =8812;// 6064				ä½çº§æ²»ç–—
+	uint32 PriestHeal_Resume =27606;// 48068				æ¢å¤
+	uint32 PriestHeal_FastHeal =27608;// 48071				å¿«é€Ÿæ²»ç–—
+	uint32 PriestHeal_BigHeal =34119;// 48063				å¤§æ²»ç–—
+	uint32 PriestHeal_LinkHeal =32546;// 48120				é“¾æ¥è‡ªå·±å’Œç›®æ ‡æ²»ç–—
+	uint32 PriestHeal_UnionHeal =225275;// 48113			æ„ˆåˆç¥·è¨€ target next heal
+	uint32 PriestHeal_RingHeal =49306;// 48089				æ²»ç–—ä¹‹ç¯(ç¥åœ£ç³»)
+	uint32 PriestHeal_AOEHeal =596;// 48072				æ²»ç–—ç¥·è¨€ aoe heal
+	uint32 PriestHeal_Awareness =47540;// 53007			è§‰æ‚Ÿ å¼•å¯¼3ä¸ªæ²»ç–—å­å¼¹æ²»ç–—ç›®æ ‡(æˆ’å¾‹ç³»)
 
-	uint32 PriestFlag_DeadSoul =20711;// 27827				¾ÈÊêÖ®»ê ÉñÄÁËÀÍöºó
-	uint32 PriestFlag_NonShield =6788;// 6788				ÕæÑÔ¶ÜDEBUFF
+	uint32 PriestFlag_DeadSoul =20711;// 27827				æ•‘èµä¹‹é­‚ ç¥ç‰§æ­»äº¡å
+	uint32 PriestFlag_NonShield =6788;// 6788				çœŸè¨€ç›¾DEBUFF
 };
 
 class BotDemonHunterSpells

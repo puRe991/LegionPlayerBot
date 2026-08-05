@@ -70,76 +70,76 @@ private:
 	ObjectGuid m_LastCharmTarget;
 	uint32 m_LastCharmTick;
 
-	uint32 WarlockIDLE_LowArmor;// 696			µÍ¼¶»¤¼×
-	uint32 WarlockIDLE_Armor;// 47889			ÖĞ¼¶»¤¼×
-	uint32 WarlockIDLE_HighArmor;// 47893		¸ß¼¶»¤¼×
-	uint32 WarlockIDLE_SoulLink;// 19028		³èÎïÁé»êÁ´½Ó(¶ñÄ§Ïµ)
-	uint32 WarlockIDLE_ShadowShield;// 47891		°µÓ°¶Ü
-	uint32 WarlockIDLE_SummonFireDemon;// 688	ÕÙ»½Ğ¡¹í
-	uint32 WarlockIDLE_SummonHollowDemon;// 697	ÕÙ»½Ğé¿Õ
-	uint32 WarlockIDLE_SummonSuccubus;// 712		ÕÙ»½÷ÈÄ§
-	uint32 WarlockIDLE_SummonDogDemon;// 691		ÕÙ»½ÁÔÈ®
-	uint32 WarlockIDLE_SummonGuardDemon;// 30146	ÕÙ»½µØÓüÊØÎÀ
-	uint32 WarlockIDLE_FastSummon;// 18708		¿ìËÙÕÙ»½(¶ñÄ§Ïµ)
-	uint32 WarlockIDLE_OpenGate;// 48018		¿ªÆô´«ËÍ·¨Õó
-	uint32 WarlockIDLE_TeleGate;// 48020		Ë²ÒÆµ½´«ËÍ·¨Õó
-	uint32 WarlockIDLE_SummonRite;// 29893		Áé»êÒÇÊ½
+	uint32 WarlockIDLE_LowArmor;// 696			ä½çº§æŠ¤ç”²
+	uint32 WarlockIDLE_Armor;// 47889			ä¸­çº§æŠ¤ç”²
+	uint32 WarlockIDLE_HighArmor;// 47893		é«˜çº§æŠ¤ç”²
+	uint32 WarlockIDLE_SoulLink;// 19028		å® ç‰©çµé­‚é“¾æ¥(æ¶é­”ç³»)
+	uint32 WarlockIDLE_ShadowShield;// 47891		æš—å½±ç›¾
+	uint32 WarlockIDLE_SummonFireDemon;// 688	å¬å”¤å°é¬¼
+	uint32 WarlockIDLE_SummonHollowDemon;// 697	å¬å”¤è™šç©º
+	uint32 WarlockIDLE_SummonSuccubus;// 712		å¬å”¤é­…é­”
+	uint32 WarlockIDLE_SummonDogDemon;// 691		å¬å”¤çŒçŠ¬
+	uint32 WarlockIDLE_SummonGuardDemon;// 30146	å¬å”¤åœ°ç‹±å®ˆå«
+	uint32 WarlockIDLE_FastSummon;// 18708		å¿«é€Ÿå¬å”¤(æ¶é­”ç³»)
+	uint32 WarlockIDLE_OpenGate;// 48018		å¼€å¯ä¼ é€æ³•é˜µ
+	uint32 WarlockIDLE_TeleGate;// 48020		ç¬ç§»åˆ°ä¼ é€æ³•é˜µ
+	uint32 WarlockIDLE_SummonRite;// 29893		çµé­‚ä»ªå¼
 
-	uint32 WarlockDemon_ToDemon;// 47241		±äÉí´ó¶ñÄ§
-	uint32 WarlockDemon_Charge;// 54785			¶ñÄ§³å·æ
-	uint32 WarlockDemon_MeleeAOE;// 50581		¶ñÄ§Ë³ÅüÕ¶
-	uint32 WarlockDemon_Sacrifice;// 50589		¶ñÄ§Ï×¼À
+	uint32 WarlockDemon_ToDemon;// 47241		å˜èº«å¤§æ¶é­”
+	uint32 WarlockDemon_Charge;// 54785			æ¶é­”å†²é”‹
+	uint32 WarlockDemon_MeleeAOE;// 50581		æ¶é­”é¡ºåŠˆæ–©
+	uint32 WarlockDemon_Sacrifice;// 50589		æ¶é­”çŒ®ç¥­
 
-	uint32 WarlockAssist_DemonPower;// 47193		Ç¿»¯ÕÙ»½µÄ¶ñÄ§(¶ñÄ§Ïµ)
-	uint32 WarlockAssist_ExtractMana;// 59092	³èÎïÉíÉÏ³éÀ¶(Í´¿àÏµ)
-	uint32 WarlockAssist_ConvertMana;// 57946	ÉúÃü·ÖÁ÷ Ñª×ªÀ¶
-	uint32 WarlockAssist_StealLife;// 47857		ÎüÈ¡ÉúÃü
-	uint32 WarlockAssist_StealMana;// 5138		ÎüÈ¡·¨Á¦
-	uint32 WarlockAssist_BaseFear;// 6215		¿Ö¾åÊõ
-	uint32 WarlockAssist_FastFear;// 47860		ËÀÍö²øÈÆ
-	uint32 WarlockAssist_AOEFear;// 17928		ÈºÌå¿Ö¾åÊõ
+	uint32 WarlockAssist_DemonPower;// 47193		å¼ºåŒ–å¬å”¤çš„æ¶é­”(æ¶é­”ç³»)
+	uint32 WarlockAssist_ExtractMana;// 59092	å® ç‰©èº«ä¸ŠæŠ½è“(ç—›è‹¦ç³»)
+	uint32 WarlockAssist_ConvertMana;// 57946	ç”Ÿå‘½åˆ†æµ è¡€è½¬è“
+	uint32 WarlockAssist_StealLife;// 47857		å¸å–ç”Ÿå‘½
+	uint32 WarlockAssist_StealMana;// 5138		å¸å–æ³•åŠ›
+	uint32 WarlockAssist_BaseFear;// 6215		ææƒ§æœ¯
+	uint32 WarlockAssist_FastFear;// 47860		æ­»äº¡ç¼ ç»•
+	uint32 WarlockAssist_AOEFear;// 17928		ç¾¤ä½“ææƒ§æœ¯
 
-	uint32 WarlockAOE_MeleeFire;// 61290		½üÕ½Ç°·½AOE
-	uint32 WarlockAOE_RainFire;// 47820			»ğÑæÓêAOE
-	uint32 WarlockAOE_ShadowRage;// 47847		°µÓ°Ö®Å­AOEÈºÌå»èÃÔ(»ÙÃğÏµ)
+	uint32 WarlockAOE_MeleeFire;// 61290		è¿‘æˆ˜å‰æ–¹AOE
+	uint32 WarlockAOE_RainFire;// 47820			ç«ç„°é›¨AOE
+	uint32 WarlockAOE_ShadowRage;// 47847		æš—å½±ä¹‹æ€’AOEç¾¤ä½“æ˜è¿·(æ¯ç­ç³»)
 
-	uint32 WarlockCurse_UpDmg;// 47865			ÔªËØÉËº¦Ìá¸ß×çÖä
-	uint32 WarlockCurse_MoveLow;// 18223		Æ£ÀÍ×çÖä ÒÆ¶¯ËÙ¶È½µµÍ(Í´¿àÏµ)
-	uint32 WarlockCurse_MgcDmg;// 47864			Í´¿à×çÖä DOTÉËº¦
-	uint32 WarlockCurse_MeleeLow;// 50511		ĞéÈõ×çÖä ¹¥Ç¿½µµÍ
-	uint32 WarlockCurse_CastLow;// 11719		ÓïÑÔ×çÖä Ê©·¨Ê±¼äÑÓ³Ù
+	uint32 WarlockCurse_UpDmg;// 47865			å…ƒç´ ä¼¤å®³æé«˜è¯…å’’
+	uint32 WarlockCurse_MoveLow;// 18223		ç–²åŠ³è¯…å’’ ç§»åŠ¨é€Ÿåº¦é™ä½(ç—›è‹¦ç³»)
+	uint32 WarlockCurse_MgcDmg;// 47864			ç—›è‹¦è¯…å’’ DOTä¼¤å®³
+	uint32 WarlockCurse_MeleeLow;// 50511		è™šå¼±è¯…å’’ æ”»å¼ºé™ä½
+	uint32 WarlockCurse_CastLow;// 11719		è¯­è¨€è¯…å’’ æ–½æ³•æ—¶é—´å»¶è¿Ÿ
 
-	uint32 WarlockDot_LeechSoul;// 59164		×Ç»êÊõ(Í´¿àÏµ)
-	uint32 WarlockDot_HighDmg;// 47843			Í´¿à¶¯µ´(Í´¿àÏµ)
-	uint32 WarlockDot_LowDmg;// 47813			¸¯ÖñÊõ
-	uint32 WarlockDot_AOEDmg;// 47836			¸¯ÖñÖÖ×Ó dotºó·¶Î§ÉËº¦
-	uint32 WarlockDot_Sacrifice;// 47811		»ÙÃğÏ×¼À
+	uint32 WarlockDot_LeechSoul;// 59164		æµŠé­‚æœ¯(ç—›è‹¦ç³»)
+	uint32 WarlockDot_HighDmg;// 47843			ç—›è‹¦åŠ¨è¡(ç—›è‹¦ç³»)
+	uint32 WarlockDot_LowDmg;// 47813			è…ç«¹æœ¯
+	uint32 WarlockDot_AOEDmg;// 47836			è…ç«¹ç§å­ dotåèŒƒå›´ä¼¤å®³
+	uint32 WarlockDot_Sacrifice;// 47811		æ¯ç­çŒ®ç¥­
 
-	uint32 WarlockCast_ShadowArrow;// 47809		°µÓ°Ö®¼ı
-	uint32 WarlockCast_ShadowShock;// 47827		°µÓ°³å»÷24Âë(»ÙÃğÏµ)
-	uint32 WarlockCast_ChaosArrow;// 59172		»ìÂÒÖ®¼ı(»ÙÃğÏµ)
-	uint32 WarlockCast_FullBurn;// 47838		È¼¾¡ ÓĞÏ×¼ÀÊ±¼ÓÇ¿Ğ§¹û(»ÙÃğÏµ)
-	uint32 WarlockCast_FireBurn;// 17962		·ÙÉÕ ÏûºÄÏ×¼À(»ÙÃğÏµ)
-	uint32 WarlockCast_BigFireBall;// 47825		Áé»ê´ó»ğÇò
+	uint32 WarlockCast_ShadowArrow;// 47809		æš—å½±ä¹‹ç®­
+	uint32 WarlockCast_ShadowShock;// 47827		æš—å½±å†²å‡»24ç (æ¯ç­ç³»)
+	uint32 WarlockCast_ChaosArrow;// 59172		æ··ä¹±ä¹‹ç®­(æ¯ç­ç³»)
+	uint32 WarlockCast_FullBurn;// 47838		ç‡ƒå°½ æœ‰çŒ®ç¥­æ—¶åŠ å¼ºæ•ˆæœ(æ¯ç­ç³»)
+	uint32 WarlockCast_FireBurn;// 17962		ç„šçƒ§ æ¶ˆè€—çŒ®ç¥­(æ¯ç­ç³»)
+	uint32 WarlockCast_BigFireBall;// 47825		çµé­‚å¤§ç«çƒ
 
-	uint32 WarlockPetDemon_Charge;// 47996		¶ñÄ§pet³å·æ
-	uint32 WarlockPetDemon_Melee;// 47994		¶ñÄ§petË³ÅüÕ¶
-	uint32 WarlockPetDog_MagicBuf;// 57567		ÁÔÈ®petÍÅ¶ÓBUF
-	uint32 WarlockPetDog_EatMgc;// 48011		ÁÔÈ®petÍÌÊ³Ä§·¨
-	uint32 WarlockPetDog_Bite;// 54053			ÁÔÈ®petÒ§ÈË
-	uint32 WarlockPetDog_Silence;// 19647		ÁÔÈ®pet³ÁÄ¬
-	uint32 WarlockPetSuccubus_Lash;// 47992		÷ÈÄ§pet±Ş´ò
-	uint32 WarlockPetSuccubus_Sneak;// 7870		÷ÈÄ§petÇ±ĞĞ
-	uint32 WarlockPetSuccubus_Charm;// 6358		÷ÈÄ§pet÷È»ó
-	uint32 WarlockPetGhost_Shield;// 47983		Ğ¡¹ípet»ğ¶Ü
-	uint32 WarlockPetGhost_Sneak;// 4511		Ğ¡¹ípetÇ±ĞĞ
-	uint32 WarlockPetGhost_Stamp;// 47982		Ğ¡¹ípetÑªÓ¡¼Ç
-	uint32 WarlockPetGhost_FireArrow;// 47964	Ğ¡¹ípet»ğÑæ¼ı
+	uint32 WarlockPetDemon_Charge;// 47996		æ¶é­”petå†²é”‹
+	uint32 WarlockPetDemon_Melee;// 47994		æ¶é­”peté¡ºåŠˆæ–©
+	uint32 WarlockPetDog_MagicBuf;// 57567		çŒçŠ¬petå›¢é˜ŸBUF
+	uint32 WarlockPetDog_EatMgc;// 48011		çŒçŠ¬petåé£Ÿé­”æ³•
+	uint32 WarlockPetDog_Bite;// 54053			çŒçŠ¬petå’¬äºº
+	uint32 WarlockPetDog_Silence;// 19647		çŒçŠ¬petæ²‰é»˜
+	uint32 WarlockPetSuccubus_Lash;// 47992		é­…é­”peté­æ‰“
+	uint32 WarlockPetSuccubus_Sneak;// 7870		é­…é­”petæ½œè¡Œ
+	uint32 WarlockPetSuccubus_Charm;// 6358		é­…é­”peté­…æƒ‘
+	uint32 WarlockPetGhost_Shield;// 47983		å°é¬¼petç«ç›¾
+	uint32 WarlockPetGhost_Sneak;// 4511		å°é¬¼petæ½œè¡Œ
+	uint32 WarlockPetGhost_Stamp;// 47982		å°é¬¼petè¡€å°è®°
+	uint32 WarlockPetGhost_FireArrow;// 47964	å°é¬¼petç«ç„°ç®­
 
-	uint32 WarlockFlag_SoulItem;// 6265			Áé»êËéÆ¬µÀ¾ß
-	uint32 WarlockFlag_SoulLink;// 25228		³èÎïÁé»êÁ´½ÓBUF
-	uint32 WarlockFlag_OpenGate;// 48018		´«ËÍ·¨ÕóBUF
-	uint32 WarlockFlag_Sacrifice;// 50589		¶ñÄ§Ï×¼ÀBUF
+	uint32 WarlockFlag_SoulItem;// 6265			çµé­‚ç¢ç‰‡é“å…·
+	uint32 WarlockFlag_SoulLink;// 25228		å® ç‰©çµé­‚é“¾æ¥BUF
+	uint32 WarlockFlag_OpenGate;// 48018		ä¼ é€æ³•é˜µBUF
+	uint32 WarlockFlag_Sacrifice;// 50589		æ¶é­”çŒ®ç¥­BUF
 };
 
 #endif // !_BOT_WARLOCK_AI_H
