@@ -1331,5 +1331,4 @@ void AddSC_boss_maloriak()
     new spell_maloriak_throw_bottle();
     new spell_maloriak_drink_bottle();
     new spell_lord_victor_nefarius_master_adventurer_award();
-    //new spell_maloriak_consuming_flames();
 }

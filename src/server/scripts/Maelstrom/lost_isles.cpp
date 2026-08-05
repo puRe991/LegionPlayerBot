@@ -2544,5 +2544,5 @@ void AddSC_lost_isle()
     new spell_cola_zero_one();
     new npc_footbomb_uniform();
     new npc_captured_goblin();
-    //new npc_trade_prince_gallywix_final();
+    new npc_trade_prince_gallywix_final();
 }

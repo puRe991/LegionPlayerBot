@@ -34,9 +34,9 @@ enum Spells
     SPELL_TWILIGHT_METEORITE_MARK                   = 88518,
     SPELL_DEEP_BREATH                               = 86059,
     SPELL_TWILIGHT_FLAMES_TRIGGER                   = 86194,
-    SPELL_TWILIGHT_FLAME_DMG_1                      = 86199, //бьет по обычному миру
-    SPELL_TWILIGHT_FLAME_DMG_2                      = 86228, //бьет по сумеречному миру
-    SPELL_COSMETIC_TWILIGHT_BREATH                  = 78954, //возможно неверный
+    SPELL_TWILIGHT_FLAME_DMG_1                      = 86199, //Р±СЊРµС‚ РїРѕ РѕР±С‹С‡РЅРѕРјСѓ РјРёСЂСѓ
+    SPELL_TWILIGHT_FLAME_DMG_2                      = 86228, //Р±СЊРµС‚ РїРѕ СЃСѓРјРµСЂРµС‡РЅРѕРјСѓ РјРёСЂСѓ
+    SPELL_COSMETIC_TWILIGHT_BREATH                  = 78954, //РІРѕР·РјРѕР¶РЅРѕ РЅРµРІРµСЂРЅС‹Р№
 
     //theralion
     SPELL_ENGULFING_MAGIC                           = 86607,
@@ -57,8 +57,8 @@ enum Spells
 
     //twilight ream & mobs spells
     SPELL_TWILIGHT_PROTECTION_BUFF                  = 86415,
-    SPELL_TWILIGHT_SHIFT_AURA_1                     = 86202, //от глубокого дыхания
-    SPELL_TWILIGHT_SHIFT_AURA_2                     = 88436, //от разрушения
+    SPELL_TWILIGHT_SHIFT_AURA_1                     = 86202, //РѕС‚ РіР»СѓР±РѕРєРѕРіРѕ РґС‹С…Р°РЅРёСЏ
+    SPELL_TWILIGHT_SHIFT_AURA_2                     = 88436, //РѕС‚ СЂР°Р·СЂСѓС€РµРЅРёСЏ
     SPELL_COLLAPSING_TWILIGHT_PORTAL_VISUAL         = 86291,
     SPELL_UNSTABLE_TWILIGHT_VISUAL                  = 86302,
     SPELL_UNSTABLE_TWILIGHT_DMG                     = 86305,
@@ -598,7 +598,7 @@ class boss_valiona : public CreatureScript
             {
                 _Reset();
 
-                //правки общих спеллов тоже тут
+                //РїСЂР°РІРєРё РѕР±С‰РёС… СЃРїРµР»Р»РѕРІ С‚РѕР¶Рµ С‚СѓС‚
 
                 instance->DoRemoveAurasDueToSpellOnPlayers(SPELL_TWILIGHT_PROTECTION_BUFF);
                 instance->DoRemoveAurasDueToSpellOnPlayers(SPELL_TWILIGHT_SHIFT_AURA_1);
@@ -1513,7 +1513,7 @@ void AddSC_boss_theralion_and_valiona()
     new npc_valiona_twilight_flames();
     new npc_unstable_twilight();
     new npc_collapsing_twilight_portal();
-    //new npc_theralion_flight_target_stalker();
+    new npc_theralion_flight_target_stalker();
     new npc_twilight_sentry();
     new npc_twilight_rift();
     new spell_valiona_blackout();

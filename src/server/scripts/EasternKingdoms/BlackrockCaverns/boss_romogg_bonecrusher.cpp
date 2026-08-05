@@ -1,6 +1,7 @@
 #include "blackrock_caverns.h"
 
-//todo: реализовать призыв о помощи
+//todo: СЂРµР°Р»РёР·РѕРІР°С‚СЊ РїСЂРёР·С‹РІ Рѕ РїРѕРјРѕС‰Рё
+//todo: implement Call for Help
 
 enum ScriptTexts
 {

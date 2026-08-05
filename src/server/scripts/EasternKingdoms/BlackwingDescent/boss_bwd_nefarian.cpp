@@ -1059,7 +1059,7 @@ void AddSC_boss_bwd_nefarian()
     new npc_nefarian_intro();
     new npc_animated_bone_warrior();
     new npc_chromatic_prototype();
-    //new npc_shadowflame_flashfire();
+    new npc_shadowflame_flashfire();
     new npc_shadowblaze();
 
     new spell_onyxia_lightning_discharge();

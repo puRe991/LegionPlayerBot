@@ -1536,5 +1536,5 @@ void AddSC_spine_of_deathwing()
     new spell_spine_of_deathwing_roll_control();
     new spell_spine_of_deathwing_blood_corruption_death();
     new spell_spine_of_deathwing_absorbed_blood_stack();
-    //new achievement_maybe_he_ll_get_dizzy();
+    new achievement_maybe_he_ll_get_dizzy();
 }

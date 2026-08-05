@@ -133,14 +133,14 @@ public:
                 {
                     switch (phase)
                     {
-                        case 0: // Ваша сущность принадлежит мне.
+                        case 0: // Р’Р°С€Р° СЃСѓС‰РЅРѕСЃС‚СЊ РїСЂРёРЅР°РґР»РµР¶РёС‚ РјРЅРµ.
                             me->CastSpell(me->GetPositionX(), me->GetPositionY(), me->GetPositionZ(), SPELL_DRAIN_ESSENCE, true);
                             EventTimer = 4000;
                             break;
-                        case 1: // Твоя жалкая магия не сравнится с моей.
+                        case 1: // РўРІРѕСЏ Р¶Р°Р»РєР°СЏ РјР°РіРёСЏ РЅРµ СЃСЂР°РІРЅРёС‚СЃСЏ СЃ РјРѕРµР№.
                             EventTimer = 5000;
                             break;
-                        case 2: // Теперь тени служат мне…
+                        case 2: // РўРµРїРµСЂСЊ С‚РµРЅРё СЃР»СѓР¶Р°С‚ РјРЅРµвЂ¦
                             me->SetUInt32Value(UNIT_FIELD_FLAGS, 2181597184);
                             me->SetAttackTime(BASE_ATTACK, 2001980);
                             me->SetAttackTime(OFF_ATTACK,  2001980);
@@ -148,17 +148,17 @@ public:
                             EventTimer = 2000;
                             break;
                         case 3:
-                            // Скорее, обратно в тени!
+                            // РЎРєРѕСЂРµРµ, РѕР±СЂР°С‚РЅРѕ РІ С‚РµРЅРё!
                             me->CastSpell(me->GetPositionX(), me->GetPositionY(), me->GetPositionZ(), SPELL_RETURN_TO_THE_SHADOWS, true); // Illidan spell
                             EventTimer = 2000;
                             break;
                         case 4:
-                            // Прячьтесь и дрожите от страха.
+                            // РџСЂСЏС‡СЊС‚РµСЃСЊ Рё РґСЂРѕР¶РёС‚Рµ РѕС‚ СЃС‚СЂР°С…Р°.
                             for (uint8 i = 0; i < 5; ++i)
                                 me->SummonCreature(55868, 3342.711f, -4893.917f, 181.2851f, 0.0f, TEMPSUMMON_TIMED_DESPAWN, 40 * IN_MILLISECONDS);
                             EventTimer = 40000;
                             break;
-                        case 5: // Неплохо прячетесь. Но долго ли вы сможете противиться судьбе?
+                        case 5: // РќРµРїР»РѕС…Рѕ РїСЂСЏС‡РµС‚РµСЃСЊ. РќРѕ РґРѕР»РіРѕ Р»Рё РІС‹ СЃРјРѕР¶РµС‚Рµ РїСЂРѕС‚РёРІРёС‚СЊСЃСЏ СЃСѓРґСЊР±Рµ?
                             CreatureTemplate const* ci = sObjectMgr->GetCreatureTemplate(me->GetEntry());
                             me->SetUInt32Value(UNIT_FIELD_FLAGS, ci->unit_flags);
                             me->SetAttackTime(BASE_ATTACK, ci->baseattacktime);
@@ -173,7 +173,7 @@ public:
             }
         }
         
-        void AttackTarget(Player* plr) // Я тебя вижу.
+        void AttackTarget(Player* plr) // РЇ С‚РµР±СЏ РІРёР¶Сѓ.
         {
             CreatureTemplate const* ci = sObjectMgr->GetCreatureTemplate(me->GetEntry());
             me->SetUInt32Value(UNIT_FIELD_FLAGS, ci->unit_flags);

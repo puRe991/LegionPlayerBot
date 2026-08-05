@@ -1,7 +1,8 @@
 
 #include "blackrock_caverns.h"
 
-//todo: реализовать касты щенков, берсерк при убийстве ранти, взрыв magma split
+//todo: СЂРµР°Р»РёР·РѕРІР°С‚СЊ РєР°СЃС‚С‹ С‰РµРЅРєРѕРІ, Р±РµСЂСЃРµСЂРє РїСЂРё СѓР±РёР№СЃС‚РІРµ СЂР°РЅС‚Рё, РІР·СЂС‹РІ magma split
+//todo: implement the pups' casts, the berserk when Runty dies, and the Magma Split explosion
 enum Spells
 {
     SPELL_BERSERK               = 82395,

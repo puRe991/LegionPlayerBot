@@ -1,6 +1,7 @@
 #include "blackrock_caverns.h"
 
-//todo: сделать спелл трансформации
+//todo: СЃРґРµР»Р°С‚СЊ СЃРїРµР»Р» С‚СЂР°РЅСЃС„РѕСЂРјР°С†РёРё
+//todo: add the transformation spell
 
 enum ScriptTexts
 {

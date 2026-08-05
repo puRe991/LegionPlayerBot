@@ -2366,6 +2366,6 @@ void AddSC_dragon_soul()
     new spell_dragon_soul_shadowed_globule_deep_corruption();
     new spell_dragon_soul_cobalt_globule_mana_void();
     new spell_dragon_soul_twilight_flames_aoe();
-    //new spell_dragon_soul_trigger_spell_from_aoe("spell_dragon_soul_claw_of_gorath_tentacle_toss_aoe_1", SPELL_TENTACLE_TOSS_SCRIPT_1);
-    //new spell_dragon_soul_trigger_spell_from_aoe("spell_dragon_soul_claw_of_gorath_tentacle_toss_aoe_2", SPELL_TENTACLE_TOSS_SUMMON);
+    new spell_dragon_soul_trigger_spell_from_aoe("spell_dragon_soul_claw_of_gorath_tentacle_toss_aoe_1", SPELL_TENTACLE_TOSS_SCRIPT_1);
+    new spell_dragon_soul_trigger_spell_from_aoe("spell_dragon_soul_claw_of_gorath_tentacle_toss_aoe_2", SPELL_TENTACLE_TOSS_SUMMON);
 }

@@ -884,10 +884,10 @@ void AddSC_boss_atramedes()
     new spell_atramedes_resonating_clash();
     new spell_atramedes_resonating_clash_1();
     new spell_atramedes_vertigo();
-    //new spell_atramedes_modulation();
-    //new spell_atramedes_sonar_pulse();
-    //new spell_atramedes_roaring_flame();
-    //new spell_atramedes_roaring_flame_aura();
-    //new spell_atramedes_sonar_bomb();
-    //new spell_atramedes_sonic_breath();
+    new spell_atramedes_modulation();
+    new spell_atramedes_sonar_pulse();
+    new spell_atramedes_roaring_flame();
+    new spell_atramedes_roaring_flame_aura();
+    new spell_atramedes_sonar_bomb();
+    new spell_atramedes_sonic_breath();
 }

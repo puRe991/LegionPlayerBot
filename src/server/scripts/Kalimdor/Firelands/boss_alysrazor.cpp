@@ -1968,5 +1968,5 @@ void AddSC_boss_alysrazor()
     new spell_alysrazor_molten_feather_script();
     new spell_alysrazor_cataclysm();
     new spell_alysrazor_firestorm();
-    //new achievement_do_a_barrel_roll();
+    new achievement_do_a_barrel_roll();
 }

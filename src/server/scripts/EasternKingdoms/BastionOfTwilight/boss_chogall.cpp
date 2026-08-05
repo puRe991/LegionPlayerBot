@@ -2,10 +2,14 @@
 #include "Containers.h"
 #include "bastion_of_twilight.h"
 
-//todo: разобраться с entry мобов у orders
-//todo: реализовать правильные absorb fire, absorb shadow
-//todo: сделать героик скиллы
-//todo: разобраться с таргетами fester blood
+//todo: СЂР°Р·РѕР±СЂР°С‚СЊСЃСЏ СЃ entry РјРѕР±РѕРІ Сѓ orders
+//todo: sort out the creature entries used by the Twilight orders
+//todo: СЂРµР°Р»РёР·РѕРІР°С‚СЊ РїСЂР°РІРёР»СЊРЅС‹Рµ absorb fire, absorb shadow
+//todo: implement Absorb Fire and Absorb Shadow properly
+//todo: СЃРґРµР»Р°С‚СЊ РіРµСЂРѕРёРє СЃРєРёР»Р»С‹
+//todo: add the heroic-only abilities
+//todo: СЂР°Р·РѕР±СЂР°С‚СЊСЃСЏ СЃ С‚Р°СЂРіРµС‚Р°РјРё fester blood
+//todo: sort out Fester Blood target selection
 
 enum ScriptTexts
 {

@@ -638,5 +638,5 @@ void AddSC_boss_baleroc()
     new spell_baleroc_tormented_aoe();
     new spell_baleroc_final_countdown();
     new spell_baleroc_final_countdown_script();
-    //new achievement_share_the_pain();
+    new achievement_share_the_pain();
 }

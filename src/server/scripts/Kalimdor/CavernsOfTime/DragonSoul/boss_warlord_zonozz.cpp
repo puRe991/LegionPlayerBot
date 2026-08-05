@@ -814,9 +814,9 @@ class achievement_ping_pong_champion : public AchievementCriteriaScript
 void AddSC_boss_warlord_zonozz()
 {
     new boss_warlord_zonozz();
-    //new npc_warlord_zonozz_void_of_the_unmaking();
+    new npc_warlord_zonozz_void_of_the_unmaking();
     new npc_warlord_zonozz_tentacle();
     new spell_warlord_zonozz_whisper();
     new spell_warlord_zonozz_disrupting_shadows();
-    //new achievement_ping_pong_champion();
+    new achievement_ping_pong_champion();
 }

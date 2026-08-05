@@ -3,7 +3,8 @@
 #include"Spell.h"
 #include"blackwing_descent.h"
 
-//todo: реализовать reroure power, low health, корректный double attack
+//todo: СЂРµР°Р»РёР·РѕРІР°С‚СЊ reroure power, low health, РєРѕСЂСЂРµРєС‚РЅС‹Р№ double attack
+//todo: implement Reroute Power and Low Health, and correct Double Attack
 enum ScriptTexts
 {
     //chimaeron
@@ -324,19 +325,19 @@ public:
 
 #define GOSSIP_MENU_1 16565
 #define GOSSIP_OPTION_1 "I suppose you'll be needing a key for this cage? Wait, don't tell me. The horrific gibbering monster behind me ate it, right?"
-#define GOSSIP_OPTION_1_RU "Я полагаю, тебе нужен ключ от этой клетки? Погоди, ничего не говори. Невероятно ужасный монстр позади меня съел его, не так ли?"
+#define GOSSIP_OPTION_1_RU "РЇ РїРѕР»Р°РіР°СЋ, С‚РµР±Рµ РЅСѓР¶РµРЅ РєР»СЋС‡ РѕС‚ СЌС‚РѕР№ РєР»РµС‚РєРё? РџРѕРіРѕРґРё, РЅРёС‡РµРіРѕ РЅРµ РіРѕРІРѕСЂРё. РќРµРІРµСЂРѕСЏС‚РЅРѕ СѓР¶Р°СЃРЅС‹Р№ РјРѕРЅСЃС‚СЂ РїРѕР·Р°РґРё РјРµРЅСЏ СЃСЉРµР» РµРіРѕ, РЅРµ С‚Р°Рє Р»Рё?"
 #define GOSSIP_MENU_2 16593
 #define GOSSIP_OPTION_2 "You were trapped, as I recall. This situation seems oddly similar."
-#define GOSSIP_OPTION_2_RU "Ты оказался в ловушке, как я понимаю. Эта ситуация кажется подозрительно похожей."
+#define GOSSIP_OPTION_2_RU "РўС‹ РѕРєР°Р·Р°Р»СЃСЏ РІ Р»РѕРІСѓС€РєРµ, РєР°Рє СЏ РїРѕРЅРёРјР°СЋ. Р­С‚Р° СЃРёС‚СѓР°С†РёСЏ РєР°Р¶РµС‚СЃСЏ РїРѕРґРѕР·СЂРёС‚РµР»СЊРЅРѕ РїРѕС…РѕР¶РµР№."
 #define GOSSIP_MENU_3 16594
 #define GOSSIP_OPTION_3 "Gnomes in Lava Suits, for example."
-#define GOSSIP_OPTION_3_RU "Гнома в лава-костюме, например."
+#define GOSSIP_OPTION_3_RU "Р“РЅРѕРјР° РІ Р»Р°РІР°-РєРѕСЃС‚СЋРјРµ, РЅР°РїСЂРёРјРµСЂ."
 #define GOSSIP_MENU_4 16595
 #define GOSSIP_OPTION_4 "No, I, uh, haven't seen it. You were saying?"
-#define GOSSIP_OPTION_4_RU "Нет, я, э-э, не видел его. Так что ты говорил?"
+#define GOSSIP_OPTION_4_RU "РќРµС‚, СЏ, СЌ-СЌ, РЅРµ РІРёРґРµР» РµРіРѕ. РўР°Рє С‡С‚Рѕ С‚С‹ РіРѕРІРѕСЂРёР»?"
 #define GOSSIP_MENU_5 16596
 #define GOSSIP_OPTION_5 "Restrictions? What restrictions?"
-#define GOSSIP_OPTION_5_RU "Условия? Что за условия?"
+#define GOSSIP_OPTION_5_RU "РЈСЃР»РѕРІРёСЏ? Р§С‚Рѕ Р·Р° СѓСЃР»РѕРІРёСЏ?"
 #define GOSSIP_MENU_6 16597
 
 class npc_finkle_einhorn : public CreatureScript

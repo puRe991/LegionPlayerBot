@@ -1154,8 +1154,8 @@ void AddSC_boss_shannox()
     new npc_shannox_immolation_trap();
     new npc_shannox_crystal_prison_trap();
     new npc_shannox_crystal_prison();
-    //new spell_shannox_riplimb_dogged_determination();
+    new spell_shannox_riplimb_dogged_determination();
     new spell_shannox_crystal_prison_trap();
     new spell_shannox_immolation_trap();
-    //new achievement_bucket_list();
+    new achievement_bucket_list();
 }

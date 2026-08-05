@@ -988,5 +988,5 @@ void AddSC_boss_bethtilac()
     new spell_bethtilac_smoldering_devastation();
     new spell_bethtilac_ember_flare();
     new spell_bethtilac_burning_acid();
-    //new achievement_death_from_above();
+    new achievement_death_from_above();
 }

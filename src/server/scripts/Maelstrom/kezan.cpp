@@ -1370,9 +1370,9 @@ class npc_hack_bank_controller : public CreatureScript
     }
 };
 
-//67502 - Используйте |cFFFF2222невероятное гамма-излучение!|r$B|TInterface\Icons\INV_Misc_EngGizmos_20.blp:64|t
+//67502 - РСЃРїРѕР»СЊР·СѓР№С‚Рµ |cFFFF2222РЅРµРІРµСЂРѕСЏС‚РЅРѕРµ РіР°РјРјР°-РёР·Р»СѓС‡РµРЅРёРµ!|r$B|TInterface\Icons\INV_Misc_EngGizmos_20.blp:64|t
 //67020 - sound - 847 - 16381 - spell 67494
-//67502 -67496 Используйте |cFFFF2222взрывхлопушки!|r$B|TInterface\Icons\INV_Misc_Bomb_07.blp:64|t
+//67502 -67496 РСЃРїРѕР»СЊР·СѓР№С‚Рµ |cFFFF2222РІР·СЂС‹РІС…Р»РѕРїСѓС€РєРё!|r$B|TInterface\Icons\INV_Misc_Bomb_07.blp:64|t
 
 //Kaja'mite Deposit
 enum misc_data
@@ -1408,13 +1408,13 @@ public:
 void AddSC_kezan()
 {
     new npc_defiant_troll;
-    //new npc_hot_rod();
+    new npc_hot_rod();
     new npc_roling_friends();
     new npc_roling_friends_guard();
     new npc_bilgewater_buccaneer_click();
     new npc_bilgewater_buccaneer();
     new npc_bilgewater_buccaneer_2();
-    //new npc_steamwheedle_shark();
+    new npc_steamwheedle_shark();
     new spell_gen_stop_playing_current_music();
     new spell_gen_radio();
     new spell_great_bank_heist();

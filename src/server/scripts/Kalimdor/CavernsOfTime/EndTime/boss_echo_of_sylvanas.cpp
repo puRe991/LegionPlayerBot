@@ -526,5 +526,4 @@ void AddSC_boss_echo_of_sylvanas()
     RegisterSpellScript(spell_echo_of_sylvanas_death_grip_aoe);
     RegisterAuraScript(spell_echo_of_sylvanas_seeping_shadows);
     new spell_echo_of_sylvanas_wracking_pain_dmg();
-    //new achievement_several_ties();
 }
