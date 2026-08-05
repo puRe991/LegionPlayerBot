@@ -37,6 +37,14 @@ enum Spells
     SPELL_FORSAKEN_ABILITY          = 7054,
     SPELL_SHIELD_WALL               = 91463,
 
+    // Zufallsflüche, die der periodische Dummy von 7054 alle 10 s auslöst.
+    // Die Prozentwerte stehen in den Zaubern selbst (normal/heroisch), nicht hier.
+    SPELL_FORSAKEN_ABILITY_DAMAGE   = 7038,
+    SPELL_FORSAKEN_ABILITY_ARMOR    = 7039,
+    SPELL_FORSAKEN_ABILITY_HEALTH   = 7040,
+    SPELL_FORSAKEN_ABILITY_HEALING  = 7041,
+    SPELL_FORSAKEN_ABILITY_MOVEMENT = 7042,
+
     //both
     SPELL_UNHOLY_EMPOWERMENT        = 93844,
 };
@@ -311,7 +319,8 @@ class npc_springvale_tormented_officer : public CreatureScript
                             DoCast(SPELL_SHIELD_WALL);
                             break;
                         case EVENT_FORSAKEN_ABILITY:
-                            //todo: Zauber implementieren
+                            DoCastVictim(SPELL_FORSAKEN_ABILITY);
+                            events.RescheduleEvent(EVENT_FORSAKEN_ABILITY, urand(25000, 35000));
                             break;
                         case EVENT_UNHOLY_EMPOWERMENT:
                             if (instance)
@@ -348,10 +357,61 @@ class npc_springvale_desecration_bunny : public CreatureScript
          };
 };
 
+// 7054 - Forsaken Ability
+// Der Fluch selbst richtet keinen Schaden an; sein periodischer Dummy legt alle
+// 10 Sekunden einen zufaelligen Zusatzfluch auf dasselbe Ziel. Die fuenf Fluueche
+// tragen ihre Prozentwerte je Schwierigkeitsgrad selbst, deshalb wird hier nicht
+// nach normal/heroisch verzweigt.
+class spell_springvale_forsaken_ability : public SpellScriptLoader
+{
+    public:
+        spell_springvale_forsaken_ability() : SpellScriptLoader("spell_springvale_forsaken_ability") { }
+
+        class spell_springvale_forsaken_ability_AuraScript : public AuraScript
+        {
+            PrepareAuraScript(spell_springvale_forsaken_ability_AuraScript);
+
+            void HandleDummyTick(AuraEffect const* /*aurEff*/)
+            {
+                Unit* target = GetTarget();
+                if (!target)
+                    return;
+
+                Unit* caster = GetCaster();
+
+                static uint32 const curses[] =
+                {
+                    SPELL_FORSAKEN_ABILITY_DAMAGE,
+                    SPELL_FORSAKEN_ABILITY_ARMOR,
+                    SPELL_FORSAKEN_ABILITY_HEALTH,
+                    SPELL_FORSAKEN_ABILITY_HEALING,
+                    SPELL_FORSAKEN_ABILITY_MOVEMENT
+                };
+
+                uint32 spellId = curses[urand(0, 4)];
+                if (caster)
+                    caster->CastSpell(target, spellId, true);
+                else
+                    target->CastSpell(target, spellId, true);
+            }
+
+            void Register()
+            {
+                OnEffectPeriodic += AuraEffectPeriodicFn(spell_springvale_forsaken_ability_AuraScript::HandleDummyTick, EFFECT_0, SPELL_AURA_PERIODIC_DUMMY);
+            }
+        };
+
+        AuraScript* GetAuraScript() const
+        {
+            return new spell_springvale_forsaken_ability_AuraScript();
+        }
+};
+
 void AddSC_boss_commander_springvale()
 {
     new boss_commander_springvale();
     new npc_springvale_wailing_guardsman();
     new npc_springvale_tormented_officer();
     new npc_springvale_desecration_bunny();
+    new spell_springvale_forsaken_ability();
 }

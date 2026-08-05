@@ -101,6 +101,7 @@ class OutdoorPvPMgr
         void HandleDropFlag(Player* player, uint32 spellId);
 
         void HandleGameEventStart(uint32 event);
+        void HandleGameEventEnd(uint32 event);
 
         OutdoorPvPData* GetOutdoorPvPData(OutdoorPvPTypes type) { return m_OutdoorPvPDatas[type]; }
         void AddOutdoorPvP(OutdoorPvP* pvp) { m_OutdoorPvPSet.push_back(pvp); }

@@ -49,8 +49,8 @@ enum HFCCreatureIds
     NPC_KORMROK                     = 90435,
     NPC_KILROGG_DEADEYE             = 90378,
     NPC_GOREFIEND                   = 91809,
-    NPC_SHADOW_LORD_ISKAR           = 95067,
-    NPC_SOCRETHAR_THE_ETERNAL       = 91769,
+    NPC_SHADOW_LORD_ISKAR           = 90316,   // 95067 ist der gleichnamige NPC im Tanaandschungel, nicht der Raidboss
+    NPC_SOCRETHAR_THE_ETERNAL       = 90296,   // Seelengebundener Konstrukt -- traegt die Begegnung
     NPC_TYRANT_VELHARI              = 93439,
     NPC_FEL_LORD_ZAKUUN             = 89890,
     NPC_XHULHORAC                   = 93068,

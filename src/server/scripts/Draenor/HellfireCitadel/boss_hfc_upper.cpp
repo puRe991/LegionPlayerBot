@@ -22,10 +22,8 @@ SDComment: Iskar, Socrethar, Velhari, Zakuun, Xhul'horac, Mannoroth and
            Archimonde. Spell ids come from the Warlords of Draenor encounter
            journal on Wowhead.
 
-           Two of the seven are thinner than the rest and say so below: the
-           journal would not give up ability lists for Shadow-Lord Iskar or
-           Socrethar the Eternal, so those two carry their structure and their
-           encounter state but only the abilities that could be verified.
+           Iskar and Socrethar were previously frame-only because the journal
+           query came back empty; both now carry their verified rotations.
 SDCategory: Hellfire Citadel
 EndScriptData */
 
@@ -46,11 +44,30 @@ enum HFCUpperTexts
 /*######
 ## Shadow-Lord Iskar
 ##
-## The encounter journal did not return an ability list for him. What is here
-## is the encounter frame -- aggro, kill and death handling and the boss state
-## the instance needs -- so he is a working encounter rather than an inert mob.
-## His rotation is the one thing in this file still to be filled in.
+## Spell ids from the Warlords of Draenor encounter journal. The Eye of Anzu
+## (179202) is a raid-carried item and lives in the world database, so the
+## script casts what Iskar himself casts and leaves the Eye to the players.
 ######*/
+
+enum IskarSpells
+{
+    SPELL_ISKAR_FOCUSED_BLAST       = 181912,
+    SPELL_ISKAR_PHANTASMAL_WINDS    = 181956,
+    SPELL_ISKAR_FEL_CHAKRAM         = 182173,
+    SPELL_ISKAR_PHANTASMAL_WOUNDS   = 182323,
+    SPELL_ISKAR_FEL_INCINERATION    = 182582,
+    SPELL_ISKAR_SHADOW_RIPOSTE      = 185343  // mythisch
+};
+
+enum IskarEvents
+{
+    EVENT_ISKAR_FOCUSED_BLAST = 1,
+    EVENT_ISKAR_PHANTASMAL_WINDS,
+    EVENT_ISKAR_FEL_CHAKRAM,
+    EVENT_ISKAR_PHANTASMAL_WOUNDS,
+    EVENT_ISKAR_FEL_INCINERATION,
+    EVENT_ISKAR_SHADOW_RIPOSTE
+};
 
 class boss_shadow_lord_iskar : public CreatureScript
 {
@@ -70,6 +87,15 @@ class boss_shadow_lord_iskar : public CreatureScript
             {
                 _EnterCombat();
                 Talk(SAY_AGGRO);
+
+                events.ScheduleEvent(EVENT_ISKAR_PHANTASMAL_WOUNDS, 8000);
+                events.ScheduleEvent(EVENT_ISKAR_FEL_CHAKRAM, 16000);
+                events.ScheduleEvent(EVENT_ISKAR_FOCUSED_BLAST, 24000);
+                events.ScheduleEvent(EVENT_ISKAR_FEL_INCINERATION, 32000);
+                events.ScheduleEvent(EVENT_ISKAR_PHANTASMAL_WINDS, 45000);
+
+                if (IsMythicRaid())
+                    events.ScheduleEvent(EVENT_ISKAR_SHADOW_RIPOSTE, 30000);
             }
 
             void KilledUnit(Unit* victim)
@@ -95,6 +121,47 @@ class boss_shadow_lord_iskar : public CreatureScript
                 if (me->HasUnitState(UNIT_STATE_CASTING))
                     return;
 
+                while (uint32 eventId = events.ExecuteEvent())
+                {
+                    switch (eventId)
+                    {
+                        case EVENT_ISKAR_PHANTASMAL_WOUNDS:
+                            if (Unit* target = SelectTarget(SELECT_TARGET_RANDOM, 0, 60.0f, true))
+                                DoCast(target, SPELL_ISKAR_PHANTASMAL_WOUNDS);
+                            events.ScheduleEvent(EVENT_ISKAR_PHANTASMAL_WOUNDS, 25000);
+                            break;
+                        case EVENT_ISKAR_FEL_CHAKRAM:
+                            if (Unit* target = SelectTarget(SELECT_TARGET_RANDOM, 0, 60.0f, true))
+                                DoCast(target, SPELL_ISKAR_FEL_CHAKRAM);
+                            events.ScheduleEvent(EVENT_ISKAR_FEL_CHAKRAM, 30000);
+                            break;
+                        case EVENT_ISKAR_FOCUSED_BLAST:
+                            // Der Schaden wird laut Journal auf die getroffenen Ziele
+                            // aufgeteilt, deshalb bewusst auf das Kampfziel.
+                            DoCastVictim(SPELL_ISKAR_FOCUSED_BLAST);
+                            events.ScheduleEvent(EVENT_ISKAR_FOCUSED_BLAST, 35000);
+                            break;
+                        case EVENT_ISKAR_FEL_INCINERATION:
+                            if (Unit* target = SelectTarget(SELECT_TARGET_RANDOM, 1, 60.0f, true))
+                                DoCast(target, SPELL_ISKAR_FEL_INCINERATION);
+                            events.ScheduleEvent(EVENT_ISKAR_FEL_INCINERATION, 40000);
+                            break;
+                        case EVENT_ISKAR_PHANTASMAL_WINDS:
+                            DoCastAOE(SPELL_ISKAR_PHANTASMAL_WINDS);
+                            events.ScheduleEvent(EVENT_ISKAR_PHANTASMAL_WINDS, 60000);
+                            break;
+                        case EVENT_ISKAR_SHADOW_RIPOSTE:
+                            DoCastAOE(SPELL_ISKAR_SHADOW_RIPOSTE);
+                            events.ScheduleEvent(EVENT_ISKAR_SHADOW_RIPOSTE, 45000);
+                            break;
+                        default:
+                            break;
+                    }
+
+                    if (me->HasUnitState(UNIT_STATE_CASTING))
+                        return;
+                }
+
                 DoMeleeAttackIfReady();
             }
         };
@@ -106,8 +173,36 @@ class boss_shadow_lord_iskar : public CreatureScript
 };
 
 /*######
-## Socrethar the Eternal -- same situation as Iskar
+## Socrethar the Eternal
+##
+## Die Begegnung laeuft ueber den Seelengebundenen Konstrukt (90296); Socrethar
+## selbst (bzw. seine Seele, 92330) steuert von der Seite bei. Der Konstrukt
+## wechselt zwischen Socrethars und Spielerkontrolle -- dieser Wechsel haengt an
+## einem Fahrzeug-/Kontrollzauber aus der Weltdatenbank und wird hier nicht
+## nachgebaut. Umgesetzt ist die Fähigkeitenrotation des Konstrukts.
 ######*/
+
+enum SocretharSpells
+{
+    SPELL_SOC_REVERBERATING_BLOW    = 182635,
+    SPELL_SOC_SHATTERED_DEFENSES    = 182038,
+    SPELL_SOC_FEL_PRISON            = 181288,
+    SPELL_SOC_VOLATILE_FEL_ORB      = 180221,
+    SPELL_SOC_FELBLAZE_CHARGE       = 182051,
+    SPELL_SOC_APOCALYPTIC_FELBURST  = 188693,   // mythisch
+    SPELL_SOC_EXERT_DOMINANCE       = 183331,
+    SPELL_SOC_APOCALYPSE            = 183329
+};
+
+enum SocretharEvents
+{
+    EVENT_SOC_REVERBERATING_BLOW = 1,
+    EVENT_SOC_FEL_PRISON,
+    EVENT_SOC_VOLATILE_FEL_ORB,
+    EVENT_SOC_FELBLAZE_CHARGE,
+    EVENT_SOC_APOCALYPTIC_FELBURST,
+    EVENT_SOC_EXERT_DOMINANCE
+};
 
 class boss_socrethar_the_eternal : public CreatureScript
 {
@@ -127,6 +222,15 @@ class boss_socrethar_the_eternal : public CreatureScript
             {
                 _EnterCombat();
                 Talk(SAY_AGGRO);
+
+                events.ScheduleEvent(EVENT_SOC_REVERBERATING_BLOW, 10000);
+                events.ScheduleEvent(EVENT_SOC_VOLATILE_FEL_ORB, 15000);
+                events.ScheduleEvent(EVENT_SOC_FEL_PRISON, 22000);
+                events.ScheduleEvent(EVENT_SOC_FELBLAZE_CHARGE, 30000);
+                events.ScheduleEvent(EVENT_SOC_EXERT_DOMINANCE, 60000);
+
+                if (IsMythicRaid())
+                    events.ScheduleEvent(EVENT_SOC_APOCALYPTIC_FELBURST, 40000);
             }
 
             void KilledUnit(Unit* victim)
@@ -151,6 +255,50 @@ class boss_socrethar_the_eternal : public CreatureScript
 
                 if (me->HasUnitState(UNIT_STATE_CASTING))
                     return;
+
+                while (uint32 eventId = events.ExecuteEvent())
+                {
+                    switch (eventId)
+                    {
+                        case EVENT_SOC_REVERBERATING_BLOW:
+                            // Legt beim Tank Zersplitterte Verteidigung (182038) an --
+                            // der Zauber selbst traegt den Nachfolgeeffekt.
+                            DoCastVictim(SPELL_SOC_REVERBERATING_BLOW);
+                            events.ScheduleEvent(EVENT_SOC_REVERBERATING_BLOW, 20000);
+                            break;
+                        case EVENT_SOC_VOLATILE_FEL_ORB:
+                            if (Unit* target = SelectTarget(SELECT_TARGET_RANDOM, 1, 60.0f, true))
+                                DoCast(target, SPELL_SOC_VOLATILE_FEL_ORB);
+                            events.ScheduleEvent(EVENT_SOC_VOLATILE_FEL_ORB, 25000);
+                            break;
+                        case EVENT_SOC_FEL_PRISON:
+                            if (Unit* target = SelectTarget(SELECT_TARGET_RANDOM, 1, 60.0f, true))
+                                DoCast(target, SPELL_SOC_FEL_PRISON);
+                            events.ScheduleEvent(EVENT_SOC_FEL_PRISON, 35000);
+                            break;
+                        case EVENT_SOC_FELBLAZE_CHARGE:
+                            if (Unit* target = SelectTarget(SELECT_TARGET_RANDOM, 1, 60.0f, true))
+                                DoCast(target, SPELL_SOC_FELBLAZE_CHARGE);
+                            events.ScheduleEvent(EVENT_SOC_FELBLAZE_CHARGE, 30000);
+                            break;
+                        case EVENT_SOC_APOCALYPTIC_FELBURST:
+                            DoCastAOE(SPELL_SOC_APOCALYPTIC_FELBURST);
+                            events.ScheduleEvent(EVENT_SOC_APOCALYPTIC_FELBURST, 45000);
+                            break;
+                        case EVENT_SOC_EXERT_DOMINANCE:
+                            // Socrethar reisst den Konstrukt an sich; im Journal die
+                            // Klammer um Apokalypse (183329).
+                            DoCast(me, SPELL_SOC_EXERT_DOMINANCE, true);
+                            DoCastAOE(SPELL_SOC_APOCALYPSE);
+                            events.ScheduleEvent(EVENT_SOC_EXERT_DOMINANCE, 70000);
+                            break;
+                        default:
+                            break;
+                    }
+
+                    if (me->HasUnitState(UNIT_STATE_CASTING))
+                        return;
+                }
 
                 DoMeleeAttackIfReady();
             }

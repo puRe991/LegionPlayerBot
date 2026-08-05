@@ -1,8 +1,6 @@
 #include "ObjectMgr.h"
 #include "deadmines.h"
 
-//todo: Flammenwand (flame wall) implementieren
-
 enum ScriptTexts
 {
     SAY_DEATH        = 0,
@@ -24,7 +22,13 @@ enum Spells
     SPELL_FIRE_BLOSSOM      = 88129,
     SPELL_FROST_BLOSSOM     = 88169,
     SPELL_FROST_BLOSSOM_0   = 88177,
-    SPELL_BLINK             = 38932
+    SPELL_BLINK             = 38932,
+    // Journal: "erschafft eine einzelne Feuerwand, die langsam um ihn zu kreisen beginnt".
+    // Der Zauber traegt die rotierende Wand selbst (periodischer Ausloeser im
+    // Sekundentakt); die Platter-Kreaturen 48975/48976/49039/49041/49042 sind die
+    // dazugehoerigen Sichtbarkeitstraeger. Er laeuft nur in Phase 2 und endet mit
+    // Glubtoks Tod, weil er an ihn gebunden ist.
+    SPELL_FIRE_WALL         = 91398
 };
 
 enum Events
@@ -155,6 +159,7 @@ class boss_glubtok : public CreatureScript
                         SetCombatMovement(false);
                         DoCast(me, SPELL_ARCANE_POWER, true);
                         Talk(SAY_ARCANE_POWER);
+                        DoCast(me, SPELL_FIRE_WALL, true);
                         events.RescheduleEvent(EVENT_BLOSSOM, 5000);
                         break;
                     case EVENT_BLOSSOM:

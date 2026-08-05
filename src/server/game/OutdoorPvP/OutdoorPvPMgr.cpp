@@ -274,6 +274,14 @@ void OutdoorPvPMgr::HandleGameEventStart(uint32 event)
     }
 }
 
+void OutdoorPvPMgr::HandleGameEventEnd(uint32 event)
+{
+    for (OutdoorPvPSet::iterator itr = m_OutdoorPvPSet.begin(); itr != m_OutdoorPvPSet.end(); ++itr)
+    {
+        (*itr)->HandleGameEventEnd(event);
+    }
+}
+
 void OutdoorPvPMgr::HandlePlayerResurrects(Player* player, uint32 zoneid)
 {
     OutdoorPvPZone::iterator itr = m_OutdoorPvPZone.find(zoneid);

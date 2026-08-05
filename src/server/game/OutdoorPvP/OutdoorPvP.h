@@ -315,6 +315,7 @@ class OutdoorPvP : public ZoneScript
         virtual void BroadcastPacketByZone(const WorldPacket & data, uint32 zone) { BroadcastPacket(data); }
         virtual void ApplyOnEveryPlayerInZone(std::function<void(Player*)> function, uint32 zone = 0);
         virtual void HandleGameEventStart(uint32 eventId) {}
+        virtual void HandleGameEventEnd(uint32 eventId) {}
         void RegisterZone(uint32 zoneid);
     protected:
         virtual void SendRemoveWorldStates(Player* /*player*/) {}

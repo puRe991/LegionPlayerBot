@@ -32,16 +32,32 @@ public:
         for (auto zone : { 5695, 1377 })
             RegisterZone(zone);
 
-        if (!sGameEventMgr->IsActiveEvent(EVENT_CALL_OF_THE_SCARAB))
+        // Aufräumen eines abgebrochenen Durchlaufs: nur wenn das Ereignis aus ist UND
+        // noch Punktestand übrig ist. Der reguläre Weg (Update() -> Siegerermittlung)
+        // setzt beide Weltzustände auf 0, ein sauber beendeter Durchlauf lässt hier
+        // also nichts zu tun. Der statische Wächter verhindert zusätzlich, dass die
+        // Löschanweisungen einmal pro Karteninstanz laufen -- SetupOutdoorPvP() wird
+        // je erzeugter OutdoorPvP-Instanz aufgerufen, nicht einmal pro Serverstart.
+        static bool s_staleRunCleaned = false;
+        if (!s_staleRunCleaned && !sGameEventMgr->IsActiveEvent(EVENT_CALL_OF_THE_SCARAB) &&
+            (sWorld->getWorldState(WS_SCORE_CALL_OF_THE_SCARAB_ALLINCE) || sWorld->getWorldState(WS_SCORE_CALL_OF_THE_SCARAB_HORDE)))
         {
-            sWorld->setWorldState(WS_SCORE_CALL_OF_THE_SCARAB_ALLINCE, 0);
-            sWorld->setWorldState(WS_SCORE_CALL_OF_THE_SCARAB_HORDE, 0);
-            CharacterDatabase.PExecute("DELETE FROM character_currency WHERE currency in (1325,1324);");
-            CharacterDatabase.PExecute("DELETE FROM character_queststatus_rewarded WHERE quest in (45785,45787);");
-            CharacterDatabase.PExecute("DELETE FROM character_queststatus WHERE quest in (45785,45787);");
+            s_staleRunCleaned = true;
+            ResetScarabEvent();
         }
 
         return true;
+    }
+
+    // Setzt einen Durchlaufs des Skarabäus-Rufs zurück. Die Löschungen sind bewusst auf
+    // die beiden Ereigniswährungen (Silithyst) und die beiden Ereignisquests begrenzt.
+    static void ResetScarabEvent()
+    {
+        sWorld->setWorldState(WS_SCORE_CALL_OF_THE_SCARAB_ALLINCE, 0);
+        sWorld->setWorldState(WS_SCORE_CALL_OF_THE_SCARAB_HORDE, 0);
+        CharacterDatabase.PExecute("DELETE FROM character_currency WHERE currency in (1325,1324);");
+        CharacterDatabase.PExecute("DELETE FROM character_queststatus_rewarded WHERE quest in (45785,45787);");
+        CharacterDatabase.PExecute("DELETE FROM character_queststatus WHERE quest in (45785,45787);");
     }
 
     void FillInitialWorldStates(WorldPackets::WorldState::InitWorldStates& packet) override
@@ -99,7 +115,7 @@ public:
 
                 if (HordeScore > CurrectHordeScore)
                 {
-                    CurrectHordeScore = AllianceScore;
+                    CurrectHordeScore = HordeScore;
                     player->SendUpdateWorldState(static_cast<WorldStates>(12952), HordeScore);
                 }
             });
@@ -156,9 +172,7 @@ public:
                 update_worldstate = 0;
                 HordeScore = 0;
                 AllianceScore = 0;
-                sWorld->setWorldState(WS_SCORE_CALL_OF_THE_SCARAB_ALLINCE, 0);
-                sWorld->setWorldState(WS_SCORE_CALL_OF_THE_SCARAB_HORDE, 0);
-                CharacterDatabase.PExecute("DELETE FROM character_currency WHERE currency in (1325,1324)");
+                ResetScarabEvent();
                 ApplyOnEveryPlayerInZone([this](Player* player) -> void
                 {
                     player->SendUpdateWorldState(static_cast<WorldStates>(12952), 0);
@@ -188,7 +202,25 @@ public:
         AllianceScore = sWorld->getWorldState(WS_SCORE_CALL_OF_THE_SCARAB_ALLINCE);
         HordeScore = sWorld->getWorldState(WS_SCORE_CALL_OF_THE_SCARAB_HORDE);
         CurrectAllianceScore = AllianceScore;
-        CurrectHordeScore = CurrectHordeScore;
+        CurrectHordeScore = HordeScore;
+    }
+
+    void HandleGameEventEnd(uint32 eventId) override
+    {
+        if (eventId != EVENT_CALL_OF_THE_SCARAB)
+            return;
+
+        // Regulärer Abschluss: Punktestand und Ereignisdaten hier zurücksetzen,
+        // nicht erst beim nächsten Serverstart.
+        m_stage = 0;
+        b_winner = false;
+        m_winner = 0;
+        update_worldstate = 0;
+        AllianceScore = 0;
+        HordeScore = 0;
+        CurrectAllianceScore = 0;
+        CurrectHordeScore = 0;
+        ResetScarabEvent();
     }
 
 private:

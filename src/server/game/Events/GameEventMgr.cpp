@@ -1211,6 +1211,8 @@ void GameEventMgr::UnApplyEvent(uint16 event_id)
     UpdateEventWorldState(event_id, false);
     // disable worldquest
     UpdateEventWorldQuest(event_id, false);
+
+    sOutdoorPvPMgr->HandleGameEventEnd(event_id);
 }
 
 void GameEventMgr::ApplyNewEvent(uint16 event_id)
