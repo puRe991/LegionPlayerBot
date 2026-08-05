@@ -24,6 +24,7 @@
 #include "ObjectMgr.h"
 #include "SocialMgr.h"
 #include "LFGMgr.h"
+#include "PlayerBotSession.h"
 #include <utility>
 #include "LFGScripts.h"
 #include "LFGGroupData.h"
@@ -2514,6 +2515,20 @@ void LFGMgr::SendLfgUpdateProposal(ObjectGuid guid, LfgProposal const& proposal)
 {
     if (auto player = ObjectAccessor::FindPlayer(guid))
     {
+        // A bot has no client to click "accept", so the proposal is answered
+        // through its schedule queue instead. Without this the proposal would
+        // simply time out and the group would never form.
+        if (player->GetSession() && player->GetSession()->IsBotSession())
+        {
+            if (PlayerBotSession* botSession = dynamic_cast<PlayerBotSession*>(player->GetSession()))
+            {
+                BotGlobleSchedule accept(BotGlobleScheduleType::BGSType_AcceptLFGProposal, ObjectGuid::Empty);
+                accept.parameter1 = proposal.id;
+                accept.parameter2 = 1;
+                botSession->PushScheduleToQueue(accept);
+            }
+        }
+
         ObjectGuid gguid = proposal.players.find(guid)->second.group;
         bool silent = !proposal.isNew && gguid == proposal.group;
         uint32 dungeonEntry = proposal.dungeonId;
@@ -3019,5 +3034,64 @@ void LFGMgr::SendLfgUpdateQueue(ObjectGuid guid)
         sLFGMgr->SendLfgUpdatePlayer(guid, sLFGMgr->GetLfgStatus(guid, queue), true);
 }
 
+
+LFGBotRequirement* LFGMgr::SearchLFGBotRequirement()
+{
+    std::lock_guard<std::recursive_mutex> guard(m_lock);
+
+    for (auto const& playerEntry : PlayersStore)
+    {
+        ObjectGuid const& guid = playerEntry.first;
+
+        Player* player = ObjectAccessor::FindPlayer(guid);
+        if (!player || !player->IsInWorld())
+            continue;
+
+        // Only real players pull bots in; otherwise bots would keep queueing
+        // for each other and the queue would never drain.
+        if (!player->GetSession() || player->GetSession()->IsBotSession())
+            continue;
+
+        for (auto const& queueEntry : playerEntry.second)
+        {
+            uint32 queueId = queueEntry.first;
+            LfgPlayerData const& data = queueEntry.second;
+
+            if (data.GetState() != LFG_STATE_QUEUED)
+                continue;
+
+            LfgDungeonSet const& dungeons = data.GetSelectedDungeons();
+            if (dungeons.empty())
+                continue;
+
+            // Ask the queue this player sits in what it is still short of.
+            ObjectGuid queueGuid = player->GetGroup() ? player->GetGroup()->GetGUID() : guid;
+            LFGQueue& queue = GetQueue(queueGuid, queueId);
+            LfgQueueData const* queueData = queue.GetQueueData(queueGuid);
+            if (!queueData)
+                continue;
+
+            LfgRoles needed = PLAYER_ROLE_NONE;
+            if (queueData->tanksNeeded > 0)
+                needed = PLAYER_ROLE_TANK;
+            else if (queueData->healerNeeded > 0)
+                needed = PLAYER_ROLE_HEALER;
+            else if (queueData->dpsNeeded > 0)
+                needed = PLAYER_ROLE_DAMAGE;
+
+            if (needed == PLAYER_ROLE_NONE)
+                continue;
+
+            LFGBotRequirement* requirement = new LFGBotRequirement();
+            requirement->needTeam = uint8(player->GetTeamId());
+            requirement->needRole = needed;
+            requirement->needLevel = player->getLevel();
+            requirement->selectedDungeons = dungeons;
+            return requirement;
+        }
+    }
+
+    return nullptr;
+}
 
 } // namespace lfg

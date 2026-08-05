@@ -380,10 +380,10 @@ private:
 	void ClearEmptyNeedPlayer();
 	void ClearNeedPlayer(uint32 bgTypeID, uint32 bracketID);
 	void AddNewPlayerBotToBG(TeamId team, uint32 minLV, uint32 maxLV, BattlegroundTypeId bgTypeID);
-	//void AddNewPlayerBotToLFG(lfg::LFGBotRequirement* botRequirement);
+	void AddNewPlayerBotToLFG(lfg::LFGBotRequirement* botRequirement);
 	void AddNewPlayerBotToAA(TeamId team, BattlegroundTypeId bgTypeID, uint32 bracketID, uint32 aaType);
 	void AddTeamBotToRatedArena(uint32 arenaTeamId);
-	//bool FillOnlineBotScheduleByLFGRequirement(lfg::LFGBotRequirement* botRequirement, BotGlobleSchedule* botSchedule);
+	bool FillOnlineBotScheduleByLFGRequirement(lfg::LFGBotRequirement* botRequirement, BotGlobleSchedule* botSchedule);
 	uint32 GetScheduleTalentByLFGRequirement(lfg::LfgRoles roles, uint32 botCls);
 	void QueryBattlegroundRequirement();
 	void QueryRatedArenaRequirement();

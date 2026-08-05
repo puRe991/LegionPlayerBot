@@ -677,6 +677,19 @@ bool PlayerBotSession::ProcessDelayLevelup(BotGlobleSchedule& schedule)
 	return true;
 }
 
+// Queue the bot for the dungeon finder.
+//
+//   parameter1  role mask; 0 means "derive it from the active specialisation"
+//   parameter2  number of dungeon ids supplied in parameter3..5;
+//               0 means "pick every dungeon the bot is eligible for"
+//   parameter3
+//   parameter4  explicit dungeon ids, used when parameter2 is 1..3
+//   parameter5
+//
+// The old body built a hand-rolled packet against an opcode layout that no
+// longer exists. sLFGMgr is called directly instead -- that is what
+// WorldSession::HandleLfgJoin does once the packet is parsed, so the bot
+// takes the same path as a real client without going through serialisation.
 bool PlayerBotSession::ProcessInLFGQueue(BotGlobleSchedule& schedule)
 {
 	if (PlayerLoading())
@@ -687,61 +700,101 @@ bool PlayerBotSession::ProcessInLFGQueue(BotGlobleSchedule& schedule)
 		ClearAllSchedule();
 		return false;
 	}
+	if (!player->IsInWorld())
+		return false;
 	if (player->isUsingLfg())
 		return true;
-	if (schedule.parameter1 != 2 && schedule.parameter1 != 4 && schedule.parameter1 != 8)
-		return true;
-	if (schedule.parameter2 > 3 || schedule.parameter2 == 0)
+	if (player->InBattleground() || player->InArena() || player->InBattlegroundQueue())
+	{
+		ClearAllSchedule();
+		return false;
+	}
+	if (!sLFGMgr->isOptionEnabled(lfg::LFG_OPTION_ENABLE_DUNGEON_FINDER))
+	{
+		ClearAllSchedule();
+		return false;
+	}
+	if (schedule.parameter2 > 3)
 		return true;
 
-	//WorldPacket cmd(1);
-	//cmd << schedule.parameter1;
-	//cmd << uint16(0);
-	//cmd << uint8(schedule.parameter2);
-	//if (schedule.parameter2 >= 1)
-	//	cmd << schedule.parameter3;
-	//if (schedule.parameter2 >= 2)
-	//	cmd << schedule.parameter4;
-	//if (schedule.parameter2 >= 3)
-	//	cmd << schedule.parameter5;
-	//cmd << uint32(0);
-	//cmd << "";
-	//HandleLfgJoinOpcode(cmd);
-	return true;
+	uint8 roles = schedule.parameter1 ? uint8(schedule.parameter1)
+	                                  : uint8(player->GetSpecializationRoleMaskForGroup());
+	if (!(roles & (lfg::PLAYER_ROLE_TANK | lfg::PLAYER_ROLE_HEALER | lfg::PLAYER_ROLE_DAMAGE)))
+		roles |= lfg::PLAYER_ROLE_DAMAGE;
+
+	lfg::LfgDungeonSet dungeons;
+	if (schedule.parameter2 == 0)
+	{
+		dungeons = sLFGMgr->GetRewardableDungeons(player->getLevel(), player->GetSession()->Expansion());
+		if (dungeons.empty())
+		{
+			ClearAllSchedule();
+			return false;
+		}
+	}
+	else
+	{
+		if (schedule.parameter2 >= 1 && schedule.parameter3)
+			dungeons.insert(schedule.parameter3);
+		if (schedule.parameter2 >= 2 && schedule.parameter4)
+			dungeons.insert(schedule.parameter4);
+		if (schedule.parameter2 >= 3 && schedule.parameter5)
+			dungeons.insert(schedule.parameter5);
+		if (dungeons.empty())
+			return true;
+	}
+
+	sLFGMgr->JoinLfg(player, roles, dungeons);
+	return false;
 }
 
 bool PlayerBotSession::ProcessOutLFGQueue(BotGlobleSchedule& schedule)
 {
-	//if (PlayerLoading())
-	//	return false;
-	//Player* player = GetPlayer();
-	//if (!player)
-	//{
-	//	ClearAllSchedule();
-	//	return false;
-	//}
-	//if (!player->isUsingLfg())
-	//	return true;
-	//HandleLfgLeaveOpcode(WorldPacket(1));
+	if (PlayerLoading())
+		return false;
+	Player* player = GetPlayer();
+	if (!player)
+	{
+		ClearAllSchedule();
+		return false;
+	}
+	if (!player->IsInWorld())
+		return false;
+	if (!player->isUsingLfg())
+		return true;
+
+	// queue id 0 leaves every queue the bot sits in
+	sLFGMgr->LeaveLfg(player->GetGUID(), schedule.parameter1);
 	return true;
 }
 
+// parameter1  proposal id
+// parameter2  non-zero accepts, zero declines
 bool PlayerBotSession::ProcessAcceptLFGProposal(BotGlobleSchedule& schedule)
 {
-	//if (PlayerLoading())
-	//	return false;
-	//if (schedule.parameter1 == 0)
-	//	return true;
-	//Player* player = GetPlayer();
-	//if (!player)
-	//{
-	//	ClearAllSchedule();
-	//	return false;
-	//}
-	//if (!player->isUsingLfg())
-	//	return true;
+	if (PlayerLoading())
+		return false;
+	if (schedule.parameter1 == 0)
+		return true;
+	Player* player = GetPlayer();
+	if (!player)
+	{
+		ClearAllSchedule();
+		return false;
+	}
+	if (!player->isUsingLfg())
+		return true;
 
-	//sLFGMgr->UpdateProposal(schedule.parameter1, player->GetGUID(), (schedule.parameter2 != 0) ? true : false);
+	WorldPackets::LFG::ProposalResponse response;
+	response.ProposalID = schedule.parameter1;
+	response.InstanceID = 0;
+	response.Accepted = schedule.parameter2 != 0;
+	response.Ticket.RequesterGuid = player->GetGUID();
+	response.Ticket.Id = schedule.parameter1;
+	response.Ticket.Type = WorldPackets::LFG::RideType::Lfg;
+	response.Ticket.Time = int32(time(nullptr));
+
+	sLFGMgr->UpdateProposal(response, player->GetGUID());
 	return true;
 }
 

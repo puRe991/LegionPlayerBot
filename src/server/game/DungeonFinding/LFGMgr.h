@@ -427,6 +427,12 @@ public:
 
     GuidSet const& GetPlayers(ObjectGuid guid);
 
+    // Scans the queue for a real player who is waiting and reports which role is
+    // still missing, so PlayerBotMgr can put a matching bot in. Returns nullptr
+    // when nobody is waiting or the group is already complete. The caller owns
+    // the returned object.
+    LFGBotRequirement* SearchLFGBotRequirement();
+
     void InitiBattlgroundCheckRoles(Group* group, ObjectGuid playerGuid, uint32 queueid, uint8 roles, uint8 bgQueueTypeId, WorldPackets::Battleground::IgnorMapInfo ignormap, bool isSkirmish = false);
 
 

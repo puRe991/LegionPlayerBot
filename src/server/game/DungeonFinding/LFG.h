@@ -186,6 +186,16 @@ struct LockData
     uint32 reqItemLevel;
 };
 
+// What the dungeon finder is short of, so the bot manager can bring a matching
+// character online. Filled by LFGMgr::SearchLFGBotRequirement().
+struct LFGBotRequirement
+{
+    uint8 needTeam = 2;              ///< TeamId of the waiting player; 2 = neutral/unset
+    LfgRoles needRole = PLAYER_ROLE_NONE;  ///< role that is still missing
+    uint8 needLevel = 0;             ///< level of the waiting player
+    std::set<uint32> selectedDungeons;    ///< dungeons the waiting player queued for
+};
+
 typedef std::set<uint32> LfgDungeonSet;
 typedef std::map<uint32, LockData> LfgLockMap;
 typedef std::map<ObjectGuid, LfgLockMap> LfgLockPartyMap;
