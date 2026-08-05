@@ -586,6 +586,11 @@ public:
 
         void JustSummoned(Creature* summoned)
         {
+            // The Prophet arrives after the fight is over. He must keep his own
+            // faction and stay out of the summon list.
+            if (summoned->GetEntry() == CREATURE_PROPHET)
+                return;
+
             if (summoned->GetEntry() == CREATURE_ARMAGEDDON_TARGET)
             {
                 summoned->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NOT_SELECTABLE);
@@ -606,6 +611,12 @@ public:
 
             if (instance)
                 instance->SetData(DATA_KILJAEDEN_EVENT, DONE);
+
+            // The Prophet closes the raid out; see sunwell_plateau.cpp. He is
+            // summoned outside the summon list so the despawn above and his
+            // own timer do not fight over him.
+            me->SummonCreature(CREATURE_PROPHET, me->GetPositionX(), me->GetPositionY(),
+                me->GetPositionZ(), me->GetOrientation(), TEMPSUMMON_TIMED_DESPAWN, 180000);
         }
 
         void KilledUnit(Unit* /*victim*/)
