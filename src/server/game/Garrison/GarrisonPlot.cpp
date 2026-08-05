@@ -92,7 +92,9 @@ void getRandSpecialEntry(uint32 buildingTypeID, uint32 lvl, uint32 &entry)
 //GARR_BTYPE_WORKSHOP
 GameObject* Plot::CreateGameObject(Map* map, GarrisonFactionIndex faction, Garrison* garrison)
 {
-    if (GarrisonConst::Globals::isClassHallMap(map->GetId()))
+    // Klassenhallen bekommen keine Garnisonsbauplaetze.
+    MapEntry const* mapEntry = map ? map->GetEntry() : nullptr;
+    if (!mapEntry || GarrisonConst::Globals::isClassHallExpansion(mapEntry->ExpansionID))
         return nullptr;
 
     auto entry = EmptyGameObjectId;

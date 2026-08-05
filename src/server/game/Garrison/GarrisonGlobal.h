@@ -47,9 +47,23 @@ namespace GarrisonConst
             MaxActiveFollowerAllowedCount = 20
         };
 
-        static bool isClassHallMap(uint16 ID)
+        // Vorher stand hier isClassHallMap(uint16) mit einer festen Liste aus
+        // 1513, 1479 und 1107 -- drei von zwoelf Klassenhallen. Fuer die
+        // uebrigen neun griff die Pruefung nicht, weshalb dort die
+        // Garnisonsgebaeude aus Draenor erzeugt wurden.
+        //
+        // Statt die Liste zu vervollstaendigen (die Kartennummern der Hallen
+        // stecken in Map.db2 und sind ausserhalb der Clientdaten nicht sauber
+        // belegbar) wird derselbe Test benutzt, den Garrison.cpp:1357 schon
+        // verwendet, um Garnison von Ordenshalle zu unterscheiden: die
+        // Draenor-Garnison liegt auf einer Karte der Erweiterung 5, jede
+        // Klassenhalle auf einer spaeteren. Das deckt alle zwoelf Hallen ab
+        // und braucht keine handgepflegte Liste.
+        enum : int32 { GarrisonExpansion = 5 };
+
+        static bool isClassHallExpansion(int32 mapExpansionID)
         {
-            return ID == 1513 || ID == 1479 || ID == 1107;
+            return mapExpansionID != GarrisonExpansion;
         }
     }
 

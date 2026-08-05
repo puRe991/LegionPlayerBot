@@ -1737,7 +1737,15 @@ public:
             // remove Queen's Bite Transformation if any
             me->CastSpell(me, 208121, true);
 
-            //TODO: Threat does not properly reset for the npc demon hunters due to the faction change
+            // Reset() raeumt die beschworenen Adds ab, JustDied() tat es bisher nicht.
+            // Dadurch ueberlebten die Adds (100333) den Boss und hielten die
+            // verbuendeten Daemonenjaeger-NPCs im Kampf -- das ist die Ursache des
+            // frueher hier vermerkten "Bedrohung setzt sich nicht zurueck".
+            // Der Faktionswechsel der Verbuendeten selbst kommt aus der
+            // Weltdatenbank und wird hier bewusst nicht angefasst.
+            summons.DespawnAll();
+            events.Reset();
+            me->CombatStop(true);
         }
         
         void DamageTaken(Unit* /*attacker*/, uint32& damage, DamageEffectType dmgType) override

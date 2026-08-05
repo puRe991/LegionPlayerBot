@@ -132,6 +132,35 @@ directories into `DataDir`.
 
 ---
 
+## 4a. Check before the first start
+
+Both of the previous two steps bring in data this repository does not
+contain. If either is missing the server aborts during startup, and the
+first error it prints is misleading — a failed prepared statement rather
+than "no world database". Confirm the state up front:
+
+```sh
+# World database: has to be the full TrinityCore 7.3.5 set, not just the
+# four playerbot tables. Expect several hundred tables, not four.
+mysql -h127.0.0.1 -utrinity -ptrinity \
+  -e "SELECT COUNT(*) AS tables_in_world FROM information_schema.tables WHERE table_schema='world';
+      SELECT COUNT(*) AS creature_template FROM world.creature_template;
+      SELECT COUNT(*) AS realms FROM auth.realmlist;"
+
+# Client data: all five directories have to exist under DataDir.
+ls ClientData/maps ClientData/vmaps ClientData/mmaps ClientData/dbc ClientData/cameras
+```
+
+Symptoms when a step was skipped:
+
+| Symptom | Cause |
+|---|---|
+| `Table 'world.linked_respawn' doesn't exist` and dozens like it, exit code 1 | world database not imported (only the playerbot tables present) |
+| `Unable to open file ... dbc` / missing map files | `DataDir` empty or incomplete |
+| Client reaches the login screen but shows no realm | `auth.realmlist` empty |
+
+---
+
 ## 5. Configuration
 
 Copy the templates and adjust them:
