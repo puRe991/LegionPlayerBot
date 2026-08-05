@@ -2,6 +2,8 @@
 
 Stand: 2026-08-05 · Zweig `claude/projekt-status-bericht-od9a98` · Build GCC 13.3 / CMake 3.28 / Boost 1.83 / OpenSSL 3.0.13
 
+> **Zweite Fassung.** Die zunächst offenen Befunde sind abgearbeitet; Abschnitt 5 führt den Stand. Zwei Fehleinschätzungen aus der ersten Fassung sind dort ausdrücklich korrigiert.
+
 ---
 
 ## 0. Was geprüft wurde — und was nicht
@@ -75,11 +77,11 @@ Broken Isles/Broken Shore: `Scenario/BrokenIslands` (4269 Zeilen, Karte 1460), `
 | **Affected Database Tables** | `world.*` (gesamtes Schema), `auth.realmlist`, `auth.account`, `hotfixes.*` |
 | **Suggested Fix** | Kein Codefix. Erforderlich: (a) LegionCore-Weltdatenbank (7.3.5) importieren, (b) Playerbot-SQL aus `sql/base` **danach** einspielen, (c) `ClientData` mit `mapextractor`/`vmap4extractor`/`mmaps_generator` aus einem 7.3.5-Client erzeugen und unter `DataDir` ablegen, (d) `auth.realmlist` befüllen. Diese vier Schritte gehören ausdrücklich in `docs/SETUP.md`. |
 | **Regression Risk** | keiner (kein Codeeingriff) |
-| **Status** | **offen — extern.** Blockiert jede Laufzeitprüfung dieses Berichts. |
+| **Status** | **offen — extern, nicht per Code lösbar.** Blockiert jede Laufzeitprüfung dieses Berichts. Was ich beitragen konnte, ist umgesetzt: `docs/SETUP.md` hat einen Abschnitt *Check before the first start* erhalten, der die drei Voraussetzungen (Weltdatenbank, `ClientData`, `auth.realmlist`) mit fertigen Abfragen prüfbar macht und die irreführenden Startfehler ihrer echten Ursache zuordnet — der erste Fehler lautet `Table 'world.linked_respawn' doesn't exist` und nicht *keine Weltdatenbank*. |
 
 ---
 
-## 2. Behobene Befunde
+## 2. Behobene Befunde (erste Runde)
 
 ### LEG-001 — Skriptnamenkollision `boss_archimonde` (Hyjal ↔ Höllenfeuerzitadelle)
 
@@ -191,7 +193,7 @@ Broken Isles/Broken Shore: `Scenario/BrokenIslands` (4269 Zeilen, Karte 1460), `
 
 ---
 
-## 3. Offene Befunde
+## 3. Befunde der zweiten Runde (vormals offen)
 
 ### LEG-007 — `OutdoorPvPSilithus` löscht bei jedem Serverstart Spielerdaten
 
@@ -207,9 +209,9 @@ Broken Isles/Broken Shore: `Scenario/BrokenIslands` (4269 Zeilen, Karte 1460), `
 | **Root Cause** | Der Zurücksetzvorgang hängt an der Einrichtungsfunktion statt am Ereignisende (`HandleGameEventEnd`). Solange das Ereignis aus ist, läuft er bei jedem Neustart erneut. |
 | **Affected Files** | `src/server/scripts/Legion/MicroHolidays/CallOfTheScarab.cpp:35–41` |
 | **Affected Database Tables** | `characters.character_currency` (1324, 1325), `characters.character_queststatus`, `characters.character_queststatus_rewarded` (45785, 45787) |
-| **Suggested Fix** | Zurücksetzen nach `HandleGameEventEnd(78)` verlagern, oder über einen Weltzustand („zuletzt zurückgesetzter Ereignisdurchlauf") absichern, sodass es je Durchlauf höchstens einmal läuft. |
-| **Regression Risk** | **niedrig**, wenn der Vorgang verlagert wird — der Umfang der Löschung bleibt gleich. |
-| **Status** | **offen.** Ich habe die Registrierung aktiviert (LEG-005), aber die Löschlogik **nicht** angefasst — sie ist die erklärte Absicht des ursprünglichen Autors, und die Vorgabe „keinen funktionierenden Code ohne Abhängigkeitsanalyse ändern" gilt. Vor dem Produktivbetrieb sollte das entschieden werden. |
+| **Suggested Fix** | Umgesetzt: Zurücksetzen in `ResetScarabEvent()` gebündelt und an `HandleGameEventEnd(78)` gehängt. Der Startlauf räumt nur noch einen **abgebrochenen** Durchlauf auf — Bedingung: Ereignis aus **und** Punktestand noch vorhanden — abgesichert durch einen statischen Wächter, damit die Löschungen nicht je Karteninstanz erneut laufen. Der Löschumfang selbst ist unverändert. |
+| **Regression Risk** | **niedrig.** Der Hook ist neu im Kern (`OutdoorPvP::HandleGameEventEnd`, Verteiler in `OutdoorPvPMgr`, Aufruf aus `GameEventMgr::UnApplyEvent`), rein additiv mit leerem Standardrumpf — bestehende OutdoorPvP-Skripte verhalten sich unverändert. |
+| **Status** | **behoben** (Commit `870b487`). Nebenbefund derselben Klasse mitbehoben: `CurrectHordeScore` bekam an einer Stelle den Allianzstand und an einer zweiten sich selbst zugewiesen, sodass der Horde-Weltzustand nie korrekt nachgeführt wurde. |
 
 ### LEG-008 — Artefakterwerbs-Szenarien nur für 7 von 12 Klassen
 
@@ -225,9 +227,9 @@ Broken Isles/Broken Shore: `Scenario/BrokenIslands` (4269 Zeilen, Karte 1460), `
 | **Root Cause** | Unvollständige Portierung des Originalprojekts. Es fehlen sowohl die Szenarioskripte als auch die zugehörigen `InstanceMapScript`-Bindungen. |
 | **Affected Files** | `src/server/scripts/Scenario/Artifacts/**` (fehlende Unterbäume), `src/server/scripts/ScriptLoader.cpp` |
 | **Affected Database Tables** | `world.instance_template.script`, `world.scenarios`, `world.scenario_step`, `world.quest_template` (Artefaktquestketten), `world.creature_template` |
-| **Suggested Fix** | Je fehlender Spezialisierung ein `instance_<artefakt>.cpp` (Karte aus `world.instance_template`) plus Szenarioskript nach dem Muster von `Scenario/Artifacts/Rogue/Kingslayers/`. Ohne Weltdatenbank (DEP-001) sind die Kartennummern und NPC-Einträge nicht überprüfbar; sie zu erfinden wäre wertlos. |
+| **Suggested Fix** | Je fehlender Spezialisierung ein `instance_<artefakt>.cpp` (Karte aus `world.instance_template`) plus Szenarioskript nach dem Muster von `Scenario/Artifacts/Rogue/Kingslayers/`. |
 | **Regression Risk** | **niedrig** — reine Ergänzung. |
-| **Status** | **offen — blockiert durch DEP-001.** |
+| **Status** | **offen — nachweislich nicht schließbar ohne Clientdaten.** Ich habe gezielt nach den serverseitigen Kartennummern der Artefaktszenarien gesucht (Wowhead-Zonenlisten, Warcraft-Wiki-`InstanceID`-Tabelle, Szenarienübersicht). Sie stehen ausschließlich in `Map.db2` und sind aus keiner erreichbaren Quelle belegbar. **LEG-013 ist der Beleg dafür, warum ich hier nicht rate:** ein einziger geratener Eintrag hatte dort zwei Bossskripte an eine Kreatur im falschen Gebiet gebunden. Zehn erfundene Kartennummern plus die zugehörigen NPC-, Zauber-, Szenarioschritt- und Conversation-IDs wären Attrappen, die zur Laufzeit nichts tun und Fehler verdecken. Sobald `ClientData` vorliegt, ist das eine geradlinige Arbeit. |
 
 ### LEG-009 — Keine C++-Skripte für die Klassenhallen-Kampagnen
 
@@ -245,7 +247,7 @@ Broken Isles/Broken Shore: `Scenario/BrokenIslands` (4269 Zeilen, Karte 1460), `
 | **Affected Database Tables** | `world.quest_template`, `world.conversation_*`, `world.creature_text`, `world.scenarios`; DB2 `GarrTalent`, `GarrTalentTree`, `GarrFollower`, `GarrBuilding` |
 | **Suggested Fix** | Nach Import der Weltdatenbank prüfen, welche Kampagnenschritte ohne Skript hängenbleiben, und gezielt nachrüsten. Vorher keine sinnvolle Aussage möglich. |
 | **Regression Risk** | — |
-| **Status** | **offen — nicht entscheidbar ohne DEP-001.** |
+| **Status** | **offen — nicht entscheidbar ohne DEP-001.** Anders als LEG-008 ist hier nicht einmal belegt, dass überhaupt etwas fehlt: Klassenhallen sind in Legion weitgehend datengetrieben, und der Kernserverteil ist vollständig. Ob Skripte oder nur Daten fehlen, zeigt der erste Durchlauf der Kampagne. |
 
 ### LEG-010 — `isClassHallMap` kennt nur 3 von 12 Klassenhallenkarten (toter Code)
 
@@ -257,13 +259,13 @@ Broken Isles/Broken Shore: `Scenario/BrokenIslands` (4269 Zeilen, Karte 1460), `
 | **Priorität** | **P4** |
 | **Reproduktionsschritte** | — (statisch) |
 | **Expected Result** | Eine Hilfsfunktion mit diesem Namen erkennt alle Klassenhallenkarten. |
-| **Actual Result** | **Beobachtet.** `Garrison/GarrisonGlobal.h:50` gibt `ID == 1513 \|\| ID == 1479 \|\| ID == 1107` zurück. Legion hat 12 Klassenhallen. **Die Funktion wird nirgends aufgerufen** — projektweite Suche liefert nur die Definition. |
-| **Root Cause** | Rest einer früheren Fassung; die tatsächliche Typbestimmung läuft über `getGarrisoneTypeBySite()` (`Garrison.cpp:60`) anhand der Site-ID, nicht über die Karte. |
-| **Affected Files** | `src/server/game/Garrison/GarrisonGlobal.h:50–53` |
-| **Affected Database Tables** | keine |
-| **Suggested Fix** | Entweder entfernen oder um die restlichen 9 Karten ergänzen. Aktuell keine Laufzeitwirkung — aber eine Falle für den nächsten, der sie benutzt. |
-| **Regression Risk** | **keiner** beim Entfernen (nicht referenziert). |
-| **Status** | **offen — bewusst nicht angefasst.** Ohne Weltdatenbank kann ich die 9 fehlenden Kartennummern nicht belegen, und geraten wäre schlechter als gar nichts. |
+| **Actual Result** | **Beobachtet.** `Garrison/GarrisonGlobal.h:50` gab `ID == 1513 \|\| ID == 1479 \|\| ID == 1107` zurück. Legion hat 12 Klassenhallen. Aufgerufen wird die Funktion in `Garrison/GarrisonPlot.cpp:95` (`Plot::CreateGameObject`), wo sie verhindert, dass Garnisonsbauplätze in einer Klassenhalle erzeugt werden. Für **neun der zwölf Hallen** griff sie nicht — dort wären die Draenor-Garnisonsgebäude erschienen. |
+| **Root Cause** | Handgepflegte Kartenliste, die nie vervollständigt wurde. |
+| **Affected Files** | `src/server/game/Garrison/GarrisonGlobal.h:50–53`, `src/server/game/Garrison/GarrisonPlot.cpp:95` |
+| **Affected Database Tables** | keine (DB2 `Map.ExpansionID`) |
+| **Suggested Fix** | Umgesetzt: Die Liste ist ersetzt durch `isClassHallExpansion(int32)`, das dieselbe Unterscheidung benutzt wie `Garrison.cpp:1357` — Erweiterung 5 ist die Draenor-Garnison, jede spätere Karte eine Ordenshalle. Deckt alle zwölf ab, ohne Kartennummern zu raten. Zusätzlich Nullprüfung auf `Map` und `MapEntry`. |
+| **Regression Risk** | **niedrig.** Ein Aufrufer, dessen Bedingung sich für die Draenor-Garnison nicht ändert (dort weiterhin `false`) und für alle Klassenhallen nun korrekt `true` liefert. |
+| **Status** | **behoben** (Commit `a6f922e`). **Korrektur meiner eigenen Bewertung:** Ich hatte diesen Befund als P4/toten Code geführt. Das war falsch — mein Aufrufer-Check war durch ein `head -20` abgeschnitten. Es ist ein funktionaler Fehler, richtig eingeordnet **P3**. |
 
 ### LEG-011 — Todesgrubenminen: Glubtoks Flammenwand fehlt
 
@@ -279,9 +281,9 @@ Broken Isles/Broken Shore: `Scenario/BrokenIslands` (4269 Zeilen, Karte 1460), `
 | **Root Cause** | Vom ursprünglichen Autor bewusst ausgelassen. |
 | **Affected Files** | `src/server/scripts/EasternKingdoms/Deadmines/boss_glubtok.cpp` |
 | **Affected Database Tables** | `world.creature_template` (48975, 48976, 49039, 49041, 49042), `world.creature` (Spawns), `world.waypoint_data` |
-| **Suggested Fix** | Beschwörung und Wegpunktbewegung der fünf Flammenwand-NPCs in der zweiten Phase. Positionen und Wege sind ohne Weltdatenbank nicht ermittelbar. |
-| **Regression Risk** | **niedrig** — der übrige Kampf bleibt unberührt. |
-| **Status** | **offen — blockiert durch DEP-001.** Der Kommentar wurde von cp1251 nach UTF-8 übersetzt, der Befund bleibt bestehen. |
+| **Suggested Fix** | Umgesetzt: `DoCast(me, SPELL_FIRE_WALL, true)` beim Eintritt in die Arkanmacht-Phase (`EVENT_ARCANE_POWER3`). Die Recherche hat die ursprüngliche Annahme widerlegt — laut Begegnungsjournal ist die Feuerwand **ein einzelner Zauber (91398)**, den Glubtok auf sich selbst wirkt und der die rotierende Wand samt periodischem Auslöser im Sekundentakt selbst trägt. Die fünf „Platter"-Kreaturen sind nur die Sichtbarkeitsträger und müssen nicht per Skript beschworen oder bewegt werden. |
+| **Regression Risk** | **niedrig** — ein zusätzlicher Zauber in einer Phase, die der Boss ohnehin betritt; der übrige Kampf bleibt unberührt. |
+| **Status** | **behoben** (Commit `870b487`). |
 
 ### LEG-012 — Burg Schattenfang: `EVENT_FORSAKEN_ABILITY` ohne Wirkung
 
@@ -297,9 +299,9 @@ Broken Isles/Broken Shore: `Scenario/BrokenIslands` (4269 Zeilen, Karte 1460), `
 | **Root Cause** | Die Zauber-ID wurde nie ermittelt. |
 | **Affected Files** | `src/server/scripts/EasternKingdoms/ShadowfangKeep/boss_commander_springvale.cpp:313–315` |
 | **Affected Database Tables** | `world.creature_template` (Gequälter Offizier), DB2 `Spell` |
-| **Suggested Fix** | Zauber-ID aus dem Schlachtzugsjournal bzw. `spell_dbc` bestimmen und `DoCastVictim` ergänzen. Ohne DB2-Daten (DEP-001) nicht verifizierbar; eine geratene ID wäre schlechter als der leere Zweig. |
-| **Regression Risk** | **niedrig** |
-| **Status** | **offen — blockiert durch DEP-001.** Kommentar nach UTF-8 übersetzt. |
+| **Suggested Fix** | Umgesetzt. Die Zauber-ID stand bereits im Skript (`SPELL_FORSAKEN_ABILITY = 7054`) und ist als „Forsaken Ability" bestätigt: 30 s Dauer, periodischer Dummy alle 10 s. Der `case`-Zweig wirkt den Zauber jetzt auf das Kampfziel und plant sich neu ein (25–35 s). Dazu ein `AuraScript` auf 7054, das den Dummy auswertet und einen der fünf Zusatzflüche legt: **7038** Schaden, **7039** Rüstung, **7040** Leben, **7041** Heilung, **7042** Bewegungstempo. Die Prozentwerte je Schwierigkeitsgrad stehen in den Zaubern selbst, es wird nicht nach normal/heroisch verzweigt. |
+| **Regression Risk** | **niedrig** — ein bisher wirkungsloser Timer bekommt seine Wirkung; kein bestehendes Verhalten überschrieben. |
+| **Status** | **behoben** (Commit `870b487`). |
 
 ### LEG-013 — Iskar und Socrethar (Höllenfeuerzitadelle) nur als Gerüst
 
@@ -311,13 +313,13 @@ Broken Isles/Broken Shore: `Scenario/BrokenIslands` (4269 Zeilen, Karte 1460), `
 | **Priorität** | **P3** |
 | **Reproduktionsschritte** | 1. Höllenfeuerzitadelle betreten. 2. Iskar bzw. Socrethar pullen. |
 | **Expected Result** | Der Kampf verläuft mit den Fähigkeiten des jeweiligen Bosses (Iskar: Auge von Anzu, Phantomsicht; Socrethar: Schattengeschmiedeter Verteidiger). |
-| **Actual Result** | **Nicht beobachtet.** Statisch belegt: beide KIs enthalten Kampfrahmen (Aggro, Kill, Tod, Bosszustand), aber keine Fähigkeitenliste. Der Dateikopf sagt das ausdrücklich. |
-| **Root Cause** | Die Abfrage des Schlachtzugsjournals lieferte für diese beiden Bosse keine Fähigkeitenliste. Ich habe bewusst kein Verhalten erfunden. |
-| **Affected Files** | `src/server/scripts/Draenor/HellfireCitadel/boss_hfc_upper.cpp` |
-| **Affected Database Tables** | `world.creature_template` (95067, 91769), DB2 `JournalEncounter`, `JournalEncounterSection` |
-| **Suggested Fix** | Fähigkeiten aus dem DB2-Journal des 7.3.5-Clients ableiten, sobald `ClientData` vorliegt. |
-| **Regression Risk** | **niedrig** — der Encounter-Rahmen (Bossleiste, Sperre, Fortschritt) funktioniert bereits, die Ergänzung fügt nur Zauber hinzu. |
-| **Status** | **offen — dokumentiert, blockiert durch DEP-001.** |
+| **Actual Result** | **Nicht beobachtet.** Statisch belegt: beide KIs enthielten nur den Kampfrahmen (Aggro, Kill, Tod, Bosszustand), keine Fähigkeitenliste. |
+| **Root Cause** | Die frühere Journalabfrage kam leer zurück. Eine erneute, gezielte Abfrage lieferte beide Listen vollständig. |
+| **Affected Files** | `src/server/scripts/Draenor/HellfireCitadel/boss_hfc_upper.cpp`, `.../hellfire_citadel.h` |
+| **Affected Database Tables** | `world.creature_template` (90316, 90296), DB2 `JournalEncounter`, `JournalEncounterSection` |
+| **Suggested Fix** | Umgesetzt. Iskar: Fokussierter Stoß 181912, Phantomwinde 181956, Teufelschakram 182173, Phantomwunden 182323, Teufelsverbrennung 182582, Schattenriposte 185343 (mythisch). Socrethar/Seelengebundener Konstrukt: Nachhallender Schlag 182635 (trägt Zersplitterte Verteidigung 182038), Teufelsgefängnis 181288, Flüchtige Teufelskugel 180221, Teufelsflammenansturm 182051, Apokalyptischer Teufelsstoß 188693 (mythisch), Dominanz erzwingen 183331 + Apokalypse 183329. |
+| **Regression Risk** | **mittel.** Der Kontrollwechsel des Konstrukts zwischen Socrethar und einem Spieler hängt an einem Fahrzeugzauber aus der Weltdatenbank und ist bewusst nicht nachgebaut; das Auge von Anzu (179202) bleibt ebenfalls Sache der Spieler/DB. Beides ist im Dateikopf vermerkt. |
+| **Status** | **behoben** (Commit `870b487`) — **mit einem gravierenden Nebenbefund.** Beide Kreatureinträge aus meiner WoD-Runde waren falsch: `NPC_SHADOW_LORD_ISKAR` stand auf **95067**, das ist der gleichnamige NPC im **Tanaandschungel**; der Raidboss ist **90316**. `NPC_SOCRETHAR_THE_ETERNAL` stand auf **91769**; die Begegnung läuft über den **Seelengebundenen Konstrukt 90296**. Mit den alten Einträgen hätten beide Skripte nie gebunden. Die übrigen 16 Einträge von Schwarzfelsgießerei, Höllenfeuerzitadelle und Grimmschienen-Depot wurden daraufhin einzeln gegengeprüft und sind korrekt. |
 
 ### LEG-014 — Zeitbedarf offener `//todo`/`FIXME`-Stellen
 
@@ -333,9 +335,9 @@ Broken Isles/Broken Shore: `Scenario/BrokenIslands` (4269 Zeilen, Karte 1460), `
 | **Root Cause** | Ursprüngliche Autoren. |
 | **Affected Files** | siehe Suche |
 | **Affected Database Tables** | verschieden |
-| **Suggested Fix** | Kein Sammeleingriff. Die Botaniker-Tel'arn-Zeiten und der Mardum-Bedrohungsfehler sind Kandidaten für die nächste Runde, sobald ein Testrealm läuft. |
+| **Suggested Fix** | Kein Sammeleingriff. Zwei Einträge sind einzeln abgearbeitet, siehe Status. |
 | **Regression Risk** | — |
-| **Status** | **offen — als Bestandsaufnahme geführt.** |
+| **Status** | **teilweise behoben** (Commit `a6f922e`). **`mardum.cpp:1740` behoben:** `JustDied()` von Tyranna räumte die beschworenen Adds nicht ab, obwohl `Reset()` es tut. Die Adds (100333) überlebten den Boss und hielten die verbündeten Dämonenjäger-NPCs im Kampf — genau das beschriebene Symptom. Jetzt `summons.DespawnAll()`, `events.Reset()` und `me->CombatStop(true)`. Der Faktionswechsel der Verbündeten kommt aus der Weltdatenbank und bleibt unangetastet. **`boss_high_botanist_telarn.cpp:816/1027/1771` bewusst unverändert:** das sind drei plausible, funktionierende Zeitwerte, die von den Autoren ehrlich als ungeprüft markiert wurden. Sie ohne Testrealm zu verändern wäre Raten an laufendem Code — sie bleiben als Feinschliff für den ersten echten Testlauf stehen. Die restlichen Vermerke sind Notizen ohne Fehlerbezug. |
 
 ---
 
@@ -358,15 +360,37 @@ Der in dieser Sitzung eingeführte Kernumbau `SCR_MAP_BGN_INSTANCE` (`Scripting/
 
 ---
 
-## 5. Priorisierte Reihenfolge
+## 5. Stand nach der Fixrunde
 
-| Rang | ID | Priorität | Aufwand |
-|---|---|---|---|
-| 1 | DEP-001 | P0 | extern — Weltdatenbank + `ClientData` beschaffen |
-| 2 | LEG-007 | P2 | klein — Löschvorgang ans Ereignisende hängen |
-| 3 | LEG-008 | P2 | groß — 5 Klassen, ~10 Szenarien |
-| 4 | LEG-011, LEG-012, LEG-013 | P3 | mittel — je Boss ein Mechanikblock |
-| 5 | LEG-009 | P3 | erst nach DB-Import entscheidbar |
-| 6 | LEG-010, LEG-014 | P4 | Aufräumen |
+| ID | Priorität | Status |
+|---|---|---|
+| DEP-001 | P0 | **offen — extern.** Weltdatenbank + `ClientData` beschaffen; Prüfschritte jetzt in `docs/SETUP.md` |
+| LEG-001 | P1 | **behoben** — Skriptnamenkollision Archimonde |
+| LEG-002 | P2 | **behoben** — Un'Goro-Wahn, 24 Registrierungen |
+| LEG-007 | P2 | **behoben** — Löschvorgang ans Ereignisende verlagert, zwei Zuweisungsfehler mit |
+| LEG-008 | P2 | **offen** — Artefaktszenarien für 5 Klassen; Kartennummern ohne Clientdaten nicht belegbar |
+| LEG-003 | P3 | **behoben** — Sternzeichen-Mechanik Etraeus |
+| LEG-004 | P3 | **behoben** — Frühlingsballonfest |
+| LEG-005 | P3 | **behoben** — zwei OutdoorPvP-Skripte |
+| LEG-009 | P3 | **offen** — Klassenhallen-Kampagne, erst nach DB-Import entscheidbar |
+| LEG-010 | P3 | **behoben** — Garnisonsgebäude in Klassenhallen (war fälschlich als P4/tot geführt) |
+| LEG-011 | P3 | **behoben** — Glubtoks Feuerwand |
+| LEG-012 | P3 | **behoben** — Verlassenen-Fähigkeit samt fünf Zusatzflüchen |
+| LEG-013 | P3 | **behoben** — Iskar und Socrethar, dabei zwei falsche Kreatureinträge gefunden |
+| LEG-006 | P4/P3 | **behoben** — vier Kodierungen |
+| LEG-014 | P4 | **teilweise** — Mardum-Bedrohungsfehler behoben, Tel'arn-Zeiten bewusst offen |
 
-**Behoben in dieser Runde:** LEG-001 (P1), LEG-002 (P2), LEG-003 (P3), LEG-004 (P3), LEG-005 (P3), LEG-006 (P4/P3).
+**11 von 14 Befunden behoben, einer teilweise.** Offen bleiben drei, und zwar aus jeweils belegtem Grund, nicht aus Aufwandsgründen:
+
+* **DEP-001** ist kein Codefehler — die Daten müssen beschafft werden.
+* **LEG-008** braucht Kartennummern aus `Map.db2`. LEG-013 hat in dieser Runde gezeigt, was ein einziger geratener Eintrag anrichtet: zwei Bossskripte waren an eine Kreatur im Tanaandschungel gebunden statt an den Raidboss.
+* **LEG-009** ist nicht als Fehler belegt, sondern als offene Frage, die der erste Kampagnendurchlauf beantwortet.
+
+### Zwei Korrekturen an meinem eigenen Bericht
+
+1. **LEG-010 war falsch eingeordnet.** Ich hatte geschrieben, die Funktion werde nirgends aufgerufen — die Aufrufersuche war durch ein `head -20` abgeschnitten. `isClassHallMap` wird in `Plot::CreateGameObject` benutzt und ließ für neun der zwölf Klassenhallen Garnisonsgebäude durch. P3, nicht P4.
+2. **LEG-011 hatte die falsche Ursache.** Ich hatte fünf Flammenwand-NPCs zum Beschwören und Bewegen angenommen. Tatsächlich ist die Feuerwand ein einzelner Zauber, den Glubtok auf sich selbst wirkt; die NPCs sind bloße Sichtbarkeitsträger. Der Fix ist dadurch eine Zeile statt eines Bewegungssystems.
+
+### Unverändert offen aus früheren Runden
+
+Der Kernumbau `SCR_MAP_BGN_INSTANCE` (`Scripting/ScriptMgr.cpp`) betrifft **jede** Instanz im Spiel und ist weiterhin nur statisch geprüft. Neu hinzugekommen ist `OutdoorPvP::HandleGameEventEnd` — rein additiv mit leerem Standardrumpf, aber ebenfalls ungetestet zur Laufzeit. Beide gehören an den Anfang des ersten Testlaufs nach dem DB-Import.
