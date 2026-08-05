@@ -77,5 +77,5 @@ public:
 
 void AddSC_instance_the_secrets_of_ragefire()
 {
-    //new instance_the_secrets_of_ragefire();
+    new instance_the_secrets_of_ragefire();
 }

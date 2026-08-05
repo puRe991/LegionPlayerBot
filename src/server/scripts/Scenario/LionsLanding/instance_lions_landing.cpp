@@ -77,5 +77,5 @@ public:
 
 void AddSC_instance_lions_landing()
 {
-    //new instance_lions_landing();
+    new instance_lions_landing();
 }

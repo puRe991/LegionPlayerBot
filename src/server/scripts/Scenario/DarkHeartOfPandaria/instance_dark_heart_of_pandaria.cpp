@@ -77,5 +77,5 @@ public:
 
 void AddSC_instance_dark_heart_of_pandaria()
 {
-    //new instance_dark_heart_of_pandaria();
+    new instance_dark_heart_of_pandaria();
 }

@@ -77,5 +77,5 @@ public:
 
 void AddSC_instance_greenstone_village()
 {
-    //new instance_greenstone_village();
+    new instance_greenstone_village();
 }

@@ -307,5 +307,5 @@ bool Helper::IsNextStageAllowed(InstanceScript* instance, uint8 stage)
 
 void AddSC_instance_thunder_forge()
 {
-    //new instance_thunder_forge();
+    new instance_thunder_forge();
 }

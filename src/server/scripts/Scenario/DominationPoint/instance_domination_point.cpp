@@ -77,5 +77,5 @@ public:
 
 void AddSC_instance_domination_point()
 {
-    //new instance_domination_point();
+    new instance_domination_point();
 }

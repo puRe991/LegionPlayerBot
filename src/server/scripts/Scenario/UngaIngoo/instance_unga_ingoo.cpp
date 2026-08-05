@@ -77,5 +77,5 @@ public:
 
 void AddSC_instance_unga_ingoo()
 {
-    //new instance_unga_ingoo();
+    new instance_unga_ingoo();
 }

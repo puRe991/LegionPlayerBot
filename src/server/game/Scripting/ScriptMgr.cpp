@@ -555,6 +555,26 @@ void ScriptMgr::OnGroupRateCalculation(float& rate, uint32 count, bool isRaid)
         } \
     }
 
+// Instance maps need a stricter rule than "first script bound to this map id".
+// Scenarios legitimately share one: six of them sit on map 1144 and two on
+// 1126, so the plain match above hands OnCreate and OnPlayerEnter to whichever
+// script the registry reaches first, which is arbitrary. When the map names a
+// script in instance_template -- which is also what CreateInstanceData goes by
+// -- that script owns the map. Maps without one keep the old behaviour.
+#define SCR_MAP_BGN_INSTANCE(M, V, I, E, C, T) \
+    if (V->GetEntry() && V->GetEntry()->T()) \
+    { \
+        InstanceMap* const ownerMap = V->ToInstanceMap(); \
+        uint32 const ownerScriptId = ownerMap ? ownerMap->GetScriptId() : 0; \
+        FOR_SCRIPTS(M, I, E) \
+        { \
+            MapEntry const* C = I->second->GetEntry(); \
+            if (!C || C->ID != V->GetId()) \
+                continue; \
+            if (ownerScriptId && I->first != ownerScriptId) \
+                continue; \
+            {
+
 void ScriptMgr::OnCreateMap(Map* map)
 {
     ASSERT(map);
@@ -563,7 +583,7 @@ void ScriptMgr::OnCreateMap(Map* map)
         itr->second->OnCreate(map);
     SCR_MAP_END;
 
-    SCR_MAP_BGN(InstanceMapScript, map, itr, end, entry, IsDungeon);
+    SCR_MAP_BGN_INSTANCE(InstanceMapScript, map, itr, end, entry, IsDungeon);
         itr->second->OnCreate(map->ToInstanceMap());
     SCR_MAP_END;
 
@@ -580,7 +600,7 @@ void ScriptMgr::OnDestroyMap(Map* map)
         itr->second->OnDestroy(map);
     SCR_MAP_END;
 
-    SCR_MAP_BGN(InstanceMapScript, map, itr, end, entry, IsDungeon);
+    SCR_MAP_BGN_INSTANCE(InstanceMapScript, map, itr, end, entry, IsDungeon);
         itr->second->OnDestroy(map->ToInstanceMap());
     SCR_MAP_END;
 
@@ -598,7 +618,7 @@ void ScriptMgr::OnLoadGridMap(Map* map, GridMap* gmap, uint32 gx, uint32 gy)
         itr->second->OnLoadGridMap(map, gmap, gx, gy);
     SCR_MAP_END;
 
-    SCR_MAP_BGN(InstanceMapScript, map, itr, end, entry, IsDungeon);
+    SCR_MAP_BGN_INSTANCE(InstanceMapScript, map, itr, end, entry, IsDungeon);
         itr->second->OnLoadGridMap(map->ToInstanceMap(), gmap, gx, gy);
     SCR_MAP_END;
 
@@ -616,7 +636,7 @@ void ScriptMgr::OnUnloadGridMap(Map* map, GridMap* gmap, uint32 gx, uint32 gy)
         itr->second->OnUnloadGridMap(map, gmap, gx, gy);
     SCR_MAP_END;
 
-    SCR_MAP_BGN(InstanceMapScript, map, itr, end, entry, IsDungeon);
+    SCR_MAP_BGN_INSTANCE(InstanceMapScript, map, itr, end, entry, IsDungeon);
         itr->second->OnUnloadGridMap(map->ToInstanceMap(), gmap, gx, gy);
     SCR_MAP_END;
 
@@ -636,7 +656,7 @@ void ScriptMgr::OnPlayerEnterMap(Map* map, Player* player)
         itr->second->OnPlayerEnter(map, player);
     SCR_MAP_END;
 
-    SCR_MAP_BGN(InstanceMapScript, map, itr, end, entry, IsDungeon);
+    SCR_MAP_BGN_INSTANCE(InstanceMapScript, map, itr, end, entry, IsDungeon);
         itr->second->OnPlayerEnter(map->ToInstanceMap(), player);
     SCR_MAP_END;
 
@@ -654,7 +674,7 @@ void ScriptMgr::OnPlayerLeaveMap(Map* map, Player* player)
         itr->second->OnPlayerLeave(map, player);
     SCR_MAP_END;
 
-    SCR_MAP_BGN(InstanceMapScript, map, itr, end, entry, IsDungeon);
+    SCR_MAP_BGN_INSTANCE(InstanceMapScript, map, itr, end, entry, IsDungeon);
         itr->second->OnPlayerLeave(map->ToInstanceMap(), player);
     SCR_MAP_END;
 

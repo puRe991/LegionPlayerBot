@@ -78,5 +78,5 @@ public:
 
 void AddSC_instance_fall_of_shan_bu()
 {
-    //new instance_fall_of_shan_bu();
+    new instance_fall_of_shan_bu();
 }
