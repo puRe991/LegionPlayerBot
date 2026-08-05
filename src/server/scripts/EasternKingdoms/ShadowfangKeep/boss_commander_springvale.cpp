@@ -311,7 +311,7 @@ class npc_springvale_tormented_officer : public CreatureScript
                             DoCast(SPELL_SHIELD_WALL);
                             break;
                         case EVENT_FORSAKEN_ABILITY:
-                            //todo: реализовать спелл
+                            //todo: Zauber implementieren
                             break;
                         case EVENT_UNHOLY_EMPOWERMENT:
                             if (instance)

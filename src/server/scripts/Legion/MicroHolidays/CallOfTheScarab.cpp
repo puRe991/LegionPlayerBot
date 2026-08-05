@@ -352,7 +352,7 @@ class spell_silithyst : public AuraScript
 
 void AddSC_CallOfTheScarab()
 {
-    //new OutdoorPvP_Silithus();
+    new OutdoorPvP_Silithus();
     new go_wind_stone();
     RegisterCreatureAI(npc_sillithis_colossus);
     RegisterAuraScript(spell_silithyst);

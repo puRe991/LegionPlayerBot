@@ -320,7 +320,7 @@ struct npc_ilthine_sunsong : ScriptedAI
 void AddSC_ThousandBoatBash()
 {
     new sceneTrigger_beach_ball();
-    //new OutdoorPvP_ThousandNeedles();
+    new OutdoorPvP_ThousandNeedles();
     RegisterAuraScript(spell_bating);
     RegisterAuraScript(spell_boat_day);
     RegisterCreatureAI(npc_fizzle_brassbolts);

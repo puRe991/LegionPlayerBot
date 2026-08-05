@@ -2088,7 +2088,6 @@ void AddSC_world_bossess_legion()
     new boss_humongris();
     
     new boss_calamir();
- //   new spell_arcanopulse();
  
     new boss_withered_jim();
     new spell_resonance();

@@ -2847,7 +2847,7 @@ struct npc_decimax : ScriptedAI
             return;
 
         use = true;
-        //me->SetReactState(REACT_PASSIVE); // вызывает проблемы с уроном АТ от 250242.
+        //me->SetReactState(REACT_PASSIVE); // verursacht Probleme mit dem AT-Schaden von 250242.
         DoCast(250242);
         me->AddDelayedEvent(3000, [=]() -> void
         {

@@ -2324,7 +2324,7 @@ void AddSC_SpringBalloonFestival()
     RegisterCreatureAI(npc_emi_lan);
     RegisterCreatureAI(npc_chens_vh);
     RegisterCreatureAI(npc_scgnottz_vh);
-    //RegisterCreatureAI(npc_lin_cloudwalker_vh);
+    RegisterCreatureAI(npc_lin_cloudwalker_vh);
     RegisterCreatureAI(npc_boscoe_vh);
     RegisterCreatureAI(npc_rungle_vh);
     RegisterCreatureAI(npc_zang_cloudwalker_vh);
@@ -2334,7 +2334,7 @@ void AddSC_SpringBalloonFestival()
     RegisterCreatureAI(npc_sky_chariot);
     RegisterCreatureAI(npc_chens_balloon);
     RegisterCreatureAI(npc_cloudwalker_express);
-    //RegisterCreatureAI(npc_cloudwalker_express_mop);
+    RegisterCreatureAI(npc_cloudwalker_express_mop);
     RegisterCreatureAI(npc_the_killemjaro);
     RegisterCreatureAI(npc_emi_lans_skylounge);
     RegisterSpellScript(spell_schnottz_has_to_go);

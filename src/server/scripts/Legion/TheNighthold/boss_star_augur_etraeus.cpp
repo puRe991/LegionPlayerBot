@@ -1519,5 +1519,5 @@ void AddSC_boss_star_augur_etraeus()
     RegisterAuraScript(spell_augur_devouring_remnant);
     RegisterSpellScript(spell_augur_fel_ember);
     RegisterAreaTriggerAI(at_augur_absolute_zero);
-    //RegisterAreaTriggerAI(at_augur_star_sign);
+    RegisterAreaTriggerAI(at_augur_star_sign);
 }

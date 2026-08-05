@@ -65,7 +65,7 @@ void CustomTalkMenu::DisplayMenuToPlayer(Player* player, PlayerMenuState* pState
 			//if (pItem->price > 0)
 			//{
 			//	std::string topText;
-			//	consoleToUtf8(std::string(" 需要荣誉 "), topText);
+			//	consoleToUtf8(std::string(" Ehre erforderlich "), topText);
 			//	std::string outputText = pItem->name + "|cffff0000 Need Honor |r";
 			//	menu.AddMenuItem(-1, icon, outputText, 0, 0, "", 0);
 			//}
@@ -158,7 +158,7 @@ void CustomTalkMenu::Initialize()
 	uint32 oldMSTime = getMSTime();
 	ClearMenu();
 	return ;
-	QueryResult result = WorldDatabase.Query("SELECT * FROM _功能宝石");
+	QueryResult result = WorldDatabase.Query("SELECT * FROM _Funktionsedelstein");
 	if (!result)
 	{
 		//TC_LOG_INFO("server.loading", ">> CustomTalkMenu Find 0 item!");
@@ -167,7 +167,7 @@ void CustomTalkMenu::Initialize()
 
 	ClearMenu();
 	//std::string topText;
-	//consoleToUtf8(std::string("--<超级功能>--"), topText);
+	//consoleToUtf8(std::string("--<Erweiterte Funktionen>--"), topText);
 	//m_MenuItems[0] = new CustomItem(0, -1, -1, 0, 0, topText, 0, 0, 0, 0, 0, 0);
 	do
 	{
@@ -270,7 +270,7 @@ void CustomTalkMenu::OnSelectMenuItem(Player* player, uint32 index)
 			{
 				DisplayMenuToPlayer(player, pMenu);
 				std::string topText;
-				consoleToUtf8(std::string("荣誉点数不足！"), topText);
+				consoleToUtf8(std::string("Nicht genug Ehrenpunkte!"), topText);
 				player->Whisper(topText, Language::LANG_COMMON, player->GetGUID());
 				return;
 			}
@@ -533,7 +533,7 @@ bool CustomTalkMenu::ProcessArenaList(CustomItem* pMenuItem, Player* player)
 	
 	{
 		std::string allonlineText;
-		consoleToUtf8(std::string("|cffff8800选定的竞技场战队有成员当前正忙，无法挑战。|r"), allonlineText);
+		consoleToUtf8(std::string("|cffff8800Ein Mitglied des gewaehlten Arenateams ist gerade beschaeftigt, Herausforderung nicht moeglich.|r"), allonlineText);
 		sWorld->SendGlobalText(allonlineText.c_str(), NULL);
 	}
 	return true;

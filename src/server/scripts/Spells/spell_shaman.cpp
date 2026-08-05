@@ -1706,6 +1706,5 @@ void AddSC_shaman_spell_scripts()
     RegisterAuraScript(spell_sha_earthen_rage);
     RegisterSpellScript(spell_sha_feral_lunge);
     RegisterAuraScript(spell_sha_hex);
-    //RegisterAuraScript(spell_sha_lightning_rod);
     RegisterSpellScript(spell_sha_elem_blast);
 }

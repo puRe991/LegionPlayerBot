@@ -777,14 +777,14 @@ enum ArchimondeMisc
     ARCHIMONDE_STAGE_THREE_PCT  = 30
 };
 
-class boss_archimonde : public CreatureScript
+class boss_hfc_archimonde : public CreatureScript
 {
     public:
-        boss_archimonde() : CreatureScript("boss_archimonde") { }
+        boss_hfc_archimonde() : CreatureScript("boss_hfc_archimonde") { }
 
-        struct boss_archimondeAI : public BossAI
+        struct boss_hfc_archimondeAI : public BossAI
         {
-            boss_archimondeAI(Creature* creature) : BossAI(creature, DATA_ARCHIMONDE) { }
+            boss_hfc_archimondeAI(Creature* creature) : BossAI(creature, DATA_ARCHIMONDE) { }
 
             void Reset()
             {
@@ -901,7 +901,7 @@ class boss_archimonde : public CreatureScript
 
         CreatureAI* GetAI(Creature* creature) const
         {
-            return new boss_archimondeAI(creature);
+            return new boss_hfc_archimondeAI(creature);
         }
 };
 
@@ -913,5 +913,5 @@ void AddSC_hfc_upper()
     new boss_fel_lord_zakuun();
     new boss_xhulhorac();
     new boss_mannoroth_hfc();
-    new boss_archimonde();
+    new boss_hfc_archimonde();
 }

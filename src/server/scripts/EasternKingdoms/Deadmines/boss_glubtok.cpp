@@ -1,7 +1,7 @@
 #include "ObjectMgr.h"
 #include "deadmines.h"
 
-//todo: реализовать flame wall
+//todo: Flammenwand (flame wall) implementieren
 
 enum ScriptTexts
 {
