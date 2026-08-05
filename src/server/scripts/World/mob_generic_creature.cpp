@@ -229,7 +229,7 @@ public:
 
 void AddSC_generic_creature()
 {
-    //new generic_creature;
+    new generic_creature;
     new trigger_periodic;
-    //new trigger_death;
+    new trigger_death;
 }

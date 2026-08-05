@@ -1644,7 +1644,7 @@ public:
 void AddSC_AshranNPCNeutral()
 {
     new npc_ashran_herald();
-    //new npc_slg_generic_mop();
+    new npc_slg_generic_mop();
     new npc_faction_boss();
     new npc_ashran_flight_masters();
     new npc_ashran_spirit_healer();

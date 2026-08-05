@@ -5548,10 +5548,10 @@ public:
 
 void AddSC_custom_events()
 {
-    //RegisterCreatureAI(boss_temple_vonjin);
-    //RegisterCreatureAI(npc_temple_vonjin_weapon);
+    RegisterCreatureAI(boss_temple_vonjin);
+    RegisterCreatureAI(npc_temple_vonjin_weapon);
 
-    //RegisterCreatureAI(boss_temple_lessar);
+    RegisterCreatureAI(boss_temple_lessar);
 
     RegisterCreatureAI(npc_legion_invasion_daily_quest_initiator);
     RegisterCreatureAI(npc_legion_invasion_daily_quest_ship);
@@ -5581,21 +5581,21 @@ void AddSC_custom_events()
     RegisterCreatureAI(npc_new_year_2019_evala_guard);
 
 
-    //RegisterCreatureAI(boss_hex_lord_hadorn);
-    //RegisterCreatureAI(npc_hexlord_hadorn_poison_ring);
-    //RegisterCreatureAI(npc_hexlord_hadorn_fury_of_temple);
-    //RegisterCreatureAI(npc_event_summon_points_portal_initiator);
-    //RegisterCreatureAI(npc_event_spirit_chains);
-    //RegisterCreatureAI(npc_hexlord_hadorn_totem);
-    //RegisterCreatureAI(npc_hexlord_hadorn_sphere);
-    //RegisterCreatureAI(npc_hexlord_hadorn_add);
-    //RegisterCreatureAI(npc_events_temple_summon_ritual_s);
-    //RegisterCreatureAI(npc_events_temple_summon_ritual_t);
+    RegisterCreatureAI(boss_hex_lord_hadorn);
+    RegisterCreatureAI(npc_hexlord_hadorn_poison_ring);
+    RegisterCreatureAI(npc_hexlord_hadorn_fury_of_temple);
+    RegisterCreatureAI(npc_event_summon_points_portal_initiator);
+    RegisterCreatureAI(npc_event_spirit_chains);
+    RegisterCreatureAI(npc_hexlord_hadorn_totem);
+    RegisterCreatureAI(npc_hexlord_hadorn_sphere);
+    RegisterCreatureAI(npc_hexlord_hadorn_add);
+    RegisterCreatureAI(npc_events_temple_summon_ritual_s);
+    RegisterCreatureAI(npc_events_temple_summon_ritual_t);
 
-    //RegisterAuraScript(spell_events_transfer_temple_bottom);
-    //RegisterAuraScript(spell_events_vonjin_bladestorm);
-    //RegisterAuraScript(spell_events_spirit_chains);
-    //RegisterAuraScript(spell_events_hadorn_explode_debuff);
+    RegisterAuraScript(spell_events_transfer_temple_bottom);
+    RegisterAuraScript(spell_events_vonjin_bladestorm);
+    RegisterAuraScript(spell_events_spirit_chains);
+    RegisterAuraScript(spell_events_hadorn_explode_debuff);
     RegisterAuraScript(spell_events_warsong_speedbonus);
     RegisterAuraScript(spell_events_tabard_arcane_magic);
     RegisterAuraScript(spell_new_year_atray_explode_frost_debuff);
@@ -5606,8 +5606,8 @@ void AddSC_custom_events()
     RegisterAuraScript(spell_new_year_evala_auras_305279);
     RegisterAuraScript(spell_new_year_evala_auras_305260);
     RegisterAuraScript(spell_new_year_evala_auras_305262);
-    //RegisterSpellScript(spell_events_temple_aoe_bottom_top_filter);
-    //RegisterSpellScript(spell_events_hadorn_cry_of_the_damned);
+    RegisterSpellScript(spell_events_temple_aoe_bottom_top_filter);
+    RegisterSpellScript(spell_events_hadorn_cry_of_the_damned);
     RegisterSpellScript(spell_events_aoe_trap_stromgard);
     RegisterSpellScript(spell_events_warsong_remove_passenger);
     RegisterSpellScript(spell_events_warsong_take_passenger_check);
@@ -5616,11 +5616,12 @@ void AddSC_custom_events()
     RegisterSpellScript(spell_new_year_evala_neg_check);
     RegisterSpellScript(spell_new_year_evala_pos_check);
     RegisterSpellScript(spell_new_year_evala_tomb_ts);
+    RegisterSpellScript(spell_new_year_atray_khadgar_ts);
 
     RegisterAreaTriggerAI(at_events_warsong_bonuses);
 
-    //new npc_events_temple_summon_ritual_f();
-    //new npc_events_temple_summon_ritual_d();
+    new npc_events_temple_summon_ritual_f();
+    new npc_events_temple_summon_ritual_d();
     new npc_events_portal_master_portal();
     new npc_events_portal_master_portal_exit();
     new npc_events_warsong_vehicle_take();

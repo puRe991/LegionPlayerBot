@@ -143,5 +143,14 @@ void AddSC_BattlePay_Services()
 {
     new BattlePay_Level<90>("battlepay_service_level90");
     new playerScriptTokensAvailable();
-    //new BattlePay_AccountService<ServiceFlags::PremadePve>("battlepay_service_premade");
+
+    // BattlePay_AccountService ist nicht aktivierbar. Die auskommentierte
+    // Registrierung verweist auf ServiceFlags::PremadePve -- diesen Typ gibt es
+    // im gesamten Projekt nicht, ebensowenig WorldSession::SetServiceFlags(),
+    // das der Klassenrumpf aufrufen wuerde (dort ebenfalls auskommentiert).
+    // Die Klasse ist ein Template und kompiliert nur, weil sie nie instanziiert
+    // wird; eine Registrierung waere ein Uebersetzungsfehler.
+    // Wuerde man beides anlegen, waere die Auslieferungsfunktion trotzdem leer --
+    // ein bezahltes Produkt wuerde als geliefert quittiert, ohne etwas zu tun.
+    // Erst Enum und Sitzungsmethode implementieren, dann registrieren.
 }

@@ -3583,9 +3583,9 @@ void AddSC_AshranNPCHorde()
     new npc_ashran_examiner_rahm_flameheart();
     new npc_ashran_centurion_firescream();
     new npc_ashran_legionnaire_hellaxe();
-    //new npc_ashran_kalgan();
-    //new npc_ashran_fura();
-    //new npc_ashran_nisstyr();
+    new npc_ashran_kalgan();
+    new npc_ashran_fura();
+    new npc_ashran_nisstyr();
     new npc_ashran_atomik();
     new npc_ashran_zaram_sunraiser();
     new npc_ashran_horde_gateway_guardian();

@@ -2469,5 +2469,5 @@ public:
 
 void AddSC_AshranMgr()
 {
-    //new OutdoorPvP_Ashran();
+    new OutdoorPvP_Ashran();
 }

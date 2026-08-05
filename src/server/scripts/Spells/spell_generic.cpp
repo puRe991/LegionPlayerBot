@@ -2588,6 +2588,12 @@ class spell_gen_wg_water : public SpellScriptLoader
         }
 };
 
+// Mehrzweckhelfer: rechnet den Trefferschaden in einen Prozentsatz der maximalen
+// Gesundheit des Ziels um. Bewusst ohne eigene Registrierung -- er wird je Zauber
+// mit eigenem Skriptnamen und eigenem Prozentwert angelegt, etwa
+//   new spell_gen_count_pct_from_max_hp("spell_<zauber>_pct", 20);
+// Ohne einen konkreten Zauber gaebe es weder Namen noch Prozentwert, deshalb
+// steht hier keine Beispielregistrierung.
 class spell_gen_count_pct_from_max_hp : public SpellScriptLoader
 {
     public:
