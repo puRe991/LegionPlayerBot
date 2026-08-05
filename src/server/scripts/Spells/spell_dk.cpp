@@ -737,7 +737,10 @@ class spell_dk_defile : public SpellScriptLoader
 
             void Register() override
             {
-                //OnEffectPeriodic += AuraEffectPeriodicFn(spell_dk_defile_AuraScript::OnTick, EFFECT_2, SPELL_AURA_PERIODIC_DUMMY);
+                // OnTick ist zusammen mit seiner Implementierung abgeschaltet
+                // (Blockkommentar oben). Es steuerte nur das Wachsen der
+                // Verunstaltung ueber SendPlaySpellVisualKit; der Schaden kommt
+                // aus dem Zauber selbst. Fehlt also nur die Optik.
                 DoEffectCalcAmount += AuraEffectCalcAmountFn(spell_dk_defile_AuraScript::CalculateAmount, EFFECT_3, SPELL_AURA_SCHOOL_ABSORB);
             }
         };

@@ -1865,9 +1865,12 @@ public:
 
         void Register() override
         {
-            //TODO: this is still a mess...
-            //OnEffectHitTarget += SpellEffectFn(spell_legion_197486_SpellScript::AddVehicleEnter, EFFECT_0, SPELL_EFFECT_KNOCK_BACK);
-            //AfterHit += SpellHitFn(spell_legion_197486_SpellScript::RemoveVehicleEnter);
+            // Bewusst ohne Handler. Die beiden Funktionen oben heben sich auf:
+            // AddVehicleEnter legt Aura 197493 auf Tyranna, RemoveVehicleEnter
+            // nimmt sie wieder weg. An OnEffectHitTarget und AfterHit gebunden
+            // liefen sie beim selben Zauberwurf nacheinander -- erst setzen,
+            // dann sofort entfernen, also im Ergebnis nichts. Wer das aufgreift,
+            // muss zuerst klaeren, welches Ereignis die Aura wieder loesen soll.
         }
     };
 

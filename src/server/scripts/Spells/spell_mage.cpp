@@ -2040,5 +2040,4 @@ void AddSC_mage_spell_scripts()
     RegisterAuraScript(spell_mage_immolation);
     RegisterAuraScript(spell_mage_highblades_will);
     RegisterSpellScript(spell_mage_phoenixs_flames);
-	//new areatrigger_at_mage_frozen_orb();
 }

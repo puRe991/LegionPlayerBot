@@ -1071,6 +1071,7 @@ public:
                             target->NearTeleportTo(target->GetPositionX(), target->GetPositionY(), target->GetPositionZ()+30.0f, target->GetOrientation());
                         }
                     }
+                    break;
                 case EVENT_DESPAWN:
                     if (Unit* target = GetPlayerAtMinimumRange(45.0f))
                         if (target && target->HasAura(SPELL_HURRICANE_CAST))

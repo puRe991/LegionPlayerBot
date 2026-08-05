@@ -240,7 +240,4 @@ void AddSC_zulaman()
     new npc_zulaman_forest_frog();
     new go_strange_gong();
     new npc_amanishi_tempest();
-    //new npc_amanishi_lookout();
-    //new npc_amani_eagle();
-    //new npc_amanishi_warrior();
 }

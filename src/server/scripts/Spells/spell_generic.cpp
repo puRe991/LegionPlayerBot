@@ -8346,7 +8346,6 @@ class spell_legion_hearty_feast : public AuraScript
 
 void AddSC_generic_spell_scripts()
 {
-//    new spell_gen_protect();
     new spell_sha_cloud();
     new spell_endurance_of_niuzao();
     new spell_gen_absorb0_hitlimit1();

@@ -309,6 +309,7 @@ struct boss_occularus : public ScriptedAI
                 if (auto target = me->getVictim())
                     DoCast(target, SPELL_GUSHING_WOUND, false);
                 events.RescheduleEvent(EVENT_GUSHING_WOUND, 11000);
+                break;
             case EVENT_LASH:
                 if (auto target = me->getVictim())
                     DoCast(target, SPELL_LASH, false);

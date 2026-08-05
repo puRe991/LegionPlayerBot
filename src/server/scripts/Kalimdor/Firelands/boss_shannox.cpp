@@ -322,6 +322,7 @@ class boss_shannox : public CreatureScript
                                             DoZoneInCombat(pRageface);
                             }
                             events.ScheduleEvent(EVENT_CHECK_COMBAT, 5000);
+                            break;
                         case EVENT_SEPARATION_ANXIETY:
                             if (Creature* pRiplimb = ObjectAccessor::GetCreature(*me, instance->GetGuidData(DATA_RIPLIMB)))
                                 if (pRiplimb->isAlive() && !me->IsWithinDist(pRiplimb, 80.0f) && !me->HasAura(SPELL_SEPARATION_ANXIETY))

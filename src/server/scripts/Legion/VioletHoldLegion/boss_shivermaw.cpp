@@ -159,6 +159,7 @@ public:
                     case EVENT_RELENTLESS_STORM:
                         DoCast(SPELL_RELENTLESS_STORM);
                         events.RescheduleEvent(EVENT_RELENTLESS_STORM, 14000);
+                        break;
                     case EVENT_TAIL_SWEEP:
                         DoCastVictim(SPELL_TAIL_SWEEP);
                         events.RescheduleEvent(EVENT_TAIL_SWEEP, 18000);

@@ -177,6 +177,7 @@ class boss_general_zarithrian : public CreatureScript
                         case EVENT_INTIDMDATING_ROAR:
                             DoCast(me, SPELL_INTIMIDATING_ROAR, true);
                             events.ScheduleEvent(EVENT_INTIDMDATING_ROAR, 42000);
+                            break;
                         case EVENT_CLEAVE:
                             DoCastVictim(SPELL_CLEAVE_ARMOR);
                             events.ScheduleEvent(EVENT_CLEAVE, 15000);

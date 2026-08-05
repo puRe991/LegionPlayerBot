@@ -229,6 +229,7 @@ class boss_vanessa_vancleef : public CreatureScript
                                 me->SummonCreature(NPC_DEFIAS_BLOOD_WIZARD, addsPos[2], TEMPSUMMON_CORPSE_TIMED_DESPAWN, 10000);
                                 events.RescheduleEvent(EVENT_ADDS_1, 15000);
                             }
+                            break;
                         case EVENT_VENGEANCE:
                             me->AddAura(SPELL_VENGEANCE_OF_VANCLEEF, me);
                             break;

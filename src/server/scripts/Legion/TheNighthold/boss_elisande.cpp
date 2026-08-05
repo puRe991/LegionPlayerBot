@@ -751,6 +751,7 @@ struct boss_elisande : BossAI
                     arcaneticRingTimeList.pop_front();
                     if (!arcaneticRingTimeList.empty())
                         events.RescheduleEvent(EVENT_ARCANETIC_RING, arcaneticRingTimeList.front());
+                    break;
                 }
                 case EVENT_CASCADENT_STAR:
                     if (me->GetReactState() != REACT_PASSIVE)

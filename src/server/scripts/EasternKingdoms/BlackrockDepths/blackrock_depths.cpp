@@ -1355,10 +1355,26 @@ void AddSC_blackrock_depths()
     new npc_lokhtos_darkbargainer();
     new npc_rocknot();
     new go_shadow_mechanism();
-    // Fix us
-    /*new npc_dughal_stormwing();
-      new npc_tobias_seecher();
-      new npc_marshal_windsor();
-      new npc_marshal_reginald_windsor();
-    */
+    // Die Ausbruchskette (Quest "Gefaengnisausbruch") bleibt abgeschaltet.
+    // Geprueft: die vier Klassen stehen vollstaendig in dieser Datei, in
+    // Blockkommentaren -- npc_dughal_stormwing, npc_marshal_windsor,
+    // npc_marshal_reginald_windsor, npc_tobias_seecher, zusammen rund 560 Zeilen.
+    // Sie sind aber nicht bloss abgeschaltet, sondern nicht zu Ende portiert:
+    //
+    //   * CAST_AI(npc_escort::npc_escortAI, ...) -- der Typ heisst hier
+    //     npc_escortAI; drei Fundstellen.
+    //   * 17 Instanz-Datentypen fehlen (DATA_QUEST_JAIL_BREAK, DATA_DUGHAL,
+    //     DATA_SUPPLY_ROOM, DATA_TOBIAS, DATA_SHILL, DATA_JAZ, DATA_CREST,
+    //     DATA_CREATURE_*, DATA_GATE_*) samt der sechs Zustaende
+    //     ENCOUNTER_STATE_*. Weder blackrock_depths.h noch das Instanzskript
+    //     kennen sie.
+    //   * Die sechs Tore DATA_GATE_D/J/S/C/SR/SC brauchen im Instanzskript ein
+    //     OnGameObjectCreate mit den passenden Objekteintraegen. Diese
+    //     Eintraege stehen nirgends in der Datei und sind ohne Weltdatenbank
+    //     nicht zu ermitteln.
+    //
+    // Nur die Buchhaltungswerte nachzuruesten reicht nicht: die Eskorten
+    // wuerden starten, ihre Texte sprechen und dann vor geschlossenen Toren
+    // stehenbleiben -- schlechter als der jetzige Zustand. Wer das aufgreift,
+    // braucht zuerst die Torobjekte aus der Weltdatenbank.
 }

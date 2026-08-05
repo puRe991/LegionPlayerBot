@@ -1433,8 +1433,12 @@ class npc_alysrazor_voracious_hatchling : public CreatureScript // 53509
                             }
                             break;
                         case EVENT_GUSHING_WOUND:
-                            //DoCast(me->getVictim(), SPELL_GUSHING_WOUND);
+                            // Zauber 99308, periodischer Schaden ueber 1 Minute --
+                            // deckt sich mit dem Wiederholungsabstand unten.
+                            if (Unit* victim = me->getVictim())
+                                DoCast(victim, SPELL_GUSHING_WOUND);
                             events.ScheduleEvent(EVENT_GUSHING_WOUND, 60000);
+                            break;   // fehlte: der Zweig fiel bisher in EVENT_EAT_WORM durch
                         case EVENT_EAT_WORM:
                             if (Creature* pWorm = me->FindNearestCreature(NPC_PLUMP_LAVA_WORM, 5.0f, true))
                             {

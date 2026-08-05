@@ -3728,6 +3728,7 @@ class mop_air_balloon : public VehicleScript
                                 plr->CastSpell(plr, SPELL_HEAD_ANIM_RISE, false);    //17:25:31.000
                                 head->SetUInt32Value(UNIT_FIELD_EMOTE_STATE, 0);   //hack
                             }
+                        // kein break: TALK_3 braucht zusaetzlich die gemeinsame Textausgabe unten
                     case EVENT_AISA_TALK_0:
                     case EVENT_AISA_TALK_1:
                     case EVENT_AISA_TALK_2:

@@ -434,7 +434,9 @@ class spell_pal_divine_shield : public SpellScriptLoader
             {
                 OnCheckCast += SpellCheckCastFn(spell_pal_divine_shield_SpellScript::CheckForbearance);
                 OnHit += SpellHitFn(spell_pal_divine_shield_SpellScript::HandleOnHit);
-                //OnEffectHitTarget += SpellEffectFn(spell_pal_divine_shield_SpellScript::HandleHeal, EFFECT_3, SPELL_EFFECT_HEAL_PCT);
+                // HandleHeal ist samt Implementierung abgeschaltet (Kommentarblock
+                // oben). Es hing an Aura 146956, die es in diesem Kern nicht gibt --
+                // ein Ueberbleibsel aus Mists of Pandaria.
             }
         };
 

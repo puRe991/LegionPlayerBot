@@ -1684,7 +1684,6 @@ void AddSC_shaman_spell_scripts()
     new spell_sha_flame_shock();
     new spell_sha_frost_shock();
     new spell_sha_lightning_bolt();
-	//new spell_sha_static_overload();
 	new spell_sha_elemental_overload();
 	new spell_sha_lightning_rod();
     new spell_sha_undulation();

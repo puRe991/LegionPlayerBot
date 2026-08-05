@@ -368,6 +368,7 @@ public:
                 case EVENT_COUNCIL_DLG_3:
                     Talk(SAY_CHOGALL_13);
                     me->DespawnOrUnsummon();
+                    break;
                 case EVENT_CHOGALL_DLG:
                     Talk(SAY_CHOGALL_14);
                     me->DespawnOrUnsummon();

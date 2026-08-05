@@ -4631,7 +4631,6 @@ void AddSC_item_spell_scripts()
     RegisterAuraScript(spell_item_faded_wizard_hat);
     RegisterAuraScript(spell_item_demon_hunters_aspect);
     new spell_item_ocean_embrace();
-    //RegisterAuraScript(spell_item_mark_of_the_panteon);
     RegisterSpellScript(spell_item_cunning_of_the_deceiver);
     RegisterAuraScript(spell_item_walling_souls);
     RegisterSpellScript(spell_mystic_image);
