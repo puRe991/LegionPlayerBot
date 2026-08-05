@@ -854,5 +854,5 @@ void AddSC_boss_blood_queen_lana_thel()
     new spell_blood_queen_pact_of_the_darkfallen_dmg();
     new spell_blood_queen_pact_of_the_darkfallen_dmg_target();
     new achievement_once_bitten_twice_shy_n();
-    //new achievement_once_bitten_twice_shy_v();
+    new achievement_once_bitten_twice_shy_v();
 }

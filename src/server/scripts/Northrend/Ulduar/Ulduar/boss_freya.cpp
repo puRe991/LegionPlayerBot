@@ -1517,6 +1517,6 @@ void AddSC_boss_freya()
     new npc_ancient_water_spirit();
     new achievement_knock_on_wood();
     new achievement_knock_knock_on_wood();
-    //new achievement_knock_knock_knock_on_wood();
+    new achievement_knock_knock_knock_on_wood();
     new achievement_getting_back_to_nature();
 }

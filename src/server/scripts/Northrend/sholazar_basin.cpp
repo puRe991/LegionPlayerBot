@@ -1210,6 +1210,4 @@ void AddSC_sholazar_basin()
     new spell_q12620_the_lifewarden_wrath();
     new spell_q12589_shoot_rjr();
     RegisterCreatureAI(npc_artruis_Q12581);
-    //RegisterCreatureAI(npc_jaloot_Q12581);
-    //RegisterCreatureAI(npc_zephik_Q12581);
 }

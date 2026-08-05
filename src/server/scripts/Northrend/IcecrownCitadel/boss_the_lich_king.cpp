@@ -3493,7 +3493,7 @@ void AddSC_boss_the_lich_king()
     new npc_lich_king_trap();
     new spell_the_lich_king_infest();
     new spell_the_lich_king_necrotic_plague();
-    //new spell_the_lich_king_necrotic_plague_jump();
+    new spell_the_lich_king_necrotic_plague_jump();
     new spell_the_lich_king_shadow_trap_visual();
     new spell_the_lich_king_shadow_trap_periodic();
     new spell_the_lich_king_quake();
@@ -3521,6 +3521,6 @@ void AddSC_boss_the_lich_king()
     new spell_the_lich_king_jump_remove_aura();
     new spell_trigger_spell_from_caster("spell_the_lich_king_mass_resurrection", SPELL_MASS_RESURRECTION_REAL);
     new spell_the_lich_king_play_movie();
-    //new achievement_been_waiting_long_time();
+    new achievement_been_waiting_long_time();
     new achievement_neck_deep_in_vile();
 }

@@ -633,7 +633,7 @@ class spell_close_rift : public SpellScriptLoader
 void AddSC_storm_peaks()
 {
     new npc_frostborn_scout();
-    //new npc_injured_goblin();
+    new npc_injured_goblin();
     new npc_roxi_ramrocket();
     new npc_brunnhildar_prisoner();
     new npc_freed_protodrake();

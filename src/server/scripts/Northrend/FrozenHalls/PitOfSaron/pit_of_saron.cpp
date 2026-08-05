@@ -2193,6 +2193,6 @@ void AddSC_pit_of_saron()
     new mob_iceborn_protodrake();
     new mob_geist_ambusher();
     new spell_trash_mob_glacial_strike();
-    //new npc_sylvanas_POSintro();
-    //new npc_jaina_POSintro();
+    new npc_sylvanas_POSintro();
+    new npc_jaina_POSintro();
 }

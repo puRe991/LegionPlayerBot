@@ -1707,9 +1707,11 @@ void AddSC_boss_blood_prince_council()
     new spell_taldaram_summon_flame_ball();
     new spell_taldaram_flame_ball_visual();
     new spell_taldaram_ball_of_inferno_flame();
-    //new spell_valanar_kinetic_bomb();
-    //new spell_valanar_kinetic_bomb_knockback();
-    //new spell_valanar_kinetic_bomb_absorb();
+    // The kinetic bomb is handled entirely by npc_kinetic_bombAI above:
+    // it falls, damage knocks it back up, and it explodes on the floor.
+    // The spell scripts this line used to name are the older way of doing
+    // the same thing and stay commented out further up -- they no longer
+    // compile against the current AuraScript signatures.
     new spell_blood_council_shadow_prison();
     new spell_blood_council_shadow_prison_damage();
 }

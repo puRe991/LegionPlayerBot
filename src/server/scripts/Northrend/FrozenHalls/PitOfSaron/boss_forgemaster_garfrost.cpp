@@ -482,5 +482,5 @@ void AddSC_boss_garfrost()
     new boss_garfrost();
     new spell_garfrost_permafrost();
     new achievement_doesnt_go_to_eleven();
-    //new npc_martin_gorkun();
+    new npc_martin_gorkun();
 }

@@ -1718,9 +1718,9 @@ void AddSC_boss_tyrannus()
     new spell_tyrannus_mark_of_rimefang();
     new at_tyrannus_event_starter();
     new at_tyrannus_gauntlet_starter();
-    //new npc_martin_gorkun_end();
-    //new boss_sindra();
-    //new npc_sylvanas_jaina_pos_end();
+    new npc_martin_gorkun_end();
+    new boss_sindra();
+    new npc_sylvanas_jaina_pos_end();
     new npc_ice_mob_bomb();
-    //new npc_tyr_event_pit();
+    new npc_tyr_event_pit();
 }

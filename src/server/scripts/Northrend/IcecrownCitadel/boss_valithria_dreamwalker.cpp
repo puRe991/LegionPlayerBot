@@ -1323,5 +1323,4 @@ void AddSC_boss_valithria_dreamwalker()
     new spell_dreamwalker_summon_nightmare_portal();
     new spell_dreamwalker_nightmare_cloud();
     new spell_dreamwalker_twisted_nightmares();
-    //new achievement_portal_jockey();  
 }

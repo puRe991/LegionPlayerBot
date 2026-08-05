@@ -704,8 +704,8 @@ public:
 #define JERAN_DEFAULT_TEXTID 14453
 #define JERAN_QUEST_TEXTID 14431
 #define JERAN_RP_TEXTID 14434
-#define GOSSIP_HELLO_JERAN_1 "Montrez-moi comment m'entraAÆner sur une cible de mA?lA©e."
-#define GOSSIP_HELLO_JERAN_2 "Parlez-moi de la dA©fense et du coup de lance."
+#define GOSSIP_HELLO_JERAN_1 "Montrez-moi comment m'entra√Æner sur une cible de m√™l√©e."
+#define GOSSIP_HELLO_JERAN_2 "Parlez-moi de la d√©fense et du coup de lance."
 #define SPELL_CREDIT_JERAN 64113
 
 class npc_jeran_lockwood : public CreatureScript
@@ -752,7 +752,7 @@ public:
 #define RUGAN_DEFAULT_TEXTID 14453
 #define RUGAN_QUEST_TEXTID 14436
 #define RUGAN_RP_TEXTID 14437
-#define GOSSIP_HELLO_RUGAN_1 "Montrez-moi comment m'entraAÆner sur une cible de charge."
+#define GOSSIP_HELLO_RUGAN_1 "Montrez-moi comment m'entra√Æner sur une cible de charge."
 #define GOSSIP_HELLO_RUGAN_2 "Parlez-moi de la charge"
 #define SPELL_CREDIT_RUGAN 64114
 
@@ -800,7 +800,7 @@ public:
 #define VALIS_DEFAULT_TEXTID 14453
 #define VALIS_QUEST_TEXTID 14438
 #define VALIS_RP_TEXTID 14439
-#define GOSSIP_HELLO_VALIS_1 "Montrez-moi comment m'entraAÆner sur une cible A distance."
+#define GOSSIP_HELLO_VALIS_1 "Montrez-moi comment m'entra√Æner sur une cible √† distance."
 #define GOSSIP_HELLO_VALIS_2 "Expliquez-moi comment utiliser le brise-bouclier."
 #define SPELL_CREDIT_VALIS 64115
 class npc_valis_windchaser : public CreatureScript
