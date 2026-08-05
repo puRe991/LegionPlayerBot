@@ -39,7 +39,14 @@ enum Creatures
     NPC_OSSIRIAN                = 15339,
     NPC_HIVEZARA_HORNET         = 15934,
     NPC_HIVEZARA_SWARMER        = 15546,
-    NPC_HIVEZARA_LARVA          = 15555
+    NPC_HIVEZARA_LARVA          = 15555,
+    NPC_BURU_EGG                = 15514,
+    NPC_HIVEZARA_HATCHLING      = 15521
+};
+
+enum GameObjects
+{
+    GO_OSSIRIAN_CRYSTAL         = 180619
 };
 
 #endif

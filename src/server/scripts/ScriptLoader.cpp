@@ -224,6 +224,7 @@ void AddSC_boss_sartura();
 void AddSC_boss_skeram();
 void AddSC_boss_twinemperors();
 void AddSC_boss_ouro();
+void AddSC_boss_viscidus();
 void AddSC_mob_anubisath_sentinel();
 void AddSC_instance_temple_of_ahnqiraj();
 
@@ -1510,6 +1511,7 @@ void AddKalimdorScripts()
     AddSC_boss_skeram();
     AddSC_boss_twinemperors();
     AddSC_boss_ouro();
+    AddSC_boss_viscidus();
     AddSC_mob_anubisath_sentinel();
     AddSC_instance_temple_of_ahnqiraj();
 
