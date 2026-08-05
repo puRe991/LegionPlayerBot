@@ -2217,5 +2217,5 @@ void AddSC_icecrown_citadel()
     new at_icc_shutdown_traps();
     new at_icc_start_blood_quickening();
     new at_icc_start_frostwing_gauntlet();
-    //new npc_gunship_starter();
+    new npc_gunship_starter();
 }
