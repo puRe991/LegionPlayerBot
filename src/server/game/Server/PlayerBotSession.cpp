@@ -9,6 +9,7 @@
 #include "CharacterPackets.h"
 #include "DB2Structure.h"
 #include "LFGPacketsCommon.h"
+#include "Group.h"
 
 PlayerBotSession::PlayerBotSession(uint32 id, std::string &name, AccountTypes sec, uint8 expansion, time_t mute_time, LocaleConstant locale, uint32 recruiter, bool isARecruiter) :
 m_LastCastTime(CAST_SCHEDULE_TICK),
@@ -537,6 +538,27 @@ bool PlayerBotSession::ProcessInAAQueue(BotGlobleSchedule& schedule)
 	if (player->HasAura(26013) || player->InBattleground() || player->InArena() || player->GetMap()->IsDungeon())
 	{
 		ClearAllSchedule();
+		return false;
+	}
+
+	// parameter3 != 0 selects rated arena. Rated goes through JoinBracket, which
+	// requires the bot to lead a group of the right size -- PlayerBotMgr forms
+	// that group before pushing this schedule. Unrated stays on the skirmish
+	// path, which a single bot can take on its own.
+	if (schedule.parameter3)
+	{
+		Group* group = player->GetGroup();
+		if (!group || group->GetLeaderGUID() != player->GetGUID())
+		{
+			ClearAllSchedule();
+			return false;
+		}
+
+		WorldPacket packet(CMSG_BATTLEMASTER_JOIN_ARENA);
+		WorldPackets::Battleground::JoinArena cmd(std::move(packet));
+		cmd.TeamSizeIndex = uint8(schedule.parameter2);
+		cmd.Roles = uint8(schedule.parameter1);
+		HandleBattlemasterJoinArena(cmd);
 		return false;
 	}
 

@@ -14,6 +14,7 @@
 #include "BotArenaAI.h"
 #include "OnlineMgr.h"
 #include "Group.h"
+#include "GroupMgr.h"
 #include "SocialMgr.h"
 #include "LFGMgr.h"
 #include "Config.h"
@@ -2201,121 +2202,85 @@ void PlayerBotMgr::AddNewPlayerBotToAA(TeamId team, BattlegroundTypeId bgTypeID,
     sWorld->SendGlobalText(allonlineText.c_str(), NULL);
 }
 
-void PlayerBotMgr::AddTeamBotToRatedArena(uint32 arenaTeamId)
+void PlayerBotMgr::AddTeamBotToRatedArena(uint32 arenaType)
 {
-    //	int32 isok = sConfigMgr->GetIntDefault("pbot", 1);
-    //	if (isok==0)
-    //		return;
+    // Legion no longer has arena teams: rated arena is queued by the leader of
+    // an ordinary group of the right size -- WorldSession::JoinBracket only
+    // checks the group. The previous body targeted the Mists-era ArenaTeam API
+    // and was commented out together with the helpers it needed
+    // (CheckPlayerBotArenaTeam, SearchEnemyArenaTeam,
+    // FindArenaTeamPlayerBotTalent), none of which exist in this tree.
     //
-    //int32 isoka = sConfigMgr->GetIntDefault("pbotasl", 88);
-    //
-    //	int32 allianceCount = (int32)sPlayerBotMgr->GetOnlineBotCount(TEAM_ALLIANCE, true);
-    //	int32 hordeCount = (int32)sPlayerBotMgr->GetOnlineBotCount(TEAM_HORDE, true);
-    //
-    //if ((allianceCount+hordeCount) >isoka) return;
-    //
-    //
-    //	const SessionMap& allSession = sWorld->GetAllSessions();
-    //	for (SessionMap::const_iterator itSession = allSession.begin(); itSession != allSession.end(); itSession++)
-    //	{
-    //
-    //		Player* player = itSession->second->GetPlayer();
-    //		if (player)
-    //{
-    //		if (player->isBeingLoaded())
-    //			return;
-    //if (player->GetSession()->PlayerLoading())
-    //return;
-    //
-    ////if (player->isInCombat())
-    ////return;
-    //	}
-    //	}
-    //	
-    //
-    //	if (arenaTeamId == 0)
-    //		return;
-    //	ArenaTeam* arenaTeam = sArenaTeamMgr->GetArenaTeamById(arenaTeamId);
-    //	if (!arenaTeam)
-    //		return;
-    //	BattlegroundQueueTypeId bgQueueTypeID = BattlegroundMgr::BGQueueTypeId(BattlegroundTypeId(BattlegroundTypeId::BATTLEGROUND_AA), arenaTeam->GetType());
-    //	BattlegroundQueue& bgQueue = sBattlegroundMgr->GetBattlegroundQueue(bgQueueTypeID);
-    //	for (ArenaTeam::MemberList::iterator itaMem = arenaTeam->m_membersBegin(); itaMem != arenaTeam->m_membersEnd(); itaMem++)
-    //	{
-    //		ArenaTeamMember& mem = *itaMem;
-    //		ObjectGuid guid = mem.Guid;
-    //		if (bgQueue.ExistQueueByRatedArena(guid, true))
-    //			continue;
-    //		if (Player* player = ObjectAccessor::FindConnectedPlayer(guid))
-    //		{
-    //			if (!player->IsPlayerBot() || player->GetGroup())
-    //				continue;
-    //			if (PlayerBotSession* pSession = dynamic_cast<PlayerBotSession*>(player->GetSession()))
-    //			{
-    //				BotGlobleSchedule schedule2(BotGlobleScheduleType::BGSType_Settting, 0);
-    //				schedule2.parameter1 = 80;
-    //				schedule2.parameter2 = 80;
-    //				schedule2.parameter3 = sArenaTeamMgr->FindArenaTeamPlayerBotTalent(guid) + 1;
-    //				schedule2.parameter4 = (pSession->IsAccountBotSession()) ? 0 : 1;
-    //				pSession->PushScheduleToQueue(schedule2);
-    //
-    //				BotGlobleSchedule schedule3(BotGlobleScheduleType::BGSType_InAAQueue, 0);
-    //				schedule3.parameter1 = BattlegroundTypeId::BATTLEGROUND_AA;
-    //				if (arenaTeam->GetType() == 2)
-    //					schedule3.parameter2 = 0;
-    //				else if (arenaTeam->GetType() == 3)
-    //					schedule3.parameter2 = 1;
-    //				else if (arenaTeam->GetType() == 5)
-    //					schedule3.parameter2 = 2;
-    //				schedule3.parameter3 = 1;
-    //				pSession->PushScheduleToQueue(schedule3);
-    //
-    //				BotGlobleSchedule schedule4(BotGlobleScheduleType::BGSType_EnterAA, 0);
-    //				schedule4.parameter1 = BattlegroundTypeId::BATTLEGROUND_AA;
-    //				schedule4.parameter2 = 14;
-    //				schedule4.parameter3 = arenaTeam->GetType();
-    //				schedule4.parameter4 = 1;
-    //				pSession->PushScheduleToQueue(schedule4);
-    //			}
-    //		}
-    //		else if (PlayerBotSession* pSession = GetBotSessionByCharGUID(guid))
-    //		{
-    //			Player* player = pSession->GetPlayer();
-    //			if (player)
-    //			{
-    //				BotGlobleSchedule schedule(BotGlobleScheduleType::BGSType_Offline, 0);
-    //				pSession->PushScheduleToQueue(schedule);
-    //			}
-    //			BotGlobleSchedule schedule1(BotGlobleScheduleType::BGSType_Online_GUID, 0);
-    //			schedule1.parameter1 = guid.GetCounter();
-    //			pSession->PushScheduleToQueue(schedule1);
-    //
-    //			BotGlobleSchedule schedule2(BotGlobleScheduleType::BGSType_Settting, 0);
-    //			schedule2.parameter1 = 80;
-    //			schedule2.parameter2 = 80;
-    //			schedule2.parameter3 = sArenaTeamMgr->FindArenaTeamPlayerBotTalent(guid) + 1;
-    //			schedule2.parameter4 = (pSession->IsAccountBotSession()) ? 0 : 1;
-    //			pSession->PushScheduleToQueue(schedule2);
-    //
-    //			BotGlobleSchedule schedule3(BotGlobleScheduleType::BGSType_InAAQueue, 0);
-    //			schedule3.parameter1 = BattlegroundTypeId::BATTLEGROUND_AA;
-    //			if (arenaTeam->GetType() == 2)
-    //				schedule3.parameter2 = 0;
-    //			else if (arenaTeam->GetType() == 3)
-    //				schedule3.parameter2 = 1;
-    //			else if (arenaTeam->GetType() == 5)
-    //				schedule3.parameter2 = 2;
-    //			schedule3.parameter3 = 1;
-    //			pSession->PushScheduleToQueue(schedule3);
-    //
-    //			BotGlobleSchedule schedule4(BotGlobleScheduleType::BGSType_EnterAA, 0);
-    //			schedule4.parameter1 = BattlegroundTypeId::BATTLEGROUND_AA;
-    //			schedule4.parameter2 = 14;
-    //			schedule4.parameter3 = arenaTeam->GetType();
-    //			schedule4.parameter4 = 1;
-    //			pSession->PushScheduleToQueue(schedule4);
-    //		}
-    //	}
+    // arenaType is the bracket size: 2 or 3.
+    if (arenaType != 2 && arenaType != 3)
+        return;
+
+    uint8 bracketType = (arenaType == 2) ? uint8(MS::Battlegrounds::BracketType::Arena2v2)
+                                         : uint8(MS::Battlegrounds::BracketType::Arena3v3);
+
+    for (uint8 pass = 0; pass < 2; ++pass)
+    {
+        TeamId team = (pass == 0) ? TEAM_ALLIANCE : TEAM_HORDE;
+
+        std::vector<PlayerBotSession*> candidates;
+        SessionMap const& allSession = sWorld->GetAllSessions();
+        for (SessionMap::const_iterator itSession = allSession.begin(); itSession != allSession.end(); ++itSession)
+        {
+            if (!itSession->second->IsBotSession())
+                continue;
+            PlayerBotSession* pSession = dynamic_cast<PlayerBotSession*>((WorldSession*)itSession->second.get());
+            if (!pSession || pSession->PlayerLoading() || pSession->HasSchedules() || pSession->IsAccountBotSession())
+                continue;
+            Player* player = pSession->GetPlayer();
+            if (!player || !IsIDLEPlayerBot(player))
+                continue;
+            if (player->GetTeamId() != team || player->GetGroup())
+                continue;
+            if (player->getLevel() < sWorld->getIntConfig(CONFIG_MAX_PLAYER_LEVEL))
+                continue;
+
+            candidates.push_back(pSession);
+            if (candidates.size() >= arenaType)
+                break;
+        }
+
+        if (candidates.size() < arenaType)
+            continue;
+
+        Player* leader = candidates[0]->GetPlayer();
+        Group* group = new Group();
+        if (!group->Create(leader))
+        {
+            delete group;
+            continue;
+        }
+        sGroupMgr->AddGroup(group);
+
+        bool complete = true;
+        for (size_t i = 1; i < candidates.size(); ++i)
+        {
+            Player* member = candidates[i]->GetPlayer();
+            if (!member || !group->AddMember(member))
+            {
+                complete = false;
+                break;
+            }
+        }
+
+        if (!complete)
+        {
+            group->Disband(true);
+            return;
+        }
+
+        // Only the leader queues; the rest of the group rides along.
+        BotGlobleSchedule schedule(BotGlobleScheduleType::BGSType_InAAQueue, ObjectGuid::Empty);
+        schedule.parameter1 = uint32(leader->GetSpecializationRoleMaskForGroup());
+        schedule.parameter2 = bracketType;
+        schedule.parameter3 = 1;                 // rated
+        candidates[0]->PushScheduleToQueue(schedule);
+        return;
+    }
 }
 
 bool PlayerBotMgr::FillOnlineBotScheduleByLFGRequirement(lfg::LFGBotRequirement* botRequirement, BotGlobleSchedule* botSchedule)
@@ -2633,25 +2598,17 @@ void PlayerBotMgr::QueryRatedArenaRequirement()
             continue;
         if (allianceGroupInfo && hordeGroupInfo)
         {
+            // Both sides already have a real group waiting; nothing to fill in.
             allianceGroupID = allianceGroupInfo->GroupId;
             hordeGroupID = hordeGroupInfo->GroupId;
         }
-        /*else if (allianceGroupInfo && !BotUtility::DownBotArenaTeam)
+        else if (!BotUtility::DownBotArenaTeam && (arenaType[i] == 2 || arenaType[i] == 3))
         {
-            allianceGroupID = allianceGroupInfo->GroupId;
-            hordeGroupID = hordeGroupInfo->GroupId;
-            if (hordeGroupID == 0)
-                continue;
-            AddTeamBotToRatedArena(hordeGroupID);
+            // One side is waiting -- put a bot group of the same size in so the
+            // match can start. The branch that used to sit here looked for an
+            // opposing ArenaTeam, which Legion no longer has.
+            AddTeamBotToRatedArena(arenaType[i]);
         }
-        else if (hordeGroupInfo && !BotUtility::DownBotArenaTeam)
-        {
-            hordeGroupID = hordeGroupInfo->GroupId;
-            allianceGroupID = sArenaTeamMgr->SearchEnemyArenaTeam(hordeGroupID, ALLIANCE);
-            if (allianceGroupID == 0)
-                continue;
-            AddTeamBotToRatedArena(allianceGroupID);
-        }*/
         else
             continue;
         m_ArenaSearchTick = 14;

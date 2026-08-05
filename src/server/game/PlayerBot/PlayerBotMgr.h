@@ -382,7 +382,7 @@ private:
 	void AddNewPlayerBotToBG(TeamId team, uint32 minLV, uint32 maxLV, BattlegroundTypeId bgTypeID);
 	void AddNewPlayerBotToLFG(lfg::LFGBotRequirement* botRequirement);
 	void AddNewPlayerBotToAA(TeamId team, BattlegroundTypeId bgTypeID, uint32 bracketID, uint32 aaType);
-	void AddTeamBotToRatedArena(uint32 arenaTeamId);
+	void AddTeamBotToRatedArena(uint32 arenaType);   ///< bracket size: 2 or 3
 	bool FillOnlineBotScheduleByLFGRequirement(lfg::LFGBotRequirement* botRequirement, BotGlobleSchedule* botSchedule);
 	uint32 GetScheduleTalentByLFGRequirement(lfg::LfgRoles roles, uint32 botCls);
 	void QueryBattlegroundRequirement();
