@@ -182,6 +182,8 @@ void AddSC_boss_murozond();
 
 void AddSC_boss_perotharn();                 //CoT Well of Eternity
 void AddSC_boss_queen_azshara();
+void AddSC_boss_varothen();
+void AddSC_boss_mannoroth();
 void AddSC_instance_well_of_eternity();
 
 void AddSC_instance_hour_of_twilight(); // Hour of Twilight
@@ -1483,6 +1485,8 @@ void AddKalimdorScripts()
 
     AddSC_boss_perotharn();                 //CoT Well of Eternity
     AddSC_boss_queen_azshara();
+    AddSC_boss_varothen();
+    AddSC_boss_mannoroth();
     AddSC_instance_well_of_eternity();
 
     AddSC_instance_hour_of_twilight();      // Hour of Twilight

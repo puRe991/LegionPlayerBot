@@ -1,8 +1,7 @@
 #include "Containers.h"
+#include "ObjectAccessor.h"
 #include "ScriptedEscortAI.h"
 #include "well_of_eternity.h"
-
-#define MAX_ENCOUNTER 5
 
 class instance_well_of_eternity : public InstanceMapScript
 {
@@ -16,10 +15,9 @@ public:
 
     struct instance_well_of_eternity_InstanceMapScript : public InstanceScript
     {
-        instance_well_of_eternity_InstanceMapScript(Map* map) : InstanceScript(map)
+        instance_well_of_eternity_InstanceMapScript(Map* map) : InstanceScript(map), uiTeamInInstance(0)
         {
-            SetBossNumber(MAX_ENCOUNTER);
-            //LoadDoorData(doordata);
+            SetBossNumber(EncounterCount);
         }
 
         void OnPlayerEnter(Player* pPlayer)
@@ -30,19 +28,49 @@ public:
 
         void OnCreatureCreate(Creature* pCreature)
         {
-        }
-
-        void SetData(uint32 type, uint32 data)
-        {
+            switch (pCreature->GetEntry())
+            {
+                case NPC_PEROTHARN:
+                    perotharnGUID = pCreature->GetGUID();
+                    break;
+                case NPC_QUEEN_AZSHARA:
+                    queenAzsharaGUID = pCreature->GetGUID();
+                    break;
+                case NPC_MANNOROTH:
+                    mannorothGUID = pCreature->GetGUID();
+                    break;
+                case NPC_CAPTAIN_VAROTHEN:
+                    varothenGUID = pCreature->GetGUID();
+                    break;
+                default:
+                    break;
+            }
         }
 
         uint32 GetData(uint32 type) const override
         {
+            if (type == DATA_TEAM_IN_INSTANCE)
+                return uiTeamInInstance;
+
             return 0;
         }
 
         ObjectGuid GetGuidData(uint32 type) const
         {
+            switch (type)
+            {
+                case DATA_PEROTHARN_GUID:
+                    return perotharnGUID;
+                case DATA_QUEEN_AZSHARA_GUID:
+                    return queenAzsharaGUID;
+                case DATA_MANNOROTH_GUID:
+                    return mannorothGUID;
+                case DATA_VAROTHEN_GUID:
+                    return varothenGUID;
+                default:
+                    break;
+            }
+
             return ObjectGuid::Empty;
         }
 
@@ -86,7 +114,7 @@ public:
 
             if (dataHead1 == 'W' && dataHead2 == 'o' && dataHead3 == 'T')
             {
-                for (uint8 i = 0; i < MAX_ENCOUNTER; ++i)
+                for (uint8 i = 0; i < EncounterCount; ++i)
                 {
                     uint32 tmpState;
                     loadStream >> tmpState;
@@ -100,7 +128,10 @@ public:
 
         private:
             uint32 uiTeamInInstance;
-           
+            ObjectGuid perotharnGUID;
+            ObjectGuid queenAzsharaGUID;
+            ObjectGuid mannorothGUID;
+            ObjectGuid varothenGUID;
     };
 };
 
