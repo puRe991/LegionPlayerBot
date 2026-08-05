@@ -776,6 +776,8 @@ void AddSC_brf_black_forge();
 void AddSC_brf_iron_assembly();
 
 void AddSC_instance_hellfire_citadel();  // Raid: Hellfire Citadel
+void AddSC_hfc_lower();
+void AddSC_hfc_upper();
 
 void AddSC_world_bossess_draenor();
 void AddSC_edge_of_reality();
@@ -2115,6 +2117,8 @@ void AddDraenorScripts()
     AddSC_brf_iron_assembly();
 
     AddSC_instance_hellfire_citadel();  // Raid: Hellfire Citadel
+    AddSC_hfc_lower();
+    AddSC_hfc_upper();
 
     AddSC_world_bossess_draenor();
     AddSC_edge_of_reality();
