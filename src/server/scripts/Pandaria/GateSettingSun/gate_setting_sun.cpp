@@ -126,6 +126,6 @@ void AddSC_gate_setting_sun()
     RegisterCreatureAI(npc_krikthik_bombarder);
     RegisterCreatureAI(npc_krikthik_conscript);
     RegisterAuraScript(spell_resin_residue);
-    //new AreaTrigger_at_first_door();
+    new AreaTrigger_at_first_door();
     new go_setting_sun_brasier();
 }

@@ -3109,7 +3109,7 @@ void AddSC_boss_paragons_of_the_klaxxi()
     new npc_amber();
     new npc_amber_player();
     new npc_kunchong();
-    //new npc_flash_stalker();
+    new npc_flash_stalker();
     new npc_eerie_fog();
     new spell_klaxxi_gouge();
     new spell_gene_splice();

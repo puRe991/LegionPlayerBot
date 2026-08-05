@@ -1070,5 +1070,6 @@ void AddSC_boss_lorewalker_stonestep()
     RegisterCreatureAI(mob_golden_beetle);
     RegisterCreatureAI(mob_jiang_xiang);
     RegisterCreatureAI(mob_songbird_queen);
-    //RegisterCreatureAI(mob_talking_fish);
+    RegisterCreatureAI(mob_talking_fish);
+
 }

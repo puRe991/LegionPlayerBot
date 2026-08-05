@@ -1649,7 +1649,7 @@ void AddSC_boss_horridon()
 {
     new boss_horridon();
     new boss_jalak();
-    //new npc_horridon_gate_controller();
+    new npc_horridon_gate_controller();
     new npc_generic_gate_add();
     new npc_zandalari_dinomancer();
     new npc_sand_trap();

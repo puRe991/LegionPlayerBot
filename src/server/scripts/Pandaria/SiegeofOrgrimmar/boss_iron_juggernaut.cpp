@@ -895,7 +895,7 @@ void AddSC_boss_iron_juggernaut()
     new npc_cutter_laser();
     new npc_explosive_tar();
     new npc_borer_drill();
-    //new npc_mortar_barrage();
+    new npc_mortar_barrage();
     new spell_cutter_laser_target();
     new spell_seismic_activity();
     new spell_mortar_barrage();

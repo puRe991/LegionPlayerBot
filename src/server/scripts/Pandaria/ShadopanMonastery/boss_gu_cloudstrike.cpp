@@ -298,5 +298,6 @@ void AddSC_boss_gu_cloudstrike()
     RegisterCreatureAI(npc_azure_serpent);
     RegisterSpellScript(spell_kill_guardians);
     RegisterSpellScript(spell_overcharged_soul_damage);
-    //new AreaTrigger_at_gu_intro();
+    new AreaTrigger_at_gu_intro();
+
 }

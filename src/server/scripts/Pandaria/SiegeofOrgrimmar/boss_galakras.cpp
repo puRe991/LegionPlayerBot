@@ -2851,7 +2851,7 @@ void AddSC_boss_galakras()
     new at_galakras_towers();
     new spell_most_complicated_bomb();
     new spell_galakras_flames_of_galakrond();
-    //new spell_galakras_tower_rope_jump();
+    new spell_galakras_tower_rope_jump();
     new spell_galakras_shattering_roar();
     new go_rope_skein();
 }

@@ -429,6 +429,6 @@ void AddSC_siege_of_orgrimmar()
     new npc_korkron_cannon();
     new npc_pressure_mine();
     new spell_self_absorbed();
-    //new at_siege_of_orgrimmar_portal_to_orgrimmar();
+    new at_siege_of_orgrimmar_portal_to_orgrimmar();
     new at_siege_of_orgrimmar_sniper_shoot_me();
 }

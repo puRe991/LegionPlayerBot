@@ -752,6 +752,7 @@ void AddSC_boss_master_snowdrift()
     RegisterCreatureAI(boss_master_snowdrift);
     RegisterCreatureAI(npc_snowdrift_novice);
     RegisterCreatureAI(npc_snowdrift_miniboss);
-    //RegisterCreatureAI(npc_snowdrift_clone);
-    //RegisterCreatureAI(npc_snowdrift_fireball);
+    RegisterCreatureAI(npc_snowdrift_clone);
+    RegisterCreatureAI(npc_snowdrift_fireball);
+
 }

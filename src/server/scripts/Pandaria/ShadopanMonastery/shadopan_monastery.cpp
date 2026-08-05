@@ -358,7 +358,8 @@ void AddSC_shadopan_monastery()
     RegisterCreatureAI(npc_shadopan_ambusher);
     RegisterCreatureAI(npc_shadopan_archery);
     RegisterCreatureAI(npc_shadopan_hatred);
-    //RegisterAuraScript(spell_shadopan_explosion);
+    RegisterAuraScript(spell_shadopan_explosion);
     RegisterAuraScript(spell_shadopan_apparitions);
-    //new areatrigger_at_shadopan_archery();
+    new areatrigger_at_shadopan_archery();
+
 }

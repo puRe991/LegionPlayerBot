@@ -1774,5 +1774,6 @@ void AddSC_instance_throne_of_thunder()
     new instance_throne_of_thunder();
     new npc_storm_caller();
     new npc_stormbringer();
-    //new npc_teleporter();
+    new npc_teleporter();
+
 }

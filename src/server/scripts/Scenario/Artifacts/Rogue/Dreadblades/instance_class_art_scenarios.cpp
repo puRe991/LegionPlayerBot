@@ -186,7 +186,7 @@ struct npc_stormstout_brewer_q45404 : public ScriptedAI
 void AddSC_instance_class_art_scenarios()
 {
     RegisterInstanceScript(instance_dreadblades, 1583);
-    //RegisterInstanceScript(instance_violethold_mage, 1545);
+    RegisterInstanceScript(instance_violethold_mage, 1545);
     RegisterInstanceScript(instance_priest_mage_nexus_art, 1583);
     RegisterInstanceScript(instance_nightborne_sunwell, 1840);
     RegisterInstanceScript(instance_faronaar_mage, 1616);

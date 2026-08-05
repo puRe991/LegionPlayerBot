@@ -3456,8 +3456,8 @@ void AddSC_thunder_forge()
 
     new npc_thunder_forge();
     new npc_thunder_forge_second();
-    //new npc_thunder_forge_third();
-    //new npc_invisible_stalker();
+    new npc_thunder_forge_third();
+    new npc_invisible_stalker();
     new npc_lighting_pilar_beam_stalker();
     new npc_lighting_pilar_spark_stalker();
 
@@ -3471,8 +3471,8 @@ void AddSC_thunder_forge()
     new npc_celestial_blacksmith();
     new npc_celestial_defender();
     new npc_lighting_spear_float_stalker();
-    //new go_thunder_forge_avnils();
-    //new npc_avnil_stalker();
+    new go_thunder_forge_avnils();
+    new npc_avnil_stalker();
     new npc_phase3_room_center_stalker();
     new npc_sha_beast();
     new npc_sha_fiend();

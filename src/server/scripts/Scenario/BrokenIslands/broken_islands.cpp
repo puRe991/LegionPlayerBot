@@ -3436,7 +3436,7 @@ void AddSC_brokenIslands()
     new spell_scenarion_bi_step_6();
     new sceneTrigger_part7();
     new scenarion_bi_heroes();
-    //new scenarion_bi_guards();
+    new scenarion_bi_guards();
     new sceneTrigger_part8();
     new scenario_bi_gualdan();
 

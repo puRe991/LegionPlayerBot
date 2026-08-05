@@ -556,5 +556,6 @@ public:
 void AddSC_instance_mogu_shan_palace()
 {
     new instance_mogu_shan_palace();
-    //new go_mogushan_palace_temp_portal();
+    new go_mogushan_palace_temp_portal();
+
 }

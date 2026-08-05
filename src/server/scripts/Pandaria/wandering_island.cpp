@@ -5193,7 +5193,7 @@ public:
             events.RescheduleEvent(EVENT_6, t += 1000);            //18:12:55.000
             events.RescheduleEvent(EVENT_7, t += 2000);            //18:12:57.000
             events.RescheduleEvent(EVENT_8, t += 9000);            //18:13:06.000
-            events.RescheduleEvent(EVENT_CZI_0, t += 3000);        //18:13:09.000 Message: Да, вождь.
+            events.RescheduleEvent(EVENT_CZI_0, t += 3000);        //18:13:09.000 Message: Р”Р°, РІРѕР¶РґСЊ.
             events.RescheduleEvent(EVENT_9, t += 3000);            //18:13:12.000
             events.RescheduleEvent(EVENT_10, t += 3000);           //18:13:15.000
             events.RescheduleEvent(EVENT_11, t += 8000);           //18:13:23.000
@@ -5202,7 +5202,7 @@ public:
             events.RescheduleEvent(EVENT_14, t += 13000);          //18:13:47.000
             events.RescheduleEvent(EVENT_15, t += 5000);           //18:13:52.000 
             events.RescheduleEvent(EVENT_16, t += 11000);          //18:14:03.000
-            events.RescheduleEvent(EVENT_CZI_1, t += 3000);        //18:14:06.000 Message: Да... Да, конечно...
+            events.RescheduleEvent(EVENT_CZI_1, t += 3000);        //18:14:06.000 Message: Р”Р°... Р”Р°, РєРѕРЅРµС‡РЅРѕ...
             events.RescheduleEvent(EVENT_17, t += 4000);           //18:14:10.000
             events.RescheduleEvent(EVENT_18, t += 1000);           //18:14:11.000
             events.RescheduleEvent(EVENT_19, t += 2000);           //18:14:13.000
@@ -5350,8 +5350,8 @@ public:
 };
 void AddSC_WanderingIsland()
 {
-    //new mob_tushui_trainee();
-    //new mob_master_shang_xi();
+    new mob_tushui_trainee();
+    new mob_master_shang_xi();
     new boss_jaomin_ro();
     new npc_panda_announcer();
     new mob_attacker_dimwind();

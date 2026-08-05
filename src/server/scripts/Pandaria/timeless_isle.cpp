@@ -1348,8 +1348,8 @@ void AddSC_timeless_isle()
     new boss_yulon();
     new boss_niuzao();
     new npc_timeless_spirit();
-    //new at_ordos_entrance();
-    //new at_tom_bone_apart();
+    new at_ordos_entrance();
+    new at_tom_bone_apart();
     new spell_chi_barrage();
     new spell_crackling_lightning();
     new spell_jadefire_bolt();
