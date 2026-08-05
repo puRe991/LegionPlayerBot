@@ -57,11 +57,51 @@ class boss_beauty : public CreatureScript
         EventMap events;
         SummonList summons;
 
+        bool enraged;
+        bool seenRunty;
+        uint32 runtyCheckTimer;
+
         void Reset() override
         {
             summons.DespawnAll();
             events.Reset();
+            enraged = false;
+            runtyCheckTimer = 1000;
+            seenRunty = false;
+            me->RemoveAurasDueToSpell(SPELL_BERSERK);
             instance->SetData(DATA_BEAUTY, NOT_STARTED);
+        }
+
+        // Runty is the runt of her litter and the one she actually cares
+        // about; killing him sets her off. The pups are database spawns rather
+        // than her own summons, so watching for him is the only way to notice.
+        void CheckRunty(uint32 diff)
+        {
+            if (enraged)
+                return;
+
+            if (runtyCheckTimer > diff)
+            {
+                runtyCheckTimer -= diff;
+                return;
+            }
+
+            runtyCheckTimer = 1000;
+
+            Creature* runty = me->FindNearestCreature(NPC_RUNTY, 100.0f, true);
+            if (runty)
+            {
+                seenRunty = true;
+                return;
+            }
+
+            // Gone only counts if he was there to begin with -- a realm that
+            // never spawned him must not hand her a free enrage.
+            if (!seenRunty)
+                return;
+
+            enraged = true;
+            DoCast(me, SPELL_BERSERK, true);
         }
  
         void EnterCombat(Unit* /*who*/) override
@@ -85,6 +125,8 @@ class boss_beauty : public CreatureScript
                 EnterEvadeMode();
                 return;
             }
+
+            CheckRunty(diff);
 
             events.Update(diff);
 

@@ -91,7 +91,8 @@ TrinityCore 7.3.5 content is not included and has to come from elsewhere.
 - Outside the five battlegrounds listed above, bots fight but ignore
   objectives.
 - Parts of the source still carry mis-encoded comments and a few
-  user-visible strings from the original Chinese sources.
+  user-visible strings inherited from earlier hands. The Cataclysm scripts
+  were Russian in cp1251 and have been converted; what remains is scattered.
 
 ## Security
 

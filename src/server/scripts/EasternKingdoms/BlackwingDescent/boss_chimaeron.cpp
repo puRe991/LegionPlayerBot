@@ -44,6 +44,12 @@ enum Spells
     SPELL_MOCKING_SHADOWS           = 91307,
 };
 
+enum ChimaeronMisc
+{
+    // Mortality leaves everyone on a sliver; this is where the warning goes up.
+    LOW_HEALTH_PCT                  = 10
+};
+
 enum Events
 {
     EVENT_CAUSTIC_SLIME     = 1,
@@ -106,7 +112,8 @@ public:
             DoCast(me, SPELL_FAST_ASLEEP);
         }
 
-        uint8 massacrecount; 
+        uint8 massacrecount;
+        uint32 lowHealthTimer; 
         uint8 stage;
         uint8 uiVictims;
         bool bFeud;
@@ -128,6 +135,7 @@ public:
                 bileotron800->RemoveAurasDueToSpell(SPELL_FINKLES_MIXTURE);
             massacrecount = 0;
             stage = 0;
+            lowHealthTimer = 0;
             uiVictims = 0;
             bFeud = false;
 
@@ -220,9 +228,45 @@ public:
                     pNefarius->AI()->DoAction(ACTION_CHIMAERON_LOW);
                 me->ApplySpellImmune(0, IMMUNITY_STATE, SPELL_AURA_MOD_TAUNT, true);
                 me->ApplySpellImmune(0, IMMUNITY_EFFECT, SPELL_EFFECT_ATTACK_ME, true);
+
+                // Mortality is only lethal because the Bile-o-Tron gives out at
+                // the same moment and stops topping the raid back up. Without
+                // this the last phase was survivable for the wrong reason.
+                if (Creature* bileotron800 = ObjectAccessor::GetCreature(*me, instance->GetGuidData(DATA_BILE_O_TRON_800)))
+                {
+                    bileotron800->CastSpell(bileotron800, SPELL_SYSTEMS_FAILURE, true);
+                    bileotron800->AI()->DoAction(ACTION_BILE_O_TRON_OFFLINE);
+                }
+
                 DoCast(me, SPELL_MORTALITY);
                 DoCast(me, SPELL_MORTALITY_SELF);
+                lowHealthTimer = 1000;
                 return;
+            }
+
+            // While Mortality holds, anyone who drops below the threshold is
+            // one hit from dead and needs to see it coming.
+            if (stage == 1)
+            {
+                if (lowHealthTimer <= diff)
+                {
+                    lowHealthTimer = 1000;
+                    instance->instance->ApplyOnEveryPlayer([this](Player* player) -> void
+                    {
+                        if (!player->isAlive())
+                            return;
+
+                        if (player->GetHealth() <= player->CountPctFromMaxHealth(LOW_HEALTH_PCT))
+                        {
+                            if (!player->HasAura(SPELL_LOW_HEALTH))
+                                player->CastSpell(player, SPELL_LOW_HEALTH, true);
+                        }
+                        else
+                            player->RemoveAurasDueToSpell(SPELL_LOW_HEALTH);
+                    });
+                }
+                else
+                    lowHealthTimer -= diff;
             }
 
             events.Update(diff);
