@@ -768,6 +768,8 @@ void AddSC_boss_tectus();
 void AddSC_boss_the_butcher();
 void AddSC_highmaul();
 
+void AddSC_instance_grimrail_depot(); // Grimrail Depot
+void AddSC_grimrail_depot_bosses();
 void AddSC_instance_blackrock_foundry(); // Raid: Blackrock Foundry
 
 void AddSC_instance_hellfire_citadel();  // Raid: Hellfire Citadel
@@ -2102,6 +2104,8 @@ void AddDraenorScripts()
     AddSC_boss_the_butcher();
     AddSC_highmaul();
 
+    AddSC_instance_grimrail_depot(); // Grimrail Depot
+    AddSC_grimrail_depot_bosses();
     AddSC_instance_blackrock_foundry(); // Raid: Blackrock Foundry
 
     AddSC_instance_hellfire_citadel();  // Raid: Hellfire Citadel
