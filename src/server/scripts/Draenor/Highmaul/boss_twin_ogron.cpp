@@ -1363,7 +1363,7 @@ void AddSC_boss_twin_ogron()
     RegisterAuraScript(spell_highmaul_warming_up);
     RegisterAuraScript(spell_highmaul_disposition);
     RegisterSpellAndAuraScriptPair(spell_highmaul_enfeebling_roar, spell_highmaul_enfeebling_roar_AuraScript);
-    //RegisterSpellAndAuraScriptPair(spell_highmaul_pol_shield_charge, spell_highmaul_pol_shield_charge_AuraScript);
+    RegisterSpellAndAuraScriptPair(spell_highmaul_pol_shield_charge, spell_highmaul_pol_shield_charge_AuraScript);
     RegisterAuraScript(spell_highmaul_twin_ogron_dispositions);
     RegisterSpellScript(spell_highmaul_pulverize_third_wave);
     RegisterAuraScript(spell_highmaul_phemos_whirlwind);

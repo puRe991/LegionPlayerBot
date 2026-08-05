@@ -1611,17 +1611,18 @@ void AddSC_boss_teronogor()
 {
     new boss_teronogor();                                           ///< 77734
     new auchindoun_teronogor_mob_gromkash();                        ///< 77889
-    //new auchindoun_teronogor_mob_abyssal();                         ///< 77905
+    new auchindoun_teronogor_mob_abyssal();                         ///< 77905
     new auchindoun_teronogor_mob_durag();                           ///< 77890
     new auchindoun_teronogor_mob_gulkosh();                         ///< 78437
     new auchindoun_teronogor_mob_shaadum();                         ///< 78728
-    //new auchindoun_teronogor_mob_spirit();
+    new auchindoun_teronogor_mob_spirit();
     new auchindoun_teronogor_spell_chaos_wave();                    ///< 157001
-    //new auchindoun_teronogor_spell_demonic_leap();                  ///< 148969
+    new auchindoun_teronogor_spell_demonic_leap();                  ///< 148969
     new auchindoun_teronogor_spell_seed_of_malevolence();           ///< 156921
     new auchindoun_teronogor_spell_demonic_leap_jump();             ///< 157039
     new auchindoun_teronogor_gameobject_soul_transporter_01();      ///< 231736
-    //new auchindoun_teronogor_gameobject_soul_transporter_02();      ///< 345366
-    //new auchindoun_teronogor_gameobject_soul_transporter_03();      ///< 345367
-    //new auchindoun_teronogor_gameobject_soul_transporter_04();      ///< 345368
+    new auchindoun_teronogor_gameobject_soul_transporter_02();      ///< 345366
+    new auchindoun_teronogor_gameobject_soul_transporter_03();      ///< 345367
+    new auchindoun_teronogor_gameobject_soul_transporter_04();      ///< 345368
+
 }

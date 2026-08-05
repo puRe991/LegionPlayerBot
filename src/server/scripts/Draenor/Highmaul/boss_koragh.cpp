@@ -1547,16 +1547,17 @@ void AddSC_boss_koragh()
 
     RegisterGameObjectAI(go_highmaul_chain);
 
-    //RegisterSpellAndAuraScriptPair(spell_highmaul_frozen_core, spell_highmaul_frozen_core_AuraScript);
-    //RegisterAuraScript(spell_highmaul_wild_flames_areatrigger);
-    //RegisterAuraScript(spell_highmaul_nullification_barrier);
-    //RegisterAuraScript(spell_highmaul_caustic_energy);
-    //RegisterAuraScript(spell_highmaul_caustic_energy_dot);
+    RegisterSpellAndAuraScriptPair(spell_highmaul_frozen_core, spell_highmaul_frozen_core_AuraScript);
+    RegisterAuraScript(spell_highmaul_wild_flames_areatrigger);
+    RegisterAuraScript(spell_highmaul_nullification_barrier);
+    RegisterAuraScript(spell_highmaul_caustic_energy);
+    RegisterAuraScript(spell_highmaul_caustic_energy_dot);
     RegisterAuraScript(spell_highmaul_expel_magic_fire);
     RegisterAuraScript(spell_highmaul_expel_magic_arcane);
     RegisterAuraScript(spell_highmaul_nullification_barrier_player);
     RegisterAuraScript(spell_highmaul_expel_magic_frost_aura);
     RegisterAuraScript(spell_highmaul_suppression_field_aura);
 
-    //new achievement_highmaul_pair_annihilation();
+    new achievement_highmaul_pair_annihilation();
+
 }

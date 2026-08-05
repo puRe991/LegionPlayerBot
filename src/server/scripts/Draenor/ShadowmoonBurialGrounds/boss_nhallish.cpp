@@ -26,7 +26,7 @@ enum Spells
 
     SPELL_VOID_BLAST                = 152792,
     SPELL_PLANAR_SHIFT              = 153623,
-    SPELL_VOID_VORTEX               = 152801, //поправить притЯгивалку ат и настройки в дате
+    SPELL_VOID_VORTEX               = 152801, //РїРѕРїСЂР°РІРёС‚СЊ РїСЂРёС‚РЇРіРёРІР°Р»РєСѓ Р°С‚ Рё РЅР°СЃС‚СЂРѕР№РєРё РІ РґР°С‚Рµ
     SPELL_SOUL_STEAL                = 152962,
     SPELL_TEMPORAL_DISTORTION       = 158382,
     SPELL_TEMPORAL_DISTORTION_STUN  = 158372,

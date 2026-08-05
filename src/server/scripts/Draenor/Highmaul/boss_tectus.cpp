@@ -1740,5 +1740,6 @@ void AddSC_boss_tectus()
     RegisterAuraScript(spell_highmaul_spawn_dust_cloud);
     RegisterSpellScript(spell_highmaul_earthen_flechettes);
     RegisterAuraScript(spell_highmaul_petrification);
-    //RegisterAuraScript(spell_highmaul_raving_assault);
+    RegisterAuraScript(spell_highmaul_raving_assault);
+
 }

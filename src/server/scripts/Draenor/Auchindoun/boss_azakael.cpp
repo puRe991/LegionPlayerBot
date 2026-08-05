@@ -808,8 +808,8 @@ void AddSC_boss_azzakel()
 {
     new boss_azzakel();                             ///< 75927
     new auchindoun_azzakel_mob_controller();        ///< 76216
-    //new auchindoun_azzakel_mob_fel_spark_trigger(); ///< 326527
-    //new auchindoun_azzakel_mob_fel_pool();          ///< 326526
+    new auchindoun_azzakel_mob_fel_spark_trigger(); ///< 326527
+    new auchindoun_azzakel_mob_fel_pool();          ///< 326526
     new auchindoun_azzakel_spell_curtain_flames();  ///< 153392
     new auchindoun_azzakel_spell_claws_of_argus();  ///< 153764
 }

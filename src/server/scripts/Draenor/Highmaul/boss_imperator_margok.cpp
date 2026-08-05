@@ -3008,7 +3008,7 @@ void AddSC_boss_imperator_margok()
     RegisterHighmaulCreatureAI(npc_highmaul_rune_of_displacement);
     RegisterHighmaulCreatureAI(npc_highmaul_arcane_aberration);
     RegisterHighmaulCreatureAI(npc_highmaul_destructive_resonance);
-    //RegisterHighmaulCreatureAI(npc_highmaul_destructive_resonance_replication);
+    RegisterHighmaulCreatureAI(npc_highmaul_destructive_resonance_replication);
     RegisterHighmaulCreatureAI(npc_highmaul_gorian_warmage);
     RegisterHighmaulCreatureAI(npc_highmaul_volatile_anomaly);
     RegisterHighmaulCreatureAI(npc_highmaul_gorian_reaver);
@@ -3022,7 +3022,7 @@ void AddSC_boss_imperator_margok()
     RegisterAuraScript(spell_highmaul_branded_replication);
     RegisterSpellScript(spell_highmaul_arcane_wrath_damage);
     RegisterAuraScript(spell_highmaul_transition_visuals);
-    //RegisterAuraScript(spell_highmaul_dominance_aura);
+    RegisterAuraScript(spell_highmaul_dominance_aura);
     RegisterAuraScript(spell_highmaul_force_nova_fortified);
     RegisterSpellScript(spell_highmaul_devastating_shockwave);
     RegisterAuraScript(spell_highmaul_force_nova_dot);

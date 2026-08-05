@@ -3657,17 +3657,17 @@ class spell_highmaul_time_stop : public AuraScript
 
 void AddSC_highmaul()
 {
-    //RegisterHighmaulCreatureAI(npc_highmaul_gharg_arena_master);
-    //RegisterHighmaulCreatureAI(npc_highmaul_jhorn_the_mad);
-    //RegisterHighmaulCreatureAI(npc_highmaul_thoktar_ironskull);
-    //RegisterHighmaulCreatureAI(npc_highmaul_imperator_margok);
+    RegisterHighmaulCreatureAI(npc_highmaul_gharg_arena_master);
+    RegisterHighmaulCreatureAI(npc_highmaul_jhorn_the_mad);
+    RegisterHighmaulCreatureAI(npc_highmaul_thoktar_ironskull);
+    RegisterHighmaulCreatureAI(npc_highmaul_imperator_margok);
     RegisterHighmaulCreatureAI(npc_highmaul_gorian_guardsman);
     RegisterHighmaulCreatureAI(npc_highmaul_night_twisted_devout);
     RegisterHighmaulCreatureAI(npc_highmaul_gorian_runemaster);
-    //RegisterHighmaulCreatureAI(npc_highmaul_gorian_enforcer);
+    RegisterHighmaulCreatureAI(npc_highmaul_gorian_enforcer);
     RegisterHighmaulCreatureAI(npc_highmaul_underbelly_vagrant);
     RegisterHighmaulCreatureAI(npc_highmaul_gorian_sorcerer);
-    //RegisterHighmaulCreatureAI(npc_highmaul_night_twisted_brute);
+    RegisterHighmaulCreatureAI(npc_highmaul_night_twisted_brute);
     RegisterHighmaulCreatureAI(npc_highmaul_night_twisted_soothsayer);
     RegisterHighmaulCreatureAI(npc_highmaul_void_aberration);
     RegisterHighmaulCreatureAI(npc_highmaul_krush);
@@ -3687,11 +3687,11 @@ void AddSC_highmaul()
     RegisterHighmaulCreatureAI(npc_highmaul_warden_thultok);
     RegisterHighmaulCreatureAI(npc_highmaul_gorian_royal_guardsman);
     RegisterHighmaulCreatureAI(npc_highmaul_gorian_high_sorcerer);
-    //RegisterHighmaulCreatureAI(npc_highmaul_ogron_mauler);
+    RegisterHighmaulCreatureAI(npc_highmaul_ogron_mauler);
     RegisterHighmaulCreatureAI(npc_highmaul_guard_captain_thag);
     RegisterHighmaulCreatureAI(npc_highmaul_councilor_daglat);
     RegisterHighmaulCreatureAI(npc_highmaul_councilor_magknor);
-    //RegisterHighmaulCreatureAI(npc_highmaul_arcane_torrent);
+    RegisterHighmaulCreatureAI(npc_highmaul_arcane_torrent);
     RegisterHighmaulCreatureAI(npc_highmaul_councilor_gorluk);
     RegisterHighmaulCreatureAI(npc_highmaul_phantasmal_weapon);
     RegisterHighmaulCreatureAI(npc_highmaul_councilor_nouk);
@@ -3706,7 +3706,7 @@ void AddSC_highmaul()
     RegisterSpellScript(spell_highmaul_unstoppable_charge);
     RegisterAuraScript(spell_highmaul_corrupted_blood_shield);
     RegisterSpellScript(spell_highmaul_rending_slash);
-    //RegisterAuraScript(spell_highmaul_shield_charge);
+    RegisterAuraScript(spell_highmaul_shield_charge);
     RegisterAuraScript(spell_highmaul_earthdevastating_slam);
     RegisterSpellScript(spell_highmaul_earthdevastating_slam_dmg);
     RegisterSpellAndAuraScriptPair(spell_highmaul_arcane_barrage, spell_highmaul_arcane_barrage_AuraScript);

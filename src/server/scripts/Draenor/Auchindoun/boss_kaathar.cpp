@@ -1137,11 +1137,11 @@ public:
 void AddSC_boss_kaathar()
 {
     new boss_kaathar();                                                 ///< 75839
-    //new auchindoun_kaathar_mob_spawn_fissures();                        ///< 543536
-    //new auchindoun_kaathar_mob_hallowed_ground();                       ///< 537324
+    new auchindoun_kaathar_mob_spawn_fissures();                        ///< 543536
+    new auchindoun_kaathar_mob_hallowed_ground();                       ///< 537324
     new auchindoun_kaathar_mob_holy_shield();                           ///< 76071
-    //new auchindoun_kaathar_mob_nyami();                                 ///< 77810
-    //new auchindoun_kaathar_mob_teleport_players();                      ///< 3242352
+    new auchindoun_kaathar_mob_nyami();                                 ///< 77810
+    new auchindoun_kaathar_mob_teleport_players();                      ///< 3242352
     new auchindoun_kaathar_spell_consecrated_light();                   ///< 153006
     new auchindoun_kaathar_spell_fate();                                ///< 157465
     new auchindoun_kaathar_spell_sanctified_ground();                   ///< 153430
