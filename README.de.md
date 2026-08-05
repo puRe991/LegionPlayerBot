@@ -1,45 +1,98 @@
+<div align="center">
+
 # LegionPlayerBot
 
-**Ein von TrinityCore abgeleiteter World-of-Warcraft-*Legion*-Server (7.3.5) mit Spielerbots direkt im Kern.**
+**Ein von TrinityCore abgeleiteter World-of-Warcraft-*Legion*-Server (7.3.5)
+mit Spielerbots direkt im Kern.**
 
-[English](README.md) · [Einrichtung](docs/SETUP.md) · [Fehlerbericht Legion](docs/Fehlerbericht-Legion.md)
+[![Lizenz](https://img.shields.io/badge/Lizenz-GPL--2.0-blue.svg)](COPYING)
+[![Erweiterung](https://img.shields.io/badge/WoW-Legion%207.3.5-orange.svg)](#)
+[![Build](https://img.shields.io/badge/Build-GCC%2013.3%20%7C%20MSVC%202017%2B-brightgreen.svg)](#bauen)
+[![Sprache](https://img.shields.io/badge/C%2B%2B-14-00599C.svg)](#)
+[![Kodierung](https://img.shields.io/badge/Quelltext-100%25%20UTF--8-success.svg)](#kodierung)
+
+[English](README.md) · **Deutsch**
+
+[Einrichtung](docs/SETUP.md) · [Fehlerbericht Legion](docs/Fehlerbericht-Legion.md) · [Lizenz](COPYING)
+
+</div>
 
 ---
 
-Die Bots hier sind keine Marionetten. Sie sind echte Charaktere auf echten
-Konten: Sie melden sich an, wählen Talente, reihen sich für Schlachtfelder,
+## Inhalt
+
+- [Worum es geht](#worum-es-geht)
+- [Bauen](#bauen)
+- [Stand auf einen Blick](#stand-auf-einen-blick)
+- [Bot-KI](#bot-ki)
+  - [Klassenabdeckung](#klassenabdeckung)
+  - [Warteschlangen](#warteschlangen)
+  - [Schlachtfeldziele](#schlachtfeldziele)
+  - [Beute](#beute)
+- [Verwaltung](#verwaltung)
+- [Datenbanken und Clientdaten](#datenbanken-und-clientdaten)
+- [Inhalte und Instandsetzungen](#inhalte-und-instandsetzungen)
+- [Kodierung](#kodierung)
+- [Sicherheit](#sicherheit)
+- [Bekannte Einschränkungen](#bekannte-einschränkungen)
+- [Herkunft und Lizenz](#herkunft-und-lizenz)
+
+---
+
+## Worum es geht
+
+Die Bots hier sind keine Marionetten. Sie sind **echte Charaktere auf echten
+Konten**: Sie melden sich an, wählen Talente, reihen sich für Schlachtfelder,
 Arenen und den Dungeonfinder ein, kämpfen mit klassenspezifischer Kampf-KI,
-würfeln auf Beute, antworten auf Flüstern und beleben die offene Welt. Das
-Teilsystem sitzt **im** Kern statt daneben als Modul — ein Bot durchläuft
+würfeln auf Beute, antworten auf Flüstern und beleben die offene Welt.
+
+Das Teilsystem sitzt **im** Kern statt daneben als Modul — ein Bot durchläuft
 dieselbe Sitzung, dieselben Paketverarbeiter und dieselben Warteschlangen wie
-ein menschlicher Spieler.
+ein menschlicher Spieler. Es gibt keine Skriptbrücke und keinen zweiten Prozess,
+den man synchron halten müsste.
+
+| | |
+|---|---|
+| Bot-KI | rund 42 000 Zeilen in 81 Dateien, fünf KI-Betriebsarten |
+| Spielskripte | 1 127 Skriptdateien, Classic bis Legion |
+| Quelltext gesamt | rund 1,38 Mio. Zeilen |
+
+---
+
+## Bauen
 
 ```sh
+git clone https://github.com/puRe991/LegionPlayerBot.git
+cd LegionPlayerBot
 mkdir build && cd build
 cmake .. -DCMAKE_BUILD_TYPE=Release
 make -j$(nproc)
 ```
 
----
+**Werkzeugkette.** Boost ab 1.60, OpenSSL 1.0/1.1/3.x sowie MySQL ab 5.7 bzw.
+MariaDB ab 10.4 werden unterstützt; die Versionsunterschiede löst das Bausystem
+auf, statt sie festzunageln. Unter Windows wird MSVC 2017 oder neuer gebraucht.
 
-## Stand
+Der Baum war früher reine MSVC-Kost. Er baut inzwischen unter Linux mit GCC
+durchgehend durch.
 
-| | |
-|---|---|
-| **Linux / GCC** | baut — geprüft mit GCC 13.3, CMake 3.28, Boost 1.83, OpenSSL 3.0, MariaDB 10.11 |
-| **Windows / MSVC** | baut — MSVC 2017 oder neuer |
-| **Erzeugt** | `worldserver`, `bnetserver`, keine offenen Symbole |
-| **Läuft** | startet, liest die Konfiguration, öffnet die Datenbanken auth, characters und hotfixes |
-| **Braucht** | eine TrinityCore-Weltdatenbank 7.3.5 und entpackte Clientdaten — **beides liegt hier nicht bei** |
-
-Der Baum war früher reine MSVC-Kost. Boost ab 1.60, OpenSSL 1.0/1.1/3.x sowie
-MySQL ab 5.7 bzw. MariaDB ab 10.4 werden unterstützt; die Versionsunterschiede
-löst das Bausystem auf, statt sie festzunageln.
-
+> [!IMPORTANT]
 > **Vor dem ersten Start** die Prüfschritte aus
 > [Abschnitt 4a der Einrichtung](docs/SETUP.md) durchgehen. Ohne Weltdatenbank
 > bricht der Server mit einer irreführenden Meldung ab: Die erste Zeile lautet
 > `Table 'world.linked_respawn' doesn't exist` und nicht „keine Weltdatenbank".
+
+---
+
+## Stand auf einen Blick
+
+| | |
+|---|---|
+| **Linux / GCC** | ✅ baut — geprüft mit GCC 13.3, CMake 3.28, Boost 1.83, OpenSSL 3.0, MariaDB 10.11 |
+| **Windows / MSVC** | ✅ baut — MSVC 2017 oder neuer |
+| **Ergebnisse** | `worldserver`, `bnetserver` — keine offenen Symbole |
+| **Startlauf** | startet, liest die Konfiguration, öffnet die Datenbanken auth, characters und hotfixes |
+| **Nicht enthalten** | eine TrinityCore-Weltdatenbank 7.3.5 und entpackte Clientdaten |
 
 ---
 
@@ -55,15 +108,16 @@ Fünf KI-Betriebsarten, jede mit Umsetzungen je Klasse:
 | `BotArenaAI` | Arena |
 | `BotDuelAI` | Duelle |
 
-**Klassenabdeckung.** Vollständig für Krieger, Paladin, Jäger, Schurke,
-Priester, Schamane, Magier, Hexenmeister und Druide. Mönch und Dämonenjäger
-sind spielbar — einschließlich der Heilerrolle Nebelwirker und der Tankrollen
-Braumeister und Rachsucht —, ihre Rotationen sind aber flacher als die der
-älteren Klassen. Der Todesritter ist überall abgedeckt außer auf
-Schlachtfeldern.
-
 Die Bots wählen ihre Talente selbst, eines je freigeschalteter Stufe, passend
 zur aktiven Spezialisierung.
+
+### Klassenabdeckung
+
+| Klasse | Abdeckung |
+|---|---|
+| Krieger, Paladin, Jäger, Schurke, Priester, Schamane, Magier, Hexenmeister, Druide | vollständig |
+| Mönch, Dämonenjäger | spielbar — Heilerrolle Nebelwirker, Tankrollen Braumeister und Rachsucht; Rotationen flacher als bei den älteren Klassen |
+| Todesritter | vollständig außer auf Schlachtfeldern |
 
 ### Warteschlangen
 
@@ -74,14 +128,14 @@ zur aktiven Spezialisierung.
 | Gewertete Arena | der Bot-Verwalter bildet eine Gruppe aus 2 oder 3; der Anführer meldet an |
 | Dungeonfinder | Bots füllen die fehlende Rolle und nehmen den Gruppenvorschlag selbsttätig an |
 
-Gewertete Arena kennt in Legion keine Arenateams mehr — angemeldet wird vom
+**Gewertete Arena.** Legion kennt keine Arenateams mehr — angemeldet wird vom
 Anführer einer gewöhnlichen Gruppe passender Größe.
 `PlayerBotMgr::AddTeamBotToRatedArena` stellt diese Gruppe aus untätigen Bots
 einer Fraktion auf Höchststufe zusammen.
 
-Der Dungeonfinder arbeitet von der anderen Seite.
+**Dungeonfinder.** Der arbeitet von der anderen Seite.
 `LFGMgr::SearchLFGBotRequirement` durchsucht die Warteschlange nach einem
-**echten** wartenden Spieler und meldet, welche Rolle noch fehlt; der
+*echten* wartenden Spieler und meldet, welche Rolle noch fehlt; der
 Bot-Verwalter holt dann einen passenden Charakter online. Botsitzungen werden
 bei dieser Suche bewusst übersprungen — sonst würden Bots sich gegenseitig
 anmelden und die Warteschlange liefe nie leer. Da ein Bot keinen Client zum
@@ -94,16 +148,15 @@ Die Zielsteuerung — Flaggen, Stützpunkte, Fahrzeuge — ist umgesetzt für
 Eroberung**. In den übrigen Schlachtfeldern kämpfen die Bots, kümmern sich aber
 nicht um die Ziele.
 
-**Dieser Code braucht Navigationsdaten, die dieses Repository nicht
-mitliefert.** Die Tabelle `aiwaypoints` wird leer angelegt. Bots bewegen sich
-im Schlachtfeld entlang eines Wegpunktnetzes, das ein Betreiber im Spiel setzt
-und das in die Weltdatenbank zurückgeschrieben wird. Solange diese Zeilen
-fehlen, hat die Zielsteuerung nichts, woran sie entlanglaufen könnte — in den
-fünf genannten Schlachtfeldern genauso wie überall sonst.
+> [!WARNING]
+> **Dieser Code braucht Navigationsdaten, die dieses Repository nicht
+> mitliefert.** Die Tabelle `aiwaypoints` wird leer angelegt. Bots bewegen sich
+> im Schlachtfeld entlang eines Wegpunktnetzes, das ein Betreiber im Spiel setzt
+> und das in die Weltdatenbank zurückgeschrieben wird. Solange diese Zeilen
+> fehlen, hat die Zielsteuerung nichts, woran sie entlanglaufen könnte — in den
+> fünf genannten Schlachtfeldern genauso wie überall sonst.
 
----
-
-## Beute
+### Beute
 
 Bei einem Gruppenwurf würfelt ein Bot **Bedarf**, wenn der Gegenstand zu seiner
 Klasse *und* zur aktuellen Spezialisierung passt, er ihn tatsächlich anlegen
@@ -131,52 +184,69 @@ Würfelverhalten.
 
 ---
 
-## Datenbank
+## Datenbanken und Clientdaten
 
-`sql/base/` enthält die Zusatztabellen, die der Kern braucht — das
-Navigationsnetz der Bots, Namensvorräte, Gesprächszeilen und die Zugangsliste
-des Werkzeug-Sockets. Der TrinityCore-Grundbestand 7.3.5 liegt nicht bei und
-muss von woanders kommen. Ihn **vor** `sql/base` einspielen.
+Vier Datenbanken werden gebraucht: `auth`, `characters`, `world`, `hotfixes`.
+
+1. **Eine TrinityCore-Weltdatenbank 7.3.5 einspielen.** Liegt hier nicht bei.
+2. **Danach `sql/base/` anwenden** — die Zusatztabellen, die dieser Kern
+   braucht: das Navigationsnetz der Bots, Namensvorräte, Gesprächszeilen und
+   die Zugangsliste des Werkzeug-Sockets.
+3. **Clientdaten entpacken** nach `DataDir`, mit `mapextractor`,
+   `vmap4extractor`/`vmap4assembler` und `mmaps_generator`.
+4. **`auth.realmlist` befüllen.**
+
+Die Reihenfolge zählt — `sql/base` gehört *nach* die Weltdatenbank, nicht davor.
+Ausführlich in [docs/SETUP.md](docs/SETUP.md).
 
 ---
 
-## Inhalte
+## Inhalte und Instandsetzungen
 
 Neben dem Bot-Teilsystem trägt dieser Baum den TrinityCore-Skriptbestand von
-Classic bis Legion, Erweiterung für Erweiterung geprüft. Nennenswerte
-Instandsetzungen:
+Classic bis Legion, Erweiterung für Erweiterung geprüft.
 
 | Erweiterung | Arbeit |
 |---|---|
-| Classic | Buru der Verschlinger, Ossirian der Narbenlose und Viscidus aus leeren Hüllen geschrieben; Ragefire-Schlund, Sturmwind-Verlies und Düsterbruch als Instanzen gebunden |
-| Burning Crusade | vier fehlende Instanzskripte; das Schachereignis in Karazhan; der Sonnenbrunnen-Epilog |
-| Wrath | die Luftschiffschlacht der Eiskronenzitadelle gegen die Transport-Schnittstelle dieses Kerns neu gebaut |
-| Cataclysm | 21 abgeschaltete Skripte wieder aktiviert; der Brunnen der Ewigkeit aus leeren Dateien wiederhergestellt |
-| Warlords | Begegnungen der Schwarzfelsgießerei und der Höllenfeuerzitadelle umgesetzt; Grimmschienen-Depot ergänzt |
-| Legion | siehe [Fehlerbericht](docs/Fehlerbericht-Legion.md) |
+| **Classic** | Buru der Verschlinger, Ossirian der Narbenlose und Viscidus aus leeren Hüllen geschrieben; Ragefire-Schlund, Sturmwind-Verlies und Düsterbruch als Instanzen gebunden |
+| **Burning Crusade** | vier fehlende Instanzskripte; das Schachereignis in Karazhan; der Sonnenbrunnen-Epilog |
+| **Wrath** | die Luftschiffschlacht der Eiskronenzitadelle gegen die Transport-Schnittstelle dieses Kerns neu gebaut |
+| **Cataclysm** | 21 abgeschaltete Skripte wieder aktiviert; der Brunnen der Ewigkeit aus leeren Dateien wiederhergestellt |
+| **Warlords** | Begegnungen der Schwarzfelsgießerei und der Höllenfeuerzitadelle umgesetzt; Grimmschienen-Depot ergänzt |
+| **Legion** | siehe [Fehlerbericht](docs/Fehlerbericht-Legion.md) |
 
-Die Registrierungslage wird maschinell geprüft: Jede Skriptklasse im Baum ist
-gebunden, es gibt keine doppelten Skriptnamen, keine leeren Quelldateien, und
-jede `.cpp` erreicht den Build.
+Die Registrierungslage wird maschinell geprüft. Stand des aktuellen Baums:
+
+- jede Skriptklasse ist gebunden — **0** definiert, aber nie registriert
+- **0** doppelte Skriptnamen
+- **0** leere Quelldateien
+- jede `.cpp` erreicht den Build
+- **0** `Register()`-Rümpfe ohne aktiven Handler
+- **0** unmarkierte Durchfallstellen in `switch`-Anweisungen
 
 ---
 
 ## Kodierung
 
 Der gesamte Quellbaum ist UTF-8. Das war nicht immer so — 26 Dateien des
-Bot-Teilsystems waren GBK, einige weitere cp1251. Spielersichtbare Texte, die
-früher chinesische Literale waren, liefen über `consoleToUtf8`; die Funktion
-ist auf Linux ein Durchreicher und hätte rohe Bytes an den Client geschickt.
-Heute sind es schlichte englische UTF-8-Zeichenketten.
+Bot-Teilsystems waren GBK, einige weitere cp1251.
+
+Spielersichtbare Texte, die früher chinesische Literale waren, liefen über
+`consoleToUtf8`; die Funktion ist auf Linux ein Durchreicher und hätte rohe
+Bytes an den Client geschickt. Heute sind es schlichte englische
+UTF-8-Zeichenketten.
 
 ---
 
 ## Sicherheit
 
-`src/server/bnetserver/bnetserver.key.pem` ist der Entwicklungsschlüssel von
-TrinityCore und damit öffentlich bekannt. **Vor dem Betrieb eines erreichbaren
-Realms austauschen.** Botkonten werden mit einem festen Kennwort angelegt —
-die auth-Datenbank gehört deshalb nicht in ein öffentliches Netz.
+> [!CAUTION]
+> `src/server/bnetserver/bnetserver.key.pem` ist der **Entwicklungsschlüssel**
+> von TrinityCore und damit öffentlich bekannt. Vor dem Betrieb eines
+> erreichbaren Realms austauschen.
+
+Botkonten werden mit einem festen Kennwort angelegt — die auth-Datenbank gehört
+deshalb nicht in ein öffentliches Netz.
 
 ---
 
@@ -192,6 +262,8 @@ die auth-Datenbank gehört deshalb nicht in ein öffentliches Netz.
 
 ---
 
-## Lizenz
+## Herkunft und Lizenz
 
-GPL v2, von TrinityCore übernommen. Siehe [COPYING](COPYING).
+Aufgebaut auf [TrinityCore](https://www.trinitycore.org/) und dessen
+LegionCore-Ableger. Lizenziert unter **GPL v2**, von TrinityCore übernommen —
+siehe [COPYING](COPYING).
