@@ -202,6 +202,8 @@ void AddSC_boss_landslide();
 void AddSC_boss_noxxion();
 void AddSC_boss_ptheradras();
 void AddSC_instance_maraudon();
+void AddSC_instance_dire_maul();             //Dire Maul
+void AddSC_instance_ragefire_chasm();        //Ragefire Chasm
 void AddSC_boss_onyxia();                    //Onyxia's Lair
 void AddSC_instance_onyxias_lair();
 void AddSC_boss_amnennar_the_coldbringer();  //Razorfen Downs
@@ -904,6 +906,7 @@ void AddSC_boss_dathrohan_balnazzar();
 void AddSC_boss_order_of_silver_hand();
 void AddSC_instance_stratholme();
 void AddSC_stratholme();
+void AddSC_instance_stormwind_stockade();    // The Stockade
 void AddSC_sunken_temple();                  // Sunken Temple
 void AddSC_instance_sunken_temple();
 void AddSC_instance_sunwell_plateau();       //Sunwell Plateau
@@ -1489,6 +1492,8 @@ void AddKalimdorScripts()
     AddSC_boss_noxxion();
     AddSC_boss_ptheradras();
     AddSC_instance_maraudon();
+    AddSC_instance_dire_maul();             //Dire Maul
+    AddSC_instance_ragefire_chasm();        //Ragefire Chasm
     AddSC_boss_onyxia();                    //Onyxia's Lair
     AddSC_instance_onyxias_lair();
     AddSC_boss_amnennar_the_coldbringer();  //Razorfen Downs
@@ -2226,6 +2231,7 @@ void AddEasternKingdomsScripts()
     AddSC_boss_order_of_silver_hand();
     AddSC_instance_stratholme();
     AddSC_stratholme();
+    AddSC_instance_stormwind_stockade();    // The Stockade
     AddSC_sunken_temple();                  // Sunken Temple
     AddSC_instance_sunken_temple();
     AddSC_instance_sunwell_plateau();       //Sunwell Plateau
