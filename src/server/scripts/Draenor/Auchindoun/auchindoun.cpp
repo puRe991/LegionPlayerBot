@@ -2029,5 +2029,7 @@ void AddSC_auchindoun()
     new auchindoun_spell_psychic_terror();          ///< 154356
     new auchindoun_spell_tuulani_unlock();          ///< 160415
     new auchindoun_spell_arcane_bolt();             ///< 157505
+    new auchindoun_spell_warden_chain();
+    new auchindoun_warden_chain_aura();
     new auchindoun_gob_talador_portal();            ///< 236689
 }

@@ -2005,6 +2005,7 @@ void AddSC_boss_high_botanist_telarn()
     RegisterCreatureAI(npc_telarn_plasma_sphere);
     RegisterCreatureAI(npc_telarn_toxic_spore);
     RegisterSpellScript(spell_telarn_recursive_strikes);
+    RegisterAuraScript(spell_telarn_recursive_strikes_dummy);
     RegisterAuraScript(spell_telarn_parasitic_fetter);
     RegisterAuraScript(spell_telarn_parasitic_fixate);
     RegisterAuraScript(spell_telarn_parasitic_fetter_mark);

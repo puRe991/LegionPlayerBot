@@ -358,6 +358,6 @@ void AddSC_brawlers_guild()
     new npc_brawlers_guild_queue();
     new npc_bizmo();
     new npc_bossy();
-    //new spell_queued_for_brawl();
+    new spell_queued_for_brawl();
     new brawl_invitation_item();
 }

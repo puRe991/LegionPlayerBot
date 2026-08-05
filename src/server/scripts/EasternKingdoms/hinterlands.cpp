@@ -151,5 +151,5 @@ public:
 
 void AddSC_hinterlands()
 {
-    //new npc_00x09hl();
+    new npc_00x09hl();
 }

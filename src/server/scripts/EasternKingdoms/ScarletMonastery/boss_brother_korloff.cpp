@@ -250,5 +250,5 @@ void AddSC_boss_brother_korloff()
     new boss_brother_korloff();
     new npc_korloff_training_dummy();
     RegisterAuraScript(spell_korloff_scorched_earth);
-    //new achievement_burning_man();
+    new achievement_burning_man();
 }

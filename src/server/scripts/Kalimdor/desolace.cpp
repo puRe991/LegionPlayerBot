@@ -144,5 +144,5 @@ class go_demon_portal : public GameObjectScript
 void AddSC_desolace()
 {
     new npc_aged_dying_ancient_kodo();
-    //new go_demon_portal();
+    new go_demon_portal();
 }

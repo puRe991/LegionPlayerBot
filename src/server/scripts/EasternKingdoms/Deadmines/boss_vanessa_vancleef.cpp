@@ -443,5 +443,6 @@ void AddSC_boss_vanessa_vancleef()
     new boss_vanessa_vancleef();
     new npc_vanessa_vancleef_a_note_from_vanessa();
     new npc_vanessa_vancleef_vanessa_sitting();
+    new npc_vanessa_vancleef_defias_enforcer();
     new spell_vanessa_vancleef_backslash_targeting();
 }

@@ -1100,4 +1100,5 @@ void AddSC_the_nighthold()
     new npc_nighthold_portal();
     new spell_vantus_rune_the_nighthold();
     RegisterGameObjectAI(go_nighthold_gate_event);
+    RegisterSpellScript(spell_nighthold_smash_dest_SpellScript);   // 221356
 }

@@ -1197,12 +1197,12 @@ void AddSC_the_scarlet_enclave_c1()
     new npc_unworthy_initiate();
     new npc_unworthy_initiate_anchor();
     new go_acherus_soul_prison();
-    //new npc_death_knight_initiate();
+    new npc_death_knight_initiate();
     new npc_salanar_the_horseman();
     new npc_dark_rider_of_acherus();
     new npc_ros_dark_rider();
     new npc_dkc1_gothik();
-    //new npc_scarlet_ghoul();
+    new npc_scarlet_ghoul();
     new npc_scarlet_miner();
     new npc_scarlet_miner_cart();
     new npc_eye_of_acherus();

@@ -418,5 +418,5 @@ public:
 
 void AddSC_boss_nightbane()
 {
-    //new boss_nightbane();
+    new boss_nightbane();
 }

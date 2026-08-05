@@ -505,6 +505,6 @@ void AddSC_achievement_scripts()
     new achievement_kill_antoran_demons();
     new achievement_almost_blink_luck();
     new achievement_master_of_the_molten_flow();
-    //new achievement_a_classy_outfit();
+    new achievement_a_classy_outfit();
     new achievement_run_with_the_wind();
 }

@@ -51,6 +51,6 @@ void AddSC_scene_scripts()
 {
     new sceneTrigger_deathwing_simulator();
     new sceneTrigger_circuit_game();
-    //new sceneTrigger_karabor_bombing_run();
+    new sceneTrigger_karabor_bombing_run();
 }
 

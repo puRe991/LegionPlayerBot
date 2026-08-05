@@ -405,5 +405,5 @@ void AddSC_boss_thalnos_the_soulrender()
     new npc_empowering_spirit();
     new npc_fallen_crusader();
     new npc_empowered_zombie();
-    //new achievement_empowered_spiritualist();
+    new achievement_empowered_spiritualist();
 }

@@ -611,7 +611,7 @@ void AddSC_item_scripts()
     new item_brewfest_sampler;
     new item_brewfest_ram_reins;
     new item_primal_egg();
-    //new item_leyara_locket();
+    new item_leyara_locket();
     new item_pulsating_sac();
     new item_fel_spotted_egg();
 }
