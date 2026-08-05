@@ -771,6 +771,9 @@ void AddSC_highmaul();
 void AddSC_instance_grimrail_depot(); // Grimrail Depot
 void AddSC_grimrail_depot_bosses();
 void AddSC_instance_blackrock_foundry(); // Raid: Blackrock Foundry
+void AddSC_brf_slagworks();
+void AddSC_brf_black_forge();
+void AddSC_brf_iron_assembly();
 
 void AddSC_instance_hellfire_citadel();  // Raid: Hellfire Citadel
 
@@ -2107,6 +2110,9 @@ void AddDraenorScripts()
     AddSC_instance_grimrail_depot(); // Grimrail Depot
     AddSC_grimrail_depot_bosses();
     AddSC_instance_blackrock_foundry(); // Raid: Blackrock Foundry
+    AddSC_brf_slagworks();
+    AddSC_brf_black_forge();
+    AddSC_brf_iron_assembly();
 
     AddSC_instance_hellfire_citadel();  // Raid: Hellfire Citadel
 
