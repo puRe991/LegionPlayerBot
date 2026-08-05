@@ -75,8 +75,20 @@ FUNCTION(GENERATE_CXX_PCH_COMMAND TARGET_NAME_LIST INCLUDE_FLAGS IN PCH_SRC OUT)
   GET_FILENAME_COMPONENT(PCH_SRC_N ${PCH_SRC} NAME)
   ADD_LIBRARY(${PCH_SRC_N}_dephelp MODULE ${PCH_SRC})
 
+  # GCC looks for <header>.gch next to <header>. ADD_CXX_PCH_GCC compiles the
+  # precompiled form into the binary directory and points -include at the same
+  # place, so the plain header has to sit there too. Copying it first is what
+  # makes a build from a clean tree work: without it the first compile of every
+  # target that uses a PCH fails with
+  #   fatal error: <build>/gamePCH.h: No such file or directory
+  # An incremental build over an older tree could hide this, because the header
+  # was already lying around from an earlier layout.
+  GET_FILENAME_COMPONENT(PCH_HEADER_N ${IN} NAME)
+
   ADD_CUSTOM_COMMAND(
     OUTPUT ${OUT}
+    COMMAND ${CMAKE_COMMAND}
+    ARGS -E copy_if_different ${IN} ${CMAKE_CURRENT_BINARY_DIR}/${PCH_HEADER_N}
     COMMAND ${CMAKE_CXX_COMPILER}
     ARGS ${DEFINITION_FLAGS} ${COMPILE_FLAGS} ${INCLUDE_FLAGS} -x c++-header -c ${IN} -o ${OUT}
     DEPENDS ${IN} ${PCH_SRC_N}_dephelp
