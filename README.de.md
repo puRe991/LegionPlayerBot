@@ -73,10 +73,11 @@ make -j$(nproc)
 MariaDB ab 10.4 werden unterstützt; die Versionsunterschiede löst das Bausystem
 auf, statt sie festzunageln. Unter Windows wird MSVC 2017 oder neuer gebraucht.
 
-**Für Windows** gibt es einen geskripteten Weg — `tools\windows\Setup.ps1` holt
+**Für Windows** gibt es einen geskripteten Weg — `tools\windows\setup.bat` holt
 die Werkzeugkette über winget, baut Boost aus einem prüfsummengesicherten
 Quellarchiv in die von CMake erwartete Ablage, konfiguriert, übersetzt und sammelt
-das Ergebnis ein. Das Skript ist **nicht unter Windows ausgeführt worden**; siehe
+das Ergebnis ein. Reines Batch, nur mit Windows-Bordmitteln: `curl`, `certutil`,
+`tar`, `winget`. Das Skript ist **nicht unter Windows ausgeführt worden**; siehe
 [docs/SETUP-Windows.md](docs/SETUP-Windows.md).
 
 Der Baum war früher reine MSVC-Kost. Er baut inzwischen unter Linux mit GCC

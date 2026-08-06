@@ -1,0 +1,3 @@
+# Batch-Dateien brauchen unter Windows CRLF
+*.bat text eol=crlf
+*.cmd text eol=crlf
