@@ -13,7 +13,7 @@ with player bots built into the core.**
 
 **English** · [Deutsch](README.de.md)
 
-[Setup](docs/SETUP.md) · [Legion defect report](docs/Fehlerbericht-Legion.md) · [Licence](COPYING)
+[Setup](docs/SETUP.md) · [Windows](docs/SETUP-Windows.md) · [Legion defect report](docs/Fehlerbericht-Legion.md) · [Licence](COPYING)
 
 </div>
 
@@ -72,6 +72,11 @@ make -j$(nproc)
 **Toolchain.** Boost 1.60+, OpenSSL 1.0/1.1/3.x and MySQL 5.7+ or MariaDB 10.4+
 are all supported; the version differences are resolved in the build system
 rather than pinned. Windows needs MSVC 2017 or newer.
+
+**On Windows** there is a scripted path — `tools\windows\Setup.ps1` fetches the
+toolchain through winget, builds Boost from a checksummed source archive into
+the layout CMake expects, configures, compiles and collects the result. It has
+**not been executed on Windows**; see [docs/SETUP-Windows.md](docs/SETUP-Windows.md).
 
 The tree used to be MSVC-only. It now builds end to end on Linux with GCC.
 

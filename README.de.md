@@ -13,7 +13,7 @@ mit Spielerbots direkt im Kern.**
 
 [English](README.md) · **Deutsch**
 
-[Einrichtung](docs/SETUP.md) · [Fehlerbericht Legion](docs/Fehlerbericht-Legion.md) · [Lizenz](COPYING)
+[Einrichtung](docs/SETUP.md) · [Windows](docs/SETUP-Windows.md) · [Fehlerbericht Legion](docs/Fehlerbericht-Legion.md) · [Lizenz](COPYING)
 
 </div>
 
@@ -72,6 +72,12 @@ make -j$(nproc)
 **Werkzeugkette.** Boost ab 1.60, OpenSSL 1.0/1.1/3.x sowie MySQL ab 5.7 bzw.
 MariaDB ab 10.4 werden unterstützt; die Versionsunterschiede löst das Bausystem
 auf, statt sie festzunageln. Unter Windows wird MSVC 2017 oder neuer gebraucht.
+
+**Für Windows** gibt es einen geskripteten Weg — `tools\windows\Setup.ps1` holt
+die Werkzeugkette über winget, baut Boost aus einem prüfsummengesicherten
+Quellarchiv in die von CMake erwartete Ablage, konfiguriert, übersetzt und sammelt
+das Ergebnis ein. Das Skript ist **nicht unter Windows ausgeführt worden**; siehe
+[docs/SETUP-Windows.md](docs/SETUP-Windows.md).
 
 Der Baum war früher reine MSVC-Kost. Er baut inzwischen unter Linux mit GCC
 durchgehend durch.

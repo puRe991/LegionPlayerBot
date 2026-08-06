@@ -1,0 +1,5 @@
+
+# Windows-Einrichtung (tools/windows/Setup.ps1)
+.winbuild/
+build-windows/
+dist-windows/
