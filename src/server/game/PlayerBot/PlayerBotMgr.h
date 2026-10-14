@@ -8,6 +8,8 @@ class WorldPacket;
 
 #include <list>
 #include <map>
+#include <memory>
+#include <queue>
 #include <set>
 #include <string>
 #include <vector>
@@ -33,6 +35,14 @@ struct LFGBotRequirement;
 struct BotGlobleSchedule;
 class PlayerBotSession;
 
+namespace WorldPackets
+{
+    namespace Character
+    {
+        struct CharacterCreateInfo;
+    }
+}
+
 enum ArenaTeamTypes
 {
     ARENA_TEAM_2v2      = 2,
@@ -50,6 +60,38 @@ enum PlayerBotAIType
 	PBAIT_ARENA,
 	PBAIT_OVER
 };
+
+// Faction of a playable race. The lists this replaces stopped at Wrath and
+// missed Worgen, Goblin, Pandaren and the allied races, so the manager never
+// picked such characters for their faction.
+inline TeamId PlayerBotRaceTeam(uint16 race)
+{
+	switch (race)
+	{
+		case RACE_HUMAN:
+		case RACE_DWARF:
+		case RACE_NIGHTELF:
+		case RACE_GNOME:
+		case RACE_DRAENEI:
+		case RACE_WORGEN:
+		case RACE_PANDAREN_ALLIANCE:
+		case RACE_VOID_ELF:
+		case RACE_LIGHTFORGED_DRAENEI:
+			return TEAM_ALLIANCE;
+		case RACE_ORC:
+		case RACE_UNDEAD_PLAYER:
+		case RACE_TAUREN:
+		case RACE_TROLL:
+		case RACE_GOBLIN:
+		case RACE_BLOODELF:
+		case RACE_PANDAREN_HORDE:
+		case RACE_NIGHTBORNE:
+		case RACE_HIGHMOUNTAIN_TAUREN:
+			return TEAM_HORDE;
+		default:
+			return TEAM_NEUTRAL;
+	}
+}
 
 struct PlayerBotCharBaseInfo
 {
@@ -76,15 +118,7 @@ struct PlayerBotCharBaseInfo
 
 	TeamId GetCamp()
 	{
-		if (race == 1 || race == 3 || race == 4 || race == 7 || race == 11)
-		{
-			return TeamId::TEAM_ALLIANCE;
-		}
-		if (race == 2 || race == 5 || race == 6 || race == 8 || race == 10)
-		{
-			return TeamId::TEAM_HORDE;
-		}
-		return TeamId::TEAM_NEUTRAL;
+		return PlayerBotRaceTeam(race);
 	}
 };
 
@@ -97,7 +131,6 @@ struct PlayerBotBaseInfo
 	std::string pass;
 	using CharInfoMap = std::map<uint64, PlayerBotCharBaseInfo>;
 	CharInfoMap characters;
-	std::queue<WorldPacket> needCreateBots;
 
 	PlayerBotBaseInfo(uint32 uid, const char *name, std::string &pa, bool isAcc) :
 		isAccountInfo(isAcc), id(uid), pass(pa)
@@ -108,21 +141,7 @@ struct PlayerBotBaseInfo
 
 	bool MatchRaceByFuction(bool fuction, uint16 race)
 	{
-		if (fuction)
-		{
-			if (race == 1 || race == 3 || race == 4 || race == 7 || race == 11)
-			{
-				return true;
-			}
-		}
-		else
-		{
-			if (race == 2 || race == 5 || race == 6 || race == 8 || race == 10)
-			{
-				return true;
-			}
-		}
-		return false;
+		return PlayerBotRaceTeam(race) == (fuction ? TEAM_ALLIANCE : TEAM_HORDE);
 	}
 	bool ExistClass(bool fuction, uint16 prof)
 	{
@@ -317,6 +336,10 @@ public:
 	void UpAllPlayerBotSession();
 
 	void OnPlayerBotCreate(ObjectGuid const& guid, uint32 accountId, std::string const& name, uint8 gender, uint8 race, uint8 playerClass, uint8 level);
+	void OnPlayerBotCreateFailed(uint32 accountId, uint32 result);
+	void OnPlayerBotLoginFailed(uint32 accountId, ObjectGuid const& guid);
+	bool IsCreatingCharacters(uint32 accountId) const;
+	bool IsCreateInFlight(uint32 accountId) const { return m_CreateInFlight.account != 0 && m_CreateInFlight.account == accountId; }
 	void OnAccountBotCreate(ObjectGuid const& guid, uint32 accountId, std::string const& name, uint8 gender, uint8 race, uint8 playerClass, uint8 level);
 	void OnAccountBotDelete(ObjectGuid& guid, uint32 accountId);
 	void OnPlayerBotLogin(WorldSession* pSession, Player* pPlayer);
@@ -355,13 +378,14 @@ public:
 	std::string GetNameANDClassesText(ObjectGuid& guid);
 	bool CanReadyArenaByArenaTeamID(uint32 arenaTeamId);
     void SetMax(int max) { m_MaxOnlineBot = max; }
+    int32 GetMinOnline() const { return m_MinOnlineBot; }
     int32 m_MaxOnlineBot;
     int32 m_BotOnlineCount;
 
 private:
 	bool ExistClassByRace(uint8 race, uint8 prof);
 	void InitializeCreatePlayerBotName();
-	std::string RandomName();
+	std::string RandomName(LocaleConstant locale);
 	uint8 RandomRace(bool alliance, uint8 prof);
 	uint8 RandomSkinColor(uint8 race, uint8 gender, uint8 prof);
 	uint8 RandomFace(uint8 race, uint8 gender, uint8 skinColor, uint8 prof);
@@ -369,8 +393,10 @@ private:
 	uint8 RandomHairColor(uint8 race, uint8 gender, uint8 hairID, uint8 prof);
 	uint8 RandomFacialHair(uint8 race, uint8 gender, uint8 hairColor, uint8 prof);
 	PlayerBotSession* UpPlayerBotSessionByBaseInfo(PlayerBotBaseInfo *pAcc, bool accountInfo);
-	WorldPacket BuildCreatePlayerData(bool group, uint8 prof);
+	std::shared_ptr<WorldPackets::Character::CharacterCreateInfo> BuildCreatePlayerData(bool alliance, uint8 prof, LocaleConstant locale);
 	void CreateOncePlayerBot();
+	struct BotCreateRequest;
+	void QueueCreateRequest(BotCreateRequest const& request);
 
 	void ClearBaseInfo();
 	void SupplementAccount();
@@ -389,6 +415,7 @@ private:
 	void QueryRatedArenaRequirement();
 	void QueryNonRatedArenaRequirement();
 	void OnlinePlayerBotByGUIDQueue();
+	void TopUpOnlineBots();
 	bool ExistUnBGPlayerBot();
 	PVPDifficultyEntry const* FindBGBracketEntry(Battleground* bg_template, uint32 level);
 
@@ -404,6 +431,26 @@ private:
 	std::vector<std::string> allName;
 	std::vector<std::string> allArenaName;
 	std::queue<ObjectGuid> m_DelayOnlineBots;
+
+	// Characters still to be created on bot accounts, see SupplementPlayerBot.
+	struct BotCreateRequest
+	{
+		uint32 account;
+		bool alliance;
+		uint8 cls;
+		uint8 attempts;
+	};
+	std::queue<BotCreateRequest> m_CreateRequests;
+	std::map<uint32, uint32> m_CreateQueued;  ///< account id -> requests of it in m_CreateRequests
+	BotCreateRequest m_CreateInFlight;        ///< creation issued and not answered yet; account 0 if none
+	uint32 m_CreateInFlightSince;             ///< getMSTime() when m_CreateInFlight was issued
+	bool m_CreateDeferredLogged;              ///< "waiting for accounts to go offline" already logged
+	std::set<std::string> m_HandedOutNames;   ///< names given to a creation that may not be saved yet
+	uint32 m_CreateIssued;
+
+	int32 m_MinOnlineBot;                     ///< PlayerBot.MinOnline
+	bool m_MinOnlineWarned;                   ///< shortfall of PlayerBot.MinOnline already logged
+	bool m_Announce;                          ///< PlayerBot.Announce
 
 public:
 	static std::map<uint32, std::list<UnitAI*> > m_DelayDestroyAIs;

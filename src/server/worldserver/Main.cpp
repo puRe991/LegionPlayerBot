@@ -77,8 +77,8 @@ using namespace boost::program_options;
 #ifdef _WIN32
 #include "ServiceWin32.h"
 char serviceName[] = "worldserver";
-char serviceLongName[] = "LegionCore world service";
-char serviceDescription[] = "LegionCore World of Warcraft emulator world service";
+char serviceLongName[] = "FelForge world service";
+char serviceDescription[] = "FelForge World of Warcraft: Legion emulator world service";
 /*
  * -1 - not in service mode
  *  0 - stopped
@@ -110,6 +110,13 @@ void StopDB();
 void WorldUpdateLoop();
 void ClearOnlineAccounts();
 void ShutdownThreadPool(std::vector<std::thread>& threadPool);
+void ShutdownAtExit();
+
+// File scope so that ShutdownAtExit can reach it.
+std::vector<std::thread> _threadPool;
+// Set while StartDB has opened (or begun to open) the database pools.
+bool _databasesOpen = false;
+extern bool HotfixDatabaseClosed;   // World.cpp
 bool LoadRealmInfo();
 variables_map GetConsoleArguments(int argc, char** argv, std::string& cfg_file, std::string& cfg_service);
 
@@ -191,13 +198,21 @@ extern int main(int argc, char **argv)
 
     // Start the Boost based thread pool
     int numThreads = sConfigMgr->GetIntDefault("ThreadPool", 1);
-    std::vector<std::thread> threadPool;
+    std::vector<std::thread>& threadPool = _threadPool;
 
     if (numThreads < 1)
         numThreads = 1;
 
     for (int i = 0; i < numThreads; ++i)
         threadPool.emplace_back(boost::bind(&boost::asio::io_service::run, &_ioService));
+
+    // Startup errors end in exit(), e.g. when client data is missing. The
+    // io_service destructor would then wait forever for these threads, so
+    // the process hung instead of exiting, and the database pools would be
+    // destroyed under their running worker threads. Registered after
+    // _ioService and the pools were constructed, this runs before their
+    // destructors.
+    std::atexit(ShutdownAtExit);
 
     // Set process priority according to configuration settings
     SetProcessPriority("server.worldserver");
@@ -480,8 +495,19 @@ void ShutdownThreadPool(std::vector<std::thread>& threadPool)
 {
     _ioService.stop();
 
+    // Safe to call twice: the normal shutdown and the exit handler both do.
     for (auto& thread : threadPool)
-        thread.join();
+        if (thread.joinable())
+            thread.join();
+    threadPool.clear();
+}
+
+void ShutdownAtExit()
+{
+    ShutdownThreadPool(_threadPool);
+    // A pool's destructor frees the queue its async workers wait on; without
+    // Close(), which joins them, that corrupted the heap now and then.
+    StopDB();
 }
 
 void WorldUpdateLoop()
@@ -682,6 +708,7 @@ AsyncAcceptor* StartRaSocketAcceptor(boost::asio::io_service& ioService)
 bool StartDB()
 {
     MySQL::Library_Init();
+    _databasesOpen = true;
 
     std::string dbString = sConfigMgr->GetStringDefault("WorldDatabaseInfo", "");
     if (dbString.empty())
@@ -812,9 +839,19 @@ bool StartDB()
 
 void StopDB()
 {
+    // Close() frees the connections, a second call would free them again.
+    // The normal shutdown and ShutdownAtExit both get here.
+    if (!_databasesOpen)
+        return;
+    _databasesOpen = false;
+
     CharacterDatabase.Close();
     WorldDatabase.Close();
     LoginDatabase.Close();
+    // World::SetInitialWorldSettings closes it once the hotfixes are loaded;
+    // a startup error before that leaves it open.
+    if (!HotfixDatabaseClosed)
+        HotfixDatabase.Close();
 
     MySQL::Library_End();
 }

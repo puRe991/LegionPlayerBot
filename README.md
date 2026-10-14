@@ -1,19 +1,23 @@
 <div align="center">
 
-# LegionPlayerBot
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/felforge-logo-dark.svg">
+  <img alt="FelForge" src="docs/assets/felforge-logo.svg" width="560">
+</picture>
 
-**A TrinityCore-derived World of Warcraft *Legion* (7.3.5) server
-with player bots built into the core.**
+**An open-source World of Warcraft: *Legion* 7.3.5 server
+with playerbots built into the core.**
 
+[![Version](https://img.shields.io/badge/version-0.1.0-2ea043.svg)](#roadmap)
 [![Licence](https://img.shields.io/badge/licence-GPL--2.0-blue.svg)](COPYING)
 [![Expansion](https://img.shields.io/badge/WoW-Legion%207.3.5-orange.svg)](#)
 [![Build](https://img.shields.io/badge/build-GCC%2013.3%20%7C%20MSVC%202017%2B-brightgreen.svg)](#building)
-[![Language](https://img.shields.io/badge/C%2B%2B-14-00599C.svg)](#)
+[![Language](https://img.shields.io/badge/C%2B%2B-11-00599C.svg)](#)
 [![Encoding](https://img.shields.io/badge/source-100%25%20UTF--8-success.svg)](#source-encoding)
 
 **English** · [Deutsch](README.de.md)
 
-[Setup](docs/SETUP.md) · [Windows](docs/SETUP-Windows.md) · [Legion defect report](docs/Fehlerbericht-Legion.md) · [Licence](COPYING)
+[Setup](docs/SETUP.md) · [Windows](docs/SETUP-Windows.md) · [Roadmap](#roadmap) · [Contributing](CONTRIBUTING.md) · [Legion defect report](docs/Fehlerbericht-Legion.md) · [Licence](COPYING)
 
 </div>
 
@@ -21,6 +25,7 @@ with player bots built into the core.**
 
 ## Contents
 
+- [Why FelForge](#why-felforge)
 - [What this is](#what-this-is)
 - [Building](#building)
 - [Status at a glance](#status-at-a-glance)
@@ -35,7 +40,27 @@ with player bots built into the core.**
 - [Source encoding](#source-encoding)
 - [Security](#security)
 - [Known limitations](#known-limitations)
+- [Roadmap](#roadmap)
+- [Contributing](#contributing)
 - [Credits and licence](#credits-and-licence)
+
+---
+
+## Why FelForge
+
+FelForge sets out to become **the best Legion server emulator** — the most
+complete, the most stable, and the one whose world still feels alive when only
+a handful of people are online. Three things decide whether it gets there:
+
+- **Bots as first-class players.** Battlegrounds, arenas and the dungeon
+  finder should pop on a small realm, because bots queue, fight and loot the
+  way players do — through the same code paths, not around them.
+- **Content that works, expansion by expansion.** Scripts are audited and
+  repaired against this core, Classic through Legion, and the audit results
+  are written down.
+- **Claims you can check.** What this README calls working has been built and
+  checked; what has not been tested at runtime says so. The
+  [roadmap](#roadmap) lists what is still open.
 
 ---
 
@@ -62,8 +87,8 @@ sync.
 ## Building
 
 ```sh
-git clone https://github.com/puRe991/LegionPlayerBot.git
-cd LegionPlayerBot
+git clone https://github.com/puRe991/LegionPlayerBot.git FelForge
+cd FelForge
 mkdir build && cd build
 cmake .. -DCMAKE_BUILD_TYPE=Release
 make -j$(nproc)
@@ -96,8 +121,10 @@ The tree used to be MSVC-only. It now builds end to end on Linux with GCC.
 | **Linux / GCC** | ✅ builds — verified on GCC 13.3, CMake 3.28, Boost 1.83, OpenSSL 3.0, MariaDB 10.11 |
 | **Windows / MSVC** | ✅ builds — MSVC 2017 or newer |
 | **Artefacts** | `worldserver`, `bnetserver` — no unresolved symbols |
-| **Startup** | starts, reads its configuration, opens the auth, characters and hotfixes databases |
-| **Not included** | a TrinityCore 7.3.5 world database and extracted client data |
+| **Databases** | the LegionCore 2020-04-25 set plus `sql/legioncore` and `sql/base`: all 1 414 prepared statements of the core prepare without error |
+| **Startup** | `bnetserver` runs and lists the realm; `worldserver` loads all four databases and stops at the missing client data |
+| **Playerbots** | create their own characters and come online for battlegrounds, arenas and the dungeon finder — built and checked, not yet run in a live world |
+| **Not included** | the databases (downloadable, see below) and client data (extracted from your own client) |
 
 ---
 
@@ -151,12 +178,10 @@ Objective AI — flags, bases, vehicles — is implemented for **Arathi Basin,
 Warsong Gulch, Eye of the Storm, Alterac Valley and Isle of Conquest**. In the
 remaining battlegrounds bots fight but ignore objectives.
 
-> [!WARNING]
-> **That code needs navigation data this repository does not ship.** The
-> `aiwaypoints` table is created empty. Bots move around a battleground along a
-> waypoint graph that an operator builds in-game and that is written back to the
-> world database. Until those rows exist, objective AI has nothing to walk
-> along — in the five battlegrounds above as much as anywhere else.
+The objective code walks to fixed points — flags, bases, graveyards, starting
+positions — that it looks up by id in the `aiwaypoints` table.
+`sql/base/world_playerbot.sql` fills it with those 61 points for the five
+battlegrounds and the Dalaran Sewers arena.
 
 ### Loot
 
@@ -179,9 +204,20 @@ are configurable.
 | `limit [count]` | Read or set the online limit for this session (Administrator). |
 | `status` | Online counts and current loot settings. |
 
+The server sets up its bots itself: it creates the bot accounts and, in the
+background after startup, one character of every class on the first 20 of
+them, split between alliance and horde. Details in
+[Bot characters](docs/SETUP.md#bot-characters).
+
+How many bots are online is set in the configuration: `PlayerBot.MaxOnline`
+caps them, `PlayerBot.MinOnline` keeps a number of them in the open world even
+when no queue needs them, and `PlayerBot.Accounts` sets how many bot accounts
+there are. `PlayerBot.Announce = 0` silences the chat message every player
+gets when a bot comes online or goes offline.
+
 The `PLAYERBOT SETTINGS` block in `worldserver.conf.dist` documents every
-option: the master switch, the online limit, account-bound bots, and how bots
-answer loot rolls.
+option: the master switch, the online limit, account-bound bots, how many
+accounts get characters, and how bots answer loot rolls.
 
 ---
 
@@ -189,15 +225,21 @@ answer loot rolls.
 
 Four databases are required: `auth`, `characters`, `world`, `hotfixes`.
 
-1. **Import a TrinityCore 7.3.5 world database.** Not included here.
-2. **Then apply `sql/base/`** — the custom tables this core needs: the bot
+1. **Import the LegionCore 7.3.5 databases of 2020-04-25** — world and
+   hotfixes from the Legion Preservation Project's release
+   `LegionCore735.20041`, auth and characters from the same tag. TrinityCore's
+   7.3.5 databases do **not** fit this core.
+2. **Apply `sql/legioncore/`** — two small scripts that close the gaps
+   between those dumps and this core.
+3. **Apply `sql/base/`** — the custom tables this core needs: the bot
    navigation graph, name pools, chat lines and the tool socket allow list.
-3. **Extract client data** into `DataDir` with `mapextractor`,
-   `vmap4extractor`/`vmap4assembler` and `mmaps_generator`.
-4. **Populate `auth.realmlist`.**
+4. **Extract client data** into `DataDir`: `dbc`, `gt`, `cameras`, `maps`,
+   `vmaps`, `mmaps`. The map extractor in this repository is outdated; use
+   the Legion Preservation Project's current one.
+5. **Change the password of the preset `GM@GM` account** and set up
+   `auth.realmlist`.
 
-Order matters — apply `sql/base` *after* the world database, not before. Full
-walkthrough in [docs/SETUP.md](docs/SETUP.md).
+Exact commands, in the right order, in [docs/SETUP.md](docs/SETUP.md).
 
 ---
 
@@ -243,8 +285,8 @@ wire; they are plain English UTF-8 strings now.
 > `src/server/bnetserver/bnetserver.key.pem` is the TrinityCore **development
 > key** and is therefore public. Replace it before exposing a realm.
 
-Bot accounts are created with a fixed password — keep the auth database off
-public networks.
+Bot accounts (`PLAYERBOT<number>`) are created with the fixed password
+`botxxx` — keep the auth database off public networks.
 
 ---
 
@@ -252,16 +294,55 @@ public networks.
 
 - Outside the five battlegrounds listed above, bots fight but ignore
   objectives.
-- All battleground objective AI stays inert until an operator builds the
-  `aiwaypoints` navigation graph.
 - Artifact acquisition scenarios exist for seven of twelve classes.
 - Some comments in the bot subsystem are still Chinese. They are correctly
   encoded and readable — they simply have not been translated.
 
 ---
 
+## Roadmap
+
+**0.1 — where it stands.** Builds end to end on Linux with GCC. Bots create
+their own characters, fill battlegrounds, skirmish and rated arena and the
+dungeon finder, and the objective waypoints for five battlegrounds ship with
+the database scripts.
+
+**Next.**
+
+1. **Runtime verification.** Run a realm against the LegionCore databases
+   and client data, and turn the result into a repeatable test realm: bots
+   log in, queue, enter, fight, leave.
+2. **Continuous integration.** Build every push on Linux and Windows, so the
+   build badge reports a fact rather than a claim.
+3. **Epic battlegrounds.** Bots always queue for the regular random
+   battleground; check and wire up the epic queue for Alterac Valley and
+   Isle of Conquest.
+4. **More objectives.** Objective AI for Twin Peaks, Battle for Gilneas,
+   Silvershard Mines, Temple of Kotmogu and Deepwind Gorge.
+5. **Class depth.** Fuller Monk and Demon Hunter rotations; battleground AI
+   for Death Knights.
+6. **Legion content.** Artifact acquisition scenarios for the five classes
+   still missing them; work through the open items of the
+   [defect report](docs/Fehlerbericht-Legion.md).
+7. **Housekeeping.** Configurable bot account password; translate the
+   remaining Chinese comments.
+
+---
+
+## Contributing
+
+Bug reports, fixes and content work are welcome — see
+[CONTRIBUTING.md](CONTRIBUTING.md) for how to build, what a good report
+contains and how changes are reviewed.
+
+---
+
 ## Credits and licence
 
-Built on [TrinityCore](https://www.trinitycore.org/) and its LegionCore
-derivative. Licensed under **GPL v2**, inherited from TrinityCore — see
-[COPYING](COPYING).
+FelForge started out as *LegionPlayerBot*. It is built on
+[TrinityCore](https://www.trinitycore.org/) and its LegionCore derivative and
+keeps their copyright notices. Licensed under **GPL v2**, inherited from
+TrinityCore — see [COPYING](COPYING).
+
+World of Warcraft and Legion are trademarks of Blizzard Entertainment.
+FelForge is not affiliated with or endorsed by Blizzard Entertainment.

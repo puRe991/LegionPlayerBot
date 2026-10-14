@@ -1,6 +1,6 @@
-##############################################
-# LegionCore World Server configuration file #
-##############################################
+############################################
+# FelForge World Server configuration file #
+############################################
 [worldserver]
 
 ###################################################################################################
@@ -43,7 +43,7 @@ RealmID = 1
 #    DataDir
 #        Description: Data directory setting.
 #        Important:   DataDir needs to be quoted, as the string might contain space characters.
-#        Example:     "C:/LegionCore/ClientData"
+#        Example:     "C:/FelForge/ClientData"
 #        Default:     "./ClientData"
 
 DataDir = "./ClientData"
@@ -1027,10 +1027,10 @@ PlayerStart.String = ""
 #    Motd
 #        Description: Message of the Day, displayed at login.
 #                     Use '@' for a newline and be sure to escape special characters.
-#        Example:     "Welcome to John\'s Server@This server runs on Trinity Core."
-#        Default:     "Welcome to a Trinity Core server."
+#        Example:     "Welcome to John\'s Server@This server runs on FelForge."
+#        Default:     "Welcome to a FelForge server."
 
-Motd = "Welcome to LegionCore Server."
+Motd = "Welcome to a FelForge server."
 
 #
 #    Server.LoginInfo
@@ -3005,14 +3005,49 @@ QuestPOI.DisableErrors = 1
 PlayerBot.Enable = 1
 
 #
+#    PlayerBot.Accounts
+#       Description: Number of bot accounts. Missing ones are created at startup, named
+#                    PLAYERBOT<number> with the password botxxx. Bot accounts beyond this number
+#                    are left in the database but not used.
+#       Default:     180
+#       Range:       0 - 1000
+
+PlayerBot.Accounts = 180
+
+#
 #    PlayerBot.MaxOnline
 #       Description: Upper bound on how many bots may be online at the same time, counting both
-#                    factions. The manager brings at most one bot online per update tick, so a
-#                    large battleground takes a while to fill.
+#                    factions. Only bots count, real players do not. The manager brings at most
+#                    one bot online per update tick, so a large battleground takes a while to
+#                    fill.
 #       Default:     10
 #       Range:       0 - 500
 
 PlayerBot.MaxOnline = 10
+
+#
+#    PlayerBot.MinOnline
+#       Description: Number of bots kept online at all times, split evenly between alliance
+#                    and horde, so the world is not empty when no queue needs them. These bots
+#                    roam the open world and are the first picked when a battleground, arena
+#                    or dungeon finder queue needs a bot. One bot comes online every two seconds
+#                    until the number is reached. Never more than PlayerBot.MaxOnline. Each of
+#                    these bots needs its own bot account with characters, see
+#                    PlayerBot.CreateCharacters.Accounts.
+#       Default:     0 - (Bots only come online when something needs them)
+#       Range:       0 - 500
+
+PlayerBot.MinOnline = 0
+
+#
+#    PlayerBot.Announce
+#       Description: Announce to every player in chat when a bot comes online ("<name> has
+#                    come online.") or goes offline. With PlayerBot.MinOnline or busy
+#                    battlegrounds this can be a lot of messages.
+#       Default:     1 - (Announce)
+#                    0 - (Silent)
+
+PlayerBot.Announce = 1
 
 #
 #    PlayerBot.AccountAll
@@ -3022,6 +3057,25 @@ PlayerBot.MaxOnline = 10
 #                    0 - (Disabled)
 
 PlayerBot.AccountAll = 1
+
+#
+#    PlayerBot.CreateCharacters.Accounts
+#       Description: Number of bot accounts that get characters created automatically. Each of
+#                    them gets one character of every class, all of one faction: an account
+#                    keeps the faction of the characters it already has, empty accounts are
+#                    split evenly between alliance and horde. A bot needs a character on its
+#                    account to come online at all.
+#                    Creation runs in the background after startup, one character every two
+#                    seconds, account by account. An account is not brought online until all
+#                    of its characters exist, so the first one is ready after about 25
+#                    seconds. Missing characters are queued again on every start, so raising
+#                    the value later fills further accounts. CharactersPerRealm still caps
+#                    the characters per account.
+#       Default:     20
+#                    0  - (Do not create bot characters)
+#       Range:       0 - PlayerBot.Accounts
+
+PlayerBot.CreateCharacters.Accounts = 20
 
 #
 #    PlayerBot.Loot.NeedRoll

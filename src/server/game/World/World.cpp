@@ -144,6 +144,11 @@ float World::ZoneUpdateDistanceRangeLimit = 5.0f;
 uint64 World::SendSize[OPCODE_COUNT] = { 0 };
 uint64 World::SendCount[OPCODE_COUNT] = { 0 };
 
+// The hotfix database is closed as soon as the hotfixes are loaded. StopDB in
+// the worldserver's Main.cpp reads this so that it does not close it again:
+// a second Close() frees its connections twice.
+bool HotfixDatabaseClosed = false;
+
 /// World constructor
 World::World() : isEventKillStart(false), mail_timer(0), mail_timer_expires(0), blackmarket_timer(0), m_updateTime(0), m_currentTime(0), m_sessionCount(0), m_maxSessionCount(0),
 rate_values{}, m_int_configs{}, m_bool_configs{}, m_float_configs{}, m_NextRandomBGReset(0), m_NextServerRestart(0)
@@ -501,7 +506,7 @@ void World::LoadConfigSettings(bool reload)
 
     ///- Read the player limit and the Message of the day from the config file
     SetPlayerAmountLimit(sConfigMgr->GetIntDefault("MaxAccountsOnline", 1000));
-    SetMotd(sConfigMgr->GetStringDefault("Motd", "Welcome to a Trinity Core Server."));
+    SetMotd(sConfigMgr->GetStringDefault("Motd", "Welcome to a FelForge server."));
 
     ///- Read ticket system setting from the config file
     m_bool_configs[CONFIG_ALLOW_TICKETS] = sConfigMgr->GetBoolDefault("AllowTickets", true);
@@ -1663,6 +1668,7 @@ void World::SetInitialWorldSettings()
     TC_LOG_INFO(LOG_FILTER_SERVER_LOADING, "Loading hotfix info...");
     sDB2Manager.LoadHotfixData();
     HotfixDatabase.Close();
+    HotfixDatabaseClosed = true;
 
     LoadGameTables(m_dataPath);
 
@@ -1690,7 +1696,8 @@ void World::SetInitialWorldSettings()
     //TC_LOG_INFO("server.loading", "Loading AI Way points...");
     if (!sAIWPMgr->LoadAIWaypoints())
     {
-        exit(0);
+        TC_LOG_ERROR(LOG_FILTER_SERVER_LOADING, "Table `aiwaypoints` not found in the world database. Apply sql/base/world_playerbot.sql.");
+        exit(1);
         return;
     }
 

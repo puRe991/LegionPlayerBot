@@ -1,6 +1,6 @@
 @echo off
 rem ==========================================================================
-rem  LegionPlayerBot - Windows-Einrichtung
+rem  FelForge - Windows-Einrichtung
 rem
 rem  Holt die Abhaengigkeiten, legt sie dorthin, wo CMake sie sucht,
 rem  konfiguriert und uebersetzt.
@@ -54,7 +54,7 @@ if /i "%STAGE%"=="help"   goto :usage
 if /i "%STAGE%"=="/?"     goto :usage
 
 echo.
-echo LegionPlayerBot - Windows-Einrichtung
+echo FelForge - Windows-Einrichtung
 echo   Repositorium : %REPO_ROOT%
 echo   Arbeitsordner: %WORK_ROOT%
 echo   Bauordner    : %BUILD_DIR%
@@ -404,7 +404,7 @@ exit /b 0
 rem ==========================================================================
 :usage
 echo.
-echo LegionPlayerBot - Windows-Einrichtung
+echo FelForge - Windows-Einrichtung
 echo.
 echo   setup.bat all          alle Stufen der Reihe nach
 echo   setup.bat prereq       Werkzeugkette ueber winget

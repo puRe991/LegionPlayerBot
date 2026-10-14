@@ -176,8 +176,18 @@ void WorldSession::SendCharacterEnum(bool deleted /*= false*/)
 
 void WorldSession::HandleCharCreateOpcode(WorldPackets::Character::CreateChar& charCreate)
 {
-    auto SendCharCreate = [this](ResponseCodes result) -> void
+    std::shared_ptr<WorldPackets::Character::CharacterCreateInfo> requestInfo = charCreate.CreateInfo;
+    auto SendCharCreate = [this, requestInfo](ResponseCodes result) -> void
     {
+        // A bot session has no client to show the response to; log it so
+        // a failed automatic creation does not go unnoticed.
+        if (IsBotSession() && result != CHAR_CREATE_SUCCESS)
+        {
+            TC_LOG_ERROR(LOG_FILTER_SERVER_LOADING, "PlayerBot: creating character '%s' (race %u, class %u) on account %u failed with response code %u.",
+                requestInfo->Name.c_str(), uint32(requestInfo->Race), uint32(requestInfo->Class), GetAccountId(), uint32(result));
+            sPlayerBotMgr->OnPlayerBotCreateFailed(GetAccountId(), uint32(result));
+        }
+
         WorldPackets::Character::CharacterCreateResponse response;
         response.Code = result;
         SendPacket(response.Write());
@@ -376,13 +386,15 @@ void WorldSession::HandleCharCreateOpcode(WorldPackets::Character::CreateChar& c
             uint32 freeHeroicSlots = m_DKCount > sWorld->getIntConfig(CONFIG_HEROIC_CHARACTERS_PER_REALM) ? 0 : sWorld->getIntConfig(CONFIG_HEROIC_CHARACTERS_PER_REALM) - m_DKCount;
             uint32 freeDemonHunterSlots = m_DHCount > sWorld->getIntConfig(CONFIG_DEMON_HUNTERS_PER_REALM) ? 0 : sWorld->getIntConfig(CONFIG_DEMON_HUNTERS_PER_REALM) - m_DHCount;
 
-            if (checkHeroicReqs && !m_canDK && hasHeroicReqLevel && freeHeroicSlots)
+            // m_canDK and m_canDH come from the character list a client asks
+            // for; a bot session never does, and bot accounts start empty.
+            if (checkHeroicReqs && !m_canDK && hasHeroicReqLevel && freeHeroicSlots && !IsBotSession())
             {
                 SendCharCreate(CHAR_CREATE_LEVEL_REQUIREMENT);
                 return;
             }
 
-            if (checkDemonHunterReqs && !m_canDH && hasDemonHunterReqLevel && freeDemonHunterSlots)
+            if (checkDemonHunterReqs && !m_canDH && hasDemonHunterReqLevel && freeDemonHunterSlots && !IsBotSession())
             {
                 SendCharCreate(CHAR_CREATE_LEVEL_REQUIREMENT_DEMON_HUNTER);
                 return;
@@ -542,8 +554,10 @@ void WorldSession::HandleCharDeleteOpcode(WorldPackets::Character::DeleteChar& c
 
 void WorldSession::HandlePlayerLoginOpcode(WorldPackets::Character::PlayerLogin& playerLogin)
 {
-    // Prevent flood of CMSG_PLAYER_LOGIN
-    if (++playerLoginCounter > 10)
+    // Prevent flood of CMSG_PLAYER_LOGIN. A bot session lives as long as the
+    // server and the counter is never reset, so it would be locked out after
+    // its tenth login.
+    if (!IsBotSession() && ++playerLoginCounter > 10)
     {
         TC_LOG_ERROR(LOG_FILTER_OPCODES, "Player kicked due to flood of CMSG_PLAYER_LOGIN");
         KickPlayer();

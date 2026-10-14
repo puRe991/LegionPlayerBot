@@ -161,7 +161,7 @@ void LoadGameTables(std::string const& dataPath)
         for (std::string const& err  : bad_gt_files)
             str << err << std::endl;
 
-        TC_LOG_ERROR(LOG_FILTER_GENERAL, "\nSome required *.txt GameTable files (" SZFMTD ") not found or not compatible:\n%s", bad_gt_files.size(), str.str().c_str());
+        TC_LOG_ERROR(LOG_FILTER_SERVER_LOADING, "\nSome required *.txt GameTable files (" SZFMTD ") not found or not compatible:\n%s", bad_gt_files.size(), str.str().c_str());
         exit(1);
     }
 

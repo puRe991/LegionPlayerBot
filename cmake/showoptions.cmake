@@ -1,9 +1,7 @@
 # output generic information about the core and buildtype chosen
 message("")
-message("* LegionCore")
-if( UNIX )
-  message("* LegionCore")
-endif()
+message("* FelForge 0.1.0 - World of Warcraft: Legion 7.3.5")
+message("* Revision ${rev_hash} (${rev_date})")
 message("")
 
 # Show infomation about the options selected during configuration

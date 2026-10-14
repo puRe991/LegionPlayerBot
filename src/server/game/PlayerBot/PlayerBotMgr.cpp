@@ -20,7 +20,9 @@
 #include "Config.h"
 #include "PlayerBotSession.h"
 #include "AccountMgr.h"
+#include "CharacterData.h"
 #include "CharacterPackets.h"
+#include "GlobalFunctional.h"
 
 #include <type_traits>
 #include <vector>
@@ -30,6 +32,42 @@
 
 // Grace period before an AI that was swapped out is actually freed.
 static uint32 const AI_DESTROY_DELAY = 5000;
+// A bot character creation that has not answered after this long is given up.
+static uint32 const BOT_CREATE_TIMEOUT = 60 * IN_MILLISECONDS;
+// How often a creation that failed because its name was taken is retried.
+static uint8 const BOT_CREATE_ATTEMPTS = 3;
+
+namespace
+{
+    // Class of a random character of the given faction on a bot account,
+    // limited to prof unless that is CLASS_NONE; 0 when there is none.
+    //
+    // The Online schedule silently does nothing when the account has no
+    // matching character, and the next request then picks the very same idle
+    // session again. Many accounts can be empty; the callers use this to skip
+    // those instead of stalling on the first one.
+    //
+    // Accounts whose characters are still being created count as empty too:
+    // creation only runs while the account is offline, so logging one in
+    // would hold back the rest of its classes.
+    uint32 PickBotCharacterClass(PlayerBotBaseInfo* info, bool alliance, uint32 prof)
+    {
+        if (!info || sPlayerBotMgr->IsCreatingCharacters(info->id))
+            return 0;
+        std::vector<uint32> classes;
+        for (auto const& entry : info->characters)
+        {
+            if (!info->MatchRaceByFuction(alliance, entry.second.race))
+                continue;
+            if (prof != CLASS_NONE && entry.second.profession != prof)
+                continue;
+            classes.push_back(entry.second.profession);
+        }
+        if (classes.empty())
+            return 0;
+        return classes[urand(0, uint32(classes.size() - 1))];
+    }
+}
 
 PlayerBotCharBaseInfo PlayerBotBaseInfo::empty;
 std::map<uint32, std::list<UnitAI*> > PlayerBotMgr::m_DelayDestroyAIs;
@@ -109,12 +147,19 @@ uint32 PlayerBotBaseInfo::GetCharIDByNoArenaType(bool faction, uint32 prof, uint
 }
 
 PlayerBotMgr::PlayerBotMgr() :
-    m_BotAccountAmount(90),
+    m_BotAccountAmount(180),
     m_LastBotAccountIndex(0),
     m_MaxOnlineBot(10),
     m_BotOnlineCount(0),
     m_LFGSearchTick(0),
-    m_ArenaSearchTick(0)
+    m_ArenaSearchTick(0),
+    m_CreateInFlight(),
+    m_CreateInFlightSince(0),
+    m_CreateDeferredLogged(false),
+    m_CreateIssued(0),
+    m_MinOnlineBot(0),
+    m_MinOnlineWarned(false),
+    m_Announce(true)
 {
     m_BGTypes.push_back(MS::Battlegrounds::BattlegroundTypeId::BattlegroundWarsongGulch);
     m_BGTypes.push_back(MS::Battlegrounds::BattlegroundTypeId::BattlegroundArathiBasin);
@@ -433,25 +478,72 @@ void PlayerBotMgr::InitializeCreatePlayerBotName()
         } while (result2->NextRow());
     }
 }
-std::string PlayerBotMgr::RandomName()
+std::string PlayerBotMgr::RandomName(LocaleConstant locale)
 {
-    if (allName.size() <= 0)
-        InitializeCreatePlayerBotName();
-    int32 maxLoop = allName.size() / 2;
-    if (maxLoop <= 0)
-        return "";
-    do
+    // A name is only handed out when the character create handler would
+    // accept it: the same name rules, the reserved list, and not yet taken -
+    // neither by a saved character nor by a creation still in flight.
+    auto usable = [this, locale](std::string const& name) -> bool
     {
-        uint32 index = irand(0, allName.size() - 1);
-        std::string selectName = allName[index];
-        std::string sql = "SELECT guid FROM characters WHERE name = '" + selectName + "'";
-        QueryResult result = CharacterDatabase.Query(sql.c_str());
-        if (!result)
-            return selectName;
-        --maxLoop;
-        if (maxLoop <= 0)
-            break;
-    } while (true);
+        if (m_HandedOutNames.find(name) != m_HandedOutNames.end())
+            return false;
+        if (sWorld->GetCharacterInfo(name))
+            return false;
+        if (sCharacterDataStore->CheckPlayerName(name, locale, true) != CHAR_NAME_SUCCESS)
+            return false;
+        if (sCharacterDataStore->IsReservedName(name))
+            return false;
+        return true;
+    };
+
+    if (allName.empty())
+        InitializeCreatePlayerBotName();
+
+    // The name pool in auth.playerbot_names comes first.
+    std::vector<std::string> pool(allName);
+    Trinity::Containers::RandomShuffle(pool);
+    for (std::string& name : pool)
+    {
+        if (!normalizePlayerName(name))
+            continue;
+        if (usable(name))
+        {
+            m_HandedOutNames.insert(name);
+            return name;
+        }
+    }
+
+    // The pool is small, so make up further names from syllables. Lower case
+    // after the first letter, as normalizePlayerName would leave them.
+    static char const* const starts[] =
+    {
+        "Ael", "Bar", "Bel", "Cal", "Cor", "Dor", "Dra", "Eir", "Ela", "Fal",
+        "Fen", "Gal", "Gor", "Hal", "Har", "Ith", "Jor", "Kar", "Kel", "Lia",
+        "Lor", "Mal", "Mor", "Nor", "Nyl", "Ory", "Per", "Quel", "Ral", "Ros",
+        "Sar", "Syl", "Tal", "Tor", "Ul", "Val", "Vor", "Wyn", "Yor", "Zan"
+    };
+    static char const* const middles[] =
+    {
+        "", "", "", "a", "e", "i", "o", "an", "en", "ar", "or", "il", "el", "ri", "na", "da", "ve"
+    };
+    static char const* const ends[] =
+    {
+        "dan", "dor", "ric", "wyn", "mir", "las", "ion", "ia", "ra", "eth", "an", "is",
+        "os", "ius", "ara", "ena", "rin", "th", "mar", "nor", "vin", "lyn", "dis", "rel"
+    };
+
+    for (uint32 attempt = 0; attempt < 500; ++attempt)
+    {
+        std::string name = starts[urand(0, std::extent<decltype(starts)>::value - 1)];
+        name += middles[urand(0, std::extent<decltype(middles)>::value - 1)];
+        name += ends[urand(0, std::extent<decltype(ends)>::value - 1)];
+        if (usable(name))
+        {
+            m_HandedOutNames.insert(name);
+            return name;
+        }
+    }
+
     return "";
 }
 std::string PlayerBotMgr::RandomArenaName()
@@ -464,15 +556,19 @@ uint8 PlayerBotMgr::RandomRace(bool alliance, uint8 prof)
     // 1..11 only, so Worgen, Goblin and Pandaren never appeared, and when no
     // race matched - which was always the case for Monk and Demon Hunter - it
     // fell back to Human or Orc and produced an invalid combination.
+    //
+    // Pandaren are left out: a client never creates them with a faction, they
+    // start neutral and pick one on the Wandering Isle, so the faction races
+    // are not something the character create handler can be relied on for.
     static uint8 const allianceRaces[] =
     {
         RACE_HUMAN, RACE_DWARF, RACE_NIGHTELF, RACE_GNOME, RACE_DRAENEI,
-        RACE_WORGEN, RACE_PANDAREN_ALLIANCE
+        RACE_WORGEN
     };
     static uint8 const hordeRaces[] =
     {
         RACE_ORC, RACE_UNDEAD_PLAYER, RACE_TAUREN, RACE_TROLL, RACE_GOBLIN,
-        RACE_BLOODELF, RACE_PANDAREN_HORDE
+        RACE_BLOODELF
     };
 
     uint8 const* races = alliance ? allianceRaces : hordeRaces;
@@ -482,14 +578,15 @@ uint8 PlayerBotMgr::RandomRace(bool alliance, uint8 prof)
     // Collect what actually exists for this class rather than sampling blindly.
     std::vector<uint8> candidates;
     candidates.reserve(raceCount);
+    // The create handler refuses a race without an unlock requirement entry.
     for (std::size_t i = 0; i < raceCount; ++i)
-        if (ExistClassByRace(races[i], prof))
+        if (ExistClassByRace(races[i], prof) && sObjectMgr->GetRaceUnlockRequirement(races[i]))
             candidates.push_back(races[i]);
 
     if (!candidates.empty())
         return candidates[urand(0, uint32(candidates.size() - 1))];
 
-    TC_LOG_ERROR(LOG_FILTER_PLAYER, "PlayerBotMgr::RandomRace found no %s race for class %u.",
+    TC_LOG_ERROR(LOG_FILTER_SERVER_LOADING, "PlayerBotMgr::RandomRace found no %s race for class %u.",
         alliance ? "alliance" : "horde", uint32(prof));
     return 0;
 }
@@ -592,54 +689,145 @@ uint8 PlayerBotMgr::RandomFacialHair(uint8 race, uint8 gender, uint8 hairColor, 
     return 0;
 }
 
-WorldPacket PlayerBotMgr::BuildCreatePlayerData(bool group, uint8 prof)
+std::shared_ptr<WorldPackets::Character::CharacterCreateInfo> PlayerBotMgr::BuildCreatePlayerData(bool alliance, uint8 prof, LocaleConstant locale)
 {
-    std::string name = RandomName();
-    uint8 race = RandomRace(group, prof);
+    uint8 race = RandomRace(alliance, prof);
     if (!race)
-        return WorldPacket();
+        return nullptr;
 
-    uint8 gender = irand(0, 1);
-    uint8 skinColor = RandomSkinColor(race, gender, prof);
-    uint8 faceID = RandomFace(race, gender, skinColor, prof);
-    uint8 hairID = RandomHair(race, gender, prof);
-    uint8 hairColor = RandomHairColor(race, gender, hairID, prof);
-    uint8 facialHair = RandomFacialHair(race, gender, hairColor, prof);
-    WorldPacket cmd(0x36);
-    cmd << name;
-    cmd << race;
-    cmd << prof;
-    cmd << gender;
-    cmd << skinColor;
-    cmd << faceID;
-    cmd << hairID;
-    cmd << hairColor;
-    cmd << facialHair;
-    cmd << 0;//OutfitId
+    std::string name = RandomName(locale);
+    if (name.empty())
+    {
+        TC_LOG_ERROR(LOG_FILTER_SERVER_LOADING, "PlayerBotMgr: found no free name for a new bot character.");
+        return nullptr;
+    }
 
-    return cmd;
+    auto createInfo = std::make_shared<WorldPackets::Character::CharacterCreateInfo>();
+    createInfo->Race = race;
+    createInfo->Class = prof;
+    createInfo->Sex = uint8(urand(GENDER_MALE, GENDER_FEMALE));
+    createInfo->Skin = RandomSkinColor(race, createInfo->Sex, prof);
+    createInfo->Face = RandomFace(race, createInfo->Sex, createInfo->Skin, prof);
+    createInfo->HairStyle = RandomHair(race, createInfo->Sex, prof);
+    createInfo->HairColor = RandomHairColor(race, createInfo->Sex, createInfo->HairStyle, prof);
+    createInfo->FacialHairStyle = RandomFacialHair(race, createInfo->Sex, createInfo->HairColor, prof);
+    createInfo->OutfitId = 0;
+    createInfo->CustomDisplay.fill(0);
+    createInfo->Name = name;
+    return createInfo;
 }
 
+// Creates the next queued bot character, if any. Called from Update(), so at
+// most one creation starts per manager tick, and only once the previous one
+// has answered. The bot session goes through WorldSession::HandleCharCreateOpcode
+// exactly like a client would; the handler reports back through
+// OnPlayerBotCreate or OnPlayerBotCreateFailed.
 void PlayerBotMgr::CreateOncePlayerBot()
 {
-    for (std::map<uint32, PlayerBotBaseInfo*>::iterator it = m_idPlayerBotBase.begin();
-        it != m_idPlayerBotBase.end();
-        it++)
+    // The handler runs three queries before it saves. Two creations on one
+    // account at a time could both pass the per-realm limit.
+    if (m_CreateInFlight.account)
     {
-        PlayerBotBaseInfo* pInfo = it->second;
-        if (pInfo->needCreateBots.size() > 0)
+        if (getMSTimeDiff(m_CreateInFlightSince, getMSTime()) < BOT_CREATE_TIMEOUT)
+            return;
+        // The callbacks belong to the session; when a real client took over
+        // the account they went away with it.
+        TC_LOG_ERROR(LOG_FILTER_SERVER_LOADING, "PlayerBotMgr: creating a bot character on account %u got no answer within %u seconds, moving on.",
+            m_CreateInFlight.account, BOT_CREATE_TIMEOUT / IN_MILLISECONDS);
+        m_CreateInFlight.account = 0;
+    }
+
+    // Requests whose account is online go to the back; look at each one at
+    // most once per tick.
+    size_t remaining = m_CreateRequests.size();
+    size_t deferred = 0;
+    while (remaining-- > 0)
+    {
+        BotCreateRequest request = m_CreateRequests.front();
+        m_CreateRequests.pop();
+        std::map<uint32, uint32>::iterator itQueued = m_CreateQueued.find(request.account);
+        if (itQueued != m_CreateQueued.end() && --itQueued->second == 0)
+            m_CreateQueued.erase(itQueued);
+
+        PlayerBotBaseInfo* pInfo = GetPlayerBotAccountInfo(request.account);
+        if (!pInfo || pInfo->ExistClass(request.alliance, request.cls))
+            continue;
+
+        // No bot session: a real client logged in on this account and
+        // replaced it. Drop the request; the next start queues it again.
+        PlayerBotSession* pSession = dynamic_cast<PlayerBotSession*>(sWorld->FindSession(request.account).get());
+        if (!pSession)
+            continue;
+
+        // The handler builds a Player on the session and answers from the
+        // session's query callbacks, which run on a map thread while the
+        // account has a character in the world. Wait until it is offline.
+        if (pSession->PlayerLoading() || pSession->GetPlayer())
         {
-            WorldPacket& packet = pInfo->needCreateBots.front();
-            WorldSession* pSession = sWorld->FindSession(pInfo->id).get();
-            if (pSession)
-            {
-                //std::shared_ptr<CharacterCreateInfo> CreateInfo;
-                //pSession->HandleCharCreateOpcode(packet);
-            }
-            pInfo->needCreateBots.pop();
-            break;
+            QueueCreateRequest(request);
+            ++deferred;
+            continue;
+        }
+
+        std::shared_ptr<WorldPackets::Character::CharacterCreateInfo> createInfo = BuildCreatePlayerData(request.alliance, request.cls, pSession->GetSessionDbcLocale());
+        if (!createInfo)
+            continue;
+
+        // Set before the call: the handler can fail at once and report back
+        // from inside it.
+        m_CreateInFlight = request;
+        m_CreateInFlightSince = getMSTime();
+        m_CreateDeferredLogged = false;
+        ++m_CreateIssued;
+
+        WorldPacket packet(CMSG_CREATE_CHARACTER);
+        WorldPackets::Character::CreateChar charCreate(std::move(packet));
+        charCreate.CreateInfo = createInfo;
+        pSession->HandleCharCreateOpcode(charCreate);
+        return;
+    }
+
+    if (m_CreateInFlight.account)
+        return;
+
+    if (m_CreateRequests.empty())
+    {
+        if (m_CreateIssued)
+        {
+            TC_LOG_INFO(LOG_FILTER_SERVER_LOADING, "PlayerBotMgr: finished creating bot characters, %u requests issued.", m_CreateIssued);
+            m_CreateIssued = 0;
         }
     }
+    else if (deferred == m_CreateRequests.size() && !m_CreateDeferredLogged)
+    {
+        TC_LOG_INFO(LOG_FILTER_SERVER_LOADING, "PlayerBotMgr: %u bot characters wait for their account to go offline before they are created.",
+            uint32(deferred));
+        m_CreateDeferredLogged = true;
+    }
+}
+
+void PlayerBotMgr::QueueCreateRequest(BotCreateRequest const& request)
+{
+    m_CreateRequests.push(request);
+    ++m_CreateQueued[request.account];
+}
+
+bool PlayerBotMgr::IsCreatingCharacters(uint32 accountId) const
+{
+    return IsCreateInFlight(accountId) || m_CreateQueued.find(accountId) != m_CreateQueued.end();
+}
+
+void PlayerBotMgr::OnPlayerBotCreateFailed(uint32 accountId, uint32 result)
+{
+    if (!IsCreateInFlight(accountId))
+        return;
+    BotCreateRequest request = m_CreateInFlight;
+    m_CreateInFlight.account = 0;
+
+    // A name can be taken between RandomName and the insert; another name
+    // will do. Every other failure would only repeat, and is logged already.
+    if (result == CHAR_CREATE_NAME_IN_USE && ++request.attempts < BOT_CREATE_ATTEMPTS)
+        QueueCreateRequest(request);
 }
 
 void PlayerBotMgr::ClearBaseInfo()
@@ -680,9 +868,11 @@ void PlayerBotMgr::UpdateLastAccountIndex(std::string& username)
 
 void PlayerBotMgr::SupplementAccount()
 {
-    uint32 needAccount = m_BotAccountAmount * 2 - m_idPlayerBotBase.size();
-    if (needAccount <= 0)
+    // Unsigned: with more bot accounts than wanted the subtraction used to wrap
+    // around and the loop below tried to create billions of accounts.
+    if (m_idPlayerBotBase.size() >= m_BotAccountAmount)
         return;
+    uint32 needAccount = m_BotAccountAmount - m_idPlayerBotBase.size();
 
     for (uint32 i = 0; i < needAccount; i++)
     {
@@ -691,7 +881,10 @@ void PlayerBotMgr::SupplementAccount()
         snprintf(indexText, sizeof(indexText), "%u", m_LastBotAccountIndex);
         std::string userName = "playerbot";
         userName += indexText;
-        if (AccountMgr::CreateAccount(userName, "botxxx") == AccountOpResult::AOR_OK)
+        // Synchronous: the row is read back right below. Created asynchronously
+        // it usually was not there yet, so on the first start the new accounts
+        // were missing from the bot list until the next restart.
+        if (AccountMgr::CreateAccount(userName, "botxxx", false) == AccountOpResult::AOR_OK)
         {
             std::string querySql = "SELECT id, username, sha_pass_hash FROM account WHERE username='";
             querySql += userName + "'";
@@ -757,51 +950,77 @@ void PlayerBotMgr::LoadPlayerBotBaseInfo()
     // the configuration here, which runs after the config has been read.
     m_MaxOnlineBot = int32(sWorld->getIntConfig(CONFIG_PLAYERBOT_MAX_ONLINE));
 
-    ClearBaseInfo();
-    QueryResult result = LoginDatabase.Query("SELECT id, username, sha_pass_hash FROM account");
-    if (!result)
+    // Read here rather than in World::LoadConfigSettings so that adding them
+    // does not touch World.h, which nearly every file includes.
+    int32 accounts = sConfigMgr->GetIntDefault("PlayerBot.Accounts", 180);
+    if (accounts < 0 || accounts > 1000)
     {
-        TC_LOG_INFO(LOG_FILTER_PLAYER, "server.loading", ">> LoadPlayerBot Find 0 account!");
-        return;
+        TC_LOG_ERROR(LOG_FILTER_SERVER_LOADING, "PlayerBot.Accounts (%i) must be between 0 and 1000. Using 180 instead.", accounts);
+        accounts = 180;
+    }
+    m_BotAccountAmount = uint32(accounts);
+
+    m_MinOnlineBot = sConfigMgr->GetIntDefault("PlayerBot.MinOnline", 0);
+    if (m_MinOnlineBot < 0 || m_MinOnlineBot > 500)
+    {
+        TC_LOG_ERROR(LOG_FILTER_SERVER_LOADING, "PlayerBot.MinOnline (%i) must be between 0 and 500. Using 0 instead.", m_MinOnlineBot);
+        m_MinOnlineBot = 0;
+    }
+    if (m_MinOnlineBot > m_MaxOnlineBot)
+        TC_LOG_ERROR(LOG_FILTER_SERVER_LOADING, "PlayerBot.MinOnline (%i) is above PlayerBot.MaxOnline (%i); at most %i bots will be kept online.",
+            m_MinOnlineBot, m_MaxOnlineBot, m_MaxOnlineBot);
+    m_MinOnlineWarned = false;
+
+    m_Announce = sConfigMgr->GetBoolDefault("PlayerBot.Announce", true);
+
+    ClearBaseInfo();
+    // Ordered, so that PlayerBot.Accounts always selects the same accounts.
+    // An empty account table is no reason to stop: on a fresh auth database
+    // the bot accounts below still have to be created.
+    QueryResult result = LoginDatabase.Query("SELECT id, username, sha_pass_hash FROM account ORDER BY id");
+    if (result)
+    {
+        do
+        {
+            Field* fields = result->Fetch();
+
+            uint32 id = fields[0].GetUInt32();
+            std::string username = fields[1].GetString();
+            std::string pass = fields[2].GetString();
+            sOnlineMgr->AddNewAccount(id, username); // Real player acc and bot acc all in
+
+            std::string lowerName = boost::algorithm::to_lower_copy(username);
+            if (IsBotAccuntName(lowerName))
+            {
+                // Bot accounts beyond PlayerBot.Accounts stay in the database but
+                // are not used. Their index still counts, so a new account never
+                // reuses one of their names.
+                if (m_idPlayerBotBase.size() < m_BotAccountAmount && m_idPlayerBotBase.find(id) == m_idPlayerBotBase.end())
+                {
+                    PlayerBotBaseInfo* pInfo = new PlayerBotBaseInfo(id, username.c_str(), pass, false);
+                    m_idPlayerBotBase[id] = pInfo;
+                }
+                m_LastBotAccountIndex = id;
+            }
+            else
+            {
+                if (m_idAccountBotBase.find(id) == m_idAccountBotBase.end())
+                {
+                    PlayerBotBaseInfo* pInfo = new PlayerBotBaseInfo(id, username.c_str(), pass, true);
+                    m_idAccountBotBase[id] = pInfo;
+                }
+            }
+        } while (result->NextRow());
     }
 
-    do
-    {
-        Field* fields = result->Fetch();
-
-        uint32 id = fields[0].GetUInt32();
-        std::string username = fields[1].GetString();
-        std::string pass = fields[2].GetString();
-        sOnlineMgr->AddNewAccount(id, username); // Real player acc and bot acc all in
-
-        std::string lowerName = boost::algorithm::to_lower_copy(username);
-        if (IsBotAccuntName(lowerName))
-        {
-            if (m_idPlayerBotBase.find(id) == m_idPlayerBotBase.end())
-            {
-                PlayerBotBaseInfo* pInfo = new PlayerBotBaseInfo(id, username.c_str(), pass, false);
-                m_idPlayerBotBase[id] = pInfo;
-            }
-            m_LastBotAccountIndex = id;
-        }
-        else
-        {
-            if (m_idAccountBotBase.find(id) == m_idAccountBotBase.end())
-            {
-                PlayerBotBaseInfo* pInfo = new PlayerBotBaseInfo(id, username.c_str(), pass, true);
-                m_idAccountBotBase[id] = pInfo;
-            }
-        }
-        //if (m_idPlayerBotBase.size() >= m_BotAccountAmount * 2)
-        //	break;
-    } while (result->NextRow());
-
-    SupplementAccount();
+    if (sWorld->getBoolConfig(CONFIG_PLAYERBOT_ENABLE))
+        SupplementAccount();
 
     if (m_idPlayerBotBase.size() > 0 || m_idAccountBotBase.size() > 0)
         LoadCharBaseInfo();
 
-    TC_LOG_INFO(LOG_FILTER_PLAYER, "server.loading", ">> Loaded %u Player bot account base info in %u ms", m_idPlayerBotBase.size(), GetMSTimeDiffToNow(oldMSTime));
+    TC_LOG_INFO(LOG_FILTER_SERVER_LOADING, ">> Loaded %u bot accounts (PlayerBot.Accounts %u) in %u ms",
+        uint32(m_idPlayerBotBase.size()), m_BotAccountAmount, GetMSTimeDiffToNow(oldMSTime));
 }
 
 void PlayerBotMgr::LoadCharBaseInfo()
@@ -853,6 +1072,8 @@ void PlayerBotMgr::LoadCharBaseInfo()
 void PlayerBotMgr::UpAllPlayerBotSession()
 {
     PlayerBotSetting::Initialize();
+    if (!sWorld->getBoolConfig(CONFIG_PLAYERBOT_ENABLE))
+        return;
     for (std::map<uint32, PlayerBotBaseInfo*>::iterator it = m_idPlayerBotBase.begin();
         it != m_idPlayerBotBase.end();
         it++)
@@ -860,6 +1081,7 @@ void PlayerBotMgr::UpAllPlayerBotSession()
         PlayerBotBaseInfo* pInfo = it->second;
         UpPlayerBotSessionByBaseInfo(pInfo, false);
     }
+    SupplementPlayerBot();
 }
 
 PlayerBotSession* PlayerBotMgr::UpPlayerBotSessionByBaseInfo(PlayerBotBaseInfo* pAcc, bool accountInfo)
@@ -881,6 +1103,9 @@ PlayerBotSession* PlayerBotMgr::UpPlayerBotSessionByBaseInfo(PlayerBotBaseInfo* 
 
 void PlayerBotMgr::OnPlayerBotCreate(ObjectGuid const& guid, uint32 accountId, std::string const& name, uint8 gender, uint8 race, uint8 playerClass, uint8 level)
 {
+    if (IsCreateInFlight(accountId))
+        m_CreateInFlight.account = 0;
+
     PlayerBotBaseInfo* pInfo = GetPlayerBotAccountInfo(accountId);
     if (!pInfo)
         return;
@@ -890,8 +1115,7 @@ void PlayerBotMgr::OnPlayerBotCreate(ObjectGuid const& guid, uint32 accountId, s
         return;
     }
     pInfo->characters[id] = PlayerBotCharBaseInfo(id, accountId, name, uint16(race), uint16(playerClass), uint16(gender), uint16(level));
-
-    CreateOncePlayerBot();
+    m_HandedOutNames.erase(name);
 }
 
 void PlayerBotMgr::OnAccountBotCreate(ObjectGuid const& guid, uint32 accountId, std::string const& name, uint8 gender, uint8 race, uint8 playerClass, uint8 level)
@@ -940,10 +1164,10 @@ void PlayerBotMgr::OnPlayerBotLogin(WorldSession* pSession, Player* pPlayer)
 
     BotUtility::RemoveArenaBotSpellsByPlayer(pPlayer);
     sPlayerBotTalkMgr->JoinDefaultChannel(pPlayer);
-    if (pSession)
+    if (pSession && m_Announce)
     {
         std::string outString;
-        outString = "has come online.";
+        outString = " has come online.";
         sWorld->SendGlobalText((GetPlayerLinkText(pPlayer) + outString).c_str(), NULL);
     }
     if (PlayerBotSession* pBotSession = dynamic_cast<PlayerBotSession*>(pSession))
@@ -968,13 +1192,33 @@ void PlayerBotMgr::OnPlayerBotLogout(WorldSession* pSession)
     --m_BotOnlineCount;
     if (m_BotOnlineCount < 0) m_BotOnlineCount = 0;
 
-    std::string outString;
-    outString = "A bot has gone offline.";
-    sWorld->SendGlobalText(outString.c_str(), NULL);
+    if (m_Announce)
+    {
+        std::string outString;
+        outString = "A bot has gone offline.";
+        sWorld->SendGlobalText(outString.c_str(), NULL);
+    }
     PlayerBotSession* pBotSession = dynamic_cast<PlayerBotSession*>(pSession);
     if (pBotSession && !pBotSession->HasScheduleByType(BotGlobleScheduleType::BGSType_Online) &&
         !pBotSession->HasScheduleByType(BotGlobleScheduleType::BGSType_Online_GUID))
         pBotSession->ClearAllSchedule();
+}
+
+// The character of a bot login did not load (deleted or broken in the
+// database). Forget it until the next start, so that the login code picks
+// another character and does not try this one again and again.
+void PlayerBotMgr::OnPlayerBotLoginFailed(uint32 accountId, ObjectGuid const& guid)
+{
+    TC_LOG_ERROR(LOG_FILTER_SERVER_LOADING, "PlayerBot: character %u on bot account %u could not be logged in, it is skipped until the next start.",
+        uint32(guid.GetCounter()), accountId);
+
+    PlayerBotBaseInfo* pInfo = GetPlayerBotAccountInfo(accountId);
+    if (!pInfo)
+        pInfo = GetAccountBotAccountInfo(accountId);
+    if (!pInfo)
+        return;
+    ObjectGuid charGuid = guid;
+    pInfo->RemoveCharacterByGUID(charGuid);
 }
 
 void PlayerBotMgr::OnPlayerBotLeaveOriginalGroup(Player* pPlayer)
@@ -985,7 +1229,7 @@ void PlayerBotMgr::OnPlayerBotLeaveOriginalGroup(Player* pPlayer)
 void PlayerBotMgr::LoginGroupBotByPlayer(Player* pPlayer)
 {
 #ifndef INCOMPLETE_BOT
-    if (pPlayer->IsPlayerBot())
+    if (pPlayer->IsPlayerBot() || !sWorld->getBoolConfig(CONFIG_PLAYERBOT_ENABLE))
         return;
     int32 isok = sConfigMgr->GetIntDefault("pbot", 1);
     Group* pGroup = pPlayer->GetGroup();
@@ -1083,16 +1327,21 @@ void PlayerBotMgr::AllPlayerBotRandomLogin(const char* name)
         WorldSession* pSession = sWorld->FindSession(pInfo->id).get();
         if (pSession && pSession->IsBotSession() && !pSession->PlayerLoading() && !pSession->GetPlayer())
         {
-            if (pInfo->characters.size() <= 0)
+            // See CanStartBotLogin: a creation in flight has to finish first.
+            if (pInfo->characters.size() <= 0 || IsCreateInFlight(pInfo->id))
                 continue;
 
             if (name[0] != '\0')
             {
-                for (auto i = 0; i < pInfo->characters.size(); ++i)
+                // characters is keyed by guid, not by position. Indexing it
+                // with a counter inserted an empty entry for every guid below
+                // the account's highest one, and the random login below then
+                // picked those far more often than real characters.
+                for (auto itChar = pInfo->characters.begin(); itChar != pInfo->characters.end(); ++itChar)
                 {
-                    if (strcmp(name, pInfo->characters[i].name.c_str()) == 0)
+                    if (strcmp(name, itChar->second.name.c_str()) == 0)
                     {
-                        PlayerBotCharBaseInfo& charInfo = pInfo->characters[i];
+                        PlayerBotCharBaseInfo& charInfo = itChar->second;
                         WorldPacket _worldPacket(CMSG_PLAYER_LOGIN);
                         WorldPackets::Character::PlayerLogin cmd(std::move(_worldPacket));
                         cmd.Guid = ObjectGuid::Create<HighGuid::Player>(charInfo.guid);
@@ -1174,47 +1423,83 @@ bool PlayerBotMgr::PlayerBotLogout(uint32 account)
     return false;
 }
 
+// Queues the bot characters that should exist but do not yet. The first
+// PlayerBot.CreateCharacters.Accounts bot accounts each get one character of
+// every class, all of one faction: an account keeps the faction of the
+// characters it already has, empty accounts are split evenly between the two
+// sides. The requests run account by account: an account is not logged in
+// while it still has characters to come (see PickBotCharacterClass), so this
+// way the first accounts are complete and usable after a few seconds each,
+// and CreateOncePlayerBot works them off one per manager tick.
 void PlayerBotMgr::SupplementPlayerBot()
 {
+    std::queue<BotCreateRequest>().swap(m_CreateRequests);
+    m_CreateQueued.clear();
+    m_CreateIssued = 0;
+    m_CreateDeferredLogged = false;
+
+    int32 accountLimit = sConfigMgr->GetIntDefault("PlayerBot.CreateCharacters.Accounts", 20);
+    if (accountLimit <= 0)
+        return;
+
+    struct Target
+    {
+        PlayerBotBaseInfo* info;
+        bool alliance;
+        uint32 planned;
+    };
+    std::vector<Target> targets;
+    uint32 allianceAccounts = 0;
+    uint32 hordeAccounts = 0;
+
+    // m_idPlayerBotBase is ordered by account id, so this is stable across restarts.
     for (std::map<uint32, PlayerBotBaseInfo*>::iterator itInfo = m_idPlayerBotBase.begin();
-        itInfo != m_idPlayerBotBase.end();
-        itInfo++)
+        itInfo != m_idPlayerBotBase.end() && targets.size() < uint32(accountLimit);
+        ++itInfo)
     {
         PlayerBotBaseInfo* pInfo = itInfo->second;
-        if (pInfo->username.size() <= 0)
-            continue;
-        if (pInfo->characters.size() >= 18)
-            continue;
-        WorldSession* pSession = sWorld->FindSession(pInfo->id).get();
-        if (!pSession)
+        uint32 allianceChars = 0;
+        uint32 hordeChars = 0;
+        for (auto const& entry : pInfo->characters)
         {
-            TC_LOG_INFO(LOG_FILTER_PLAYER, "server.loading", ">> Create bot, but session offline.");
-            continue;
+            if (pInfo->MatchRaceByFuction(true, entry.second.race))
+                ++allianceChars;
+            else if (pInfo->MatchRaceByFuction(false, entry.second.race))
+                ++hordeChars;
         }
-        std::string firstName = pInfo->username.substr(6);
-        char botname[30] ={ 0 };
-        // Cover every playable class. This used to run 1..9 without Death
-        // Knight plus a hand written Druid case, which left out Death Knight,
-        // Monk and Demon Hunter entirely.
+
+        bool alliance;
+        if (allianceChars || hordeChars)
+            alliance = allianceChars >= hordeChars;
+        else
+            alliance = allianceAccounts <= hordeAccounts;
+
+        if (alliance)
+            ++allianceAccounts;
+        else
+            ++hordeAccounts;
+        targets.push_back({ pInfo, alliance, 0 });
+    }
+
+    uint32 const perAccount = sWorld->getIntConfig(CONFIG_CHARACTERS_PER_REALM);
+    for (Target& target : targets)
+    {
         for (uint8 cls = CLASS_WARRIOR; cls <= CLASS_DEMON_HUNTER; ++cls)
         {
-            for (uint8 faction = 0; faction < 2; ++faction)
-            {
-                bool const alliance = faction == 0;
-                if (pInfo->ExistClass(alliance, cls))
-                    continue;
-
-                WorldPacket createData = BuildCreatePlayerData(alliance, cls);
-                if (createData.empty())
-                    continue;   // no race of that faction can be this class
-
-                memset(botname, 0, sizeof(botname));
-                snprintf(botname, sizeof(botname), "%s%c%u", firstName.c_str(), alliance ? 'A' : 'B', uint32(cls));
-                pInfo->needCreateBots.push(std::move(createData));
-            }
+            if (!sChrClassesStore.LookupEntry(cls))
+                continue;
+            if (target.info->ExistClass(target.alliance, cls))
+                continue;
+            if (target.info->characters.size() + target.planned >= perAccount)
+                break;
+            QueueCreateRequest({ target.info->id, target.alliance, cls, 0 });
+            ++target.planned;
         }
     }
-    CreateOncePlayerBot();
+
+    if (!m_CreateRequests.empty())
+        TC_LOG_INFO(LOG_FILTER_SERVER_LOADING, "PlayerBotMgr: queued %u bot characters for creation on %u accounts (%u alliance, %u horde).",
+            uint32(m_CreateRequests.size()), uint32(targets.size()), allianceAccounts, hordeAccounts);
 }
 
 void PlayerBotMgr::OnRealPlayerJoinBattlegroundQueue(uint32 bgTypeId, uint32 level)
@@ -1362,10 +1647,8 @@ bool PlayerBotMgr::AddNewPlayerBotByGUID(ObjectGuid& guid)
     if (isok==0 && !guid)
         return false;
 
-    int32 allianceCount = (int32)sPlayerBotMgr->GetOnlineBotCount(TEAM_ALLIANCE, true);
-    int32 hordeCount = (int32)sPlayerBotMgr->GetOnlineBotCount(TEAM_HORDE, true);
-
-    if ((allianceCount+hordeCount) >= m_MaxOnlineBot)
+    // PlayerBot.MaxOnline counts bots only; real players used to be counted too.
+    if (int32(GetOnlineBotCount(TEAM_NEUTRAL, false)) >= m_MaxOnlineBot)
         return false;
 
 
@@ -1424,6 +1707,11 @@ bool PlayerBotMgr::AddNewPlayerBotByGUID(ObjectGuid& guid)
         return true;
     }
 
+    // Characters of real player accounts (offline group members) only come
+    // online as bots when PlayerBot.AccountAll allows it.
+    if (!sWorld->getBoolConfig(CONFIG_PLAYERBOT_ACCOUNT_ALL))
+        return false;
+
     for (std::map<uint32, PlayerBotBaseInfo*>::iterator itInfo = m_idAccountBotBase.begin();
         itInfo != m_idAccountBotBase.end();
         itInfo++)
@@ -1466,10 +1754,8 @@ bool PlayerBotMgr::AddNewPlayerBotByGUID(ObjectGuid& guid)
 
 bool PlayerBotMgr::AddNewPlayerBotByGUID2(ObjectGuid& guid)
 {
-    int32 allianceCount = (int32)sPlayerBotMgr->GetOnlineBotCount(TEAM_ALLIANCE, true);
-    int32 hordeCount = (int32)sPlayerBotMgr->GetOnlineBotCount(TEAM_HORDE, true);
-
-    if ((allianceCount+hordeCount) >= m_MaxOnlineBot) return false;
+    // PlayerBot.MaxOnline counts bots only; real players used to be counted too.
+    if (int32(GetOnlineBotCount(TEAM_NEUTRAL, false)) >= m_MaxOnlineBot) return false;
 
 
     const SessionMap& allSession = sWorld->GetAllSessions();
@@ -1540,6 +1826,11 @@ bool PlayerBotMgr::AddNewPlayerBotByGUID2(ObjectGuid& guid)
         return true;
     }
 
+    // Characters of real player accounts (offline group members) only come
+    // online as bots when PlayerBot.AccountAll allows it.
+    if (!sWorld->getBoolConfig(CONFIG_PLAYERBOT_ACCOUNT_ALL))
+        return false;
+
     for (std::map<uint32, PlayerBotBaseInfo*>::iterator itInfo = m_idAccountBotBase.begin();
         itInfo != m_idAccountBotBase.end();
         itInfo++)
@@ -1586,10 +1877,8 @@ void PlayerBotMgr::AddNewPlayerBot(bool faction, Classes prof, uint32 count)
     if (isok==0 && prof == CLASS_NONE)
         return;
 
-    int32 allianceCount = (int32)sPlayerBotMgr->GetOnlineBotCount(TEAM_ALLIANCE, true);
-    int32 hordeCount = (int32)sPlayerBotMgr->GetOnlineBotCount(TEAM_HORDE, true);
-
-    if ((allianceCount+hordeCount) >= m_MaxOnlineBot)
+    // PlayerBot.MaxOnline counts bots only; real players used to be counted too.
+    if (int32(GetOnlineBotCount(TEAM_NEUTRAL, false)) >= m_MaxOnlineBot)
         return;
 
     const SessionMap& allSession = sWorld->GetAllSessions();
@@ -1626,12 +1915,8 @@ void PlayerBotMgr::AddNewPlayerBot(bool faction, Classes prof, uint32 count)
 
 
 
-    if (prof == CLASS_NONE)
-    {
-        // Every playable class is eligible. The loop this replaces excluded
-        // Death Knight, Monk and Demon Hunter.
-        prof = Classes(urand(Classes::CLASS_WARRIOR, Classes::CLASS_DEMON_HUNTER));
-    }
+    // CLASS_NONE stays "any": the class is taken from a character the account
+    // actually has. Rolling one up front mostly picked classes nobody had.
 #ifdef INCOMPLETE_BOT
     if (prof != 1 && prof != 5 && prof != 9)
     {
@@ -1656,6 +1941,9 @@ void PlayerBotMgr::AddNewPlayerBot(bool faction, Classes prof, uint32 count)
         Player* player = pSession->GetPlayer();
         if (player)
             continue;
+        uint32 botClass = PickBotCharacterClass(GetPlayerBotAccountInfo(pSession->GetAccountId()), faction, prof);
+        if (!botClass)
+            continue;
         BotGlobleSchedule schedule1(BotGlobleScheduleType::BGSType_Online, 0);
         if (faction)
         {
@@ -1665,7 +1953,7 @@ void PlayerBotMgr::AddNewPlayerBot(bool faction, Classes prof, uint32 count)
         {
             schedule1.parameter1 = 2;
         }
-        schedule1.parameter2 = prof;
+        schedule1.parameter2 = botClass;
         pSession->PushScheduleToQueue(schedule1);
         --count;
     }
@@ -1673,7 +1961,7 @@ void PlayerBotMgr::AddNewPlayerBot(bool faction, Classes prof, uint32 count)
     if (count > 0)
     {
         std::string allonlineText;
-        allonlineText = "|cffff8800All bot accounts are already online; no further bots can be brought online.|r";
+        allonlineText = "|cffff8800No further offline bot account has a matching character; create more bot characters to bring more bots online.|r";
         sWorld->SendGlobalText(allonlineText.c_str(), NULL);
     }
 }
@@ -1684,10 +1972,8 @@ void PlayerBotMgr::AddNewAccountBot(bool faction, Classes prof)
     if (isok==0)
         return;
 
-    int32 allianceCount = (int32)sPlayerBotMgr->GetOnlineBotCount(TEAM_ALLIANCE, true);
-    int32 hordeCount = (int32)sPlayerBotMgr->GetOnlineBotCount(TEAM_HORDE, true);
-
-    if ((allianceCount+hordeCount) >= m_MaxOnlineBot)
+    // PlayerBot.MaxOnline counts bots only; real players used to be counted too.
+    if (int32(GetOnlineBotCount(TEAM_NEUTRAL, false)) >= m_MaxOnlineBot)
         return;
 
 
@@ -1991,8 +2277,13 @@ void PlayerBotMgr::AddNewPlayerBotToBG(TeamId team, uint32 minLV, uint32 maxLV, 
         Player* player = pSession->GetPlayer();
         if (!player)
         {
+            uint32 botClass = PickBotCharacterClass(GetPlayerBotAccountInfo(pSession->GetAccountId()), team == TeamId::TEAM_ALLIANCE, CLASS_NONE);
+            if (!botClass)
+                continue;
+
             BotGlobleSchedule schedule1(BotGlobleScheduleType::BGSType_Online, 0);
             schedule1.parameter1 = (team == TeamId::TEAM_ALLIANCE) ? 1 : 2;
+            schedule1.parameter2 = botClass;
             pSession->PushScheduleToQueue(schedule1);
 
             BotGlobleSchedule schedule2(BotGlobleScheduleType::BGSType_Settting, 0);
@@ -2008,9 +2299,10 @@ void PlayerBotMgr::AddNewPlayerBotToBG(TeamId team, uint32 minLV, uint32 maxLV, 
         }
     }
 
-    std::string allonlineText;
-    allonlineText = "|cffff8800All bot accounts are already online; no further bots can be sent into the battleground.|r";
-    sWorld->SendGlobalText(allonlineText.c_str(), NULL);
+    // Runs from Update() every two seconds, so this must not go to the world
+    // chat: it used to be broadcast to every player on each tick.
+    TC_LOG_DEBUG(LOG_FILTER_PLAYER, "PlayerBotMgr: no idle bot account with a %s character left for the battleground.",
+        team == TeamId::TEAM_ALLIANCE ? "alliance" : "horde");
 }
 
 // Brings one bot online (or repurposes an idle one) to fill the role the
@@ -2076,6 +2368,10 @@ void PlayerBotMgr::AddNewPlayerBotToLFG(lfg::LFGBotRequirement* botRequirement)
         BotGlobleSchedule loginSchedule(BotGlobleScheduleType::BGSType_Online, ObjectGuid::Empty);
         if (!FillOnlineBotScheduleByLFGRequirement(botRequirement, &loginSchedule))
             return;
+        // The class above is rolled from the ones that can fill the role;
+        // move on to the next account when this one has no such character.
+        if (!PickBotCharacterClass(GetPlayerBotAccountInfo(pSession->GetAccountId()), loginSchedule.parameter1 == 1, loginSchedule.parameter2))
+            continue;
         pSession->PushScheduleToQueue(loginSchedule);
 
         BotGlobleSchedule setupSchedule(BotGlobleScheduleType::BGSType_Settting, ObjectGuid::Empty);
@@ -2178,8 +2474,13 @@ void PlayerBotMgr::AddNewPlayerBotToAA(TeamId team, BattlegroundTypeId bgTypeID,
         Player* player = pSession->GetPlayer();
         if (!player)
         {
+            uint32 botClass = PickBotCharacterClass(GetPlayerBotAccountInfo(pSession->GetAccountId()), team == TeamId::TEAM_ALLIANCE, CLASS_NONE);
+            if (!botClass)
+                continue;
+
             BotGlobleSchedule schedule1(BotGlobleScheduleType::BGSType_Online, 0);
             schedule1.parameter1 = (team == TeamId::TEAM_ALLIANCE) ? 1 : 2;
+            schedule1.parameter2 = botClass;
             pSession->PushScheduleToQueue(schedule1);
 
             BotGlobleSchedule schedule2(BotGlobleScheduleType::BGSType_Settting, 0);
@@ -2197,9 +2498,10 @@ void PlayerBotMgr::AddNewPlayerBotToAA(TeamId team, BattlegroundTypeId bgTypeID,
         }
     }
 
-    std::string allonlineText;
-    allonlineText = "|cffff8800All bot accounts are already online; no further bots can be sent into the arena.|r";
-    sWorld->SendGlobalText(allonlineText.c_str(), NULL);
+    // Runs from Update() every two seconds, so this must not go to the world
+    // chat: it used to be broadcast to every player on each tick.
+    TC_LOG_DEBUG(LOG_FILTER_PLAYER, "PlayerBotMgr: no idle bot account with a %s character left for the arena.",
+        team == TeamId::TEAM_ALLIANCE ? "alliance" : "horde");
 }
 
 void PlayerBotMgr::AddTeamBotToRatedArena(uint32 arenaType)
@@ -2675,6 +2977,91 @@ void PlayerBotMgr::OnlinePlayerBotByGUIDQueue()
     }
 }
 
+// Keeps at least PlayerBot.MinOnline bots logged in, never more than
+// PlayerBot.MaxOnline. One bot per manager tick, from the faction that has
+// fewer bots online. These bots stay in the open world; the battleground,
+// arena and dungeon finder code takes idle online bots before it logs in new
+// ones, so they are also the first to fill a queue.
+void PlayerBotMgr::TopUpOnlineBots()
+{
+    int32 const wanted = std::min(m_MinOnlineBot, m_MaxOnlineBot);
+    if (wanted <= 0)
+        return;
+
+    uint32 allianceOnline = 0;
+    uint32 hordeOnline = 0;
+    uint32 total = 0;
+    std::vector<PlayerBotSession*> offline;
+
+    SessionMap const& allSession = sWorld->GetAllSessions();
+    for (SessionMap::const_iterator itSession = allSession.begin(); itSession != allSession.end(); ++itSession)
+    {
+        if (!itSession->second->IsBotSession())
+            continue;
+        PlayerBotSession* pSession = dynamic_cast<PlayerBotSession*>(itSession->second.get());
+        if (!pSession || pSession->IsAccountBotSession())
+            continue;
+
+        // A login under way is not finished yet; wait for it rather than
+        // starting the next one on top.
+        if (pSession->PlayerLoading() || pSession->HasScheduleByType(BGSType_Online) || pSession->HasScheduleByType(BGSType_Online_GUID))
+            return;
+
+        if (Player* player = pSession->GetPlayer())
+        {
+            ++total;
+            if (player->GetTeamId() == TEAM_ALLIANCE)
+                ++allianceOnline;
+            else
+                ++hordeOnline;
+        }
+        else if (!pSession->HasSchedules())
+            offline.push_back(pSession);
+    }
+
+    if (int32(total) >= wanted)
+    {
+        m_MinOnlineWarned = false;
+        return;
+    }
+
+    // ProcessOnline refuses logins at PlayerBot.MaxOnline, and counts account
+    // bots against it as well. Do not ask for one it would refuse.
+    if (int32(GetOnlineBotCount(TEAM_NEUTRAL, false)) >= m_MaxOnlineBot)
+        return;
+
+    bool const preferAlliance = allianceOnline <= hordeOnline;
+    for (uint8 pass = 0; pass < 2; ++pass)
+    {
+        bool const alliance = (pass == 0) ? preferAlliance : !preferAlliance;
+        for (PlayerBotSession* pSession : offline)
+        {
+            uint32 botClass = PickBotCharacterClass(GetPlayerBotAccountInfo(pSession->GetAccountId()), alliance, CLASS_NONE);
+            if (!botClass)
+                continue;
+
+            BotGlobleSchedule schedule(BotGlobleScheduleType::BGSType_Online, 0);
+            schedule.parameter1 = alliance ? 1 : 2;
+            schedule.parameter2 = botClass;
+            pSession->PushScheduleToQueue(schedule);
+            return;
+        }
+    }
+
+    // Nothing left to log in. While characters are still being created for
+    // an offline account that is expected; afterwards say so once.
+    for (PlayerBotSession* pSession : offline)
+        if (IsCreatingCharacters(pSession->GetAccountId()))
+            return;
+
+    if (!m_MinOnlineWarned)
+    {
+        TC_LOG_ERROR(LOG_FILTER_SERVER_LOADING, "PlayerBot.MinOnline is %i, but only %u bots can be online: no further offline bot account has a character to log in. Raise PlayerBot.CreateCharacters.Accounts.",
+            wanted, total);
+        m_MinOnlineWarned = true;
+    }
+}
+
 bool PlayerBotMgr::ExistUnBGPlayerBot()
 {
     const SessionMap& allSession = sWorld->GetAllSessions();
@@ -2728,9 +3115,12 @@ uint32 PlayerBotMgr::GetOnlineBotCount(TeamId team, bool hasReal)
             PlayerBotSession* pSession = dynamic_cast<PlayerBotSession*>((WorldSession*)itSession->second.get());
             if (!pSession)
                 continue;
+            // A bot still loading has no faction yet: it counts towards the
+            // total only, not twice as both alliance and horde.
             if (pSession->PlayerLoading())
             {
-                ++onlineCount;
+                if (team == TEAM_NEUTRAL)
+                    ++onlineCount;
                 continue;
             }
             Player* player = pSession->GetPlayer();
@@ -2818,27 +3208,33 @@ uint32 PlayerBotMgr::GetOnlineBotCount2(TeamId team, bool hasReal)
 
 void PlayerBotMgr::Update()
 {
-
-    OnlinePlayerBotByGUIDQueue();
-
-    //if (!ExistUnBGPlayerBot())
-    QueryBattlegroundRequirement();
-#ifndef INCOMPLETE_BOT
-    //sArenaTeamMgr->CheckPlayerBotArenaTeam();
-    QueryRatedArenaRequirement();
-    QueryNonRatedArenaRequirement();
-    if (m_LFGSearchTick > 1)
+    // PlayerBot.Enable stops bots from being brought online and queued. Freeing
+    // swapped out AIs below keeps running so a config reload cannot strand them.
+    if (sWorld->getBoolConfig(CONFIG_PLAYERBOT_ENABLE))
     {
-        m_LFGSearchTick = 0;
-        if (lfg::LFGBotRequirement* pbotReq = sLFGMgr->SearchLFGBotRequirement())
+        CreateOncePlayerBot();
+        OnlinePlayerBotByGUIDQueue();
+
+        //if (!ExistUnBGPlayerBot())
+        QueryBattlegroundRequirement();
+#ifndef INCOMPLETE_BOT
+        //sArenaTeamMgr->CheckPlayerBotArenaTeam();
+        QueryRatedArenaRequirement();
+        QueryNonRatedArenaRequirement();
+        if (m_LFGSearchTick > 1)
         {
-            AddNewPlayerBotToLFG(pbotReq);
-            delete pbotReq;
+            m_LFGSearchTick = 0;
+            if (lfg::LFGBotRequirement* pbotReq = sLFGMgr->SearchLFGBotRequirement())
+            {
+                AddNewPlayerBotToLFG(pbotReq);
+                delete pbotReq;
+            }
         }
-    }
-    else
-        ++m_LFGSearchTick;
+        else
+            ++m_LFGSearchTick;
 #endif
+        TopUpOnlineBots();
+    }
 
     std::list<std::map<uint32, std::list<UnitAI*> >::iterator > delITer;
     uint32 currentTick = getMSTime();

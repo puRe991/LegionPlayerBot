@@ -271,20 +271,62 @@ void PlayerBotSession::CastSchedule(uint32 diff)
 	}
 }
 
-bool PlayerBotSession::ProcessOnline(BotGlobleSchedule& schedule)
+// Where the Online schedules start a login. A finished login ends them, so
+// look at the session first and only then at PlayerBot.MaxOnline: checking
+// the cap first would log a bot out again as soon as its login took the
+// last free slot.
+bool PlayerBotSession::CanStartBotLogin(BotGlobleSchedule& schedule, bool& done)
 {
-	if (sPlayerBotMgr->m_MaxOnlineBot <= sPlayerBotMgr->m_BotOnlineCount)
-	{
-		LogoutPlayer(false, "playerbot max");
-		return true;
-	}
-
-	if (schedule.parameter1 <= 0)
-		return true;
+	done = false;
 	if (PlayerLoading())
 		return false;
 	if (GetPlayer())
+	{
+		done = true;
+		return false;
+	}
+	// The login was started, and the session is neither loading nor in the
+	// world: the character did not load. Starting it again would only fail
+	// again, every cast, until the schedule times out.
+	if (schedule.scheduleState == 1)
+	{
+		sPlayerBotMgr->OnPlayerBotLoginFailed(GetAccountId(), schedule.playerGUID);
+		done = true;
+		return false;
+	}
+	// A character creation on this account has not answered yet. Its
+	// callbacks have to run here, not on a map thread, so wait for it.
+	if (sPlayerBotMgr->IsCreateInFlight(GetAccountId()))
+		return false;
+	if (int32(sPlayerBotMgr->GetOnlineBotCount(TEAM_NEUTRAL, false)) >= sPlayerBotMgr->m_MaxOnlineBot)
+	{
+		done = true;
+		return false;
+	}
+	return true;
+}
+
+void PlayerBotSession::StartBotLogin(BotGlobleSchedule& schedule, ObjectGuid const& guid)
+{
+	schedule.scheduleState = 1;
+	schedule.playerGUID = guid;
+
+	WorldPacket _worldPacket(CMSG_PLAYER_LOGIN);
+	WorldPackets::Character::PlayerLogin cmd(std::move(_worldPacket));
+	cmd.Guid = guid;
+	cmd.FarClip = 0.0f;
+	HandlePlayerLoginOpcode(cmd);
+	if (PlayerLoading())
+		HandleContinuePlayerLogin();
+}
+
+bool PlayerBotSession::ProcessOnline(BotGlobleSchedule& schedule)
+{
+	if (schedule.parameter1 <= 0)
 		return true;
+	bool done = false;
+	if (!CanStartBotLogin(schedule, done))
+		return done;
 	PlayerBotBaseInfo* pInfo = sPlayerBotMgr->GetPlayerBotAccountInfo(GetAccountId());
 	if (!pInfo)
 	{
@@ -303,35 +345,18 @@ bool PlayerBotSession::ProcessOnline(BotGlobleSchedule& schedule)
 	if (charInfo.guid == 0)
 		return true;
 
-    WorldPacket _worldPacket(CMSG_PLAYER_LOGIN);
-    WorldPackets::Character::PlayerLogin cmd(std::move(_worldPacket));
-    cmd.Guid = ObjectGuid::Create<HighGuid::Player>(charInfo.guid);
-    cmd.FarClip = 0.0f;
-    HandlePlayerLoginOpcode(cmd);
-	HandleContinuePlayerLogin();
+	StartBotLogin(schedule, ObjectGuid::Create<HighGuid::Player>(charInfo.guid));
 	return false;
 }
 
 bool PlayerBotSession::ProcessOnlineByGUID(BotGlobleSchedule& schedule)
 {
-    if (sPlayerBotMgr->m_MaxOnlineBot <= sPlayerBotMgr->m_BotOnlineCount)
-    {
-        LogoutPlayer(false, "playerbot max");
-        return true;
-    }
-
 	if (schedule.playerGUID.IsEmpty())
 		return true;
-	if (PlayerLoading())
-		return false;
-	if (GetPlayer())
-		return true;
-    WorldPacket _worldPacket(CMSG_PLAYER_LOGIN);
-    WorldPackets::Character::PlayerLogin cmd(std::move(_worldPacket));
-    cmd.Guid = schedule.playerGUID;
-    cmd.FarClip = 0.0f;
-    HandlePlayerLoginOpcode(cmd);
-	HandleContinuePlayerLogin();
+	bool done = false;
+	if (!CanStartBotLogin(schedule, done))
+		return done;
+	StartBotLogin(schedule, schedule.playerGUID);
 	return false;
 }
 
