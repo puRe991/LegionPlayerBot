@@ -184,8 +184,8 @@ public:
             count = uint32(parsed);
         }
 
-        uint32 const online = sPlayerBotMgr->GetOnlineBotCount(TEAM_ALLIANCE, true)
-                            + sPlayerBotMgr->GetOnlineBotCount(TEAM_HORDE, true);
+        // Bots only: real players do not count against PlayerBot.MaxOnline.
+        uint32 const online = sPlayerBotMgr->GetOnlineBotCount(TEAM_NEUTRAL, false);
         uint32 const limit = sWorld->getIntConfig(CONFIG_PLAYERBOT_MAX_ONLINE);
         if (online >= limit)
         {
@@ -274,12 +274,13 @@ public:
     // .playerbot status
     static bool HandlePlayerBotStatusCommand(ChatHandler* handler, char const* /*args*/)
     {
-        uint32 const alliance = sPlayerBotMgr->GetOnlineBotCount(TEAM_ALLIANCE, true);
-        uint32 const horde = sPlayerBotMgr->GetOnlineBotCount(TEAM_HORDE, true);
+        uint32 const alliance = sPlayerBotMgr->GetOnlineBotCount(TEAM_ALLIANCE, false);
+        uint32 const horde = sPlayerBotMgr->GetOnlineBotCount(TEAM_HORDE, false);
+        uint32 const total = sPlayerBotMgr->GetOnlineBotCount(TEAM_NEUTRAL, false);   // includes bots still loading
 
         handler->PSendSysMessage("Playerbots: %s", sWorld->getBoolConfig(CONFIG_PLAYERBOT_ENABLE) ? "enabled" : "disabled");
-        handler->PSendSysMessage("Online: %u alliance, %u horde, %u of %u total.",
-            alliance, horde, alliance + horde, sWorld->getIntConfig(CONFIG_PLAYERBOT_MAX_ONLINE));
+        handler->PSendSysMessage("Bots online: %u alliance, %u horde, %u in total; kept between %i and %u.",
+            alliance, horde, total, sPlayerBotMgr->GetMinOnline(), sWorld->getIntConfig(CONFIG_PLAYERBOT_MAX_ONLINE));
 
         char const* lootBehaviour;
         switch (sWorld->getIntConfig(CONFIG_PLAYERBOT_LOOT_NEEDROLL))

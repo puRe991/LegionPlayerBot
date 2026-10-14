@@ -185,15 +185,22 @@ option. The ones that matter:
 | Key | Default | Meaning |
 |---|:--:|---|
 | `PlayerBot.Enable` | 1 | master switch |
-| `PlayerBot.MaxOnline` | 10 | how many bots may be online at once |
+| `PlayerBot.Accounts` | 180 | number of bot accounts |
+| `PlayerBot.MaxOnline` | 10 | how many bots may be online at once; real players do not count |
+| `PlayerBot.MinOnline` | 0 | how many bots are kept online even when nothing needs them; 0 = only on demand |
 | `PlayerBot.AccountAll` | 1 | allow account-bound bots (group and friend list features) |
 | `PlayerBot.CreateCharacters.Accounts` | 20 | bot accounts that get one character of every class created automatically; 0 = off |
 | `PlayerBot.Loot.NeedRoll` | 2 | 2 = need on suitable upgrades, greed otherwise; 1 = never need; 0 = always pass |
 | `PlayerBot.Loot.MinQuality` | 2 | lowest quality a bot rolls need on |
 
-Bots are brought online by the manager itself: it fills battlegrounds and
-non-rated arenas once a real player queues, at most one bot per update
-tick.
+Bots are brought online by the manager itself: it fills battlegrounds,
+arenas and the dungeon finder once a real player queues, at most one bot per
+update tick. With `PlayerBot.MinOnline` above 0 it also keeps that many bots
+online at all times, half alliance and half horde; they roam the open world
+and are the first ones sent into a queue. Every bot that is online at the
+same time needs its own bot account with characters, so keep
+`PlayerBot.CreateCharacters.Accounts` at least as high as
+`PlayerBot.MaxOnline`.
 
 To drive them by hand, `.playerbot` (short form `.pbot`):
 
@@ -206,8 +213,8 @@ To drive them by hand, `.playerbot` (short form `.pbot`):
 
 ### Bot characters
 
-On the first start the server creates 180 bot accounts named
-`PLAYERBOT<number>`, all with the password `botxxx`. The numbers follow the
+On the first start the server creates `PlayerBot.Accounts` bot accounts
+(default 180) named `PLAYERBOT<number>`, all with the password `botxxx`. The numbers follow the
 account ids, so they need not start at 1 or be contiguous:
 
 ```sql

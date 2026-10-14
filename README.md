@@ -208,6 +208,11 @@ background after startup, one character of every class on the first 20 of
 them, split between alliance and horde. Details in
 [Bot characters](docs/SETUP.md#bot-characters).
 
+How many bots are online is set in the configuration: `PlayerBot.MaxOnline`
+caps them, `PlayerBot.MinOnline` keeps a number of them in the open world even
+when no queue needs them, and `PlayerBot.Accounts` sets how many bot accounts
+there are.
+
 The `PLAYERBOT SETTINGS` block in `worldserver.conf.dist` documents every
 option: the master switch, the online limit, account-bound bots, how many
 accounts get characters, and how bots answer loot rolls.

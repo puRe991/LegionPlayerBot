@@ -374,6 +374,7 @@ public:
 	std::string GetNameANDClassesText(ObjectGuid& guid);
 	bool CanReadyArenaByArenaTeamID(uint32 arenaTeamId);
     void SetMax(int max) { m_MaxOnlineBot = max; }
+    int32 GetMinOnline() const { return m_MinOnlineBot; }
     int32 m_MaxOnlineBot;
     int32 m_BotOnlineCount;
 
@@ -408,6 +409,7 @@ private:
 	void QueryRatedArenaRequirement();
 	void QueryNonRatedArenaRequirement();
 	void OnlinePlayerBotByGUIDQueue();
+	void TopUpOnlineBots();
 	bool ExistUnBGPlayerBot();
 	PVPDifficultyEntry const* FindBGBracketEntry(Battleground* bg_template, uint32 level);
 
@@ -434,6 +436,9 @@ private:
 	std::queue<BotCreateRequest> m_CreateRequests;
 	std::set<std::string> m_HandedOutNames;   ///< names given to a creation that may not be saved yet
 	uint32 m_CreateIssued;
+
+	int32 m_MinOnlineBot;                     ///< PlayerBot.MinOnline
+	bool m_MinOnlineWarned;                   ///< shortfall of PlayerBot.MinOnline already logged
 
 public:
 	static std::map<uint32, std::list<UnitAI*> > m_DelayDestroyAIs;

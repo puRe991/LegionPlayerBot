@@ -140,13 +140,15 @@ uint32 PlayerBotBaseInfo::GetCharIDByNoArenaType(bool faction, uint32 prof, uint
 }
 
 PlayerBotMgr::PlayerBotMgr() :
-    m_BotAccountAmount(90),
+    m_BotAccountAmount(180),
     m_LastBotAccountIndex(0),
     m_MaxOnlineBot(10),
     m_BotOnlineCount(0),
     m_LFGSearchTick(0),
     m_ArenaSearchTick(0),
-    m_CreateIssued(0)
+    m_CreateIssued(0),
+    m_MinOnlineBot(0),
+    m_MinOnlineWarned(false)
 {
     m_BGTypes.push_back(MS::Battlegrounds::BattlegroundTypeId::BattlegroundWarsongGulch);
     m_BGTypes.push_back(MS::Battlegrounds::BattlegroundTypeId::BattlegroundArathiBasin);
@@ -793,9 +795,9 @@ void PlayerBotMgr::SupplementAccount()
 {
     // Unsigned: with more bot accounts than wanted the subtraction used to wrap
     // around and the loop below tried to create billions of accounts.
-    if (m_idPlayerBotBase.size() >= m_BotAccountAmount * 2)
+    if (m_idPlayerBotBase.size() >= m_BotAccountAmount)
         return;
-    uint32 needAccount = m_BotAccountAmount * 2 - m_idPlayerBotBase.size();
+    uint32 needAccount = m_BotAccountAmount - m_idPlayerBotBase.size();
 
     for (uint32 i = 0; i < needAccount; i++)
     {
@@ -873,44 +875,66 @@ void PlayerBotMgr::LoadPlayerBotBaseInfo()
     // the configuration here, which runs after the config has been read.
     m_MaxOnlineBot = int32(sWorld->getIntConfig(CONFIG_PLAYERBOT_MAX_ONLINE));
 
-    ClearBaseInfo();
-    QueryResult result = LoginDatabase.Query("SELECT id, username, sha_pass_hash FROM account");
-    if (!result)
+    // Read here rather than in World::LoadConfigSettings so that adding them
+    // does not touch World.h, which nearly every file includes.
+    int32 accounts = sConfigMgr->GetIntDefault("PlayerBot.Accounts", 180);
+    if (accounts < 0 || accounts > 1000)
     {
-        TC_LOG_INFO(LOG_FILTER_PLAYER, "server.loading", ">> LoadPlayerBot Find 0 account!");
-        return;
+        TC_LOG_ERROR(LOG_FILTER_SERVER_LOADING, "PlayerBot.Accounts (%i) must be between 0 and 1000. Using 180 instead.", accounts);
+        accounts = 180;
     }
+    m_BotAccountAmount = uint32(accounts);
 
-    do
+    m_MinOnlineBot = sConfigMgr->GetIntDefault("PlayerBot.MinOnline", 0);
+    if (m_MinOnlineBot < 0 || m_MinOnlineBot > 500)
     {
-        Field* fields = result->Fetch();
+        TC_LOG_ERROR(LOG_FILTER_SERVER_LOADING, "PlayerBot.MinOnline (%i) must be between 0 and 500. Using 0 instead.", m_MinOnlineBot);
+        m_MinOnlineBot = 0;
+    }
+    if (m_MinOnlineBot > m_MaxOnlineBot)
+        TC_LOG_ERROR(LOG_FILTER_SERVER_LOADING, "PlayerBot.MinOnline (%i) is above PlayerBot.MaxOnline (%i); at most %i bots will be kept online.",
+            m_MinOnlineBot, m_MaxOnlineBot, m_MaxOnlineBot);
+    m_MinOnlineWarned = false;
 
-        uint32 id = fields[0].GetUInt32();
-        std::string username = fields[1].GetString();
-        std::string pass = fields[2].GetString();
-        sOnlineMgr->AddNewAccount(id, username); // Real player acc and bot acc all in
+    ClearBaseInfo();
+    // Ordered, so that PlayerBot.Accounts always selects the same accounts.
+    // An empty account table is no reason to stop: on a fresh auth database
+    // the bot accounts below still have to be created.
+    QueryResult result = LoginDatabase.Query("SELECT id, username, sha_pass_hash FROM account ORDER BY id");
+    if (result)
+    {
+        do
+        {
+            Field* fields = result->Fetch();
 
-        std::string lowerName = boost::algorithm::to_lower_copy(username);
-        if (IsBotAccuntName(lowerName))
-        {
-            if (m_idPlayerBotBase.find(id) == m_idPlayerBotBase.end())
+            uint32 id = fields[0].GetUInt32();
+            std::string username = fields[1].GetString();
+            std::string pass = fields[2].GetString();
+            sOnlineMgr->AddNewAccount(id, username); // Real player acc and bot acc all in
+
+            std::string lowerName = boost::algorithm::to_lower_copy(username);
+            if (IsBotAccuntName(lowerName))
             {
-                PlayerBotBaseInfo* pInfo = new PlayerBotBaseInfo(id, username.c_str(), pass, false);
-                m_idPlayerBotBase[id] = pInfo;
+                // Bot accounts beyond PlayerBot.Accounts stay in the database but
+                // are not used. Their index still counts, so a new account never
+                // reuses one of their names.
+                if (m_idPlayerBotBase.size() < m_BotAccountAmount && m_idPlayerBotBase.find(id) == m_idPlayerBotBase.end())
+                {
+                    PlayerBotBaseInfo* pInfo = new PlayerBotBaseInfo(id, username.c_str(), pass, false);
+                    m_idPlayerBotBase[id] = pInfo;
+                }
+                m_LastBotAccountIndex = id;
             }
-            m_LastBotAccountIndex = id;
-        }
-        else
-        {
-            if (m_idAccountBotBase.find(id) == m_idAccountBotBase.end())
+            else
             {
-                PlayerBotBaseInfo* pInfo = new PlayerBotBaseInfo(id, username.c_str(), pass, true);
-                m_idAccountBotBase[id] = pInfo;
+                if (m_idAccountBotBase.find(id) == m_idAccountBotBase.end())
+                {
+                    PlayerBotBaseInfo* pInfo = new PlayerBotBaseInfo(id, username.c_str(), pass, true);
+                    m_idAccountBotBase[id] = pInfo;
+                }
             }
-        }
-        //if (m_idPlayerBotBase.size() >= m_BotAccountAmount * 2)
-        //	break;
-    } while (result->NextRow());
+        } while (result->NextRow());
+    }
 
     if (sWorld->getBoolConfig(CONFIG_PLAYERBOT_ENABLE))
         SupplementAccount();
@@ -918,7 +942,8 @@ void PlayerBotMgr::LoadPlayerBotBaseInfo()
     if (m_idPlayerBotBase.size() > 0 || m_idAccountBotBase.size() > 0)
         LoadCharBaseInfo();
 
-    TC_LOG_INFO(LOG_FILTER_PLAYER, "server.loading", ">> Loaded %u Player bot account base info in %u ms", m_idPlayerBotBase.size(), GetMSTimeDiffToNow(oldMSTime));
+    TC_LOG_INFO(LOG_FILTER_SERVER_LOADING, ">> Loaded %u bot accounts (PlayerBot.Accounts %u) in %u ms",
+        uint32(m_idPlayerBotBase.size()), m_BotAccountAmount, GetMSTimeDiffToNow(oldMSTime));
 }
 
 void PlayerBotMgr::LoadCharBaseInfo()
@@ -1518,10 +1543,8 @@ bool PlayerBotMgr::AddNewPlayerBotByGUID(ObjectGuid& guid)
     if (isok==0 && !guid)
         return false;
 
-    int32 allianceCount = (int32)sPlayerBotMgr->GetOnlineBotCount(TEAM_ALLIANCE, true);
-    int32 hordeCount = (int32)sPlayerBotMgr->GetOnlineBotCount(TEAM_HORDE, true);
-
-    if ((allianceCount+hordeCount) >= m_MaxOnlineBot)
+    // PlayerBot.MaxOnline counts bots only; real players used to be counted too.
+    if (int32(GetOnlineBotCount(TEAM_NEUTRAL, false)) >= m_MaxOnlineBot)
         return false;
 
 
@@ -1627,10 +1650,8 @@ bool PlayerBotMgr::AddNewPlayerBotByGUID(ObjectGuid& guid)
 
 bool PlayerBotMgr::AddNewPlayerBotByGUID2(ObjectGuid& guid)
 {
-    int32 allianceCount = (int32)sPlayerBotMgr->GetOnlineBotCount(TEAM_ALLIANCE, true);
-    int32 hordeCount = (int32)sPlayerBotMgr->GetOnlineBotCount(TEAM_HORDE, true);
-
-    if ((allianceCount+hordeCount) >= m_MaxOnlineBot) return false;
+    // PlayerBot.MaxOnline counts bots only; real players used to be counted too.
+    if (int32(GetOnlineBotCount(TEAM_NEUTRAL, false)) >= m_MaxOnlineBot) return false;
 
 
     const SessionMap& allSession = sWorld->GetAllSessions();
@@ -1752,10 +1773,8 @@ void PlayerBotMgr::AddNewPlayerBot(bool faction, Classes prof, uint32 count)
     if (isok==0 && prof == CLASS_NONE)
         return;
 
-    int32 allianceCount = (int32)sPlayerBotMgr->GetOnlineBotCount(TEAM_ALLIANCE, true);
-    int32 hordeCount = (int32)sPlayerBotMgr->GetOnlineBotCount(TEAM_HORDE, true);
-
-    if ((allianceCount+hordeCount) >= m_MaxOnlineBot)
+    // PlayerBot.MaxOnline counts bots only; real players used to be counted too.
+    if (int32(GetOnlineBotCount(TEAM_NEUTRAL, false)) >= m_MaxOnlineBot)
         return;
 
     const SessionMap& allSession = sWorld->GetAllSessions();
@@ -1849,10 +1868,8 @@ void PlayerBotMgr::AddNewAccountBot(bool faction, Classes prof)
     if (isok==0)
         return;
 
-    int32 allianceCount = (int32)sPlayerBotMgr->GetOnlineBotCount(TEAM_ALLIANCE, true);
-    int32 hordeCount = (int32)sPlayerBotMgr->GetOnlineBotCount(TEAM_HORDE, true);
-
-    if ((allianceCount+hordeCount) >= m_MaxOnlineBot)
+    // PlayerBot.MaxOnline counts bots only; real players used to be counted too.
+    if (int32(GetOnlineBotCount(TEAM_NEUTRAL, false)) >= m_MaxOnlineBot)
         return;
 
 
@@ -2856,6 +2873,82 @@ void PlayerBotMgr::OnlinePlayerBotByGUIDQueue()
     }
 }
 
+// Keeps at least PlayerBot.MinOnline bots logged in, never more than
+// PlayerBot.MaxOnline. One bot per manager tick, from the faction that has
+// fewer bots online. These bots stay in the open world; the battleground,
+// arena and dungeon finder code takes idle online bots before it logs in new
+// ones, so they are also the first to fill a queue.
+void PlayerBotMgr::TopUpOnlineBots()
+{
+    int32 const wanted = std::min(m_MinOnlineBot, m_MaxOnlineBot);
+    if (wanted <= 0)
+        return;
+
+    uint32 allianceOnline = 0;
+    uint32 hordeOnline = 0;
+    uint32 total = 0;
+    std::vector<PlayerBotSession*> offline;
+
+    SessionMap const& allSession = sWorld->GetAllSessions();
+    for (SessionMap::const_iterator itSession = allSession.begin(); itSession != allSession.end(); ++itSession)
+    {
+        if (!itSession->second->IsBotSession())
+            continue;
+        PlayerBotSession* pSession = dynamic_cast<PlayerBotSession*>(itSession->second.get());
+        if (!pSession || pSession->IsAccountBotSession())
+            continue;
+
+        // A login under way is not finished yet; wait for it rather than
+        // starting the next one on top.
+        if (pSession->PlayerLoading() || pSession->HasScheduleByType(BGSType_Online) || pSession->HasScheduleByType(BGSType_Online_GUID))
+            return;
+
+        if (Player* player = pSession->GetPlayer())
+        {
+            ++total;
+            if (player->GetTeamId() == TEAM_ALLIANCE)
+                ++allianceOnline;
+            else
+                ++hordeOnline;
+        }
+        else if (!pSession->HasSchedules())
+            offline.push_back(pSession);
+    }
+
+    if (int32(total) >= wanted)
+    {
+        m_MinOnlineWarned = false;
+        return;
+    }
+
+    bool const preferAlliance = allianceOnline <= hordeOnline;
+    for (uint8 pass = 0; pass < 2; ++pass)
+    {
+        bool const alliance = (pass == 0) ? preferAlliance : !preferAlliance;
+        for (PlayerBotSession* pSession : offline)
+        {
+            uint32 botClass = PickBotCharacterClass(GetPlayerBotAccountInfo(pSession->GetAccountId()), alliance, CLASS_NONE);
+            if (!botClass)
+                continue;
+
+            BotGlobleSchedule schedule(BotGlobleScheduleType::BGSType_Online, 0);
+            schedule.parameter1 = alliance ? 1 : 2;
+            schedule.parameter2 = botClass;
+            pSession->PushScheduleToQueue(schedule);
+            return;
+        }
+    }
+
+    // Nothing left to log in. While characters are still being created that
+    // is expected; afterwards say so once.
+    if (!m_MinOnlineWarned && m_CreateRequests.empty())
+    {
+        TC_LOG_ERROR(LOG_FILTER_SERVER_LOADING, "PlayerBot.MinOnline is %i, but only %u bots can be online: no further bot account has a character. Raise PlayerBot.CreateCharacters.Accounts.",
+            wanted, total);
+        m_MinOnlineWarned = true;
+    }
+}
+
 bool PlayerBotMgr::ExistUnBGPlayerBot()
 {
     const SessionMap& allSession = sWorld->GetAllSessions();
@@ -2909,9 +3002,12 @@ uint32 PlayerBotMgr::GetOnlineBotCount(TeamId team, bool hasReal)
             PlayerBotSession* pSession = dynamic_cast<PlayerBotSession*>((WorldSession*)itSession->second.get());
             if (!pSession)
                 continue;
+            // A bot still loading has no faction yet: it counts towards the
+            // total only, not twice as both alliance and horde.
             if (pSession->PlayerLoading())
             {
-                ++onlineCount;
+                if (team == TEAM_NEUTRAL)
+                    ++onlineCount;
                 continue;
             }
             Player* player = pSession->GetPlayer();
@@ -3024,6 +3120,7 @@ void PlayerBotMgr::Update()
         else
             ++m_LFGSearchTick;
 #endif
+        TopUpOnlineBots();
     }
 
     std::list<std::map<uint32, std::list<UnitAI*> >::iterator > delITer;

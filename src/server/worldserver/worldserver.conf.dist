@@ -3005,14 +3005,39 @@ QuestPOI.DisableErrors = 1
 PlayerBot.Enable = 1
 
 #
+#    PlayerBot.Accounts
+#       Description: Number of bot accounts. Missing ones are created at startup, named
+#                    PLAYERBOT<number> with the password botxxx. Bot accounts beyond this number
+#                    are left in the database but not used.
+#       Default:     180
+#       Range:       0 - 1000
+
+PlayerBot.Accounts = 180
+
+#
 #    PlayerBot.MaxOnline
 #       Description: Upper bound on how many bots may be online at the same time, counting both
-#                    factions. The manager brings at most one bot online per update tick, so a
-#                    large battleground takes a while to fill.
+#                    factions. Only bots count, real players do not. The manager brings at most
+#                    one bot online per update tick, so a large battleground takes a while to
+#                    fill.
 #       Default:     10
 #       Range:       0 - 500
 
 PlayerBot.MaxOnline = 10
+
+#
+#    PlayerBot.MinOnline
+#       Description: Number of bots kept online at all times, split evenly between alliance
+#                    and horde, so the world is not empty when no queue needs them. These bots
+#                    roam the open world and are the first picked when a battleground, arena
+#                    or dungeon finder queue needs a bot. One bot comes online every two seconds
+#                    until the number is reached. Never more than PlayerBot.MaxOnline. Each of
+#                    these bots needs its own bot account with characters, see
+#                    PlayerBot.CreateCharacters.Accounts.
+#       Default:     0 - (Bots only come online when something needs them)
+#       Range:       0 - 500
+
+PlayerBot.MinOnline = 0
 
 #
 #    PlayerBot.AccountAll
@@ -3036,7 +3061,7 @@ PlayerBot.AccountAll = 1
 #                    the characters per account.
 #       Default:     20
 #                    0  - (Do not create bot characters)
-#       Range:       0 - 180
+#       Range:       0 - PlayerBot.Accounts
 
 PlayerBot.CreateCharacters.Accounts = 20
 

@@ -214,6 +214,11 @@ Hintergrund nach dem Start auf den ersten 20 davon je einen Charakter jeder
 Klasse, aufgeteilt auf Allianz und Horde. Einzelheiten unter
 [Bot characters](docs/SETUP.md#bot-characters).
 
+Wie viele Bots online sind, steht in der Konfiguration: `PlayerBot.MaxOnline`
+begrenzt sie, `PlayerBot.MinOnline` hält eine Anzahl davon auch ohne
+Warteschlange in der offenen Welt, und `PlayerBot.Accounts` legt fest, wie viele
+Botkonten es gibt.
+
 Der Block `PLAYERBOT SETTINGS` in `worldserver.conf.dist` beschreibt jede
 Einstellung: Hauptschalter, Onlinegrenze, kontogebundene Bots, wie viele Konten
 Charaktere bekommen, und das Würfelverhalten.
