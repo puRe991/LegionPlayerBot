@@ -542,8 +542,10 @@ void WorldSession::HandleCharDeleteOpcode(WorldPackets::Character::DeleteChar& c
 
 void WorldSession::HandlePlayerLoginOpcode(WorldPackets::Character::PlayerLogin& playerLogin)
 {
-    // Prevent flood of CMSG_PLAYER_LOGIN
-    if (++playerLoginCounter > 10)
+    // Prevent flood of CMSG_PLAYER_LOGIN. A bot session lives as long as the
+    // server and the counter is never reset, so it would be locked out after
+    // its tenth login.
+    if (!IsBotSession() && ++playerLoginCounter > 10)
     {
         TC_LOG_ERROR(LOG_FILTER_OPCODES, "Player kicked due to flood of CMSG_PLAYER_LOGIN");
         KickPlayer();

@@ -37,7 +37,7 @@ void AIWaypoint::BreakToAIWP(AIWaypoint* aiwp)
 		{
 			for (int j = i; j < MAX_LINK_AIWP; j++)
 			{
-				if (j = MAX_LINK_AIWP - 1)
+				if (j == MAX_LINK_AIWP - 1)
 					linkAWP[j] = NULL;
 				else
 					linkAWP[j] = linkAWP[j + 1];
@@ -167,7 +167,7 @@ bool AIWaypointsMgr::LoadAIWaypoints()
 	}
 	m_AIWaypointMap.clear();
 
-	QueryResult curIncrementResult = WorldDatabase.Query("SELECT `AUTO_INCREMENT` FROM information_schema.`TABLES` WHERE `TABLE_NAME`='aiwaypoints'");
+	QueryResult curIncrementResult = WorldDatabase.Query("SELECT `AUTO_INCREMENT` FROM information_schema.`TABLES` WHERE `TABLE_SCHEMA`=DATABASE() AND `TABLE_NAME`='aiwaypoints'");
 	if (curIncrementResult)
 	{
 		Field* fields = curIncrementResult->Fetch();

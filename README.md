@@ -151,12 +151,10 @@ Objective AI — flags, bases, vehicles — is implemented for **Arathi Basin,
 Warsong Gulch, Eye of the Storm, Alterac Valley and Isle of Conquest**. In the
 remaining battlegrounds bots fight but ignore objectives.
 
-> [!WARNING]
-> **That code needs navigation data this repository does not ship.** The
-> `aiwaypoints` table is created empty. Bots move around a battleground along a
-> waypoint graph that an operator builds in-game and that is written back to the
-> world database. Until those rows exist, objective AI has nothing to walk
-> along — in the five battlegrounds above as much as anywhere else.
+The objective code walks to fixed points — flags, bases, graveyards, starting
+positions — that it looks up by id in the `aiwaypoints` table.
+`sql/base/world_playerbot.sql` fills it with those 61 points for the five
+battlegrounds and the Dalaran Sewers arena.
 
 ### Loot
 
@@ -243,8 +241,8 @@ wire; they are plain English UTF-8 strings now.
 > `src/server/bnetserver/bnetserver.key.pem` is the TrinityCore **development
 > key** and is therefore public. Replace it before exposing a realm.
 
-Bot accounts are created with a fixed password — keep the auth database off
-public networks.
+Bot accounts (`PLAYERBOT<number>`) are created with the fixed password
+`botxxx` — keep the auth database off public networks.
 
 ---
 
@@ -252,8 +250,9 @@ public networks.
 
 - Outside the five battlegrounds listed above, bots fight but ignore
   objectives.
-- All battleground objective AI stays inert until an operator builds the
-  `aiwaypoints` navigation graph.
+- The server creates the bot accounts but no characters on them; those have
+  to be created by hand before any bot can come online. See
+  [Bot characters](docs/SETUP.md#bot-characters).
 - Artifact acquisition scenarios exist for seven of twelve classes.
 - Some comments in the bot subsystem are still Chinese. They are correctly
   encoded and readable — they simply have not been translated.

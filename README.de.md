@@ -155,13 +155,10 @@ Die Zielsteuerung — Flaggen, Stützpunkte, Fahrzeuge — ist umgesetzt für
 Eroberung**. In den übrigen Schlachtfeldern kämpfen die Bots, kümmern sich aber
 nicht um die Ziele.
 
-> [!WARNING]
-> **Dieser Code braucht Navigationsdaten, die dieses Repository nicht
-> mitliefert.** Die Tabelle `aiwaypoints` wird leer angelegt. Bots bewegen sich
-> im Schlachtfeld entlang eines Wegpunktnetzes, das ein Betreiber im Spiel setzt
-> und das in die Weltdatenbank zurückgeschrieben wird. Solange diese Zeilen
-> fehlen, hat die Zielsteuerung nichts, woran sie entlanglaufen könnte — in den
-> fünf genannten Schlachtfeldern genauso wie überall sonst.
+Die Zielsteuerung läuft feste Punkte an — Flaggen, Stützpunkte, Friedhöfe,
+Startpositionen —, die sie über ihre Kennung in der Tabelle `aiwaypoints`
+nachschlägt. `sql/base/world_playerbot.sql` füllt sie mit diesen 61 Punkten für
+die fünf Schlachtfelder und die Arena der Kanalisation von Dalaran.
 
 ### Beute
 
@@ -252,8 +249,9 @@ UTF-8-Zeichenketten.
 > von TrinityCore und damit öffentlich bekannt. Vor dem Betrieb eines
 > erreichbaren Realms austauschen.
 
-Botkonten werden mit einem festen Kennwort angelegt — die auth-Datenbank gehört
-deshalb nicht in ein öffentliches Netz.
+Botkonten (`PLAYERBOT<Nummer>`) werden mit dem festen Kennwort `botxxx`
+angelegt — die auth-Datenbank gehört deshalb nicht in ein öffentliches
+Netz.
 
 ---
 
@@ -261,8 +259,9 @@ deshalb nicht in ein öffentliches Netz.
 
 - Außerhalb der fünf genannten Schlachtfelder kämpfen die Bots, kümmern sich
   aber nicht um die Ziele.
-- Die gesamte Zielsteuerung bleibt wirkungslos, bis ein Betreiber das
-  Wegpunktnetz `aiwaypoints` aufgebaut hat.
+- Der Server legt die Botkonten an, aber keine Charaktere darauf. Die müssen
+  von Hand erstellt werden, bevor ein Bot online kommen kann; siehe
+  [Bot characters](docs/SETUP.md#bot-characters).
 - Artefakt-Erwerbsszenarien gibt es für sieben von zwölf Klassen.
 - Ein Teil der Kommentare im Bot-Teilsystem ist weiterhin chinesisch. Sie sind
   korrekt kodiert und lesbar — nur eben nicht übersetzt.

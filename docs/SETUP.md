@@ -110,7 +110,12 @@ These create:
 | world | `playerbot_online` | bot accounts to bring online at startup |
 
 `aiwaypoints` matters most: without waypoints the bots have no navigation
-graph and fall back to passive behaviour in battlegrounds.
+graph and fall back to passive behaviour in battlegrounds. The script fills
+it with the 61 objective points (flags, bases, graveyards, starting
+positions) for Warsong Gulch, Arathi Basin, Eye of the Storm, Alterac
+Valley, Isle of Conquest and the Dalaran Sewers arena. The battleground
+code looks these up by entry id, so keep the ids as they are. There is no
+in-game command for editing waypoints.
 
 ---
 
@@ -198,6 +203,37 @@ To drive them by hand, `.playerbot` (short form `.pbot`):
 | `.playerbot limit [count]` | Administrator | Read or set the online limit for this session. |
 | `.playerbot status` | Game Master | Online counts and the current loot settings. |
 
+### Bot characters
+
+On the first start the server creates 180 bot accounts named
+`PLAYERBOT<number>`, all with the password `botxxx`. The numbers follow the
+account ids, so they need not start at 1 or be contiguous:
+
+```sql
+SELECT id, username FROM auth.account WHERE username LIKE 'PLAYERBOT%';
+```
+
+**The server does not create characters on them.** The automatic character
+creation in `PlayerBotMgr` is switched off, so the accounts start out empty,
+and a bot can only come online as a character that already exists. Until
+characters exist, `.playerbot add` and battleground filling do nothing.
+
+Create them by hand: log in with the client as one of those accounts and the
+password `botxxx`, create characters of the classes and factions you want,
+log out, repeat for further accounts, then restart the worldserver. The bot
+list is read at startup, so new characters are only picked up after a
+restart. Level 1 characters are enough: before a battleground or skirmish the
+bot is levelled and equipped for the bracket. Create both factions. Rated
+arena only picks bots that are already at the maximum level.
+
+Check what the server will find:
+
+```sql
+SELECT a.username, c.name, c.race, c.class, c.level
+FROM auth.account a JOIN characters.characters c ON c.account = a.id
+WHERE a.username LIKE 'PLAYERBOT%';
+```
+
 ### Security
 
 Two things must be changed before running this publicly:
@@ -229,6 +265,6 @@ Documented so nobody has to rediscover them:
 - Bot objective AI exists for Arathi Basin, Warsong Gulch, Eye of the
   Storm, Alterac Valley and Isle of Conquest only. In other battlegrounds
   the bots fight but do not play the objectives.
-- Rated arena and the dungeon finder are not wired up for bots.
+- Bot characters have to be created by hand (see *Bot characters* above).
 - Parts of the source still carry mis-encoded comments and a few
   user-visible strings from the original Chinese sources.

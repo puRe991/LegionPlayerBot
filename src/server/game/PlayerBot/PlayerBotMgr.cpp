@@ -680,9 +680,11 @@ void PlayerBotMgr::UpdateLastAccountIndex(std::string& username)
 
 void PlayerBotMgr::SupplementAccount()
 {
-    uint32 needAccount = m_BotAccountAmount * 2 - m_idPlayerBotBase.size();
-    if (needAccount <= 0)
+    // Unsigned: with more bot accounts than wanted the subtraction used to wrap
+    // around and the loop below tried to create billions of accounts.
+    if (m_idPlayerBotBase.size() >= m_BotAccountAmount * 2)
         return;
+    uint32 needAccount = m_BotAccountAmount * 2 - m_idPlayerBotBase.size();
 
     for (uint32 i = 0; i < needAccount; i++)
     {
@@ -691,7 +693,10 @@ void PlayerBotMgr::SupplementAccount()
         snprintf(indexText, sizeof(indexText), "%u", m_LastBotAccountIndex);
         std::string userName = "playerbot";
         userName += indexText;
-        if (AccountMgr::CreateAccount(userName, "botxxx") == AccountOpResult::AOR_OK)
+        // Synchronous: the row is read back right below. Created asynchronously
+        // it usually was not there yet, so on the first start the new accounts
+        // were missing from the bot list until the next restart.
+        if (AccountMgr::CreateAccount(userName, "botxxx", false) == AccountOpResult::AOR_OK)
         {
             std::string querySql = "SELECT id, username, sha_pass_hash FROM account WHERE username='";
             querySql += userName + "'";
@@ -796,7 +801,8 @@ void PlayerBotMgr::LoadPlayerBotBaseInfo()
         //	break;
     } while (result->NextRow());
 
-    SupplementAccount();
+    if (sWorld->getBoolConfig(CONFIG_PLAYERBOT_ENABLE))
+        SupplementAccount();
 
     if (m_idPlayerBotBase.size() > 0 || m_idAccountBotBase.size() > 0)
         LoadCharBaseInfo();
@@ -853,6 +859,8 @@ void PlayerBotMgr::LoadCharBaseInfo()
 void PlayerBotMgr::UpAllPlayerBotSession()
 {
     PlayerBotSetting::Initialize();
+    if (!sWorld->getBoolConfig(CONFIG_PLAYERBOT_ENABLE))
+        return;
     for (std::map<uint32, PlayerBotBaseInfo*>::iterator it = m_idPlayerBotBase.begin();
         it != m_idPlayerBotBase.end();
         it++)
@@ -985,7 +993,7 @@ void PlayerBotMgr::OnPlayerBotLeaveOriginalGroup(Player* pPlayer)
 void PlayerBotMgr::LoginGroupBotByPlayer(Player* pPlayer)
 {
 #ifndef INCOMPLETE_BOT
-    if (pPlayer->IsPlayerBot())
+    if (pPlayer->IsPlayerBot() || !sWorld->getBoolConfig(CONFIG_PLAYERBOT_ENABLE))
         return;
     int32 isok = sConfigMgr->GetIntDefault("pbot", 1);
     Group* pGroup = pPlayer->GetGroup();
@@ -1088,11 +1096,15 @@ void PlayerBotMgr::AllPlayerBotRandomLogin(const char* name)
 
             if (name[0] != '\0')
             {
-                for (auto i = 0; i < pInfo->characters.size(); ++i)
+                // characters is keyed by guid, not by position. Indexing it
+                // with a counter inserted an empty entry for every guid below
+                // the account's highest one, and the random login below then
+                // picked those far more often than real characters.
+                for (auto itChar = pInfo->characters.begin(); itChar != pInfo->characters.end(); ++itChar)
                 {
-                    if (strcmp(name, pInfo->characters[i].name.c_str()) == 0)
+                    if (strcmp(name, itChar->second.name.c_str()) == 0)
                     {
-                        PlayerBotCharBaseInfo& charInfo = pInfo->characters[i];
+                        PlayerBotCharBaseInfo& charInfo = itChar->second;
                         WorldPacket _worldPacket(CMSG_PLAYER_LOGIN);
                         WorldPackets::Character::PlayerLogin cmd(std::move(_worldPacket));
                         cmd.Guid = ObjectGuid::Create<HighGuid::Player>(charInfo.guid);
@@ -1424,6 +1436,11 @@ bool PlayerBotMgr::AddNewPlayerBotByGUID(ObjectGuid& guid)
         return true;
     }
 
+    // Characters of real player accounts (offline group members) only come
+    // online as bots when PlayerBot.AccountAll allows it.
+    if (!sWorld->getBoolConfig(CONFIG_PLAYERBOT_ACCOUNT_ALL))
+        return false;
+
     for (std::map<uint32, PlayerBotBaseInfo*>::iterator itInfo = m_idAccountBotBase.begin();
         itInfo != m_idAccountBotBase.end();
         itInfo++)
@@ -1539,6 +1556,11 @@ bool PlayerBotMgr::AddNewPlayerBotByGUID2(ObjectGuid& guid)
         pSession->PushScheduleToQueue(schedule1);
         return true;
     }
+
+    // Characters of real player accounts (offline group members) only come
+    // online as bots when PlayerBot.AccountAll allows it.
+    if (!sWorld->getBoolConfig(CONFIG_PLAYERBOT_ACCOUNT_ALL))
+        return false;
 
     for (std::map<uint32, PlayerBotBaseInfo*>::iterator itInfo = m_idAccountBotBase.begin();
         itInfo != m_idAccountBotBase.end();
@@ -2818,27 +2840,31 @@ uint32 PlayerBotMgr::GetOnlineBotCount2(TeamId team, bool hasReal)
 
 void PlayerBotMgr::Update()
 {
-
-    OnlinePlayerBotByGUIDQueue();
-
-    //if (!ExistUnBGPlayerBot())
-    QueryBattlegroundRequirement();
-#ifndef INCOMPLETE_BOT
-    //sArenaTeamMgr->CheckPlayerBotArenaTeam();
-    QueryRatedArenaRequirement();
-    QueryNonRatedArenaRequirement();
-    if (m_LFGSearchTick > 1)
+    // PlayerBot.Enable stops bots from being brought online and queued. Freeing
+    // swapped out AIs below keeps running so a config reload cannot strand them.
+    if (sWorld->getBoolConfig(CONFIG_PLAYERBOT_ENABLE))
     {
-        m_LFGSearchTick = 0;
-        if (lfg::LFGBotRequirement* pbotReq = sLFGMgr->SearchLFGBotRequirement())
+        OnlinePlayerBotByGUIDQueue();
+
+        //if (!ExistUnBGPlayerBot())
+        QueryBattlegroundRequirement();
+#ifndef INCOMPLETE_BOT
+        //sArenaTeamMgr->CheckPlayerBotArenaTeam();
+        QueryRatedArenaRequirement();
+        QueryNonRatedArenaRequirement();
+        if (m_LFGSearchTick > 1)
         {
-            AddNewPlayerBotToLFG(pbotReq);
-            delete pbotReq;
+            m_LFGSearchTick = 0;
+            if (lfg::LFGBotRequirement* pbotReq = sLFGMgr->SearchLFGBotRequirement())
+            {
+                AddNewPlayerBotToLFG(pbotReq);
+                delete pbotReq;
+            }
         }
-    }
-    else
-        ++m_LFGSearchTick;
+        else
+            ++m_LFGSearchTick;
 #endif
+    }
 
     std::list<std::map<uint32, std::list<UnitAI*> >::iterator > delITer;
     uint32 currentTick = getMSTime();

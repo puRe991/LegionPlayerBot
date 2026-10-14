@@ -1690,7 +1690,8 @@ void World::SetInitialWorldSettings()
     //TC_LOG_INFO("server.loading", "Loading AI Way points...");
     if (!sAIWPMgr->LoadAIWaypoints())
     {
-        exit(0);
+        TC_LOG_ERROR(LOG_FILTER_SERVER_LOADING, "Table `aiwaypoints` not found in the world database. Apply sql/base/world_playerbot.sql.");
+        exit(1);
         return;
     }
 
