@@ -110,6 +110,10 @@ void StopDB();
 void WorldUpdateLoop();
 void ClearOnlineAccounts();
 void ShutdownThreadPool(std::vector<std::thread>& threadPool);
+void ShutdownThreadPoolAtExit();
+
+// File scope so that ShutdownThreadPoolAtExit can reach it.
+std::vector<std::thread> _threadPool;
 bool LoadRealmInfo();
 variables_map GetConsoleArguments(int argc, char** argv, std::string& cfg_file, std::string& cfg_service);
 
@@ -191,13 +195,19 @@ extern int main(int argc, char **argv)
 
     // Start the Boost based thread pool
     int numThreads = sConfigMgr->GetIntDefault("ThreadPool", 1);
-    std::vector<std::thread> threadPool;
+    std::vector<std::thread>& threadPool = _threadPool;
 
     if (numThreads < 1)
         numThreads = 1;
 
     for (int i = 0; i < numThreads; ++i)
         threadPool.emplace_back(boost::bind(&boost::asio::io_service::run, &_ioService));
+
+    // Startup errors end in exit(), e.g. when client data is missing. The
+    // io_service destructor would then wait forever for these threads, so
+    // the process hung instead of exiting. Registered after _ioService was
+    // constructed, this runs before its destructor.
+    std::atexit(ShutdownThreadPoolAtExit);
 
     // Set process priority according to configuration settings
     SetProcessPriority("server.worldserver");
@@ -480,8 +490,16 @@ void ShutdownThreadPool(std::vector<std::thread>& threadPool)
 {
     _ioService.stop();
 
+    // Safe to call twice: the normal shutdown and the exit handler both do.
     for (auto& thread : threadPool)
-        thread.join();
+        if (thread.joinable())
+            thread.join();
+    threadPool.clear();
+}
+
+void ShutdownThreadPoolAtExit()
+{
+    ShutdownThreadPool(_threadPool);
 }
 
 void WorldUpdateLoop()

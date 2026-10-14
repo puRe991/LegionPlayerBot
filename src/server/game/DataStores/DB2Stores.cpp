@@ -1596,7 +1596,7 @@ void DB2Manager::LoadStores(std::string const& dataPath, uint32 defaultLocale)
     // error checks
     if (bad_db2_files.size() == _stores.size())
     {
-        TC_LOG_ERROR(LOG_FILTER_GENERAL, "\nIncorrect DataDir value in worldserver.conf or ALL required *.db2 files (" SZFMTD ") not found by path: %sdbc/%s/", _stores.size(), dataPath.c_str(), localeNames[defaultLocale]);
+        TC_LOG_ERROR(LOG_FILTER_SERVER_LOADING, "\nIncorrect DataDir value in worldserver.conf or ALL required *.db2 files (" SZFMTD ") not found by path: %sdbc/%s/", _stores.size(), dataPath.c_str(), localeNames[defaultLocale]);
         exit(1);
     }
     if (!bad_db2_files.empty())
@@ -1605,7 +1605,7 @@ void DB2Manager::LoadStores(std::string const& dataPath, uint32 defaultLocale)
         for (auto const& bad_db2_file : bad_db2_files)
             str += bad_db2_file + "\n";
 
-        TC_LOG_ERROR(LOG_FILTER_GENERAL, "\nSome required *.db2 files (%u from " SZFMTD ") not found or not compatible:\n%s", bad_db2_files.size(), _stores.size(), str.c_str());
+        TC_LOG_ERROR(LOG_FILTER_SERVER_LOADING, "\nSome required *.db2 files (%u from " SZFMTD ") not found or not compatible:\n%s", bad_db2_files.size(), _stores.size(), str.c_str());
         exit(1);
     }
 
