@@ -182,9 +182,14 @@ sind einstellbar.
 | `limit [Anzahl]` | Onlinegrenze dieser Sitzung lesen oder setzen (Administrator). |
 | `status` | Onlinezahlen und aktuelle Beuteeinstellungen. |
 
+Der Server richtet seine Bots selbst ein: Er legt die Botkonten an und im
+Hintergrund nach dem Start auf den ersten 20 davon je einen Charakter jeder
+Klasse, aufgeteilt auf Allianz und Horde. Einzelheiten unter
+[Bot characters](docs/SETUP.md#bot-characters).
+
 Der Block `PLAYERBOT SETTINGS` in `worldserver.conf.dist` beschreibt jede
-Einstellung: Hauptschalter, Onlinegrenze, kontogebundene Bots und das
-Würfelverhalten.
+Einstellung: Hauptschalter, Onlinegrenze, kontogebundene Bots, wie viele Konten
+Charaktere bekommen, und das Würfelverhalten.
 
 ---
 
@@ -259,9 +264,6 @@ Netz.
 
 - Außerhalb der fünf genannten Schlachtfelder kämpfen die Bots, kümmern sich
   aber nicht um die Ziele.
-- Der Server legt die Botkonten an, aber keine Charaktere darauf. Die müssen
-  von Hand erstellt werden, bevor ein Bot online kommen kann; siehe
-  [Bot characters](docs/SETUP.md#bot-characters).
 - Artefakt-Erwerbsszenarien gibt es für sieben von zwölf Klassen.
 - Ein Teil der Kommentare im Bot-Teilsystem ist weiterhin chinesisch. Sie sind
   korrekt kodiert und lesbar — nur eben nicht übersetzt.

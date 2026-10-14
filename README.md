@@ -177,9 +177,14 @@ are configurable.
 | `limit [count]` | Read or set the online limit for this session (Administrator). |
 | `status` | Online counts and current loot settings. |
 
+The server sets up its bots itself: it creates the bot accounts and, in the
+background after startup, one character of every class on the first 20 of
+them, split between alliance and horde. Details in
+[Bot characters](docs/SETUP.md#bot-characters).
+
 The `PLAYERBOT SETTINGS` block in `worldserver.conf.dist` documents every
-option: the master switch, the online limit, account-bound bots, and how bots
-answer loot rolls.
+option: the master switch, the online limit, account-bound bots, how many
+accounts get characters, and how bots answer loot rolls.
 
 ---
 
@@ -250,9 +255,6 @@ Bot accounts (`PLAYERBOT<number>`) are created with the fixed password
 
 - Outside the five battlegrounds listed above, bots fight but ignore
   objectives.
-- The server creates the bot accounts but no characters on them; those have
-  to be created by hand before any bot can come online. See
-  [Bot characters](docs/SETUP.md#bot-characters).
 - Artifact acquisition scenarios exist for seven of twelve classes.
 - Some comments in the bot subsystem are still Chinese. They are correctly
   encoded and readable — they simply have not been translated.

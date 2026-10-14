@@ -187,6 +187,7 @@ option. The ones that matter:
 | `PlayerBot.Enable` | 1 | master switch |
 | `PlayerBot.MaxOnline` | 10 | how many bots may be online at once |
 | `PlayerBot.AccountAll` | 1 | allow account-bound bots (group and friend list features) |
+| `PlayerBot.CreateCharacters.Accounts` | 20 | bot accounts that get one character of every class created automatically; 0 = off |
 | `PlayerBot.Loot.NeedRoll` | 2 | 2 = need on suitable upgrades, greed otherwise; 1 = never need; 0 = always pass |
 | `PlayerBot.Loot.MinQuality` | 2 | lowest quality a bot rolls need on |
 
@@ -213,20 +214,30 @@ account ids, so they need not start at 1 or be contiguous:
 SELECT id, username FROM auth.account WHERE username LIKE 'PLAYERBOT%';
 ```
 
-**The server does not create characters on them.** The automatic character
-creation in `PlayerBotMgr` is switched off, so the accounts start out empty,
-and a bot can only come online as a character that already exists. Until
-characters exist, `.playerbot add` and battleground filling do nothing.
+A bot can only come online as a character that exists on its account. The
+server creates those itself: the first `PlayerBot.CreateCharacters.Accounts`
+bot accounts (default 20) each get one character of every class, all of one
+faction, split evenly between alliance and horde. Creation starts once the
+world is up and runs in the background, one character every two seconds —
+with the defaults 240 characters, so about eight minutes. It goes class by
+class across all accounts, so with the defaults every account has a
+character to log in with after about 40 seconds. Characters that are still missing
+are queued again on the next start.
 
-Create them by hand: log in with the client as one of those accounts and the
-password `botxxx`, create characters of the classes and factions you want,
-log out, repeat for further accounts, then restart the worldserver. The bot
-list is read at startup, so new characters are only picked up after a
-restart. Level 1 characters are enough: before a battleground or skirmish the
-bot is levelled and equipped for the bracket. Create both factions. Rated
-arena only picks bots that are already at the maximum level.
+Names come from `auth.playerbot_names` first; once that pool is used up the
+server makes up names from syllables. Every name is checked against the same
+rules as a name typed by a player. A creation that fails anyway shows up in
+the log as `PlayerBot: creating character ... failed`.
 
-Check what the server will find:
+Level 1 characters are enough: before a battleground or skirmish the bot is
+levelled and equipped for the bracket. Rated arena only picks bots that are
+already at the maximum level.
+
+Characters can still be created by hand: log in with the client as a bot
+account and the password `botxxx`. Restart the worldserver afterwards; the
+bot list of hand-made characters is only read at startup.
+
+Check what the server has:
 
 ```sql
 SELECT a.username, c.name, c.race, c.class, c.level
@@ -265,6 +276,5 @@ Documented so nobody has to rediscover them:
 - Bot objective AI exists for Arathi Basin, Warsong Gulch, Eye of the
   Storm, Alterac Valley and Isle of Conquest only. In other battlegrounds
   the bots fight but do not play the objectives.
-- Bot characters have to be created by hand (see *Bot characters* above).
 - Parts of the source still carry mis-encoded comments and a few
   user-visible strings from the original Chinese sources.

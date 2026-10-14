@@ -3024,6 +3024,23 @@ PlayerBot.MaxOnline = 10
 PlayerBot.AccountAll = 1
 
 #
+#    PlayerBot.CreateCharacters.Accounts
+#       Description: Number of bot accounts that get characters created automatically. Each of
+#                    them gets one character of every class, all of one faction: an account
+#                    keeps the faction of the characters it already has, empty accounts are
+#                    split evenly between alliance and horde. A bot needs a character on its
+#                    account to come online at all.
+#                    Creation runs in the background after startup, one character every two
+#                    seconds. Missing characters are queued again on every start, so raising
+#                    the value later fills further accounts. CharactersPerRealm still caps
+#                    the characters per account.
+#       Default:     20
+#                    0  - (Do not create bot characters)
+#       Range:       0 - 180
+
+PlayerBot.CreateCharacters.Accounts = 20
+
+#
 #    PlayerBot.Loot.NeedRoll
 #       Description: How bots answer group loot rolls.
 #       Default:     2 - (Need on gear that suits the bot's class and specialisation and beats
