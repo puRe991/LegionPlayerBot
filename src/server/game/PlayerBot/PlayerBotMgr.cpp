@@ -148,7 +148,8 @@ PlayerBotMgr::PlayerBotMgr() :
     m_ArenaSearchTick(0),
     m_CreateIssued(0),
     m_MinOnlineBot(0),
-    m_MinOnlineWarned(false)
+    m_MinOnlineWarned(false),
+    m_Announce(true)
 {
     m_BGTypes.push_back(MS::Battlegrounds::BattlegroundTypeId::BattlegroundWarsongGulch);
     m_BGTypes.push_back(MS::Battlegrounds::BattlegroundTypeId::BattlegroundArathiBasin);
@@ -896,6 +897,8 @@ void PlayerBotMgr::LoadPlayerBotBaseInfo()
             m_MinOnlineBot, m_MaxOnlineBot, m_MaxOnlineBot);
     m_MinOnlineWarned = false;
 
+    m_Announce = sConfigMgr->GetBoolDefault("PlayerBot.Announce", true);
+
     ClearBaseInfo();
     // Ordered, so that PlayerBot.Accounts always selects the same accounts.
     // An empty account table is no reason to stop: on a fresh auth database
@@ -1084,10 +1087,10 @@ void PlayerBotMgr::OnPlayerBotLogin(WorldSession* pSession, Player* pPlayer)
 
     BotUtility::RemoveArenaBotSpellsByPlayer(pPlayer);
     sPlayerBotTalkMgr->JoinDefaultChannel(pPlayer);
-    if (pSession)
+    if (pSession && m_Announce)
     {
         std::string outString;
-        outString = "has come online.";
+        outString = " has come online.";
         sWorld->SendGlobalText((GetPlayerLinkText(pPlayer) + outString).c_str(), NULL);
     }
     if (PlayerBotSession* pBotSession = dynamic_cast<PlayerBotSession*>(pSession))
@@ -1112,9 +1115,12 @@ void PlayerBotMgr::OnPlayerBotLogout(WorldSession* pSession)
     --m_BotOnlineCount;
     if (m_BotOnlineCount < 0) m_BotOnlineCount = 0;
 
-    std::string outString;
-    outString = "A bot has gone offline.";
-    sWorld->SendGlobalText(outString.c_str(), NULL);
+    if (m_Announce)
+    {
+        std::string outString;
+        outString = "A bot has gone offline.";
+        sWorld->SendGlobalText(outString.c_str(), NULL);
+    }
     PlayerBotSession* pBotSession = dynamic_cast<PlayerBotSession*>(pSession);
     if (pBotSession && !pBotSession->HasScheduleByType(BotGlobleScheduleType::BGSType_Online) &&
         !pBotSession->HasScheduleByType(BotGlobleScheduleType::BGSType_Online_GUID))

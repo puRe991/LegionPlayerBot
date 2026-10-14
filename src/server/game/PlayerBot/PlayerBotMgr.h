@@ -439,6 +439,7 @@ private:
 
 	int32 m_MinOnlineBot;                     ///< PlayerBot.MinOnline
 	bool m_MinOnlineWarned;                   ///< shortfall of PlayerBot.MinOnline already logged
+	bool m_Announce;                          ///< PlayerBot.Announce
 
 public:
 	static std::map<uint32, std::list<UnitAI*> > m_DelayDestroyAIs;

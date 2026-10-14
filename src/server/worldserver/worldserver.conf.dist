@@ -3040,6 +3040,16 @@ PlayerBot.MaxOnline = 10
 PlayerBot.MinOnline = 0
 
 #
+#    PlayerBot.Announce
+#       Description: Announce to every player in chat when a bot comes online ("<name> has
+#                    come online.") or goes offline. With PlayerBot.MinOnline or busy
+#                    battlegrounds this can be a lot of messages.
+#       Default:     1 - (Announce)
+#                    0 - (Silent)
+
+PlayerBot.Announce = 1
+
+#
 #    PlayerBot.AccountAll
 #       Description: Whether account bots (bots tied to a real player's account, used for the
 #                    group and friend list features) may be created alongside the shared pool.

@@ -211,7 +211,8 @@ them, split between alliance and horde. Details in
 How many bots are online is set in the configuration: `PlayerBot.MaxOnline`
 caps them, `PlayerBot.MinOnline` keeps a number of them in the open world even
 when no queue needs them, and `PlayerBot.Accounts` sets how many bot accounts
-there are.
+there are. `PlayerBot.Announce = 0` silences the chat message every player
+gets when a bot comes online or goes offline.
 
 The `PLAYERBOT SETTINGS` block in `worldserver.conf.dist` documents every
 option: the master switch, the online limit, account-bound bots, how many

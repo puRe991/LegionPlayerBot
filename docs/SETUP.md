@@ -188,6 +188,7 @@ option. The ones that matter:
 | `PlayerBot.Accounts` | 180 | number of bot accounts |
 | `PlayerBot.MaxOnline` | 10 | how many bots may be online at once; real players do not count |
 | `PlayerBot.MinOnline` | 0 | how many bots are kept online even when nothing needs them; 0 = only on demand |
+| `PlayerBot.Announce` | 1 | announce in chat when a bot comes online or goes offline; 0 = silent |
 | `PlayerBot.AccountAll` | 1 | allow account-bound bots (group and friend list features) |
 | `PlayerBot.CreateCharacters.Accounts` | 20 | bot accounts that get one character of every class created automatically; 0 = off |
 | `PlayerBot.Loot.NeedRoll` | 2 | 2 = need on suitable upgrades, greed otherwise; 1 = never need; 0 = always pass |

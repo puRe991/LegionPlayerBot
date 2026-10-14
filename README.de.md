@@ -217,7 +217,8 @@ Klasse, aufgeteilt auf Allianz und Horde. Einzelheiten unter
 Wie viele Bots online sind, steht in der Konfiguration: `PlayerBot.MaxOnline`
 begrenzt sie, `PlayerBot.MinOnline` hält eine Anzahl davon auch ohne
 Warteschlange in der offenen Welt, und `PlayerBot.Accounts` legt fest, wie viele
-Botkonten es gibt.
+Botkonten es gibt. `PlayerBot.Announce = 0` schaltet die Chatmeldung ab, die
+jeder Spieler bekommt, wenn ein Bot online oder offline geht.
 
 Der Block `PLAYERBOT SETTINGS` in `worldserver.conf.dist` beschreibt jede
 Einstellung: Hauptschalter, Onlinegrenze, kontogebundene Bots, wie viele Konten
