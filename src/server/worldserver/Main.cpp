@@ -110,10 +110,13 @@ void StopDB();
 void WorldUpdateLoop();
 void ClearOnlineAccounts();
 void ShutdownThreadPool(std::vector<std::thread>& threadPool);
-void ShutdownThreadPoolAtExit();
+void ShutdownAtExit();
 
-// File scope so that ShutdownThreadPoolAtExit can reach it.
+// File scope so that ShutdownAtExit can reach it.
 std::vector<std::thread> _threadPool;
+// Set while StartDB has opened (or begun to open) the database pools.
+bool _databasesOpen = false;
+extern bool HotfixDatabaseClosed;   // World.cpp
 bool LoadRealmInfo();
 variables_map GetConsoleArguments(int argc, char** argv, std::string& cfg_file, std::string& cfg_service);
 
@@ -205,9 +208,11 @@ extern int main(int argc, char **argv)
 
     // Startup errors end in exit(), e.g. when client data is missing. The
     // io_service destructor would then wait forever for these threads, so
-    // the process hung instead of exiting. Registered after _ioService was
-    // constructed, this runs before its destructor.
-    std::atexit(ShutdownThreadPoolAtExit);
+    // the process hung instead of exiting, and the database pools would be
+    // destroyed under their running worker threads. Registered after
+    // _ioService and the pools were constructed, this runs before their
+    // destructors.
+    std::atexit(ShutdownAtExit);
 
     // Set process priority according to configuration settings
     SetProcessPriority("server.worldserver");
@@ -497,9 +502,12 @@ void ShutdownThreadPool(std::vector<std::thread>& threadPool)
     threadPool.clear();
 }
 
-void ShutdownThreadPoolAtExit()
+void ShutdownAtExit()
 {
     ShutdownThreadPool(_threadPool);
+    // A pool's destructor frees the queue its async workers wait on; without
+    // Close(), which joins them, that corrupted the heap now and then.
+    StopDB();
 }
 
 void WorldUpdateLoop()
@@ -700,6 +708,7 @@ AsyncAcceptor* StartRaSocketAcceptor(boost::asio::io_service& ioService)
 bool StartDB()
 {
     MySQL::Library_Init();
+    _databasesOpen = true;
 
     std::string dbString = sConfigMgr->GetStringDefault("WorldDatabaseInfo", "");
     if (dbString.empty())
@@ -830,9 +839,19 @@ bool StartDB()
 
 void StopDB()
 {
+    // Close() frees the connections, a second call would free them again.
+    // The normal shutdown and ShutdownAtExit both get here.
+    if (!_databasesOpen)
+        return;
+    _databasesOpen = false;
+
     CharacterDatabase.Close();
     WorldDatabase.Close();
     LoginDatabase.Close();
+    // World::SetInitialWorldSettings closes it once the hotfixes are loaded;
+    // a startup error before that leaves it open.
+    if (!HotfixDatabaseClosed)
+        HotfixDatabase.Close();
 
     MySQL::Library_End();
 }
