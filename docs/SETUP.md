@@ -1,7 +1,7 @@
-# LegionPlayerBot — Setup
+# FelForge — Setup
 
-LegionCore (a TrinityCore derivative for World of Warcraft *Legion*, 7.3.5)
-with the playerbot subsystem built into the core.
+FelForge is a World of Warcraft *Legion* (7.3.5) server derived from
+TrinityCore and LegionCore, with the playerbot subsystem built into the core.
 
 ---
 
@@ -49,7 +49,7 @@ rejected on purpose.
 
 ```sh
 mkdir build && cd build
-cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/opt/legioncore
+cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/opt/felforge
 make -j$(nproc)
 make install
 ```

@@ -1,4 +1,4 @@
-# LegionPlayerBot — Windows
+# FelForge — Windows
 
 A scripted path from a clean Windows machine to a running `worldserver.exe`.
 

@@ -1,6 +1,6 @@
-##############################################
-# LegionCore World Server configuration file #
-##############################################
+############################################
+# FelForge World Server configuration file #
+############################################
 [worldserver]
 
 ###################################################################################################
@@ -43,7 +43,7 @@ RealmID = 1
 #    DataDir
 #        Description: Data directory setting.
 #        Important:   DataDir needs to be quoted, as the string might contain space characters.
-#        Example:     "C:/LegionCore/ClientData"
+#        Example:     "C:/FelForge/ClientData"
 #        Default:     "./ClientData"
 
 DataDir = "./ClientData"
@@ -1027,10 +1027,10 @@ PlayerStart.String = ""
 #    Motd
 #        Description: Message of the Day, displayed at login.
 #                     Use '@' for a newline and be sure to escape special characters.
-#        Example:     "Welcome to John\'s Server@This server runs on Trinity Core."
-#        Default:     "Welcome to a Trinity Core server."
+#        Example:     "Welcome to John\'s Server@This server runs on FelForge."
+#        Default:     "Welcome to a FelForge server."
 
-Motd = "Welcome to LegionCore Server."
+Motd = "Welcome to a FelForge server."
 
 #
 #    Server.LoginInfo

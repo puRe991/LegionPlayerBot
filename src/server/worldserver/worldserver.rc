@@ -75,14 +75,14 @@ BEGIN
     BEGIN
         BLOCK "080004b0"
         BEGIN
-            VALUE "CompanyName",        "LegionCore"
-            VALUE "FileDescription",    "LegionCore World Server Daemon"
+            VALUE "CompanyName",        "FelForge"
+            VALUE "FileDescription",    "FelForge World Server Daemon"
             VALUE "FileVersion",        "1.0.0.0"
             VALUE "InternalName",       "worldserver"
-            VALUE "LegalCopyright",     "(c)2020 LegionCore"
+            VALUE "LegalCopyright",     "FelForge contributors, GPL-2.0"
             VALUE "OriginalFilename",   "worldserver.exe"
-            VALUE "ProductName",        "LegionCore World Server"
-            VALUE "ProductVersion",     "LegionCore"
+            VALUE "ProductName",        "FelForge World Server"
+            VALUE "ProductVersion",     "FelForge 0.1.0"
         END
     END
 

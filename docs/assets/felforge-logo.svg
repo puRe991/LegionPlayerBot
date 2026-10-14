@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="140" viewBox="0 0 560 140" role="img" aria-labelledby="t">
+  <title id="t">FelForge</title>
+  <defs>
+    <linearGradient id="flame" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0" stop-color="#0f7a32"/>
+      <stop offset="0.55" stop-color="#2ea043"/>
+      <stop offset="1" stop-color="#9be564"/>
+    </linearGradient>
+    <linearGradient id="core" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0" stop-color="#7ee787"/>
+      <stop offset="1" stop-color="#e6ffd8"/>
+    </linearGradient>
+  </defs>
+  <g transform="translate(8 6)">
+    <path fill="url(#flame)" d="M62 4 C71 22 90 32 86 54 C83 68 73 74 62 74 C49 74 38 66 38 52 C38 39 48 32 51 21 C57 30 56 39 60 43 C63 30 57 17 62 4 Z"/>
+    <path fill="url(#core)" d="M62 32 C69 43 76 50 73 59 C71 67 67 71 62 71 C56 71 51 67 51 60 C51 51 58 47 62 32 Z"/>
+    <circle cx="92" cy="22" r="2.6" fill="#7ee787"/>
+    <circle cx="34" cy="30" r="2" fill="#7ee787"/>
+    <circle cx="98" cy="40" r="1.6" fill="#9be564"/>
+    <path fill="#57606a" d="M2 76 L108 76 L108 85 Q94 87 84 91 L82 100 L97 103 L97 112 L27 112 L27 103 L42 100 L40 91 Q28 88 18 86 Q8 84 2 76 Z"/>
+  </g>
+  <text x="138" y="86" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="66" font-weight="700" letter-spacing="-1"><tspan fill="#2ea043">Fel</tspan><tspan fill="#1f2328">Forge</tspan></text>
+  <text x="141" y="117" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="18" fill="#59636e">Legion 7.3.5 server with built-in playerbots</text>
+</svg>

@@ -1,19 +1,23 @@
 <div align="center">
 
-# LegionPlayerBot
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/felforge-logo-dark.svg">
+  <img alt="FelForge" src="docs/assets/felforge-logo.svg" width="560">
+</picture>
 
-**Ein von TrinityCore abgeleiteter World-of-Warcraft-*Legion*-Server (7.3.5)
+**Ein quelloffener World-of-Warcraft-*Legion*-Server (7.3.5)
 mit Spielerbots direkt im Kern.**
 
+[![Version](https://img.shields.io/badge/Version-0.1.0-2ea043.svg)](#roadmap)
 [![Lizenz](https://img.shields.io/badge/Lizenz-GPL--2.0-blue.svg)](COPYING)
 [![Erweiterung](https://img.shields.io/badge/WoW-Legion%207.3.5-orange.svg)](#)
 [![Build](https://img.shields.io/badge/Build-GCC%2013.3%20%7C%20MSVC%202017%2B-brightgreen.svg)](#bauen)
-[![Sprache](https://img.shields.io/badge/C%2B%2B-14-00599C.svg)](#)
+[![Sprache](https://img.shields.io/badge/C%2B%2B-11-00599C.svg)](#)
 [![Kodierung](https://img.shields.io/badge/Quelltext-100%25%20UTF--8-success.svg)](#kodierung)
 
 [English](README.md) · **Deutsch**
 
-[Einrichtung](docs/SETUP.md) · [Windows](docs/SETUP-Windows.md) · [Fehlerbericht Legion](docs/Fehlerbericht-Legion.md) · [Lizenz](COPYING)
+[Einrichtung](docs/SETUP.md) · [Windows](docs/SETUP-Windows.md) · [Roadmap](#roadmap) · [Mitmachen](CONTRIBUTING.md) · [Fehlerbericht Legion](docs/Fehlerbericht-Legion.md) · [Lizenz](COPYING)
 
 </div>
 
@@ -21,6 +25,7 @@ mit Spielerbots direkt im Kern.**
 
 ## Inhalt
 
+- [Warum FelForge](#warum-felforge)
 - [Worum es geht](#worum-es-geht)
 - [Bauen](#bauen)
 - [Stand auf einen Blick](#stand-auf-einen-blick)
@@ -35,7 +40,28 @@ mit Spielerbots direkt im Kern.**
 - [Kodierung](#kodierung)
 - [Sicherheit](#sicherheit)
 - [Bekannte Einschränkungen](#bekannte-einschränkungen)
+- [Roadmap](#roadmap)
+- [Mitmachen](#mitmachen)
 - [Herkunft und Lizenz](#herkunft-und-lizenz)
+
+---
+
+## Warum FelForge
+
+FelForge will **der beste Legion-Server-Emulator** werden — der vollständigste,
+der stabilste und der, dessen Welt sich auch dann lebendig anfühlt, wenn nur
+eine Handvoll Leute online ist. Ob das gelingt, entscheiden drei Dinge:
+
+- **Bots als vollwertige Spieler.** Schlachtfelder, Arenen und der
+  Dungeonfinder sollen auch auf einem kleinen Realm aufgehen, weil Bots sich
+  anmelden, kämpfen und würfeln wie Spieler — über dieselben Codepfade, nicht
+  an ihnen vorbei.
+- **Inhalte, die funktionieren, Erweiterung für Erweiterung.** Skripte werden
+  gegen diesen Kern geprüft und instand gesetzt, Classic bis Legion, und das
+  Ergebnis wird festgehalten.
+- **Aussagen, die man nachprüfen kann.** Was diese README als funktionierend
+  bezeichnet, ist gebaut und geprüft; was noch nicht zur Laufzeit getestet ist,
+  steht so da. Die [Roadmap](#roadmap) zeigt, was offen ist.
 
 ---
 
@@ -62,8 +88,8 @@ den man synchron halten müsste.
 ## Bauen
 
 ```sh
-git clone https://github.com/puRe991/LegionPlayerBot.git
-cd LegionPlayerBot
+git clone https://github.com/puRe991/LegionPlayerBot.git FelForge
+cd FelForge
 mkdir build && cd build
 cmake .. -DCMAKE_BUILD_TYPE=Release
 make -j$(nproc)
@@ -99,6 +125,7 @@ durchgehend durch.
 | **Windows / MSVC** | ✅ baut — MSVC 2017 oder neuer |
 | **Ergebnisse** | `worldserver`, `bnetserver` — keine offenen Symbole |
 | **Startlauf** | startet, liest die Konfiguration, öffnet die Datenbanken auth, characters und hotfixes |
+| **Spielerbots** | legen ihre Charaktere selbst an und kommen für Schlachtfelder, Arenen und den Dungeonfinder online — gebaut und geprüft, noch nicht gegen eine vollständige Weltdatenbank gelaufen |
 | **Nicht enthalten** | eine TrinityCore-Weltdatenbank 7.3.5 und entpackte Clientdaten |
 
 ---
@@ -270,8 +297,50 @@ Netz.
 
 ---
 
+## Roadmap
+
+**0.1 — der Stand.** Baut unter Linux mit GCC vollständig durch. Bots legen
+ihre Charaktere selbst an, füllen Schlachtfelder, Scharmützel- und gewertete
+Arena sowie den Dungeonfinder auf, und die Zielpunkte für fünf Schlachtfelder
+liegen den Datenbankskripten bei.
+
+**Als Nächstes.**
+
+1. **Laufzeitprüfung.** Einen Realm mit vollständiger 7.3.5-Weltdatenbank und
+   Clientdaten betreiben und daraus einen wiederholbaren Testrealm machen:
+   Bots melden sich an, reihen sich ein, betreten, kämpfen, verlassen.
+2. **Kontinuierliche Integration.** Jeden Push unter Linux und Windows bauen,
+   damit der Build-Badge eine Tatsache meldet und keine Behauptung.
+3. **Epische Schlachtfelder.** Bots melden sich immer für das gewöhnliche
+   Zufallsschlachtfeld an; die epische Warteschlange für Alteractal und Insel
+   der Eroberung prüfen und anbinden.
+4. **Mehr Ziele.** Zielsteuerung für Zwillingsgipfel, Schlacht um Gilneas,
+   Silberbruchmine, Tempel von Kotmogu und Tiefenwindschlucht.
+5. **Klassentiefe.** Vollere Rotationen für Mönch und Dämonenjäger;
+   Schlachtfeld-KI für Todesritter.
+6. **Legion-Inhalte.** Artefakt-Erwerbsszenarien für die fünf Klassen, denen
+   sie fehlen; die offenen Punkte des
+   [Fehlerberichts](docs/Fehlerbericht-Legion.md) abarbeiten.
+7. **Aufräumen.** Einstellbares Kennwort für Botkonten; die restlichen
+   chinesischen Kommentare übersetzen.
+
+---
+
+## Mitmachen
+
+Fehlerberichte, Korrekturen und Inhaltsarbeit sind willkommen — wie man baut,
+was ein guter Bericht enthält und wie Änderungen geprüft werden, steht in
+[CONTRIBUTING.md](CONTRIBUTING.md).
+
+---
+
 ## Herkunft und Lizenz
 
-Aufgebaut auf [TrinityCore](https://www.trinitycore.org/) und dessen
-LegionCore-Ableger. Lizenziert unter **GPL v2**, von TrinityCore übernommen —
-siehe [COPYING](COPYING).
+FelForge hieß anfangs *LegionPlayerBot*. Es baut auf
+[TrinityCore](https://www.trinitycore.org/) und dessen LegionCore-Ableger auf
+und behält deren Urheberrechtsvermerke. Lizenziert unter **GPL v2**, von
+TrinityCore übernommen — siehe [COPYING](COPYING).
+
+World of Warcraft und Legion sind Marken von Blizzard Entertainment. FelForge
+steht in keiner Verbindung zu Blizzard Entertainment und wird von dort nicht
+unterstützt.

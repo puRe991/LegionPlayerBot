@@ -18,7 +18,7 @@ namespace {
         {
             if (firstLogin)
             {
-                ChatHandler(player->GetSession()).SendSysMessage("|cffFF0000LegionCore |r");
+                ChatHandler(player->GetSession()).SendSysMessage("|cff3fb950FelForge|r");
             }
         }
     };
@@ -32,7 +32,7 @@ public:
 	// run always when worldserver has loaded
 	void OnStartup() override
 	{
-        //TC_LOG_INFO(LOG_FILTER_WORLDSERVER, "LegionCore loaded...");
+        //TC_LOG_INFO(LOG_FILTER_WORLDSERVER, "FelForge loaded...");
 	}
 };
 

@@ -77,8 +77,8 @@ using namespace boost::program_options;
 #ifdef _WIN32
 #include "ServiceWin32.h"
 char serviceName[] = "worldserver";
-char serviceLongName[] = "LegionCore world service";
-char serviceDescription[] = "LegionCore World of Warcraft emulator world service";
+char serviceLongName[] = "FelForge world service";
+char serviceDescription[] = "FelForge World of Warcraft: Legion emulator world service";
 /*
  * -1 - not in service mode
  *  0 - stopped
