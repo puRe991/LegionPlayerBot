@@ -31,6 +31,35 @@
 // Grace period before an AI that was swapped out is actually freed.
 static uint32 const AI_DESTROY_DELAY = 5000;
 
+namespace
+{
+    // Class of a random character of the given faction on a bot account,
+    // limited to prof unless that is CLASS_NONE; 0 when there is none.
+    //
+    // The Online schedule silently does nothing when the account has no
+    // matching character, and the next request then picks the very same idle
+    // session again. Bot characters are created by hand, so many accounts can
+    // be empty; the callers use this to skip those instead of stalling on the
+    // first one.
+    uint32 PickBotCharacterClass(PlayerBotBaseInfo* info, bool alliance, uint32 prof)
+    {
+        if (!info)
+            return 0;
+        std::vector<uint32> classes;
+        for (auto const& entry : info->characters)
+        {
+            if (!info->MatchRaceByFuction(alliance, entry.second.race))
+                continue;
+            if (prof != CLASS_NONE && entry.second.profession != prof)
+                continue;
+            classes.push_back(entry.second.profession);
+        }
+        if (classes.empty())
+            return 0;
+        return classes[urand(0, uint32(classes.size() - 1))];
+    }
+}
+
 PlayerBotCharBaseInfo PlayerBotBaseInfo::empty;
 std::map<uint32, std::list<UnitAI*> > PlayerBotMgr::m_DelayDestroyAIs;
 std::mutex PlayerBotMgr::g_uniqueLock;
@@ -1648,12 +1677,8 @@ void PlayerBotMgr::AddNewPlayerBot(bool faction, Classes prof, uint32 count)
 
 
 
-    if (prof == CLASS_NONE)
-    {
-        // Every playable class is eligible. The loop this replaces excluded
-        // Death Knight, Monk and Demon Hunter.
-        prof = Classes(urand(Classes::CLASS_WARRIOR, Classes::CLASS_DEMON_HUNTER));
-    }
+    // CLASS_NONE stays "any": the class is taken from a character the account
+    // actually has. Rolling one up front mostly picked classes nobody had.
 #ifdef INCOMPLETE_BOT
     if (prof != 1 && prof != 5 && prof != 9)
     {
@@ -1678,6 +1703,9 @@ void PlayerBotMgr::AddNewPlayerBot(bool faction, Classes prof, uint32 count)
         Player* player = pSession->GetPlayer();
         if (player)
             continue;
+        uint32 botClass = PickBotCharacterClass(GetPlayerBotAccountInfo(pSession->GetAccountId()), faction, prof);
+        if (!botClass)
+            continue;
         BotGlobleSchedule schedule1(BotGlobleScheduleType::BGSType_Online, 0);
         if (faction)
         {
@@ -1687,7 +1715,7 @@ void PlayerBotMgr::AddNewPlayerBot(bool faction, Classes prof, uint32 count)
         {
             schedule1.parameter1 = 2;
         }
-        schedule1.parameter2 = prof;
+        schedule1.parameter2 = botClass;
         pSession->PushScheduleToQueue(schedule1);
         --count;
     }
@@ -1695,7 +1723,7 @@ void PlayerBotMgr::AddNewPlayerBot(bool faction, Classes prof, uint32 count)
     if (count > 0)
     {
         std::string allonlineText;
-        allonlineText = "|cffff8800All bot accounts are already online; no further bots can be brought online.|r";
+        allonlineText = "|cffff8800No further offline bot account has a matching character; create more bot characters to bring more bots online.|r";
         sWorld->SendGlobalText(allonlineText.c_str(), NULL);
     }
 }
@@ -2013,8 +2041,13 @@ void PlayerBotMgr::AddNewPlayerBotToBG(TeamId team, uint32 minLV, uint32 maxLV, 
         Player* player = pSession->GetPlayer();
         if (!player)
         {
+            uint32 botClass = PickBotCharacterClass(GetPlayerBotAccountInfo(pSession->GetAccountId()), team == TeamId::TEAM_ALLIANCE, CLASS_NONE);
+            if (!botClass)
+                continue;
+
             BotGlobleSchedule schedule1(BotGlobleScheduleType::BGSType_Online, 0);
             schedule1.parameter1 = (team == TeamId::TEAM_ALLIANCE) ? 1 : 2;
+            schedule1.parameter2 = botClass;
             pSession->PushScheduleToQueue(schedule1);
 
             BotGlobleSchedule schedule2(BotGlobleScheduleType::BGSType_Settting, 0);
@@ -2030,9 +2063,10 @@ void PlayerBotMgr::AddNewPlayerBotToBG(TeamId team, uint32 minLV, uint32 maxLV, 
         }
     }
 
-    std::string allonlineText;
-    allonlineText = "|cffff8800All bot accounts are already online; no further bots can be sent into the battleground.|r";
-    sWorld->SendGlobalText(allonlineText.c_str(), NULL);
+    // Runs from Update() every two seconds, so this must not go to the world
+    // chat: it used to be broadcast to every player on each tick.
+    TC_LOG_DEBUG(LOG_FILTER_PLAYER, "PlayerBotMgr: no idle bot account with a %s character left for the battleground.",
+        team == TeamId::TEAM_ALLIANCE ? "alliance" : "horde");
 }
 
 // Brings one bot online (or repurposes an idle one) to fill the role the
@@ -2098,6 +2132,10 @@ void PlayerBotMgr::AddNewPlayerBotToLFG(lfg::LFGBotRequirement* botRequirement)
         BotGlobleSchedule loginSchedule(BotGlobleScheduleType::BGSType_Online, ObjectGuid::Empty);
         if (!FillOnlineBotScheduleByLFGRequirement(botRequirement, &loginSchedule))
             return;
+        // The class above is rolled from the ones that can fill the role;
+        // move on to the next account when this one has no such character.
+        if (!PickBotCharacterClass(GetPlayerBotAccountInfo(pSession->GetAccountId()), loginSchedule.parameter1 == 1, loginSchedule.parameter2))
+            continue;
         pSession->PushScheduleToQueue(loginSchedule);
 
         BotGlobleSchedule setupSchedule(BotGlobleScheduleType::BGSType_Settting, ObjectGuid::Empty);
@@ -2200,8 +2238,13 @@ void PlayerBotMgr::AddNewPlayerBotToAA(TeamId team, BattlegroundTypeId bgTypeID,
         Player* player = pSession->GetPlayer();
         if (!player)
         {
+            uint32 botClass = PickBotCharacterClass(GetPlayerBotAccountInfo(pSession->GetAccountId()), team == TeamId::TEAM_ALLIANCE, CLASS_NONE);
+            if (!botClass)
+                continue;
+
             BotGlobleSchedule schedule1(BotGlobleScheduleType::BGSType_Online, 0);
             schedule1.parameter1 = (team == TeamId::TEAM_ALLIANCE) ? 1 : 2;
+            schedule1.parameter2 = botClass;
             pSession->PushScheduleToQueue(schedule1);
 
             BotGlobleSchedule schedule2(BotGlobleScheduleType::BGSType_Settting, 0);
@@ -2219,9 +2262,10 @@ void PlayerBotMgr::AddNewPlayerBotToAA(TeamId team, BattlegroundTypeId bgTypeID,
         }
     }
 
-    std::string allonlineText;
-    allonlineText = "|cffff8800All bot accounts are already online; no further bots can be sent into the arena.|r";
-    sWorld->SendGlobalText(allonlineText.c_str(), NULL);
+    // Runs from Update() every two seconds, so this must not go to the world
+    // chat: it used to be broadcast to every player on each tick.
+    TC_LOG_DEBUG(LOG_FILTER_PLAYER, "PlayerBotMgr: no idle bot account with a %s character left for the arena.",
+        team == TeamId::TEAM_ALLIANCE ? "alliance" : "horde");
 }
 
 void PlayerBotMgr::AddTeamBotToRatedArena(uint32 arenaType)
