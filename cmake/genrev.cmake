@@ -64,6 +64,9 @@ if(NOT rev_info)
 else()
   # Extract information required to build a proper versionstring
   string(REGEX REPLACE init-|[0-9]+-g "" rev_hash ${rev_info})
+  # The string ends up in SQL, in printf-style messages and in crash dump file
+  # names; a tag such as "release/0.1.0" must not break any of them.
+  string(REGEX REPLACE "[^A-Za-z0-9._-]" "_" rev_hash "${rev_hash}")
 endif()
 
 # Its not set during initial run

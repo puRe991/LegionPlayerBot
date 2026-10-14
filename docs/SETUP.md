@@ -59,7 +59,7 @@ Useful options:
 | Option | Default | Effect |
 |---|:--:|---|
 | `-DSERVERS=0` | 1 | skip worldserver and bnetserver |
-| `-DSCRIPTS=0` | 1 | build the core without scripts (much faster) |
+| `-DSCRIPTS=0` | 1 | build the core without scripts — does not link at the moment, the bot and BattlePay scripts are still called unconditionally |
 | `-DTOOLS=1` | 0 | build the extractors as well |
 | `-DWITH_WARNINGS=1` | 0 | show compiler warnings — off by default, worth turning on when changing code |
 | `-DNOPCH=1` | 0 | disable precompiled headers |
@@ -295,10 +295,13 @@ server creates those itself: the first `PlayerBot.CreateCharacters.Accounts`
 bot accounts (default 20) each get one character of every class, all of one
 faction, split evenly between alliance and horde. Creation starts once the
 world is up and runs in the background, one character every two seconds —
-with the defaults 240 characters, so about eight minutes. It goes class by
-class across all accounts, so with the defaults every account has a
-character to log in with after about 40 seconds. Characters that are still missing
-are queued again on the next start.
+with the defaults 240 characters, so about eight minutes. It goes account
+by account, and an account only comes online once all of its characters
+exist: the first one is ready after about 25 seconds, and another follows
+every 25 seconds. If an account is online anyway when its turn comes (a GM
+logged it in, or it was online before the restart), its characters wait
+until it goes offline. Characters that are still missing are queued again on
+the next start.
 
 Names come from `auth.playerbot_names` first; once that pool is used up the
 server makes up names from syllables. Every name is checked against the same

@@ -3066,6 +3066,8 @@ PlayerBot.AccountAll = 1
 #                    split evenly between alliance and horde. A bot needs a character on its
 #                    account to come online at all.
 #                    Creation runs in the background after startup, one character every two
+#                    seconds, account by account. An account is not brought online until all
+#                    of its characters exist, so the first one is ready after about 25
 #                    seconds. Missing characters are queued again on every start, so raising
 #                    the value later fills further accounts. CharactersPerRealm still caps
 #                    the characters per account.

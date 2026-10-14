@@ -21,8 +21,9 @@ cmake .. -DCMAKE_BUILD_TYPE=Release -DWITH_WARNINGS=1 -G Ninja
 ninja
 ```
 
-A full build takes a while; `-DSCRIPTS=0` builds the core without the game
-scripts and is much faster when you only touch the core.
+A full build takes a while. After the first one, Ninja only rebuilds what
+your change touches; a change to a widely included header such as
+`PlayerBotMgr.h` still recompiles a few dozen files.
 
 ## Before you open a pull request
 

@@ -336,6 +336,10 @@ public:
 	void UpAllPlayerBotSession();
 
 	void OnPlayerBotCreate(ObjectGuid const& guid, uint32 accountId, std::string const& name, uint8 gender, uint8 race, uint8 playerClass, uint8 level);
+	void OnPlayerBotCreateFailed(uint32 accountId, uint32 result);
+	void OnPlayerBotLoginFailed(uint32 accountId, ObjectGuid const& guid);
+	bool IsCreatingCharacters(uint32 accountId) const;
+	bool IsCreateInFlight(uint32 accountId) const { return m_CreateInFlight.account != 0 && m_CreateInFlight.account == accountId; }
 	void OnAccountBotCreate(ObjectGuid const& guid, uint32 accountId, std::string const& name, uint8 gender, uint8 race, uint8 playerClass, uint8 level);
 	void OnAccountBotDelete(ObjectGuid& guid, uint32 accountId);
 	void OnPlayerBotLogin(WorldSession* pSession, Player* pPlayer);
@@ -391,6 +395,8 @@ private:
 	PlayerBotSession* UpPlayerBotSessionByBaseInfo(PlayerBotBaseInfo *pAcc, bool accountInfo);
 	std::shared_ptr<WorldPackets::Character::CharacterCreateInfo> BuildCreatePlayerData(bool alliance, uint8 prof, LocaleConstant locale);
 	void CreateOncePlayerBot();
+	struct BotCreateRequest;
+	void QueueCreateRequest(BotCreateRequest const& request);
 
 	void ClearBaseInfo();
 	void SupplementAccount();
@@ -432,8 +438,13 @@ private:
 		uint32 account;
 		bool alliance;
 		uint8 cls;
+		uint8 attempts;
 	};
 	std::queue<BotCreateRequest> m_CreateRequests;
+	std::map<uint32, uint32> m_CreateQueued;  ///< account id -> requests of it in m_CreateRequests
+	BotCreateRequest m_CreateInFlight;        ///< creation issued and not answered yet; account 0 if none
+	uint32 m_CreateInFlightSince;             ///< getMSTime() when m_CreateInFlight was issued
+	bool m_CreateDeferredLogged;              ///< "waiting for accounts to go offline" already logged
 	std::set<std::string> m_HandedOutNames;   ///< names given to a creation that may not be saved yet
 	uint32 m_CreateIssued;
 

@@ -32,6 +32,10 @@
 
 // Grace period before an AI that was swapped out is actually freed.
 static uint32 const AI_DESTROY_DELAY = 5000;
+// A bot character creation that has not answered after this long is given up.
+static uint32 const BOT_CREATE_TIMEOUT = 60 * IN_MILLISECONDS;
+// How often a creation that failed because its name was taken is retried.
+static uint8 const BOT_CREATE_ATTEMPTS = 3;
 
 namespace
 {
@@ -40,12 +44,15 @@ namespace
     //
     // The Online schedule silently does nothing when the account has no
     // matching character, and the next request then picks the very same idle
-    // session again. Bot characters are created by hand, so many accounts can
-    // be empty; the callers use this to skip those instead of stalling on the
-    // first one.
+    // session again. Many accounts can be empty; the callers use this to skip
+    // those instead of stalling on the first one.
+    //
+    // Accounts whose characters are still being created count as empty too:
+    // creation only runs while the account is offline, so logging one in
+    // would hold back the rest of its classes.
     uint32 PickBotCharacterClass(PlayerBotBaseInfo* info, bool alliance, uint32 prof)
     {
-        if (!info)
+        if (!info || sPlayerBotMgr->IsCreatingCharacters(info->id))
             return 0;
         std::vector<uint32> classes;
         for (auto const& entry : info->characters)
@@ -146,6 +153,9 @@ PlayerBotMgr::PlayerBotMgr() :
     m_BotOnlineCount(0),
     m_LFGSearchTick(0),
     m_ArenaSearchTick(0),
+    m_CreateInFlight(),
+    m_CreateInFlightSince(0),
+    m_CreateDeferredLogged(false),
     m_CreateIssued(0),
     m_MinOnlineBot(0),
     m_MinOnlineWarned(false),
@@ -708,18 +718,36 @@ std::shared_ptr<WorldPackets::Character::CharacterCreateInfo> PlayerBotMgr::Buil
 }
 
 // Creates the next queued bot character, if any. Called from Update(), so at
-// most one creation starts per manager tick. The bot session goes through
-// WorldSession::HandleCharCreateOpcode exactly like a client would; on success
-// the handler reports back through OnPlayerBotCreate.
+// most one creation starts per manager tick, and only once the previous one
+// has answered. The bot session goes through WorldSession::HandleCharCreateOpcode
+// exactly like a client would; the handler reports back through
+// OnPlayerBotCreate or OnPlayerBotCreateFailed.
 void PlayerBotMgr::CreateOncePlayerBot()
 {
-    // Requests whose session is busy go to the back; look at each one at
+    // The handler runs three queries before it saves. Two creations on one
+    // account at a time could both pass the per-realm limit.
+    if (m_CreateInFlight.account)
+    {
+        if (getMSTimeDiff(m_CreateInFlightSince, getMSTime()) < BOT_CREATE_TIMEOUT)
+            return;
+        // The callbacks belong to the session; when a real client took over
+        // the account they went away with it.
+        TC_LOG_ERROR(LOG_FILTER_SERVER_LOADING, "PlayerBotMgr: creating a bot character on account %u got no answer within %u seconds, moving on.",
+            m_CreateInFlight.account, BOT_CREATE_TIMEOUT / IN_MILLISECONDS);
+        m_CreateInFlight.account = 0;
+    }
+
+    // Requests whose account is online go to the back; look at each one at
     // most once per tick.
     size_t remaining = m_CreateRequests.size();
+    size_t deferred = 0;
     while (remaining-- > 0)
     {
         BotCreateRequest request = m_CreateRequests.front();
         m_CreateRequests.pop();
+        std::map<uint32, uint32>::iterator itQueued = m_CreateQueued.find(request.account);
+        if (itQueued != m_CreateQueued.end() && --itQueued->second == 0)
+            m_CreateQueued.erase(itQueued);
 
         PlayerBotBaseInfo* pInfo = GetPlayerBotAccountInfo(request.account);
         if (!pInfo || pInfo->ExistClass(request.alliance, request.cls))
@@ -731,9 +759,13 @@ void PlayerBotMgr::CreateOncePlayerBot()
         if (!pSession)
             continue;
 
+        // The handler builds a Player on the session and answers from the
+        // session's query callbacks, which run on a map thread while the
+        // account has a character in the world. Wait until it is offline.
         if (pSession->PlayerLoading() || pSession->GetPlayer())
         {
-            m_CreateRequests.push(request);
+            QueueCreateRequest(request);
+            ++deferred;
             continue;
         }
 
@@ -741,19 +773,61 @@ void PlayerBotMgr::CreateOncePlayerBot()
         if (!createInfo)
             continue;
 
+        // Set before the call: the handler can fail at once and report back
+        // from inside it.
+        m_CreateInFlight = request;
+        m_CreateInFlightSince = getMSTime();
+        m_CreateDeferredLogged = false;
+        ++m_CreateIssued;
+
         WorldPacket packet(CMSG_CREATE_CHARACTER);
         WorldPackets::Character::CreateChar charCreate(std::move(packet));
         charCreate.CreateInfo = createInfo;
         pSession->HandleCharCreateOpcode(charCreate);
-        ++m_CreateIssued;
-        break;
+        return;
     }
 
-    if (m_CreateIssued && m_CreateRequests.empty())
+    if (m_CreateInFlight.account)
+        return;
+
+    if (m_CreateRequests.empty())
     {
-        TC_LOG_INFO(LOG_FILTER_SERVER_LOADING, "PlayerBotMgr: finished creating bot characters, %u requests issued.", m_CreateIssued);
-        m_CreateIssued = 0;
+        if (m_CreateIssued)
+        {
+            TC_LOG_INFO(LOG_FILTER_SERVER_LOADING, "PlayerBotMgr: finished creating bot characters, %u requests issued.", m_CreateIssued);
+            m_CreateIssued = 0;
+        }
     }
+    else if (deferred == m_CreateRequests.size() && !m_CreateDeferredLogged)
+    {
+        TC_LOG_INFO(LOG_FILTER_SERVER_LOADING, "PlayerBotMgr: %u bot characters wait for their account to go offline before they are created.",
+            uint32(deferred));
+        m_CreateDeferredLogged = true;
+    }
+}
+
+void PlayerBotMgr::QueueCreateRequest(BotCreateRequest const& request)
+{
+    m_CreateRequests.push(request);
+    ++m_CreateQueued[request.account];
+}
+
+bool PlayerBotMgr::IsCreatingCharacters(uint32 accountId) const
+{
+    return IsCreateInFlight(accountId) || m_CreateQueued.find(accountId) != m_CreateQueued.end();
+}
+
+void PlayerBotMgr::OnPlayerBotCreateFailed(uint32 accountId, uint32 result)
+{
+    if (!IsCreateInFlight(accountId))
+        return;
+    BotCreateRequest request = m_CreateInFlight;
+    m_CreateInFlight.account = 0;
+
+    // A name can be taken between RandomName and the insert; another name
+    // will do. Every other failure would only repeat, and is logged already.
+    if (result == CHAR_CREATE_NAME_IN_USE && ++request.attempts < BOT_CREATE_ATTEMPTS)
+        QueueCreateRequest(request);
 }
 
 void PlayerBotMgr::ClearBaseInfo()
@@ -1029,6 +1103,9 @@ PlayerBotSession* PlayerBotMgr::UpPlayerBotSessionByBaseInfo(PlayerBotBaseInfo* 
 
 void PlayerBotMgr::OnPlayerBotCreate(ObjectGuid const& guid, uint32 accountId, std::string const& name, uint8 gender, uint8 race, uint8 playerClass, uint8 level)
 {
+    if (IsCreateInFlight(accountId))
+        m_CreateInFlight.account = 0;
+
     PlayerBotBaseInfo* pInfo = GetPlayerBotAccountInfo(accountId);
     if (!pInfo)
         return;
@@ -1125,6 +1202,23 @@ void PlayerBotMgr::OnPlayerBotLogout(WorldSession* pSession)
     if (pBotSession && !pBotSession->HasScheduleByType(BotGlobleScheduleType::BGSType_Online) &&
         !pBotSession->HasScheduleByType(BotGlobleScheduleType::BGSType_Online_GUID))
         pBotSession->ClearAllSchedule();
+}
+
+// The character of a bot login did not load (deleted or broken in the
+// database). Forget it until the next start, so that the login code picks
+// another character and does not try this one again and again.
+void PlayerBotMgr::OnPlayerBotLoginFailed(uint32 accountId, ObjectGuid const& guid)
+{
+    TC_LOG_ERROR(LOG_FILTER_SERVER_LOADING, "PlayerBot: character %u on bot account %u could not be logged in, it is skipped until the next start.",
+        uint32(guid.GetCounter()), accountId);
+
+    PlayerBotBaseInfo* pInfo = GetPlayerBotAccountInfo(accountId);
+    if (!pInfo)
+        pInfo = GetAccountBotAccountInfo(accountId);
+    if (!pInfo)
+        return;
+    ObjectGuid charGuid = guid;
+    pInfo->RemoveCharacterByGUID(charGuid);
 }
 
 void PlayerBotMgr::OnPlayerBotLeaveOriginalGroup(Player* pPlayer)
@@ -1233,7 +1327,8 @@ void PlayerBotMgr::AllPlayerBotRandomLogin(const char* name)
         WorldSession* pSession = sWorld->FindSession(pInfo->id).get();
         if (pSession && pSession->IsBotSession() && !pSession->PlayerLoading() && !pSession->GetPlayer())
         {
-            if (pInfo->characters.size() <= 0)
+            // See CanStartBotLogin: a creation in flight has to finish first.
+            if (pInfo->characters.size() <= 0 || IsCreateInFlight(pInfo->id))
                 continue;
 
             if (name[0] != '\0')
@@ -1332,13 +1427,16 @@ bool PlayerBotMgr::PlayerBotLogout(uint32 account)
 // PlayerBot.CreateCharacters.Accounts bot accounts each get one character of
 // every class, all of one faction: an account keeps the faction of the
 // characters it already has, empty accounts are split evenly between the two
-// sides. The requests run class by class across all accounts, so that early
-// on many accounts have something to log in with, and CreateOncePlayerBot
-// works them off one per manager tick.
+// sides. The requests run account by account: an account is not logged in
+// while it still has characters to come (see PickBotCharacterClass), so this
+// way the first accounts are complete and usable after a few seconds each,
+// and CreateOncePlayerBot works them off one per manager tick.
 void PlayerBotMgr::SupplementPlayerBot()
 {
     std::queue<BotCreateRequest>().swap(m_CreateRequests);
+    m_CreateQueued.clear();
     m_CreateIssued = 0;
+    m_CreateDeferredLogged = false;
 
     int32 accountLimit = sConfigMgr->GetIntDefault("PlayerBot.CreateCharacters.Accounts", 20);
     if (accountLimit <= 0)
@@ -1384,17 +1482,17 @@ void PlayerBotMgr::SupplementPlayerBot()
     }
 
     uint32 const perAccount = sWorld->getIntConfig(CONFIG_CHARACTERS_PER_REALM);
-    for (uint8 cls = CLASS_WARRIOR; cls <= CLASS_DEMON_HUNTER; ++cls)
+    for (Target& target : targets)
     {
-        if (!sChrClassesStore.LookupEntry(cls))
-            continue;
-        for (Target& target : targets)
+        for (uint8 cls = CLASS_WARRIOR; cls <= CLASS_DEMON_HUNTER; ++cls)
         {
+            if (!sChrClassesStore.LookupEntry(cls))
+                continue;
             if (target.info->ExistClass(target.alliance, cls))
                 continue;
             if (target.info->characters.size() + target.planned >= perAccount)
-                continue;
-            m_CreateRequests.push({ target.info->id, target.alliance, cls });
+                break;
+            QueueCreateRequest({ target.info->id, target.alliance, cls, 0 });
             ++target.planned;
         }
     }
@@ -2927,6 +3025,11 @@ void PlayerBotMgr::TopUpOnlineBots()
         return;
     }
 
+    // ProcessOnline refuses logins at PlayerBot.MaxOnline, and counts account
+    // bots against it as well. Do not ask for one it would refuse.
+    if (int32(GetOnlineBotCount(TEAM_NEUTRAL, false)) >= m_MaxOnlineBot)
+        return;
+
     bool const preferAlliance = allianceOnline <= hordeOnline;
     for (uint8 pass = 0; pass < 2; ++pass)
     {
@@ -2945,11 +3048,15 @@ void PlayerBotMgr::TopUpOnlineBots()
         }
     }
 
-    // Nothing left to log in. While characters are still being created that
-    // is expected; afterwards say so once.
-    if (!m_MinOnlineWarned && m_CreateRequests.empty())
+    // Nothing left to log in. While characters are still being created for
+    // an offline account that is expected; afterwards say so once.
+    for (PlayerBotSession* pSession : offline)
+        if (IsCreatingCharacters(pSession->GetAccountId()))
+            return;
+
+    if (!m_MinOnlineWarned)
     {
-        TC_LOG_ERROR(LOG_FILTER_SERVER_LOADING, "PlayerBot.MinOnline is %i, but only %u bots can be online: no further bot account has a character. Raise PlayerBot.CreateCharacters.Accounts.",
+        TC_LOG_ERROR(LOG_FILTER_SERVER_LOADING, "PlayerBot.MinOnline is %i, but only %u bots can be online: no further offline bot account has a character to log in. Raise PlayerBot.CreateCharacters.Accounts.",
             wanted, total);
         m_MinOnlineWarned = true;
     }

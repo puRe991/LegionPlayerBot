@@ -182,8 +182,11 @@ void WorldSession::HandleCharCreateOpcode(WorldPackets::Character::CreateChar& c
         // A bot session has no client to show the response to; log it so
         // a failed automatic creation does not go unnoticed.
         if (IsBotSession() && result != CHAR_CREATE_SUCCESS)
+        {
             TC_LOG_ERROR(LOG_FILTER_SERVER_LOADING, "PlayerBot: creating character '%s' (race %u, class %u) on account %u failed with response code %u.",
                 requestInfo->Name.c_str(), uint32(requestInfo->Race), uint32(requestInfo->Class), GetAccountId(), uint32(result));
+            sPlayerBotMgr->OnPlayerBotCreateFailed(GetAccountId(), uint32(result));
+        }
 
         WorldPackets::Character::CharacterCreateResponse response;
         response.Code = result;

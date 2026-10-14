@@ -102,6 +102,8 @@ private:
 	bool PlayerIsReady();
 	void ProcessNoWorld(uint32 diff);
 	void CastSchedule(uint32 diff);
+	bool CanStartBotLogin(BotGlobleSchedule& schedule, bool& done);
+	void StartBotLogin(BotGlobleSchedule& schedule, ObjectGuid const& guid);
 	bool ProcessOnline(BotGlobleSchedule& schedule);
 	bool ProcessOnlineByGUID(BotGlobleSchedule& schedule);
 	bool ProcessOffline(BotGlobleSchedule& schedule);
