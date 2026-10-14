@@ -121,9 +121,10 @@ The tree used to be MSVC-only. It now builds end to end on Linux with GCC.
 | **Linux / GCC** | ✅ builds — verified on GCC 13.3, CMake 3.28, Boost 1.83, OpenSSL 3.0, MariaDB 10.11 |
 | **Windows / MSVC** | ✅ builds — MSVC 2017 or newer |
 | **Artefacts** | `worldserver`, `bnetserver` — no unresolved symbols |
-| **Startup** | starts, reads its configuration, opens the auth, characters and hotfixes databases |
-| **Playerbots** | create their own characters and come online for battlegrounds, arenas and the dungeon finder — built and checked, not yet run against a full world database |
-| **Not included** | a TrinityCore 7.3.5 world database and extracted client data |
+| **Databases** | the LegionCore 2020-04-25 set plus `sql/legioncore` and `sql/base`: all 1 414 prepared statements of the core prepare without error |
+| **Startup** | `bnetserver` runs and lists the realm; `worldserver` loads all four databases and stops at the missing client data |
+| **Playerbots** | create their own characters and come online for battlegrounds, arenas and the dungeon finder — built and checked, not yet run in a live world |
+| **Not included** | the databases (downloadable, see below) and client data (extracted from your own client) |
 
 ---
 
@@ -224,15 +225,21 @@ accounts get characters, and how bots answer loot rolls.
 
 Four databases are required: `auth`, `characters`, `world`, `hotfixes`.
 
-1. **Import a TrinityCore 7.3.5 world database.** Not included here.
-2. **Then apply `sql/base/`** — the custom tables this core needs: the bot
+1. **Import the LegionCore 7.3.5 databases of 2020-04-25** — world and
+   hotfixes from the Legion Preservation Project's release
+   `LegionCore735.20041`, auth and characters from the same tag. TrinityCore's
+   7.3.5 databases do **not** fit this core.
+2. **Apply `sql/legioncore/`** — two small scripts that close the gaps
+   between those dumps and this core.
+3. **Apply `sql/base/`** — the custom tables this core needs: the bot
    navigation graph, name pools, chat lines and the tool socket allow list.
-3. **Extract client data** into `DataDir` with `mapextractor`,
-   `vmap4extractor`/`vmap4assembler` and `mmaps_generator`.
-4. **Populate `auth.realmlist`.**
+4. **Extract client data** into `DataDir`: `dbc`, `gt`, `cameras`, `maps`,
+   `vmaps`, `mmaps`. The map extractor in this repository is outdated; use
+   the Legion Preservation Project's current one.
+5. **Change the password of the preset `GM@GM` account** and set up
+   `auth.realmlist`.
 
-Order matters — apply `sql/base` *after* the world database, not before. Full
-walkthrough in [docs/SETUP.md](docs/SETUP.md).
+Exact commands, in the right order, in [docs/SETUP.md](docs/SETUP.md).
 
 ---
 
@@ -302,7 +309,7 @@ the database scripts.
 
 **Next.**
 
-1. **Runtime verification.** Run a realm against a full 7.3.5 world database
+1. **Runtime verification.** Run a realm against the LegionCore databases
    and client data, and turn the result into a repeatable test realm: bots
    log in, queue, enter, fight, leave.
 2. **Continuous integration.** Build every push on Linux and Windows, so the

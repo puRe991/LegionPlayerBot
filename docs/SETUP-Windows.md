@@ -22,8 +22,8 @@ A scripted path from a clean Windows machine to a running `worldserver.exe`.
 | `BOOST_ROOT` environment variable | ✅ | set for your user account |
 | CMake configure and build | ✅ | |
 | Collecting servers, configs and runtime DLLs | ✅ | into `dist-windows\` |
-| **World database** | ❌ | third-party content, not downloadable from here |
-| **ClientData** (maps, vmaps, mmaps, dbc) | ❌ | Blizzard's; must be extracted from a client you own |
+| **Databases** | ❌ | LegionCore 2020-04-25 set from the Legion Preservation Project, see below |
+| **ClientData** (dbc, gt, cameras, maps, vmaps, mmaps) | ❌ | Blizzard's; must be extracted from a client you own |
 
 The last two are the reason there is no single-click installer. Everything up
 to them can be scripted; those two cannot be, legally or practically.
@@ -118,20 +118,31 @@ CREATE DATABASE world      DEFAULT CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci;
 CREATE DATABASE hotfixes   DEFAULT CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ```
 
-Import a **TrinityCore 7.3.5 world database first**, then apply this
-repository's tables:
+Download the LegionCore 7.3.5 databases of 2020-04-25 — TrinityCore's 7.3.5
+databases do not fit this core. Where to get them and why exactly these is
+in [SETUP.md, section 3](SETUP.md#3-databases). Then import, in this order:
 
 ```bat
-mysql -h127.0.0.1 -utrinity -ptrinity auth  < sql\base\auth_playerbot.sql
-mysql -h127.0.0.1 -utrinity -ptrinity world < sql\base\world_playerbot.sql
+set M=mysql -h127.0.0.1 -utrinity -ptrinity
+%M% auth       < auth_database.sql
+%M% auth       < sql\legioncore\auth_update.sql
+%M% auth       < sql\base\auth_playerbot.sql
+%M% characters < characters_database.sql
+%M% world      < LegionCore_world_735.26972_2020_04_25.sql
+%M% world      < sql\base\world_playerbot.sql
+%M% hotfixes   < LegionCore_hotfixes_735.26972_2020_04_03.sql
+%M% hotfixes   < sql\legioncore\hotfixes_update.sql
 ```
 
-Order matters — `sql\base` after the world database, never before.
+Then change the password of the preset administrator account `GM@GM`; see
+the warning in SETUP.md.
 
 ### 2. ClientData
 
-Build the extractors from this source tree with `-DTOOLS=1` and run them
-against your 7.3.5 client:
+The map extractor in this source tree is outdated (it writes `v1.8` maps,
+the core reads `v1.9`, and it does not extract `dbc`, `gt` or `cameras`).
+Build the extractors of the Legion Preservation Project's current
+LegionCore-7.3.5 with `-DTOOLS=1` and run them against your 7.3.5 client:
 
 ```bat
 mapextractor.exe
@@ -140,7 +151,7 @@ vmap4assembler.exe Buildings vmaps
 mmaps_generator.exe          :: hours
 ```
 
-Copy `maps`, `vmaps`, `mmaps`, `dbc` and `cameras` into
+Copy `dbc`, `gt`, `cameras`, `maps`, `vmaps` and `mmaps` into
 `dist-windows\ClientData`.
 
 ### 3. Check before starting
@@ -148,12 +159,13 @@ Copy `maps`, `vmaps`, `mmaps`, `dbc` and `cameras` into
 ```bat
 mysql -h127.0.0.1 -utrinity -ptrinity -e "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema='world'; SELECT COUNT(*) FROM world.creature_template; SELECT COUNT(*) FROM auth.realmlist;"
 
+dir dist-windows\ClientData\gt
 dir dist-windows\ClientData\maps
 dir dist-windows\ClientData\dbc
 ```
 
-Several hundred tables in `world`, not four. If you see four, only the
-playerbot tables were applied and the world database is missing.
+About 280 tables in `world`, not four. If you see four, only the playerbot
+tables were applied and the world database is missing.
 
 ---
 

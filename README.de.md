@@ -124,9 +124,10 @@ durchgehend durch.
 | **Linux / GCC** | ✅ baut — geprüft mit GCC 13.3, CMake 3.28, Boost 1.83, OpenSSL 3.0, MariaDB 10.11 |
 | **Windows / MSVC** | ✅ baut — MSVC 2017 oder neuer |
 | **Ergebnisse** | `worldserver`, `bnetserver` — keine offenen Symbole |
-| **Startlauf** | startet, liest die Konfiguration, öffnet die Datenbanken auth, characters und hotfixes |
-| **Spielerbots** | legen ihre Charaktere selbst an und kommen für Schlachtfelder, Arenen und den Dungeonfinder online — gebaut und geprüft, noch nicht gegen eine vollständige Weltdatenbank gelaufen |
-| **Nicht enthalten** | eine TrinityCore-Weltdatenbank 7.3.5 und entpackte Clientdaten |
+| **Datenbanken** | der LegionCore-Satz vom 25.04.2020 plus `sql/legioncore` und `sql/base`: alle 1 414 vorbereiteten Anweisungen des Kerns laufen fehlerfrei |
+| **Startlauf** | `bnetserver` läuft und meldet den Realm; `worldserver` lädt alle vier Datenbanken und hält erst bei den fehlenden Clientdaten an |
+| **Spielerbots** | legen ihre Charaktere selbst an und kommen für Schlachtfelder, Arenen und den Dungeonfinder online — gebaut und geprüft, noch nicht in einer laufenden Welt erprobt |
+| **Nicht enthalten** | die Datenbanken (herunterladbar, siehe unten) und die Clientdaten (aus dem eigenen Client) |
 
 ---
 
@@ -230,16 +231,23 @@ Charaktere bekommen, und das Würfelverhalten.
 
 Vier Datenbanken werden gebraucht: `auth`, `characters`, `world`, `hotfixes`.
 
-1. **Eine TrinityCore-Weltdatenbank 7.3.5 einspielen.** Liegt hier nicht bei.
-2. **Danach `sql/base/` anwenden** — die Zusatztabellen, die dieser Kern
-   braucht: das Navigationsnetz der Bots, Namensvorräte, Gesprächszeilen und
-   die Zugangsliste des Werkzeug-Sockets.
-3. **Clientdaten entpacken** nach `DataDir`, mit `mapextractor`,
-   `vmap4extractor`/`vmap4assembler` und `mmaps_generator`.
-4. **`auth.realmlist` befüllen.**
+1. **Die LegionCore-7.3.5-Datenbanken vom 25.04.2020 einspielen** — Welt und
+   Hotfixes aus dem Release `LegionCore735.20041` des Legion Preservation
+   Project, auth und characters aus demselben Tag. Die TrinityCore-Datenbanken
+   7.3.5 passen zu diesem Kern **nicht**.
+2. **`sql/legioncore/` anwenden** — zwei kleine Skripte, die die Lücken
+   zwischen diesen Dumps und dem Kern schließen.
+3. **`sql/base/` anwenden** — die Zusatztabellen, die dieser Kern braucht: das
+   Navigationsnetz der Bots, Namensvorräte, Gesprächszeilen und die
+   Zugangsliste des Werkzeug-Sockets.
+4. **Clientdaten** nach `DataDir` extrahieren: `dbc`, `gt`, `cameras`, `maps`,
+   `vmaps`, `mmaps`. Der Karten-Extraktor in diesem Repository ist veraltet;
+   den aktuellen des Legion Preservation Project nehmen.
+5. **Das Kennwort des vorbelegten Kontos `GM@GM` ändern** und
+   `auth.realmlist` einrichten.
 
-Die Reihenfolge zählt — `sql/base` gehört *nach* die Weltdatenbank, nicht davor.
-Ausführlich in [docs/SETUP.md](docs/SETUP.md).
+Die genauen Befehle in der richtigen Reihenfolge stehen in
+[docs/SETUP.md](docs/SETUP.md).
 
 ---
 
@@ -312,7 +320,7 @@ liegen den Datenbankskripten bei.
 
 **Als Nächstes.**
 
-1. **Laufzeitprüfung.** Einen Realm mit vollständiger 7.3.5-Weltdatenbank und
+1. **Laufzeitprüfung.** Einen Realm mit den LegionCore-Datenbanken und
    Clientdaten betreiben und daraus einen wiederholbaren Testrealm machen:
    Bots melden sich an, reihen sich ein, betreten, kämpfen, verlassen.
 2. **Kontinuierliche Integration.** Jeden Push unter Linux und Windows bauen,

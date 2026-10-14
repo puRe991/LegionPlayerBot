@@ -86,18 +86,69 @@ CREATE DATABASE world      DEFAULT CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci;
 CREATE DATABASE hotfixes   DEFAULT CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ```
 
-Import the base content first — this repository does not ship it. Use a
-TrinityCore 7.3.5 database set matching this core.
+### Which databases
 
-Then apply the playerbot tables, which the core needs and which **are**
-shipped here:
+The build does not create databases, and this core has no updater that
+would. It is LegionCore 7.3.5 as of 2020-04-25 and needs exactly that
+schema. **TrinityCore's 7.3.5 databases do not fit:** checked against every
+prepared statement of this core, 802 of 1414 fail (auth 15, characters 245,
+world 17, hotfixes 525) — LegionCore added its own tables and columns
+throughout.
+
+The matching databases are published by The Legion Preservation Project,
+which maintains LegionCore 7.3.5 under GPL-2.0:
+
+| Database | Source |
+|---|---|
+| world, hotfixes | release [`LegionCore735.20041`](https://github.com/The-Legion-Preservation-Project/LegionCore-7.3.5/releases/tag/LegionCore735.20041), "Full world and hotfixes databases 2020-04-25" — `LegionCore_full_735.26972_2020_04_25.7z`, 33 MB, unpacks to 274 MB |
+| auth, characters | `sql/base/auth_database.sql` and `characters_database.sql` at the same tag |
+
+Use these versions. Later releases of that project belong to a newer core
+whose schema has moved on.
 
 ```sh
-mysql auth  < sql/base/auth_playerbot.sql
-mysql world < sql/base/world_playerbot.sql
+curl -LO https://github.com/The-Legion-Preservation-Project/LegionCore-7.3.5/releases/download/LegionCore735.20041/LegionCore_full_735.26972_2020_04_25.7z
+7z x LegionCore_full_735.26972_2020_04_25.7z
+curl -LO https://raw.githubusercontent.com/The-Legion-Preservation-Project/LegionCore-7.3.5/LegionCore735.20041/sql/base/auth_database.sql
+curl -LO https://raw.githubusercontent.com/The-Legion-Preservation-Project/LegionCore-7.3.5/LegionCore735.20041/sql/base/characters_database.sql
 ```
 
-These create:
+### Import
+
+In this order — the two scripts under `sql/legioncore/` close the small
+gaps between those dumps and this core, the `sql/base/` scripts add the
+playerbot tables:
+
+```sh
+mysql auth       < auth_database.sql
+mysql auth       < sql/legioncore/auth_update.sql
+mysql auth       < sql/base/auth_playerbot.sql
+mysql characters < characters_database.sql
+mysql world      < LegionCore_world_735.26972_2020_04_25.sql
+mysql world      < sql/base/world_playerbot.sql
+mysql hotfixes   < LegionCore_hotfixes_735.26972_2020_04_03.sql
+mysql hotfixes   < sql/legioncore/hotfixes_update.sql
+```
+
+This sequence was run end to end against MariaDB 10.11: every prepared
+statement of the core then prepares without error, `bnetserver` starts and
+lists the realm, and `worldserver` loads its databases and stops only at
+the missing client data.
+
+> [!CAUTION]
+> `auth_database.sql` comes with an administrator account, `GM@GM`
+> (GM level 6 on all realms), whose password hash is in a public dump.
+> Delete it or give it a new password before anyone else can reach the
+> server: `.account set password GM@GM <new> <new>` on the worldserver
+> console.
+
+The dump also contains one realm, named `LegionCore` at `127.0.0.1:8085`;
+rename it and set its address in `auth.realmlist`.
+
+### Playerbot tables
+
+`sql/base/auth_playerbot.sql` and `sql/base/world_playerbot.sql` from the
+import above create:
 
 | Database | Table | Purpose |
 |---|---|---|
@@ -121,18 +172,32 @@ in-game command for editing waypoints.
 
 ## 4. Client data
 
-`DataDir` (default `./ClientData`) has to contain the maps, vmaps, mmaps,
-dbc and cameras extracted from a 7.3.5 client. Build the extractors with
-`-DTOOLS=1` and run them against the client directory:
+`DataDir` (default `./ClientData`) has to contain six directories extracted
+from a 7.3.5 client (build 26972): `dbc`, `gt`, `cameras`, `maps`, `vmaps`
+and `mmaps`. They come from your own game client and are not
+redistributable.
+
+> [!WARNING]
+> **The map extractor in this repository is not usable for this core.** It
+> writes maps in format `v1.8` while the core reads `v1.9`, and its `dbc`
+> extraction is commented out; `gt` and `cameras` it does not produce at
+> all. Without `gt` the worldserver stops at startup with "Some required
+> *.txt GameTable files not found".
+
+Until the tools here are brought up to date, build the extractors of The
+Legion Preservation Project's current LegionCore-7.3.5 (`-DTOOLS=1`). Its
+`mapextractor` writes `v1.9` maps and extracts `dbc`, `gt` and `cameras`;
+its vmap and mmap formats (`VMAP_4.8`, mmap version 9) match this core.
+Run them against the client directory:
 
 ```sh
-./mapextractor          # maps + dbc
+./mapextractor          # dbc, gt, cameras, maps
 ./vmap4extractor        # vmaps (raw)
 ./vmap4assembler Buildings vmaps
 ./mmaps_generator       # mmaps — takes hours
 ```
 
-Copy the resulting `maps`, `vmaps`, `mmaps`, `dbc` and `cameras`
+Copy the resulting `dbc`, `gt`, `cameras`, `maps`, `vmaps` and `mmaps`
 directories into `DataDir`.
 
 ---
@@ -145,15 +210,16 @@ first error it prints is misleading — a failed prepared statement rather
 than "no world database". Confirm the state up front:
 
 ```sh
-# World database: has to be the full TrinityCore 7.3.5 set, not just the
-# four playerbot tables. Expect several hundred tables, not four.
+# Databases: the LegionCore 2020-04-25 set from section 3, not just the
+# playerbot tables. Expect about 36, 145, 280 and 810 tables.
 mysql -h127.0.0.1 -utrinity -ptrinity \
-  -e "SELECT COUNT(*) AS tables_in_world FROM information_schema.tables WHERE table_schema='world';
+  -e "SELECT table_schema, COUNT(*) FROM information_schema.tables
+        WHERE table_schema IN ('auth','characters','world','hotfixes') GROUP BY table_schema;
       SELECT COUNT(*) AS creature_template FROM world.creature_template;
       SELECT COUNT(*) AS realms FROM auth.realmlist;"
 
-# Client data: all five directories have to exist under DataDir.
-ls ClientData/maps ClientData/vmaps ClientData/mmaps ClientData/dbc ClientData/cameras
+# Client data: all six directories have to exist under DataDir.
+ls ClientData/dbc ClientData/gt ClientData/cameras ClientData/maps ClientData/vmaps ClientData/mmaps
 ```
 
 Symptoms when a step was skipped:
@@ -161,7 +227,9 @@ Symptoms when a step was skipped:
 | Symptom | Cause |
 |---|---|
 | `Table 'world.linked_respawn' doesn't exist` and dozens like it, exit code 1 | world database not imported (only the playerbot tables present) |
-| `Unable to open file ... dbc` / missing map files | `DataDir` empty or incomplete |
+| `Unknown column` / `Table ... doesn't exist` for a few tables | databases from another core, e.g. TrinityCore 7.3.5, or the update scripts from section 3 not applied |
+| `Some required *.txt GameTable files not found`, exit code 1 | `gt` missing in `DataDir` |
+| `Some required *.db2 files not found` / missing map files | `DataDir` empty or incomplete |
 | Client reaches the login screen but shows no realm | `auth.realmlist` empty |
 
 ---
