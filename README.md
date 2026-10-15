@@ -234,8 +234,9 @@ Four databases are required: `auth`, `characters`, `world`, `hotfixes`.
 3. **Apply `sql/base/`** — the custom tables this core needs: the bot
    navigation graph, name pools, chat lines and the tool socket allow list.
 4. **Extract client data** into `DataDir`: `dbc`, `gt`, `cameras`, `maps`,
-   `vmaps`, `mmaps`. The map extractor in this repository is outdated; use
-   the Legion Preservation Project's current one.
+   `vmaps`, `mmaps`, with the extractors from `src/tools` (`-DTOOLS=1`).
+   They come from the Legion Preservation Project and are adapted to this
+   core; vmaps from other extractors do not load here.
 5. **Change the password of the preset `GM@GM` account** and set up
    `auth.realmlist`.
 

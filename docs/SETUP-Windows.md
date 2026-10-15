@@ -139,10 +139,11 @@ the warning in SETUP.md.
 
 ### 2. ClientData
 
-The map extractor in this source tree is outdated (it writes `v1.8` maps,
-the core reads `v1.9`, and it does not extract `dbc`, `gt` or `cameras`).
-Build the extractors of the Legion Preservation Project's current
-LegionCore-7.3.5 with `-DTOOLS=1` and run them against your 7.3.5 client:
+Build the extractors with `-DTOOLS=1` (Visual Studio 2017 or newer, they
+need C++17). They come from the Legion Preservation Project and are adapted
+to this core; vmaps from other 7.3.5 extractors do not load here, see
+SETUP.md, section 4. Run them in your 7.3.5 client directory (the one with
+`Data` and `.build.info`):
 
 ```bat
 mapextractor.exe
