@@ -241,8 +241,9 @@ Vier Datenbanken werden gebraucht: `auth`, `characters`, `world`, `hotfixes`.
    Navigationsnetz der Bots, Namensvorräte, Gesprächszeilen und die
    Zugangsliste des Werkzeug-Sockets.
 4. **Clientdaten** nach `DataDir` extrahieren: `dbc`, `gt`, `cameras`, `maps`,
-   `vmaps`, `mmaps`. Der Karten-Extraktor in diesem Repository ist veraltet;
-   den aktuellen des Legion Preservation Project nehmen.
+   `vmaps`, `mmaps`, mit den Extraktoren aus `src/tools` (`-DTOOLS=1`). Sie
+   stammen vom Legion Preservation Project und sind an diesen Kern
+   angepasst; vmaps anderer Extraktoren lädt er nicht.
 5. **Das Kennwort des vorbelegten Kontos `GM@GM` ändern** und
    `auth.realmlist` einrichten.
 

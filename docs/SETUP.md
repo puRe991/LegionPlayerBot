@@ -60,7 +60,7 @@ Useful options:
 |---|:--:|---|
 | `-DSERVERS=0` | 1 | skip worldserver and bnetserver |
 | `-DSCRIPTS=0` | 1 | build the core without scripts — does not link at the moment, the bot and BattlePay scripts are still called unconditionally |
-| `-DTOOLS=1` | 0 | build the extractors as well |
+| `-DTOOLS=1` | 0 | build the extractors as well (they need C++17, see section 4) |
 | `-DWITH_WARNINGS=1` | 0 | show compiler warnings — off by default, worth turning on when changing code |
 | `-DNOPCH=1` | 0 | disable precompiled headers |
 
@@ -175,30 +175,44 @@ in-game command for editing waypoints.
 `DataDir` (default `./ClientData`) has to contain six directories extracted
 from a 7.3.5 client (build 26972): `dbc`, `gt`, `cameras`, `maps`, `vmaps`
 and `mmaps`. They come from your own game client and are not
-redistributable.
+redistributable: neither this repository nor the database releases in
+section 3 contain them.
 
-> [!WARNING]
-> **The map extractor in this repository is not usable for this core.** It
-> writes maps in format `v1.8` while the core reads `v1.9`, and its `dbc`
-> extraction is commented out; `gt` and `cameras` it does not produce at
-> all. Without `gt` the worldserver stops at startup with "Some required
-> *.txt GameTable files not found".
+The extractors in `src/tools` come from The Legion Preservation Project's
+LegionCore-7.3.5 (commit `fed58f7`) and are adapted to this core:
 
-Until the tools here are brought up to date, build the extractors of The
-Legion Preservation Project's current LegionCore-7.3.5 (`-DTOOLS=1`). Its
-`mapextractor` writes `v1.9` maps and extracts `dbc`, `gt` and `cameras`;
-its vmap and mmap formats (`VMAP_4.8`, mmap version 9) match this core.
-Run them against the client directory:
+- They are built against this core's collision library, so vmaps come out in
+  exactly the format the worldserver reads.
+- Every vmap model carries a second triangle list (`BSPX`) that this core
+  uses for heights, areas and indoor checks; the first one serves line of
+  sight. Without it this core's assembler writes no model file at all, which
+  is why vmaps from other 7.3.5 extractors do not work here.
+- Child maps without terrain of their own get their own vmap tiles, because
+  this core does not fall back to the parent map's.
+
+Build them with `-DTOOLS=1`. They need a C++17 compiler (GCC 7, Clang 5,
+Visual Studio 2017 or newer); the core itself stays on C++11. Then run them
+in the client directory, the one with `Data` and `.build.info` in it:
 
 ```sh
-./mapextractor          # dbc, gt, cameras, maps
-./vmap4extractor        # vmaps (raw)
-./vmap4assembler Buildings vmaps
-./mmaps_generator       # mmaps — takes hours
+cd "/path/to/World of Warcraft"
+/opt/felforge/bin/mapextractor        # dbc, gt, cameras, maps
+/opt/felforge/bin/vmap4extractor      # Buildings (raw models)
+/opt/felforge/bin/vmap4assembler Buildings vmaps
+/opt/felforge/bin/mmaps_generator     # mmaps; reads dbc, maps and vmaps, takes hours
 ```
 
-Copy the resulting `dbc`, `gt`, `cameras`, `maps`, `vmaps` and `mmaps`
-directories into `DataDir`.
+Each tool creates its output directory. Start `mmaps_generator` without an
+`mmaps` directory or with an empty one: it keeps tiles that are already
+there, and tiles from an older generator (version 7) are rejected by this
+core. After extracting `maps` or `vmaps` again, build `mmaps` again from
+scratch.
+
+`mapextractor -e` limits it to part of the data (1 maps, 2 dbc, 4 cameras,
+8 gt); `mmaps_generator <map id>` builds a single map, which is handy for a
+first test. Copy the resulting
+`dbc`, `gt`, `cameras`, `maps`, `vmaps` and `mmaps` directories into
+`DataDir`; `Buildings` is only an intermediate step.
 
 ---
 
