@@ -3,3 +3,7 @@
 .winbuild/
 build-windows/
 dist-windows/
+
+# Client-Daten (dbc, gt, cameras, maps, vmaps, mmaps) – Blizzard-Daten, nie committen
+/ClientData/
+DataFiles.rar
