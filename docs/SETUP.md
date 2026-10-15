@@ -202,9 +202,15 @@ cd "/path/to/World of Warcraft"
 /opt/felforge/bin/mmaps_generator     # mmaps; reads dbc, maps and vmaps, takes hours
 ```
 
-Each tool creates its output directory. `mapextractor -e` limits it to part
-of the data (1 maps, 2 dbc, 4 cameras, 8 gt); `mmaps_generator <map id>`
-builds a single map, which is handy for a first test. Copy the resulting
+Each tool creates its output directory. Start `mmaps_generator` without an
+`mmaps` directory or with an empty one: it keeps tiles that are already
+there, and tiles from an older generator (version 7) are rejected by this
+core. After extracting `maps` or `vmaps` again, build `mmaps` again from
+scratch.
+
+`mapextractor -e` limits it to part of the data (1 maps, 2 dbc, 4 cameras,
+8 gt); `mmaps_generator <map id>` builds a single map, which is handy for a
+first test. Copy the resulting
 `dbc`, `gt`, `cameras`, `maps`, `vmaps` and `mmaps` directories into
 `DataDir`; `Buildings` is only an intermediate step.
 
