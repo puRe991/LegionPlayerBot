@@ -6,6 +6,8 @@ Fertig extrahierte Client-Daten für 7.3.5 (26972) liegen auf MEGA:
 
 - https://mega.nz/file/OIsBkYSY#zcbbwcV4uwl1xKC7k4Qs7gNEBpYyS7kofEqOiwk5KtY
 - Datei: `DataFiles.rar`, 7 004 937 877 Bytes (~7 GB)
+- RAR-Passwort: `Emucoach`
+- Entpackt 21,9 GB, 77 386 Einträge unter `Data/`
 
 Inhalt nach `ClientData/` entpacken (`DataDir = "./ClientData"` in
 `worldserver.conf`); erwartet werden `dbc`, `gt`, `cameras`, `maps`, `vmaps`
