@@ -21,11 +21,11 @@
 #ifndef _WEB_API
 #include "ObjectAccessor.h"
 #include "Player.h"
+#include "PlayerBotMgr.h"
 #endif
 #include "Util.h"
 #include "SHA1.h"
 #include "SHA256.h"
-#include "PlayerBotMgr.h"
 
 namespace AccountMgr
 {

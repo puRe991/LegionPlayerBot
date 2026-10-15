@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2015 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2018 TrinityCore <https://www.trinitycore.org/>
  * Copyright (C) 2005-2011 MaNGOS <http://getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -19,20 +19,30 @@
 #ifndef VMAPEXPORT_H
 #define VMAPEXPORT_H
 
+#include "Define.h"
 #include <string>
+#include <unordered_map>
 
 enum ModelFlags
 {
     MOD_M2 = 1,
-    MOD_WORLDSPAWN = 1<<1,
-    MOD_HAS_BOUND = 1<<2
+    MOD_HAS_BOUND = 1 << 1,
+    // FelForge: the core does not fall back to the parent map's tiles
+    // (VMapManager2::getParentMapId always returns -1). A child map without
+    // ADTs of its own therefore needs the parent's spawns in its own tiles;
+    // with this flag set the assembler would file them as parent spawns and
+    // write no tile for them. Kept as 0 so the extractor code stays as it is.
+    MOD_PARENT_SPAWN = 0
 };
 
+struct WMODoodadData;
+
 extern const char * szWorkDirWmo;
-extern const char * szRawVMAPMagic;                         // vmap magic string for extracted raw vmap data
+extern std::unordered_map<std::string, WMODoodadData> WmoDoodads;
+
+uint32 GenerateUniqueObjectId(uint32 clientId, uint16 clientDoodadId);
 
 bool FileExists(const char * file);
-void strToLower(char* str);
 
 bool ExtractSingleWmo(std::string& fname);
 bool ExtractSingleModel(std::string& fname);
